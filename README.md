@@ -26,9 +26,6 @@ Connecting South Asia and Southeast Asia. Tokyo, Japan: ADB, 2015.
 
 Etingoff, Kim. Sustainable Cities Urban Planning Challenges and policy. Toronto: Apple Academic Press, 2021. 
 
-Graham, Stephen. Disrupted cities: When infrastructure fails. New York, NY: Routledge, 2010. 
-
-Jones, Gavin W., and Pravin Visaria. Urbanization in large developing countries: China, Indonesia, Brazil, and India. Oxford: Clarendon Press, 2023. 
 
 
 Fünfgeld, Anna. “The Dream of ASEAN Connectivity: Imagining Infrastructure in Southeast Asia.” Pacific Affairs 92, no. 2 (June 1, 2019): 287–311. https://doi.org/10.5509/2019922287. 
