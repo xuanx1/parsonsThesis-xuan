@@ -1,5 +1,11 @@
 # parsonsThesis-xuan
 
+## Nutshell
+
+## Current Reality
+
+## Proposed Refinement
+
 ## Literature Review
 Graham, Stephen. Disrupted cities: When infrastructure fails. New York, NY: Routledge, 2010. 
 
