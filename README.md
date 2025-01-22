@@ -1,14 +1,10 @@
 # addprojectTitle
 
-## synopsis
+## Abstract
 lorem ipsum
 
 
-## Current Reality
-lorem ipsum
-
-
-## Proposed Refinement
+## Introduction
 lorem ipsum
 
 
