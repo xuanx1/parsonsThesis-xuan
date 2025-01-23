@@ -1,4 +1,6 @@
 # addprojectTitle
+## Ideation
+![ideation-01](https://github.com/user-attachments/assets/76bc2abf-0648-4e35-859c-56605514255a)
 
 ## Abstract
 lorem ipsum
