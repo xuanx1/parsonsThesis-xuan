@@ -5,28 +5,28 @@ lorem ipsum
 
 
 ## Table of Contents
-- [Introduction](##1.Introduction)
-- [Treatment](##2.Treatment)
-- [Conclusion](##3.Conclusion)
-- [Literature Review](##4.LiteratureReview)
+- [Introduction](##Introduction)
+- [Treatment](##Treatment)
+- [Conclusion](##Conclusion)
+- [Literature Review](##LiteratureReview)
 
 
 
-##1.Introduction
+## Introduction
 #### 1.1 lorem ipsum
 lorem
 
 #### 1.2 lorem
 lorem
 
-##2.Treatment
+## 2.Treatment
 #### 2.1 lorem ipsum
 lorem
 
 #### 2.2 lorem
 lorem
 
-##3.Conclusion
+## 3.Conclusion
 #### 3.1 lorem ipsum
 lorem
 
@@ -35,7 +35,7 @@ lorem
 
 
 
-##4.Literature Review
+## 4.Literature Review
 #### 4.1 Books
 
 Graham, Stephen. Disrupted cities: When infrastructure fails. New York, NY: Routledge, 2010. 
