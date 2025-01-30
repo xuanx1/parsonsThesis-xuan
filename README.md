@@ -6,7 +6,6 @@ lorem ipsum
 
 ## Table of Contents
 1. [1.Introduction](#1introduction)
-1. [Introduction](#introduction)  
    - 1.1 [Subsection 1](#subsection-1)  
    - 1.2 [Subsection 2](#subsection-2) 
 - [2.Treatment](#2treatment)
