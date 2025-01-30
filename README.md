@@ -5,12 +5,12 @@ lorem ipsum
 
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Treatment](#treatment)
-- [Conclusion](#conclusion)
-- [Literature Review](#literature-review)
+- [Introduction](#1introduction)
+- [Treatment](#2treatment)
+- [Conclusion](#3conclusion)
+- [Literature Review](#4literature-review)
 
-## Introduction
+## 1.Introduction
 #### 1.1 lorem ipsum
 lorem
 
