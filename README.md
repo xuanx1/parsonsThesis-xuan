@@ -34,6 +34,31 @@ lorem
 lorem
 
 
+# Parsons Thesis - Xuan
+
+## Table of Contents
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Introduction
+This is the introduction section.
+
+## Installation
+This is the installation section.
+
+## Usage
+This is the usage section.
+
+## Contributing
+This is the contributing section.
+
+## License
+This is the license section.
+
+
 ## 4. Literature Review
 #### 4.1 Books
 
