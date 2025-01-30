@@ -4,15 +4,15 @@
 lorem ipsum
 
 
-## Introduction
+## 1.Introduction
 lorem ipsum
 
 
-## Treatment
+## 2.Treatment
 lorem ipsum
 
 
-## Conclusion
+## 3.Conclusion
 lorem ipsum
 
 
