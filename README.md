@@ -5,28 +5,28 @@ lorem ipsum
 
 
 ## Table of Contents
-- [Introduction](##Introduction)
-- [Treatment](##Treatment)
-- [Conclusion](##Conclusion)
-- [Literature Review](##LiteratureReview)
+- [Introduction](##1.Introduction)
+- [Treatment](##2.Treatment)
+- [Conclusion](##3.Conclusion)
+- [Literature Review](##4.LiteratureReview)
 
 
 
-## 1. Introduction
+##1.Introduction
 #### 1.1 lorem ipsum
 lorem
 
 #### 1.2 lorem
 lorem
 
-## 2. Treatment
+##2.Treatment
 #### 2.1 lorem ipsum
 lorem
 
 #### 2.2 lorem
 lorem
 
-## 3. Conclusion
+##3.Conclusion
 #### 3.1 lorem ipsum
 lorem
 
@@ -34,32 +34,8 @@ lorem
 lorem
 
 
-# Parsons Thesis - Xuan
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Introduction
-This is the introduction section.
-
-## Installation
-This is the installation section.
-
-## Usage
-This is the usage section.
-
-## Contributing
-This is the contributing section.
-
-## License
-This is the license section.
-
-
-## 4. Literature Review
+##4.Literature Review
 #### 4.1 Books
 
 Graham, Stephen. Disrupted cities: When infrastructure fails. New York, NY: Routledge, 2010. 
