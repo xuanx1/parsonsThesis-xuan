@@ -1,8 +1,12 @@
 # addprojectTitle
 
-## 0. Abstract
+## Abstract
 lorem ipsum
 
+## TABLE OF CONTENTS
+## 1. Introduction
+## 2. Treatment
+## 3. Conclusion
 
 ## 1. Introduction
 #### 1.1 lorem ipsum
