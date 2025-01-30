@@ -3,10 +3,12 @@
 ## Abstract
 lorem ipsum
 
-## TABLE OF CONTENTS
-## 1. Introduction
-## 2. Treatment
-## 3. Conclusion
+
+## Table of Contents
+- [Introduction](## 1. Introduction)
+- [Treatment](## 2. Treatment)
+- [Conclusion](## 3. Conclusion)
+- [Literature Review](## 4. Literature Review)
 
 
 
