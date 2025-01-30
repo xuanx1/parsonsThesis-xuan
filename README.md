@@ -5,10 +5,10 @@ lorem ipsum
 
 
 ## 1. Introduction
-### 1.1 lorem ipsum
+#### 1.1 lorem ipsum
 lorem
 
-### 1.2 lorem
+#### 1.2 lorem
 lorem
 
 ## 2. Treatment
