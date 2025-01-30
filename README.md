@@ -9,14 +9,14 @@ lorem ipsum
    - 1.1 [Subsection 1](#subsection-1)  
    - 1.2 [Subsection 2](#subsection-2) 
 2. [Treatment](#2treatment)
-   - 1.1 [Subsection 1](#subsection-1)  
-   - 1.2 [Subsection 2](#subsection-2) 
+   - 2.1 [Subsection 1](#subsection-1)  
+   - 2.2 [Subsection 2](#subsection-2) 
 3. [Conclusion](#3conclusion)
-   - 1.1 [Subsection 1](#subsection-1)  
-   - 1.2 [Subsection 2](#subsection-2) 
+   - 3.1 [Subsection 1](#subsection-1)  
+   - 3.2 [Subsection 2](#subsection-2) 
 4. [Literature Review](#4literature-review)
-   - 1.1 [Subsection 1](#subsection-1)  
-   - 1.2 [Subsection 2](#subsection-2) 
+   - 4.1 [Books](#41books)  
+   - 4.2 [Articles](#42articles) 
 
 ## 1.Introduction
 #### 1.1 lorem ipsum
