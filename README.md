@@ -5,12 +5,18 @@ lorem ipsum
 
 
 ## Table of Contents
-1. [1.Introduction](#1introduction)
+1. [Introduction](#1introduction)
    - 1.1 [Subsection 1](#subsection-1)  
    - 1.2 [Subsection 2](#subsection-2) 
-- [2.Treatment](#2treatment)
-- [3.Conclusion](#3conclusion)
-- [4.Literature Review](#4literature-review)
+2. [Treatment](#2treatment)
+   - 1.1 [Subsection 1](#subsection-1)  
+   - 1.2 [Subsection 2](#subsection-2) 
+3. [Conclusion](#3conclusion)
+   - 1.1 [Subsection 1](#subsection-1)  
+   - 1.2 [Subsection 2](#subsection-2) 
+4. [Literature Review](#4literature-review)
+   - 1.1 [Subsection 1](#subsection-1)  
+   - 1.2 [Subsection 2](#subsection-2) 
 
 ## 1.Introduction
 #### 1.1 lorem ipsum
