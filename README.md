@@ -17,8 +17,7 @@ lorem ipsum
 4. [Literature Review](#4literature-review)
    - [4.1 Books](#41-books)  
    - [4.2 Articles](#42-articles)
-
-   - 
+ 
 ## 1.Introduction
 #### 1.1 lorem ipsum
 lorem
