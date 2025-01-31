@@ -197,7 +197,16 @@ lorem
 lorem
 
 #### 4.2 Benefits to Southeast Asia
-lorem
+•	Economic Integration: A meticulously planned network helps to facilitate the ease of movement of goods, services, and human capital, promoting trade and economic development.
+
+•	Encouraging Equality: By linking rural and urban communities, inequities are lessened and better access to employment opportunities—which are typically limited to highly urbanised areas.
+	
+•	Weather Resilience: With infrastructure built with numerous considerations specific to southeast Asia, this reduces the likelihood of a frequent need for costly maintenance and repairs caused by the regional weather conditions.
+
+•	Sustainable Development: The tool promotes sustainable transport solutions by minimizing construction effort and integrating with existing infrastructure.
+   
+•	Policy Support: The project provides actionable insights for policymakers and urban planners, with evidence-based decision-making. 
+
 
 #### 4.3 Disadvantages of Such Technique
 lorem
