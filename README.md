@@ -20,8 +20,17 @@ This project aims to develop a data visualization tool that assists in planning 
 2. [Treatment](#2treatment)
    - [2.1 Data Types and Collection](#21-Data-Types-and-Collection)  
    - [2.2 Preprocessing](#22-lorem)
+      - [2.2.1 Standardization and Normalization](#22-lorem)
+   - [2.3 Setting Requirements](#22-lorem)
       - [2.2 Preprocessing](#22-lorem)
          - [2.2 Preprocessing](#22-lorem)
+         - 2.3 Combinatorial Optimization
+
+2.4 Setting Requirements
+
+2.5 Translate Requirements to Conditions
+2.6 Visualization and Interpretation
+
    
 3. [Conclusion](#3conclusion)
    - [3.1 Subsection 1](#31-lorem-ipsum)  
