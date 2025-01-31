@@ -38,6 +38,7 @@ By integrating climate resilience into transport planning through data-driven op
 
 #### 1.2 Project Scope
 This project, inspired by the rapid urbanization and infrastructure challenges in Southeast Asia, where uneven development has led to economic disparities and access to resources, aims to develop a data visualization-based calculator that assists in planning public transport lines and station placements in Southeast Asia. 
+
 The calculator uses combinatorial optimization to propose the most sensible curvature of a rail network to be constructed, reducing the resources allocate to their planning phases so they can be better used for other aspects of the project. This helps to decrease the workload in planning and place more emphasis on its construction, translating to the eventual ease of movement for human capital, services, and resources, thereby facilitating economic integration.
 
 
