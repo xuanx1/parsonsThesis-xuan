@@ -14,15 +14,17 @@ This project aims to develop a data visualization tool that assists in planning 
 ## Table of Contents
 1. [Introduction](#1introduction)
    - [1.1  Costs of Infrastructure Projects in Southeast Asia Context](#11-costs-of-infrastructure-projects-in-the-southeast-asian-context)
-   - [1.2 Subsection 2](#12-lorem)
-   - [1.3 Subsection 2](#12-lorem)
+   - [1.2 Project Scope](#12-lorem)
+   - [1.3 Contextualization with Existing Frameworks](#12-lorem)
 
 2. [Treatment](#2treatment)
    - [2.1 Data Types and Collection](#21-Data-Types-and-Collection)  
    - [2.2 Subsection 2](#22-lorem)
+   
 3. [Conclusion](#3conclusion)
    - [3.1 Subsection 1](#31-lorem-ipsum)  
    - [3.2 Subsection 2](#32-lorem)
+     
 4. [Literature Review](#4literature-review)
    - [4.1 Books](#41-books)  
    - [4.2 Articles](#42-articles)
