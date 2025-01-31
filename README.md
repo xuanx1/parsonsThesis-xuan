@@ -1,12 +1,14 @@
 # addprojectTitle
 
 ## Abstract
-lorem ipsum
+Prior to commencing the construction of a rail network, feasibility studies are conducted. These studies include terrain analysis, identifying surrounding population clusters, and even weather conditions. A significant amount of investments, resources, and labur are dedicated to this rigorous pre-selection process. 
+Given the unique weather conditions native to Southeast Asia and the political risks associated with large infrastructure projects, incorporating a data-driven tool into the pre-selection process can enhance transparency, reduce susceptibility to corruption, and ensure more efficient, resilient, and well-planned railway development.
+This project aims to develop a data visualization tool that assists in planning public transport lines and station placements specific to Southeast Asia. The project leverages data such as ground elevation, movement patterns, population density, and existing infrastructure to propose the most efficient rail network from Point A to Point B. 
 
 
 ## Table of Contents
 1. [Introduction](#1introduction)
-   - [1.1 Subsection 1](#11-lorem-ipsum)
+   - [1.1  Costs of Infrastructure Projects in Southeast Asia Context](#11-lorem-ipsum)
    - [1.2 Subsection 2](#12-lorem)
 2. [Treatment](#2treatment)
    - [2.1 Subsection 1](#21-lorem-ipsum)  
@@ -19,11 +21,17 @@ lorem ipsum
    - [4.2 Articles](#42-articles)
  
 ## 1.Introduction
-#### 1.1 lorem ipsum
-lorem
+#### 1.1  Costs of Infrastructure Projects in Southeast Asia Context
+Historically, Southeast Asia has struggled to develop cohesive transport networks due to natural barriers, political fragmentation, and economic disparities, which has contributed to poor urban planning and underutilized transport routes. Such pan-regional infrastructure generally requires substantial amount of funding, time and resources. 
+The region’s terrain, ranging from rainforests to river deltas along with its weather, characterized by monsoon seasons and high humidity—introduces new challenges to the durability and maintenance of existing infrastructure as deterioration through flooding and high humidity, has led to a necessity for frequent maintenance work and in return, their associated costs.
+This project aligns with the agenda of the ASEAN Economic Community (AEC), which seeks to promote regional integration and economic development through improved infrastructure. However, the AEC’s vision is often undermined by Southeast Asia’s vulnerability to extreme weather events, a challenge that is expected to intensify with climate change. 
+By integrating climate resilience into transport planning through data-driven optimization, this project provides a strategic approach to mitigating these risks while advancing sustainable regional connectivity.
 
-#### 1.2 lorem
-lorem
+
+#### 1.2 Project Scope
+This project, inspired by the rapid urbanization and infrastructure challenges in Southeast Asia, where uneven development has led to economic disparities and access to resources, aims to develop a data visualization-based calculator that assists in planning public transport lines and station placements in Southeast Asia. 
+The calculator uses combinatorial optimization to propose the most sensible curvature of a rail network to be constructed, reducing the resources allocate to their planning phases so they can be better used for other aspects of the project. This helps to decrease the workload in planning and place more emphasis on its construction, translating to the eventual ease of movement for human capital, services, and resources, thereby facilitating economic integration.
+
 
 ## 2.Treatment
 #### 2.1 lorem ipsum
