@@ -20,8 +20,8 @@ This project aims to develop a data visualization tool that assists in planning 
 2. [Treatment](#2treatment)
    - [2.1 Data Types and Collection](#21-Data-Types-and-Collection)  
    - [2.2 Preprocessing](#22-lorem)
-   -    - [2.2 Preprocessing](#22-lorem)
-        -    - [2.2 Preprocessing](#22-lorem)
+      - [2.2 Preprocessing](#22-lorem)
+         - [2.2 Preprocessing](#22-lorem)
    
 3. [Conclusion](#3conclusion)
    - [3.1 Subsection 1](#31-lorem-ipsum)  
