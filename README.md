@@ -48,14 +48,14 @@ LINK TO PROJECT
 3. [Results and Findings](#3results-and-findings)
    
 4. [Conclusion](#4conclusion)
-   - [3.1 Final Statement](#31-lorem-ipsum)
-   - [3.2 Benefits to Southeast Asia](#32-lorem)
-   - [3.3 Disadvantages of Technique to Southeast Asia](#32-lorem)
-   - [3.4 Further Areas of Interest / Consideration](#32-lorem)
+   - [4.1 Final Statement](#31-lorem-ipsum)
+   - [4.2 Benefits to Southeast Asia](#32-lorem)
+   - [4.3 Disadvantages of Technique to Southeast Asia](#32-lorem)
+   - [4.4 Further Areas of Interest / Consideration](#32-lorem)
      
 5. [Literature Review](#5literature-review)
-   - [4.1 Books](#41-books)  
-   - [4.2 Articles](#42-articles)
+   - [5.1 Books](#51-books)  
+   - [5.2 Articles](#52-articles)
  
 ## 1.Introduction
 #### 1.1  Costs of Infrastructure Projects in the Southeast Asian Context
