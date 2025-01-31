@@ -16,7 +16,7 @@ This project aims to develop a data visualization tool that assists in planning 
    - [1.1  Costs of Infrastructure Projects in Southeast Asia Context](#11-costs-of-infrastructure-projects-in-the-southeast-asian-context)
    - [1.2 Project Scope](#12-lorem)
    - [1.3 Contextualization with Existing Frameworks](#12-lorem)
-   - [1.3 Contextualization with Existing Methodologies](#12-lorem)
+   - [1.4 Contextualization with Existing Methodologies](#12-lorem)
 
 2. [Treatment](#2treatment)
    - [2.1 Data Types and Collection](#21-Data-Types-and-Collection)  
@@ -24,7 +24,7 @@ This project aims to develop a data visualization tool that assists in planning 
       - [2.2.1 Standardization and Normalization]
    - [2.3 Combinatorial Optimization]
    - [2.4 Setting Requirements]
-      - [2.4.1 Requirements to Construction Criteria]
+      - [2.4.1 Requirements for Construction Criteria]
          - [2.4.2 Criteria Matrix]
    - [2.5 Translate Criteria Matrix to Conditions]
       - [2.5.1 Terrain Data]
@@ -41,6 +41,8 @@ This project aims to develop a data visualization tool that assists in planning 
       - [2.5.3 Miscellaneous]
          - [2.5.3.1 Existing Network Lines]
    - [2.6 Visualization and Interpretation]
+      - [2.6.1 Interaction]
+      - [2.6.2 Settings]
 
    
 3. [Conclusion](#3conclusion)
@@ -72,6 +74,18 @@ The calculator uses combinatorial optimization to propose the most sensible curv
 
 #### 1.3 Contextualization with Existing Frameworks
 
+#### 1.4 Contextualization with Existing Methodologies
+
+
+
+
+
+
+
+
+
+
+   
 
 ## 2.Treatment
 #### 2.1 Data Types and Collection
@@ -79,6 +93,7 @@ lorem
 
 #### 2.2 Preprocessing
 lorem
+   ##### 2.2.1 Standardization and Normalization
 
 #### 2.3 Combinatorial Optimization
 lorem
@@ -86,12 +101,62 @@ lorem
 #### 2.4 Setting Requirements
 lorem
 
+   ##### 2.4.1 Requirements for Construction Criteria
+   lorem
+   
+   ##### 2.4.2 Criteria Matrix
+   lorem
+
 #### 2.5 Translate Requirements to Conditions
 lorem
 
+   ##### 2.5.1 Terrain Data
+   lorem
+   
+      ##### 2.5.1.1 Ground Elevation - flooding
+      lorem
+   
+      ##### 2.5.1.2 Earthquake Safety Distance
+      lorem
+
+      ##### 2.5.1.3 Minimal Deforestation
+      lorem
+
+      ##### 2.5.1.4 Distance from Coasts
+      lorem
+
+      ##### 2.5.1.5 Tsunami Risk Index
+      lorem
+
+      ##### 2.5.1.6 Humidity Index
+      lorem
+      
+      ##### 2.5.1.7 Proximity Risk Index – Disaster vs Population vs Forest
+      lorem
+   
+   ##### 2.5.2 Census Data
+   lorem
+   
+      ##### 2.5.2.1 Population Density
+      lorem
+   
+      ##### 2.5.2.2 GDP Per Capita
+      lorem
+
+   ##### 2.5.3 Miscellaneous
+   lorem
+   
+      ##### 2.5.3.1 Existing Network Lines
+      lorem
+   
 #### 2.6 Visualization and Interpretation
 lorem
 
+   ##### 2.6.1 Interaction
+   lorem
+   
+   ##### 2.6.2 Settings
+   lorem
 
 ## 3.Conclusion
 #### 3.1 Final Statement
