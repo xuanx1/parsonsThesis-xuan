@@ -197,31 +197,31 @@ lorem
 lorem
 
 #### 4.2 Benefits to Southeast Asia
-• Economic Integration: A meticulously planned network helps to facilitate the ease of movement of goods, services, and human capital, promoting trade and economic development.
+• **Economic Integration**: A meticulously planned network helps to facilitate the ease of movement of goods, services, and human capital, promoting trade and economic development.
 
-• Encouraging Equality: By linking rural and urban communities, inequities are lessened, and better access to employment opportunities—which are typically limited to highly urbanized areas.
+• **Encouraging Equality**: By linking rural and urban communities, inequities are lessened, and better access to employment opportunities—which are typically limited to highly urbanized areas.
 	
-• Weather Resilience: With infrastructure built with numerous considerations specific to Southeast Asia, this reduces the likelihood of a frequent need for costly maintenance and repairs caused by the regional weather conditions.
+• **Weather Resilience**: With infrastructure built with numerous considerations specific to Southeast Asia, this reduces the likelihood of a frequent need for costly maintenance and repairs caused by the regional weather conditions.
 
-• Sustainable Development: The tool promotes sustainable transport solutions by minimizing construction efforts and integrating with existing infrastructure.
+• **Sustainable Development**: The tool promotes sustainable transport solutions by minimizing construction efforts and integrating with existing infrastructure.
    
-• Policy Support: The project provides actionable insights for policymakers and urban planners, with evidence-based decision-making. 
+• **Policy Support**: The project provides actionable insights for policymakers and urban planners, with evidence-based decision-making. 
 
 
 #### 4.3 Disadvantages of Such Technique
-• Data Quality and Availability: The efficacy of the results depends heavily on the quality of the input. As the practice of maintaining OpenData is still in its infancy in many Southeast Asian countries, this will lead to incomplete or inconsistent datasets, causing suboptimal decisions.
-• Over-Reliant on Quantitative Data: Because the tool relies heavily on quantitative data, it will not adequately capture qualitative elements like the cultural value of different places.
-• Scalability Issues: The tool may not function well when applied to other unfamiliar areas, due to low availability/quality of data. 
+• **Data Quality and Availability**: The efficacy of the results depends heavily on the quality of the input. As the practice of maintaining OpenData is still in its infancy in many Southeast Asian countries, this will lead to incomplete or inconsistent datasets, causing suboptimal decisions.
+• **Over-Reliant on Quantitative Data**: Because the tool relies heavily on quantitative data, it will not adequately capture qualitative elements like the cultural value of different places.
+• **Scalability Issues**: The tool may not function well when applied to other unfamiliar areas, due to low availability/quality of data. 
 
 
 #### 4.4 Further Areas of Interest / Consideration
-• Environmental Impact: Incorporate forested areas to give the tool an additional layer of environmental consideration so that deforestation is kept to the minimum while paving the way for construction
+• **Environmental Impact**: Incorporate forested areas to give the tool an additional layer of environmental consideration so that deforestation is kept to the minimum while paving the way for construction.
 
-• Political and Social Factors: Account for administrative and political border boundaries so that there are considerations for autonomous government and culturally sensitive areas.
+• **Political and Social Factors**: Account for administrative and political border boundaries so that there are considerations for autonomous government and culturally sensitive areas.
 
-• Real-Time Data Integration: Integrate real-time data (via api calls) to update the construction criteria without manually updating the data sets
+• **Real-Time Data Integration**: Integrate real-time data (via api calls) to update the construction criteria without manually updating the data sets.
 
-• Using Reinforcement Learning: Explore possibilities of incorporating a sense of continuity to the process, which ensures auxiliary proposed networks can be conceptualised on current proposal and still be both efficient and connected
+• **Using Reinforcement Learning**: Explore possibilities of incorporating a sense of continuity to the process, which ensures auxiliary proposed networks can be conceptualised on current proposal and still be both efficient and connected.
 
 
 ## 5.Literature Review
