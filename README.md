@@ -59,7 +59,7 @@ LINK TO PROJECT
  
 ## 1.Introduction
 #### 1.1  Costs of Infrastructure Projects in the Southeast Asian Context
-Historically, Southeast Asia has struggled to develop cohesive transport networks due to natural barriers, political fragmentation, and economic disparities, which has contributed to poor urban planning and underutilized transport routes. Such pan-regional infrastructure generally requires substantial amount of funding, time and resources. 
+Historically, Southeast Asia has struggled to develop cohesive transport networks due to natural barriers, political fragmentation, and economic disparities, which has contributed to poor urban planning and underutilized transport routes. Such pan-regional infrastructure generally requires a substantial amount of funding, time and resources. 
 
 The region’s terrain, ranging from rainforests to river deltas along with its weather, characterized by monsoon seasons and high humidity—introduces new challenges to the durability and maintenance of existing infrastructure as deterioration through flooding and high humidity, has led to a necessity for frequent maintenance work and in return, their associated costs.
 
@@ -71,27 +71,42 @@ By integrating climate resilience into transport planning through data-driven op
 #### 1.2 Project Scope
 This project, inspired by the rapid urbanization and infrastructure challenges in Southeast Asia, where uneven development has led to economic disparities and access to resources, aims to develop a data visualization-based calculator that assists in planning public transport lines and station placements in Southeast Asia. 
 
-The calculator uses combinatorial optimization to propose the most sensible curvature of a rail network to be constructed, reducing the resources allocate to their planning phases so they can be better used for other aspects of the project. This helps to decrease the workload in planning and place more emphasis on its construction, translating to the eventual ease of movement for human capital, services, and resources, thereby facilitating economic integration.
+The calculator uses combinatorial optimization to propose the most sensible curvature of a rail network to be constructed, reducing the resources allocated to their planning phases so they can be better used for other aspects of the project. This helps to decrease the workload in planning and place more emphasis on its construction, translating to the eventual ease of movement for human capital, services, and resources, thereby facilitating economic integration.
 
 
-#### 1.3 Contextualization with Existing Frameworks
+#### 1.3 Contextualization with Existing Frameworks - table?
 ##### African Continental Free Trade Area (AfCFTA) Transport Infrastructure Development
+lorem
+
 ##### ASEAN Connectivity Master Plan (ACMP)
+lorem
+
 ##### Belt and Road Initiative (BRI)
+lorem
+
 ##### North American Free Trade Agreement (NAFTA) / United States-Mexico-Canada Agreement (USMCA) Transport Corridors
+lorem
+
 ##### Pacific Alliance Infrastructure Integration Initiative
+lorem
+
 ##### South Asian Association for Regional Cooperation (SAARC) Regional Multimodal Transport Study
+lorem
+
 ##### Trans-European Transport Network (TEN-T)
+lorem
 
 
 
-#### 1.4 Contextualization with Existing Methodologies
+#### 1.4 Contextualization with Existing Methodologies - table?
 ##### Climate-Resilient Infrastructure Frameworks
+lorem
 
 ##### Urban Network Analysis (UNA) Tools
+lorem
 
 ##### Geographic Information Systems (GIS) for Transport Planning
-
+lorem
    
 
 ## 2.Treatment
