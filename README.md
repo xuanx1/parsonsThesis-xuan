@@ -91,7 +91,13 @@ The calculator uses combinatorial optimization to propose the most sensible curv
 
 ## 2.Treatment
 #### 2.1 Data Types and Collection
-lorem
+Potential Sources of Relevant Data:
+•	Terrain Elevation: Digital elevation models, DEMs/ Lidar to identify geographical barriers, and minimum heights to avoid floods; https://opentopography.org/
+•	Distance from Coastline: Proximity distance from the coastline to avoid floods and to connect ports to heart of cities. https://www.openstreetmap.org/
+•	Human Movement: Transport company / open govt portals to understand patterns(micro) and migration trends(macro).
+•	Population Density and Economic Activity: Census data and economic data to identify high-demand areas. https://human-settlement.emergency.copernicus.eu/ / https://data.worldbank.org/ / https://www.oecd.org/en/data.html / https://data.adb.org/
+•	Existing Infrastructure: Point/Line shapefiles on roads, railways, and ports to avoid redundancy and integrate with existing networks. https://data.opendatasoft.com/pages/home/
+
 
 #### 2.2 Preprocessing
 lorem
