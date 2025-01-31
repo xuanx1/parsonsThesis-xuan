@@ -203,9 +203,13 @@ lorem
 lorem
 
 #### 4.4 Further Areas of Interest / Consideration
-lorem
+•	Environmental Impact: Incorporate forest areas to give the tool an additional layer of environmental consideration so that deforestation is keep to the minimum while paving the way for construction
 
+•	Political and Social Factors: Account for administrative and political border boundaries so that there are considerations for autonomous government and culturally sensitive areas.
 
+•	Real-Time Data Integration: Integrate real-time data (via api calls) to update the construction criteria without manually updating the data sets
+
+•	Using Reinforcement Learning: Explore possibilities of incorporating a sense of continuity to the process, which ensures auxiliary proposed networks can be conceptualised on current proposal and still be both efficient and connected
 
 
 ## 5.Literature Review
