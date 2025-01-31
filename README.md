@@ -13,7 +13,7 @@ This project aims to develop a data visualization tool that assists in planning 
 
 ## Table of Contents
 1. [Introduction](#1introduction)
-   - [1.1  Costs of Infrastructure Projects in Southeast Asia Context](#11-costs-of-infrastructure-projects-in-southeast-asia-context)
+   - [1.1  Costs of Infrastructure Projects in Southeast Asia Context](#11-costs-of-infrastructure-projects-in-the-southeast-asian-context)
    - [1.2 Subsection 2](#12-lorem)
 2. [Treatment](#2treatment)
    - [2.1 Subsection 1](#21-lorem-ipsum)  
@@ -26,7 +26,7 @@ This project aims to develop a data visualization tool that assists in planning 
    - [4.2 Articles](#42-articles)
  
 ## 1.Introduction
-#### 1.1  Costs of Infrastructure Projects in Southeast Asia Context
+#### 1.1  Costs of Infrastructure Projects in the Southeast Asian Context
 Historically, Southeast Asia has struggled to develop cohesive transport networks due to natural barriers, political fragmentation, and economic disparities, which has contributed to poor urban planning and underutilized transport routes. Such pan-regional infrastructure generally requires substantial amount of funding, time and resources. 
 
 The region’s terrain, ranging from rainforests to river deltas along with its weather, characterized by monsoon seasons and high humidity—introduces new challenges to the durability and maintenance of existing infrastructure as deterioration through flooding and high humidity, has led to a necessity for frequent maintenance work and in return, their associated costs.
