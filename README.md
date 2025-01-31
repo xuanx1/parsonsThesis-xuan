@@ -15,8 +15,10 @@ This project aims to develop a data visualization tool that assists in planning 
 1. [Introduction](#1introduction)
    - [1.1  Costs of Infrastructure Projects in Southeast Asia Context](#11-costs-of-infrastructure-projects-in-the-southeast-asian-context)
    - [1.2 Subsection 2](#12-lorem)
+   - [1.3 Subsection 2](#12-lorem)
+
 2. [Treatment](#2treatment)
-   - [2.1 Subsection 1](#21-lorem-ipsum)  
+   - [2.1 Data Types and Collection](#21-Data-Types-and-Collection)  
    - [2.2 Subsection 2](#22-lorem)
 3. [Conclusion](#3conclusion)
    - [3.1 Subsection 1](#31-lorem-ipsum)  
@@ -42,12 +44,28 @@ This project, inspired by the rapid urbanization and infrastructure challenges i
 The calculator uses combinatorial optimization to propose the most sensible curvature of a rail network to be constructed, reducing the resources allocate to their planning phases so they can be better used for other aspects of the project. This helps to decrease the workload in planning and place more emphasis on its construction, translating to the eventual ease of movement for human capital, services, and resources, thereby facilitating economic integration.
 
 
+#### 1.3 Contextualization with Existing Frameworks
+
+
 ## 2.Treatment
-#### 2.1 lorem ipsum
+#### 2.1 Data Types and Collection
 lorem
 
-#### 2.2 lorem
+#### 2.2 Preprocessing
 lorem
+
+#### 2.3 Combinatorial Optimization
+lorem
+
+#### 2.4 Setting Requirements
+lorem
+
+#### 2.5 Translate Requirements to Conditions
+lorem
+
+#### 2.6 Visualization and Interpretation
+lorem
+
 
 ## 3.Conclusion
 #### 3.1 lorem ipsum
