@@ -28,8 +28,11 @@ This project aims to develop a data visualization tool that assists in planning 
 ## 1.Introduction
 #### 1.1  Costs of Infrastructure Projects in Southeast Asia Context
 Historically, Southeast Asia has struggled to develop cohesive transport networks due to natural barriers, political fragmentation, and economic disparities, which has contributed to poor urban planning and underutilized transport routes. Such pan-regional infrastructure generally requires substantial amount of funding, time and resources. 
+
 The region’s terrain, ranging from rainforests to river deltas along with its weather, characterized by monsoon seasons and high humidity—introduces new challenges to the durability and maintenance of existing infrastructure as deterioration through flooding and high humidity, has led to a necessity for frequent maintenance work and in return, their associated costs.
+
 This project aligns with the agenda of the ASEAN Economic Community (AEC), which seeks to promote regional integration and economic development through improved infrastructure. However, the AEC’s vision is often undermined by Southeast Asia’s vulnerability to extreme weather events, a challenge that is expected to intensify with climate change. 
+
 By integrating climate resilience into transport planning through data-driven optimization, this project provides a strategic approach to mitigating these risks while advancing sustainable regional connectivity.
 
 
