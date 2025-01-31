@@ -75,17 +75,22 @@ The calculator uses combinatorial optimization to propose the most sensible curv
 
 
 #### 1.3 Contextualization with Existing Frameworks
+##### African Continental Free Trade Area (AfCFTA) Transport Infrastructure Development
+##### ASEAN Connectivity Master Plan (ACMP)
+##### Belt and Road Initiative (BRI)
+##### North American Free Trade Agreement (NAFTA) / United States-Mexico-Canada Agreement (USMCA) Transport Corridors
+##### Pacific Alliance Infrastructure Integration Initiative
+##### South Asian Association for Regional Cooperation (SAARC) Regional Multimodal Transport Study
+##### Trans-European Transport Network (TEN-T)
+
+
 
 #### 1.4 Contextualization with Existing Methodologies
+##### Climate-Resilient Infrastructure Frameworks
 
+##### Urban Network Analysis (UNA) Tools
 
-
-
-
-
-
-
-
+##### Geographic Information Systems (GIS) for Transport Planning
 
    
 
