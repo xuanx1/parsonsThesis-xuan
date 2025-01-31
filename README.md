@@ -44,8 +44,10 @@ This project aims to develop a data visualization tool that assists in planning 
 
    
 3. [Conclusion](#3conclusion)
-   - [3.1 Subsection 1](#31-lorem-ipsum)  
-   - [3.2 Subsection 2](#32-lorem)
+   - [3.1 Final Statement](#31-lorem-ipsum)
+   - [3.2 Benefits to Southeast Asia](#32-lorem)
+   - [3.3 Disadvantages of Technique to Southeast Asia](#32-lorem)
+   - [3.4 Further Areas of Interest / Consideration](#32-lorem)
      
 4. [Literature Review](#4literature-review)
    - [4.1 Books](#41-books)  
@@ -92,11 +94,18 @@ lorem
 
 
 ## 3.Conclusion
-#### 3.1 lorem ipsum
+#### 3.1 Final Statement
 lorem
 
-#### 3.2 lorem
+#### 3.2 Benefits to Southeast Asia
 lorem
+
+#### 3.3 Disadvantages of Such Technique
+lorem
+
+#### 3.4 Further Areas of Interest / Consideration
+lorem
+
 
 
 
