@@ -112,6 +112,7 @@ lorem
 ## 2.Treatment
 #### 2.1 Data Types and Collection
 Potential Sources of Relevant Data:
+
 •	Terrain Elevation: Digital elevation models, DEMs/ Lidar to identify geographical barriers, and minimum heights to avoid floods; https://opentopography.org/
 
 •	Distance from Coastline: Proximity distance from the coastline to avoid floods and to connect ports to heart of cities. https://www.openstreetmap.org/
@@ -197,6 +198,7 @@ lorem
 lorem
 
 #### 4.2 Benefits to Southeast Asia
+
 • **Economic Integration**: A meticulously planned network helps to facilitate the ease of movement of goods, services, and human capital, promoting trade and economic development.
 
 • **Encouraging Equality**: By linking rural and urban communities, inequities are lessened, and better access to employment opportunities—which are typically limited to highly urbanized areas.
@@ -209,12 +211,16 @@ lorem
 
 
 #### 4.3 Disadvantages of Such Technique
+
 • **Data Quality and Availability**: The efficacy of the results depends heavily on the quality of the input. As the practice of maintaining OpenData is still in its infancy in many Southeast Asian countries, this will lead to incomplete or inconsistent datasets, causing suboptimal decisions.
+
 • **Over-Reliant on Quantitative Data**: Because the tool relies heavily on quantitative data, it will not adequately capture qualitative elements like the cultural value of different places.
+
 • **Scalability Issues**: The tool may not function well when applied to other unfamiliar areas, due to low availability/quality of data. 
 
 
 #### 4.4 Further Areas of Interest / Consideration
+
 • **Environmental Impact**: Incorporate forested areas to give the tool an additional layer of environmental consideration so that deforestation is kept to the minimum while paving the way for construction.
 
 • **Political and Social Factors**: Account for administrative and political border boundaries so that there are considerations for autonomous government and culturally sensitive areas.
