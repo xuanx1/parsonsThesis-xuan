@@ -87,15 +87,13 @@ The calculator uses combinatorial optimization to propose the most sensible curv
 
 
 #### 1.4 Contextualization with Existing Methodologies
-• **Combinatorial Optimization, subset of Network Optimization Models and Urban Network Analysis (UNA)**: A mathematical approach used to find the most efficient or optimal solution from a finite set of possible options.
-
-• **Geographic Information Systems (GIS)**: A tool for spatial analysis and visualization to make informed decisions about infrastructure development.
-
-• **Multi-Criteria Decision-Making (MCDM)**:  Maps levels of priority for projects based on multiple factors like cost, environmental impact, social benefits, and technical feasibility.
-
-• **Traffic Flow Modeling and Simulation**: Used to predict and optimize traffic and logistics in transport corridors by simulating different scenarios.
-
-• **Climate-Resilient Infrastructure Frameworks**: Extra considerations placed on designing and building infrastructure that can withstand the impacts of extreme weather.
+| **Methodology**                        | **Description**                                                                                                                                                                                                 | **Applications**                                                                                     |
+|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| **Combinatorial Optimization**         | A mathematical approach used to find the most efficient or optimal solution from a finite set of possible options. Subset of Network Optimization Models and Urban Network Analysis (UNA).                      | - Route planning<br>- Network design<br>- Logistics optimization                                      |
+| **Geographic Information Systems (GIS)** | A tool for spatial analysis and visualization to make informed decisions about infrastructure development.                                                                                                     | - Corridor mapping<br>- Site selection<br>- Risk assessment                                           |
+| **Multi-Criteria Decision-Making (MCDM)** | Maps levels of priority for projects based on multiple factors like cost, environmental impact, social benefits, and technical feasibility.                                                                   | - Project prioritization<br>- Sustainability assessment<br>- Resilience planning                     |
+| **Traffic Flow Modeling and Simulation** | Used to predict and optimize traffic and logistics in transport corridors by simulating different scenarios.                                                                                                   | - Congestion management<br>- Logistics optimization<br>- Scenario testing                            |
+| **Climate-Resilient Infrastructure Frameworks** | Extra considerations placed on designing and building infrastructure that can withstand the impacts of extreme weather.                                                                                     | - Flood-resistant roads<br>- Resilient energy grids<br>- Adaptive water systems                      |
    
 
 ## 2.Treatment
