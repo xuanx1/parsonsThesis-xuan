@@ -88,7 +88,7 @@ The calculator uses combinatorial optimization to propose the most sensible curv
 
 #### 1.4 Contextualization with Existing Methodologies
 | Concept | Description |
-|---------|-------------|
+|-------------|-------------|
 | **Combinatorial Optimization** | A subset of Network Optimization Models and Urban Network Analysis (UNA) that uses mathematical approaches to find the most efficient or optimal solution from a finite set of possible options. |
 | **Geographic Information Systems (GIS)** | A tool for spatial analysis and visualization to make informed decisions about infrastructure development. |
 | **Multi-Criteria Decision-Making (MCDM)** | Maps levels of priority for projects based on multiple factors like cost, environmental impact, social benefits, and technical feasibility. |
