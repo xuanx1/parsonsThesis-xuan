@@ -49,9 +49,9 @@ LINK TO PROJECT
    
 4. [Conclusion](#4conclusion)
    - [4.1 Final Statement](#41-final-statement)
-   - [4.2 Benefits to Southeast Asia](#32-lorem)
-   - [4.3 Disadvantages of Technique to Southeast Asia](#32-lorem)
-   - [4.4 Further Areas of Interest / Consideration](#32-lorem)
+   - [4.2 Benefits to Southeast Asia](#42-benefits-to-southeast-asia)
+   - [4.3 Disadvantages of Technique to Southeast Asia](#43-disadvantages-of-such-technique)
+   - [4.4 Further Areas of Interest / Consideration](#44-further-areas-of-interest--consideration)
      
 5. [Literature Review](#5literature-review)
    - [5.1 Books](#51-books)  
