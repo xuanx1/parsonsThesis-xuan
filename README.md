@@ -86,17 +86,18 @@ The calculator uses combinatorial optimization to propose the most sensible curv
 | **Trans-European Transport Network (TEN-T)**                                 | Create a seamless and efficient transport network across the EU.                                                                                                                                             | Road, rail, air, and maritime transport, as well as logistics hubs.                           | Europe (EU member states)                 | Aims to connect major European cities and regions, reduce travel times, and promote sustainable transport.                                                                                                      | - **Combinatorial optimization** for network design<br>- **GIS for spatial planning**<br>- **Traffic simulation models**<br>- **Lifecycle cost analysis**                                                                             |
 
 ---
+   
 
+#### 1.4 Contextualization with Existing Methodologies
+• **Combinatorial Optimization, subset of Network Optimization Models and Urban Network Analysis (UNA)**: A mathematical approach used to find the most efficient or optimal solution from a finite set of possible options.
 
-#### 1.4 Contextualization with Existing Methodologies - table?
-##### Climate-Resilient Infrastructure Frameworks
-lorem
+• **Geographic Information Systems (GIS)**: A tool for spatial analysis and visualization to make informed decisions about infrastructure development.
 
-##### Urban Network Analysis (UNA) Tools
-lorem
+• **Multi-Criteria Decision-Making (MCDM)**:  Maps levels of priority for projects based on multiple factors like cost, environmental impact, social benefits, and technical feasibility.
 
-##### Geographic Information Systems (GIS) for Transport Planning
-lorem
+• **Traffic Flow Modeling and Simulation**: Used to predict and optimize traffic and logistics in transport corridors by simulating different scenarios.
+
+• **Climate-Resilient Infrastructure Frameworks**: Extra considerations placed on designing and building infrastructure that can withstand the impacts of extreme weather.
    
 
 ## 2.Treatment
