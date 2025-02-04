@@ -87,15 +87,13 @@ The calculator uses combinatorial optimization to propose the most sensible curv
 
 
 #### 1.4 Contextualization with Existing Methodologies
-# Methodology and Applications
-
-| **Methodology**                        | **Description**                                                                 | **Applications**                                                                                                                                                                                                                     |
-|----------------------------------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Combinatorial Optimization**         | Finds the best solution from a finite set of options.                          | - Route planning<br>- Network design<br>- Logistics optimization<br>- Supply chain management<br>- Resource allocation<br>- Scheduling<br>- Facility location planning<br>- Vehicle routing<br>- Workforce optimization               |
-| **Geographic Information Systems (GIS)** | Captures and analyzes spatial data for decision-making.                        | - Corridor mapping<br>- Site selection<br>- Risk assessment<br>- Disaster management<br>- Land use planning<br>- Environmental monitoring<br>- Urban growth modeling<br>- Infrastructure mapping<br>- Real-time traffic analysis      |
-| **Multi-Criteria Decision-Making (MCDM)** | Evaluates projects based on multiple criteria.                                 | - Project prioritization<br>- Sustainability assessment<br>- Resilience planning<br>- Policy analysis<br>- Investment planning<br>- Stakeholder engagement<br>- Energy planning<br>- Healthcare resource allocation<br>- Urban development |
-| **Traffic Flow Modeling and Simulation** | Simulates traffic patterns to optimize transport systems.                      | - Congestion management<br>- Logistics optimization<br>- Scenario testing<br>- Public transit planning<br>- Emergency evacuation planning<br>- Urban mobility design<br>- Smart city integration<br>- Pedestrian flow analysis         |
-| **Climate-Resilient Infrastructure Frameworks** | Designs infrastructure to withstand extreme weather.                          | - Flood-resistant roads<br>- Resilient energy grids<br>- Adaptive water systems<br>- Coastal protection<br>- Disaster recovery planning<br>- Sustainable urban development<br>- Green infrastructure<br>- Climate adaptation strategies |
+| Concept | Description |
+|---------|-------------|
+| **Combinatorial Optimization** | A subset of Network Optimization Models and Urban Network Analysis (UNA) that uses mathematical approaches to find the most efficient or optimal solution from a finite set of possible options. |
+| **Geographic Information Systems (GIS)** | A tool for spatial analysis and visualization to make informed decisions about infrastructure development. |
+| **Multi-Criteria Decision-Making (MCDM)** | Maps levels of priority for projects based on multiple factors like cost, environmental impact, social benefits, and technical feasibility. |
+| **Traffic Flow Modeling and Simulation** | Used to predict and optimize traffic and logistics in transport corridors by simulating different scenarios. |
+| **Climate-Resilient Infrastructure Frameworks** | Extra considerations placed on designing and building infrastructure that can withstand the impacts of extreme weather. |
    
 
 ## 2.Treatment
