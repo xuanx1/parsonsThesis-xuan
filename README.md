@@ -1,8 +1,10 @@
 # "Enduring Networks in Southeast Asia: A Data-Driven Approach to Rail Line and Station Placement Using Combinatorial Optimization"
 
-## Abstract - Enduring Networks in an Unforgiving Climate.
+## Abstract
 ![20241012_ASP502](https://github.com/user-attachments/assets/cdaa2dc4-d57e-4b52-9a3b-9ee315577f20)
 ###### Source: https://www.economist.com/asia/2024/10/10/new-railways-could-transform-south-east-asia
+
+Enduring Networks in an Unforgiving Climate.
 
 Prior to commencing the construction of a rail network, feasibility studies are conducted. These studies include terrain analysis, identifying surrounding population clusters, and even weather conditions. A significant amount of investments, resources, and labur are dedicated to this rigorous pre-selection process. 
 
@@ -85,8 +87,6 @@ The calculator uses combinatorial optimization to propose the most sensible curv
 | **SAARC Regional Multimodal Transport Study**                                 | Develop a regional multimodal transport system to enhance connectivity and trade.                                                                                                                            | Road, rail, air, and maritime transport.                                                      | South Asia (SAARC member states)          | Focuses on improving cross-border transport links and reducing transit costs.                                                                                                                                   | - **GIS for corridor identification**<br>- **Multi-modal network optimization**<br>- **Cost-effectiveness analysis**                                                                                                                  |
 | **Trans-European Transport Network (TEN-T)**                                 | Create a seamless and efficient transport network across the EU.                                                                                                                                             | Road, rail, air, and maritime transport, as well as logistics hubs.                           | Europe (EU member states)                 | Aims to connect major European cities and regions, reduce travel times, and promote sustainable transport.                                                                                                      | - **Combinatorial optimization** for network design<br>- **GIS for spatial planning**<br>- **Traffic simulation models**<br>- **Lifecycle cost analysis**                                                                             |
 
----
-   
 
 #### 1.4 Contextualization with Existing Methodologies
 • **Combinatorial Optimization, subset of Network Optimization Models and Urban Network Analysis (UNA)**: A mathematical approach used to find the most efficient or optimal solution from a finite set of possible options.
