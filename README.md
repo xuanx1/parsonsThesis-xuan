@@ -87,13 +87,15 @@ The calculator uses combinatorial optimization to propose the most sensible curv
 
 
 #### 1.4 Contextualization with Existing Methodologies
-| **Methodology**                        | **Description**                                                                 | **Applications**                                                                                     |
-|----------------------------------------|------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| **Combinatorial Optimization**         | Finds the most efficient solution from a finite set of options. Subset of Network Optimization Models and UNA. | - Route planning<br>- Network design<br>- Logistics optimization                                      |
-| **Geographic Information Systems (GIS)** | A tool for spatial analysis and visualization.                                 | - Corridor mapping<br>- Site selection<br>- Risk assessment                                           |
-| **Multi-Criteria Decision-Making (MCDM)** | Prioritizes projects based on cost, environmental impact, social benefits, and feasibility. | - Project prioritization<br>- Sustainability assessment<br>- Resilience planning                     |
-| **Traffic Flow Modeling and Simulation** | Predicts and optimizes traffic and logistics by simulating scenarios.          | - Congestion management<br>- Logistics optimization<br>- Scenario testing                            |
-| **Climate-Resilient Infrastructure Frameworks** | Designs infrastructure to withstand extreme weather impacts.                 | - Flood-resistant roads<br>- Resilient energy grids<br>- Adaptive water systems                      |
+# Methodology and Applications
+
+| **Methodology**                        | **Description**                                                                 | **Applications**                                                                                                                                                                                                                     |
+|----------------------------------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Combinatorial Optimization**         | Finds the best solution from a finite set of options.                          | - Route planning<br>- Network design<br>- Logistics optimization<br>- Supply chain management<br>- Resource allocation<br>- Scheduling<br>- Facility location planning<br>- Vehicle routing<br>- Workforce optimization               |
+| **Geographic Information Systems (GIS)** | Captures and analyzes spatial data for decision-making.                        | - Corridor mapping<br>- Site selection<br>- Risk assessment<br>- Disaster management<br>- Land use planning<br>- Environmental monitoring<br>- Urban growth modeling<br>- Infrastructure mapping<br>- Real-time traffic analysis      |
+| **Multi-Criteria Decision-Making (MCDM)** | Evaluates projects based on multiple criteria.                                 | - Project prioritization<br>- Sustainability assessment<br>- Resilience planning<br>- Policy analysis<br>- Investment planning<br>- Stakeholder engagement<br>- Energy planning<br>- Healthcare resource allocation<br>- Urban development |
+| **Traffic Flow Modeling and Simulation** | Simulates traffic patterns to optimize transport systems.                      | - Congestion management<br>- Logistics optimization<br>- Scenario testing<br>- Public transit planning<br>- Emergency evacuation planning<br>- Urban mobility design<br>- Smart city integration<br>- Pedestrian flow analysis         |
+| **Climate-Resilient Infrastructure Frameworks** | Designs infrastructure to withstand extreme weather.                          | - Flood-resistant roads<br>- Resilient energy grids<br>- Adaptive water systems<br>- Coastal protection<br>- Disaster recovery planning<br>- Sustainable urban development<br>- Green infrastructure<br>- Climate adaptation strategies |
    
 
 ## 2.Treatment
