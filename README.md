@@ -4,7 +4,7 @@ Enduring Networks in an Unforgiving Climate.
 ## Abstract
 ![20241012_ASP502](https://github.com/user-attachments/assets/cdaa2dc4-d57e-4b52-9a3b-9ee315577f20)
 ###### Source: https://www.economist.com/asia/2024/10/10/new-railways-could-transform-south-east-asia
-Prior to commencing the construction of a rail network, feasibility studies are conducted. These studies include terrain analysis, identifying surrounding population clusters, and even weather conditions. A significant amount of investments, resources, and labur are dedicated to this rigorous pre-selection process. 
+Prior to commencing the construction of a rail network, feasibility studies are conducted. These studies include terrain analysis, identifying surrounding population clusters, and even weather conditions. A significant amount of investments, resources, and labor are dedicated to this rigorous pre-selection process. 
 
 Given the unique weather conditions native to Southeast Asia and the political risks associated with large infrastructure projects, incorporating a data-driven tool into the pre-selection process can enhance transparency, reduce susceptibility to corruption, and ensure more efficient, resilient, and well-planned railway development.
 
@@ -63,9 +63,7 @@ Historically, Southeast Asia has struggled to develop cohesive transport network
 
 The region’s terrain, ranging from rainforests to river deltas along with its weather, characterized by monsoon seasons and high humidity—introduces new challenges to the durability and maintenance of existing infrastructure as deterioration through flooding and high humidity, has led to a necessity for frequent maintenance work and in return, their associated costs.
 
-This project aligns with the agenda of the ASEAN Economic Community (AEC), which seeks to promote regional integration and economic development through improved infrastructure. However, the AEC’s vision is often undermined by Southeast Asia’s vulnerability to extreme weather events, a challenge that is expected to intensify with climate change. 
-
-By integrating climate resilience into transport planning through data-driven optimization, this project provides a strategic approach to mitigating these risks while advancing sustainable regional connectivity.
+This project aligns with the agenda of the ASEAN Economic Community (AEC), which seeks to promote regional integration and economic development through improved infrastructure. However, the AEC’s vision is often undermined by Southeast Asia’s vulnerability to extreme weather, a challenge that is expected to intensify with climate change. 
 
 
 #### 1.2 Project Scope
