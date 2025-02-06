@@ -14,7 +14,7 @@
 
 ```
 npm install -g @vue/cli
-# OR
+# OR, nvm install <node versions of choice>
 yarn global add @vue/cli
 ```
 
