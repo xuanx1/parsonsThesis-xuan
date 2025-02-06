@@ -8,7 +8,7 @@ Prior to commencing the construction of a rail network, feasibility studies are 
 
 Given the unique weather conditions native to Southeast Asia and the political risks associated with large infrastructure projects, incorporating a data-driven tool into the pre-selection process can enhance transparency, reduce susceptibility to corruption, and ensure more efficient, resilient, and well-planned railway development.
 
-This project aims to develop a data visualization tool that assists in planning public transport lines and station placements specific to Southeast Asia. The project leverages data such as ground elevation, movement patterns, population density, and existing infrastructure to propose the most efficient rail network from Point A to Point B. 
+This project aims to develop a data visualization tool that assists in planning public transport lines and station placements specific to Southeast Asia. The project leverages data such as ground elevation, movement patterns, population density, disaster-prone regions, and existing infrastructure to propose the most efficient rail network from Point A to Point B. 
 
 LINK TO PROJECT
 
