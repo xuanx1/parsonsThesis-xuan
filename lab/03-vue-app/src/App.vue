@@ -41,6 +41,9 @@ export default {
       }
       return nextDaytimeForecast.shortForecast.includes("Rain");
     },
+    /**
+     * Retrieves the first daytime period from the forecast. The first daytime period object if found, otherwise an empty object.
+     */
     firstDaytimePeriod() {
       if (!this.forecast) {
         return {};
@@ -56,7 +59,9 @@ export default {
       if (temperature === undefined) {
         return null;
       }
-      return temperature >= 45 && temperature < 80;
+      return temperature >= 45 && temperature < 80;  
+      // Check if the temperature is between 45 and 80 (inclusive of 45 and exclusive of 80)
+      // If true, return true; otherwise, return false
     },
   },
   mounted() {
