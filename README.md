@@ -63,7 +63,7 @@ Historically, Southeast Asia has struggled to develop cohesive transport network
 
 The region’s terrain, ranging from rainforests to river deltas along with its weather, characterized by monsoon seasons and high humidity—introduces new challenges to the durability and maintenance of existing infrastructure as deterioration through flooding and high humidity, has led to a necessity for frequent maintenance work and in return, their associated costs.
 
-One of the keys to overcoming this is to place more emphasis on the quality and inclusiveness of its planning.
+One of the keys to making these projects worthwhile is to place more emphasis on the quality and inclusiveness of its planning — to get more Southeast Asians onboard and utilize their limited shelflife as much as possible.
 
 #### 1.2 Project Scope
 This project, inspired by the rapid urbanization and infrastructure challenges in Southeast Asia, where uneven development has led to economic disparities and access to resources, aims to develop a data visualization-based calculator that seeks to democratize civil projects concerning public transport lines and station placement planning across Southeast Asia. 
