@@ -39,7 +39,7 @@ Development of 4 sample indexes applicable to Southeast Asia railway projects fr
 ## Home
 ![mock-14](https://github.com/user-attachments/assets/03b19321-f25a-425b-8f55-a445a6c7c242)
 
-# GUI; Elaborated
+# GUI Elaborated
 ## Cover
 ![mock-01](https://github.com/user-attachments/assets/60382bb7-b6cf-4854-8205-21b9acac5c25)
 
@@ -74,7 +74,11 @@ ie. 1 route that is has the lowest tsunami risk; another route having the shorte
 ![mock-final-10](https://github.com/user-attachments/assets/209ddc1e-3954-4bf2-a396-a7de91e3022b)
 
 ## Exported Report
-![mock-final_report](https://github.com/user-attachments/assets/518fe0a2-530a-4753-b920-7e6f669b4149)
+![mock-final_report](https://github.com/user-attachments/assets/84bf8279-f7f8-4d46-a197-7b8478efe428)
+
+Station placement is determined based on population density thresholds and interval distances, which are then visualised on the route adjacent to the terrain elevation.
+The 1st page provides an overview of the report, while the 2nd page includes a more detailed diagram when it comes to visualisation of the variance of terrain elevation and population spreads.
+
 
 ## Disclaimer
-Given the multidisciplinary nature and numerous expertise involved—engineers, urban planners, environmental scientists, economists, and policymakers, in projects of such scale, it is prudent to note that this Visualization will serve as a "What-if" scenario and democratize access to information and decision-making tools. This would allow stakeholders to explore different possibilities, test assumptions, and simulate outcomes based on varying parameters (e.g. environmental factors, or population needs), while fostering greater public engagement and planning that's aligned with the realities of Southeast Asia’s landscapes and communities.
+Given the multidisciplinary nature and numerous expertise involved—engineers, urban planners, environmental scientists, economists, and policymakers, in projects of such scale, it is prudent to note that this Visualization will serve as a "What-if" scenario and democratize access to information and decision-making tools. This would allow stakeholders to explore different possibilities, test assumptions, and simulate outcomes based on varying parameters (e.g. environmental factors or population needs) while fostering greater public engagement and planning that's aligned with the realities of Southeast Asia’s landscapes and communities.
