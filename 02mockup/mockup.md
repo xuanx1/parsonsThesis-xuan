@@ -51,12 +51,12 @@ Development of 4 sample indexes applicable to Southeast Asia railway projects fr
 ![mock-final-04](https://github.com/user-attachments/assets/c252bdae-aa84-4ebb-b22d-aa9fa3490540)
 ![mock-final-05](https://github.com/user-attachments/assets/63a6c3de-8a77-465e-b7ab-7be8d3a1f5d0)
 
+## Settings - Main
+![mock-06](https://github.com/user-attachments/assets/8a082c59-4a9e-4110-822c-e2a4fd708c23)
+
 ### Swiss Cheese Approach:
 ![mock-final_swiss cheese](https://github.com/user-attachments/assets/6a7113f9-2cb4-46c9-bc5a-af9e78ec07a3)
 Even without generating routes, the layers can be toggled to illustrate hypothetical routes.
-
-## Settings - Main
-![mock-06](https://github.com/user-attachments/assets/8a082c59-4a9e-4110-822c-e2a4fd708c23)
 
 ## Loading / Running Calculations
 ![mock-07](https://github.com/user-attachments/assets/fb1226fa-a982-465a-a49c-f4fa29ac1ad9)
