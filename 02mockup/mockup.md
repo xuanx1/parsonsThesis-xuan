@@ -1,5 +1,15 @@
+# In A Nutshell
+Empower/democratize citizens to take to their council about the importance of transport planning 
+understand what are the good ingredients for a good transport system
 
-# Index Development / Mechanics
+# Design Brief of Visualisation
+-Gamified scenarios of real world case studies?
+-An AR effect of "What If"s Scenarios
+-Educational Reference Tool
+-ASEAN infrastructure master plan
+
+
+## Index Development / Mechanics
 ![SCORE BOARD_Page_1](https://github.com/user-attachments/assets/7d55be7c-4a34-4c93-a5c2-63e95fae7d8e)
 Development of 4 sample indexes applicable to most railway projects from raw data.
 
@@ -47,4 +57,4 @@ ie. 1 route that is has the lowest tsunami risk; another route having the shorte
 ![mock-final-11](https://github.com/user-attachments/assets/c24fa09c-d467-4c55-9d47-57c02f18725b)
 ![mock-final-12](https://github.com/user-attachments/assets/f1f98b10-1bf3-4391-91c7-736e448b3e1b)
 
-
+## Disclaimer
