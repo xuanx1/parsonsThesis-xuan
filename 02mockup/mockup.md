@@ -1,17 +1,27 @@
 # In A Nutshell
-Empower/democratize citizens to take to their council about the importance of transport planning 
-understand what are the good ingredients for a good transport system
+-Transport Challenges in Southeast Asia: Natural barriers, political fragmentation, and economic disparities hinder development of cohesive transport networks, leaving many regions underserved.
 
-# Design Brief of Visualisation
--Gamified scenarios of real world case studies?
+-Empowering Communities with Visualization Tools: A "what-if" scenario generator helps local communities, especially in neglected areas, visualize infrastructure impacts and and be responsive to the needs of all communities, not just those in urban or economically dominant areas.
+
+-Simplification for Engagement: Real-world scenarios from complex data are made relatable, allowing users to explore regional constraints like flooding and environmental impact.
+
+-Democratizing Expertise: Gamification allows non-experts to learn through simulation, empowering underserved communities to advocate for projects that address their specific context.
+
+
+# Design Brief
+-Engaging scenarios of real-world case studies
 -An AR effect of "What If"s Scenarios
--Educational Reference Tool
--ASEAN infrastructure master plan
+-Educational / Advocacy Tool - ease of communicating their needs to governments or funding agencies.
+-In line with ASEAN infrastructure Master Plan
 
 
 ## Index Development / Mechanics
 ![SCORE BOARD_Page_1](https://github.com/user-attachments/assets/7d55be7c-4a34-4c93-a5c2-63e95fae7d8e)
-Development of 4 sample indexes applicable to most railway projects from raw data.
+Development of 4 sample indexes applicable to Southeast Asia railway projects from raw data.
+-Tsunami Risk Index
+-Structure Durability Index
+-Environment Impact Index
+-Operatability Index
 
 # GUI Overview
 
@@ -55,7 +65,12 @@ ie. 1 route that is has the lowest tsunami risk; another route having the shorte
 ## Generated Report
 ![mock-final-10](https://github.com/user-attachments/assets/209ddc1e-3954-4bf2-a396-a7de91e3022b)
 
-## Export Report
+## Exported Report
 ![mock-final_report](https://github.com/user-attachments/assets/518fe0a2-530a-4753-b920-7e6f669b4149)
 
 ## Disclaimer
+Due to numerous expertise involved in projects of such scale, it is prudent to note that this Visualization will serve as a what if scenario and democratize [what, tell me] to underserved and neglected regions  can you elaborate this
+Given the multidisciplinary nature of such projects, the visualization tool proposed would not replace expert decision-making but rather serve as a "what-if" scenario generator. 
+
+
+Your professor’s point highlights the complexity of large-scale infrastructure projects, which often require input from a wide range of experts—engineers, urban planners, environmental scientists, economists, and policymakers, among others. Given this multidisciplinary nature, the visualization tool you’re proposing would not replace expert decision-making but rather serve as a "what-if" scenario generator. This means it would allow stakeholders to explore different possibilities, test assumptions, and simulate outcomes based on varying parameters (e.g., budget constraints, environmental factors, or population needs).
