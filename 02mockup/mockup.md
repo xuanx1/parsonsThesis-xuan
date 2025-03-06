@@ -70,7 +70,7 @@ Even without generating routes, the layers can be toggled to illustrate hypothet
 Without restricting users to 1 single route, an array of routes can be "drawn", each reflecting the strength of each line.
 ie. 1 route that is has the lowest tsunami risk; another route having the shortest distance. 
 
-## Generated Report
+## Generated Report; GUI Overlay
 ![mock-final-10](https://github.com/user-attachments/assets/209ddc1e-3954-4bf2-a396-a7de91e3022b)
 
 ## Exported Report
