@@ -20,9 +20,9 @@ Development of 4 sample indexes applicable to most railway projects from raw dat
 ![mock-02](https://github.com/user-attachments/assets/8863e0e5-e2f9-47b4-8860-406903070b07)
 
 ## Settings - Layers
-![mock-03](https://github.com/user-attachments/assets/70a19c94-43a2-4871-a727-a3a8854ba0c1)
-![mock-04](https://github.com/user-attachments/assets/03f94e98-1698-4b8d-9b02-53765325c5ee)
-![mock-05](https://github.com/user-attachments/assets/59f7075c-af68-4c83-a018-e5ab650f0e62)
+![mock-final-03](https://github.com/user-attachments/assets/c4a6ecca-290c-411d-8aea-8a4d238c13d9)
+![mock-final-04](https://github.com/user-attachments/assets/c252bdae-aa84-4ebb-b22d-aa9fa3490540)
+![mock-final-05](https://github.com/user-attachments/assets/63a6c3de-8a77-465e-b7ab-7be8d3a1f5d0)
 
 ## Settings - Main
 ![mock-06](https://github.com/user-attachments/assets/8a082c59-4a9e-4110-822c-e2a4fd708c23)
