@@ -1,7 +1,7 @@
 # In A Nutshell
 -Transport Challenges in Southeast Asia: Natural barriers, political fragmentation, and economic disparities hinder development of cohesive transport networks, leaving many regions underserved.
 
--Empowering Communities with Visualization Tools: A "what-if" scenario generator helps local communities, especially in neglected areas, visualize infrastructure impacts and and be responsive to the needs of all communities, not just those in urban or economically dominant areas.
+-Empowering Communities with Visualization Tools: A "what-if" scenario generator helps local communities, especially in neglected areas, visualize infrastructure impacts and be responsive to the needs of all communities, not just those in urban or economically dominant areas.
 
 -Simplification for Engagement: Real-world scenarios from complex data are made relatable, allowing users to explore regional constraints like flooding and environmental impact.
 
@@ -77,8 +77,4 @@ ie. 1 route that is has the lowest tsunami risk; another route having the shorte
 ![mock-final_report](https://github.com/user-attachments/assets/518fe0a2-530a-4753-b920-7e6f669b4149)
 
 ## Disclaimer
-Due to numerous expertise involved in projects of such scale, it is prudent to note that this Visualization will serve as a what if scenario and democratize [what, tell me] to underserved and neglected regions  can you elaborate this
-Given the multidisciplinary nature of such projects, the visualization tool proposed would not replace expert decision-making but rather serve as a "what-if" scenario generator. 
-
-
-Your professor’s point highlights the complexity of large-scale infrastructure projects, which often require input from a wide range of experts—engineers, urban planners, environmental scientists, economists, and policymakers, among others. Given this multidisciplinary nature, the visualization tool you’re proposing would not replace expert decision-making but rather serve as a "what-if" scenario generator. This means it would allow stakeholders to explore different possibilities, test assumptions, and simulate outcomes based on varying parameters (e.g., budget constraints, environmental factors, or population needs).
+Given the multidisciplinary nature and numerous expertise involved—engineers, urban planners, environmental scientists, economists, and policymakers, in projects of such scale, it is prudent to note that this Visualization will serve as a "What-if" scenario and democratize access to information and decision-making tools. This would allow stakeholders to explore different possibilities, test assumptions, and simulate outcomes based on varying parameters (e.g. environmental factors, or population needs), while fostering greater public engagement and planning that's aligned with the realities of Southeast Asia’s landscapes and communities.
