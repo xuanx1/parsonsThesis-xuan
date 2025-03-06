@@ -292,4 +292,7 @@ Nguyen, Thi Lan Hương. "The ASEAN Rail Transport Infrastructure Master Plan: I
 
 Singh, Daljit. "ASEAN’s Infrastructure Development: The Role of Rail Transport." In ASEAN Economic Integration: Challenges and Prospects, edited by Sanchita Basu Das and Jayant Menon, 123–145. Singapore: ISEAS Publishing, 2020.
 
+#### 5.5 Others
+“Open Train Project.” Travegeo. Accessed March 5, 2024, https://travegeo.com/articles/open-train-project/.
+
 [Back to the Top](#enduring-networks-in-southeast-asia-a-data-driven-approach-to-rail-line-and-station-placement-using-combinatorial-optimization)
