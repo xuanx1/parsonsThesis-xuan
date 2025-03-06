@@ -15,7 +15,7 @@ A **"What-if" scenario** visualization tool
 
 **in** Southeast Asia.
 
-**with** Criterias in line with ASEAN infrastructure Master Plan / Southeast Asian context
+**with** criterias in line with ASEAN infrastructure Master Plan / Southeast Asian context
 
 
 
