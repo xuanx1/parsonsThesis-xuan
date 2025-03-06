@@ -39,7 +39,7 @@ Development of 4 sample indexes applicable to Southeast Asia railway projects fr
 ## Home
 ![mock-14](https://github.com/user-attachments/assets/03b19321-f25a-425b-8f55-a445a6c7c242)
 
-# GUI Elaborate
+# GUI; Elaborated
 ## Cover
 ![mock-01](https://github.com/user-attachments/assets/60382bb7-b6cf-4854-8205-21b9acac5c25)
 
