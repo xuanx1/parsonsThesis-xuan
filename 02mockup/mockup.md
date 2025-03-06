@@ -56,7 +56,6 @@ ie. 1 route that is has the lowest tsunami risk; another route having the shorte
 ![mock-final-10](https://github.com/user-attachments/assets/209ddc1e-3954-4bf2-a396-a7de91e3022b)
 
 ## Export Report
-![mock-final-11](https://github.com/user-attachments/assets/c24fa09c-d467-4c55-9d47-57c02f18725b)
-![mock-final-12](https://github.com/user-attachments/assets/f1f98b10-1bf3-4391-91c7-736e448b3e1b)
+![mock-final_report](https://github.com/user-attachments/assets/518fe0a2-530a-4753-b920-7e6f669b4149)
 
 ## Disclaimer
