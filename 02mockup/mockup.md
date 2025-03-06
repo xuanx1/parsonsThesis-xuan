@@ -8,11 +8,15 @@
 -Democratizing Expertise: Gamification allows non-experts to learn through simulation, empowering underserved communities to advocate for projects that address their specific context.
 
 
-# Design Brief
--Engaging scenarios of real-world case studies
--An AR effect of "What If"s Scenarios
--Educational / Advocacy Tool - ease of communicating their needs to governments or funding agencies.
--In line with ASEAN infrastructure Master Plan
+#### Design Brief
+A **"What-if" scenario** visualization tool 
+
+**for** local communities, grassroots organizations, and technical planners 
+
+**in** Southeast Asia.
+
+**with** Criterias in line with ASEAN infrastructure Master Plan / Southeast Asian context
+
 
 
 ## Index Development / Mechanics
