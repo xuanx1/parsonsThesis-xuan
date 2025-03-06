@@ -65,7 +65,7 @@ Even without generating routes, the layers can be toggled to illustrate hypothet
 ![mock-final-08](https://github.com/user-attachments/assets/5987accb-1f54-4bba-b367-c50c1bca69cd)
 ![mock-final-09](https://github.com/user-attachments/assets/80ed382b-18c8-433e-a291-eeecf3aef50b)
 
-### Extension Consideration:
+### Extension Considered:
 ![mock-final_alt results](https://github.com/user-attachments/assets/c128994c-8783-4fea-9b5a-afb76d717ef8)
 Without restricting users to 1 single route, an array of routes can be "drawn", each reflecting the strength of each line.
 ie. 1 route that is has the lowest tsunami risk; another route having the shortest distance. 
