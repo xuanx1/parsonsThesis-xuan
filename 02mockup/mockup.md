@@ -22,9 +22,13 @@ A **"What-if" scenario** visualization tool
 ## Index Development / Mechanics
 ![SCORE BOARD_Page_1](https://github.com/user-attachments/assets/7d55be7c-4a34-4c93-a5c2-63e95fae7d8e)
 Development of 4 sample indexes applicable to Southeast Asia railway projects from raw data.
+
 -Tsunami Risk Index
+
 -Structure Durability Index
+
 -Environment Impact Index
+
 -Operatability Index
 
 # GUI Overview
