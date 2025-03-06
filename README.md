@@ -280,7 +280,7 @@ NTan, Kevin S. Y. "Regional Integration through Rail: The ASEAN Rail Transport I
 
 World Bank. Infrastructure Development in ASEAN: A Focus on Rail Transport. Washington, DC: World Bank, 2019.
 
-Rahman, Arif. "ASEAN Unveils Ambitious Rail Transport Master Plan." The Straits Times, March 15, 2020. https://www.straitstimes.com.
+Rahman, Arif. "ASEAN Unveils Ambitious Rail Transport Master Plan." The Straits Times, March 15, 2020.
 
 Economic Research Institute for ASEAN and East Asia (ERIA). Enhancing Rail Connectivity in ASEAN: Policy Recommendations. Jakarta: ERIA, 2021.
 
