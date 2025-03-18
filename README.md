@@ -259,6 +259,16 @@ Sturdevant, Gwynn, A. Jonathan R. Godfrey, and Andrew Gelman. “Delivering Data
 ###### Tsunami Risk Index:
 Intergovernmental Oceanographic Commission. Tsunami Risk Assessment and Mitigation for the Indian Ocean: Knowing and Managing the Risks. Paris: UNESCO, 2009.
 
+Jaffe, B. E., Gelfenbaum, G., & H. M. Fritz. 2011. "The 2011 Tōhoku Tsunami Flow Depth and Inundation Mapping." Pure and Applied Geophysics 168 (5-6): 1079–93.
+
+Lay, T., Kanamori, H., Ammon, C. J., & X. Chen. 2005. "The Great Sumatra-Andaman Earthquake of 26 December 2004." Science 308 (5725): 1127–1133.
+
+Mori, N., Takahashi, T., & T. Yasuda. 2012. "Survey of 2011 Tōhoku Earthquake Tsunami Inundation and Run-up." Geophysical Research Letters 39 (7): L00G14.
+
+Okal, E. A., & C. E. Synolakis. 2008. "Far-Field Tsunami Hazard from Mega-Thrust Earthquakes in the Indian Ocean." Geophysical Journal International 172 (3): 995–1015.
+
+Satake, K., Fujii, Y., Harada, T., & Y. Namegaya. 2008. "Tsunami Source of the 2004 Sumatra-Andaman Earthquake and Its Long-Term Effects on Tectonics." Bulletin of the Seismological Society of America 98 (3): 1127–1144.
+
 ###### Structure Durability Index:
 FEMA. Designing for Earthquakes: A Manual for Architects. Washington, DC: Federal Emergency Management Agency, 2006.
 
