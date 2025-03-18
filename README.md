@@ -269,6 +269,12 @@ Okal, E. A., & C. E. Synolakis. 2008. "Far-Field Tsunami Hazard from Mega-Thrust
 
 Satake, K., Fujii, Y., Harada, T., & Y. Namegaya. 2008. "Tsunami Source of the 2004 Sumatra-Andaman Earthquake and Its Long-Term Effects on Tectonics." Bulletin of the Seismological Society of America 98 (3): 1127–1144.
 
+Berryman, K. 2006. "Review of Tsunami Hazard and Risk in New Zealand." GNS Science Report 2006/53. Wellington: GNS Science.
+
+Dominey-Howes, Dale, George Papathoma, and Richard A. Cox. 2006. "Assessing the Vulnerability of Buildings to Tsunami in Coastal Thailand." Natural Hazards and Earth System Sciences 6 (5): 547–58.
+
+Scheer, Stefan, Matthias Braun, and Tobias Ullmann. 2020. "Modeling Tsunami Vulnerability in Coastal Megacities: A GIS-Based Multi-Criteria Analysis." International Journal of Disaster Risk Reduction 42: 101348.
+
 ###### Structure Durability Index:
 FEMA. Designing for Earthquakes: A Manual for Architects. Washington, DC: Federal Emergency Management Agency, 2006.
 
