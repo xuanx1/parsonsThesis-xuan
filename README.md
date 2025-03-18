@@ -278,6 +278,17 @@ Scheer, Stefan, Matthias Braun, and Tobias Ullmann. 2020. "Modeling Tsunami Vuln
 ###### Structure Durability Index:
 FEMA. Designing for Earthquakes: A Manual for Architects. Washington, DC: Federal Emergency Management Agency, 2006.
 
+ASHRAE. 2022. Humidity Control Design Guide for Commercial and Institutional Buildings. Atlanta, GA: ASHRAE Press.
+
+FEMA. 2021. Seismic Risk Assessment Guide for Infrastructure. Washington, D.C.: Federal Emergency Management Agency.
+
+Intergovernmental Panel on Climate Change (IPCC). 2019. Special Report on the Ocean and Cryosphere in a Changing 
+
+Climate. Geneva: Intergovernmental Panel on Climate Change.
+
+World Bank. 2020. Urban Resilience and Infrastructure Safety in Seismic Zones. Washington, D.C.: The World Bank.
+
+
 ###### Environmental Impact Index:
 Millennium Ecosystem Assessment. Ecosystems and Human Well-being: Synthesis. Washington, DC: Island Press, 2005.
 
