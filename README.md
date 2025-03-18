@@ -58,6 +58,8 @@ LINK TO PROJECT
 5. [Literature Review](#5literature-review)
    - [5.1 Books](#51-books)  
    - [5.2 Articles](#52-articles)
+   - [5.3 Indexes Development](#53-indexes-development)
+   - [5.4 ASEAN Rail Infrastructure ](#54-asean-rail-infrastructure)
  
 ## 1.Introduction
 #### 1.1  Costs of Infrastructure Projects in the Southeast Asian Context
@@ -252,5 +254,45 @@ Wang, Yafei, Zhuobiao Ni, Mengmeng Hu, Shaoqing Chen, and Beicheng Xia. “A Pra
 Zhang, Silin, Buhao Zhang, Yi Zhao, Shun Zhang, and Zhichao Cao. “Urban Infrastructure Construction Planning: Urban Public Transport Line Formulation.” Buildings 14, no. 7 (July 3, 2024): 2031. https://doi.org/10.3390/buildings14072031. 
 
 Sturdevant, Gwynn, A. Jonathan R. Godfrey, and Andrew Gelman. “Delivering Data Differently.” arXiv.org, April 14, 2022. https://arxiv.org/abs/2204.10854. 
+
+#### 5.3 Indexes Development
+###### Tsunami Risk Index:
+Intergovernmental Oceanographic Commission. Tsunami Risk Assessment and Mitigation for the Indian Ocean: Knowing and Managing the Risks. Paris: UNESCO, 2009.
+
+###### Structure Durability Index:
+FEMA. Designing for Earthquakes: A Manual for Architects. Washington, DC: Federal Emergency Management Agency, 2006.
+
+###### Environmental Impact Index:
+Millennium Ecosystem Assessment. Ecosystems and Human Well-being: Synthesis. Washington, DC: Island Press, 2005.
+
+###### Operability Index:
+National Research Council. Disaster Resilience: A National Imperative. Washington, DC: The National Academies Press, 2012.
+
+###### Population Density Index:
+United Nations. World Urbanization Prospects: The 2018 Revision. New York: United Nations, 2019.
+
+#### 5.4 ASEAN Rail Infrastructure 
+ASEAN Secretariat. ASEAN Rail Transport Infrastructure Master Plan. Jakarta: ASEAN Secretariat, 2020.
+
+ASEAN Connectivity Coordinating Committee. Master Plan on ASEAN Connectivity 2025. Jakarta: ASEAN Secretariat, 2016.
+
+NTan, Kevin S. Y. "Regional Integration through Rail: The ASEAN Rail Transport Infrastructure Master Plan." Journal of Southeast Asian Studies 52, no. 3 (2021): 456–478.
+
+World Bank. Infrastructure Development in ASEAN: A Focus on Rail Transport. Washington, DC: World Bank, 2019.
+
+Rahman, Arif. "ASEAN Unveils Ambitious Rail Transport Master Plan." The Straits Times, March 15, 2020.
+
+Economic Research Institute for ASEAN and East Asia (ERIA). Enhancing Rail Connectivity in ASEAN: Policy Recommendations. Jakarta: ERIA, 2021.
+
+Ministry of Transport, Thailand. ASEAN Rail Transport Infrastructure Development: Thailand’s Perspective. Bangkok: Ministry of Transport, 2020.
+
+United Nations Economic and Social Commission for Asia and the Pacific (UNESCAP). Regional Rail Connectivity in ASEAN: Challenges and Opportunities. Bangkok: UNESCAP, 2018.
+
+Nguyen, Thi Lan Hương. "The ASEAN Rail Transport Infrastructure Master Plan: Implications for Vietnam." Paper presented at the International Conference on Southeast Asian Studies, Hanoi, Vietnam, November 12–14, 2020.
+
+Singh, Daljit. "ASEAN’s Infrastructure Development: The Role of Rail Transport." In ASEAN Economic Integration: Challenges and Prospects, edited by Sanchita Basu Das and Jayant Menon, 123–145. Singapore: ISEAS Publishing, 2020.
+
+#### 5.5 Others
+“Open Train Project.” Travegeo. Accessed March 5, 2024, https://travegeo.com/articles/open-train-project/.
 
 [Back to the Top](#enduring-networks-in-southeast-asia-a-data-driven-approach-to-rail-line-and-station-placement-using-combinatorial-optimization)
