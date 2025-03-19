@@ -297,6 +297,18 @@ Bommer, Julian J., John Douglas, and Fredrik O. Strasser. "Engineering Seismolog
 ###### Environmental Impact Index:
 Millennium Ecosystem Assessment. Ecosystems and Human Well-being: Synthesis. Washington, DC: Island Press, 2005.
 
+Giri, Chandra. Remote Sensing of Land Use and Land Cover: Principles and Applications. Boca Raton, FL: CRC Press, 2016.
+
+Hansen, Matthew C., et al. "High-Resolution Global Maps of 21st-Century Forest Cover Change." Science 342, no. 6160 (2013): 850-853.
+
+Intergovernmental Panel on Climate Change (IPCC). Climate Change 2021: Impacts, Adaptation, and Vulnerability. Cambridge: Cambridge University Press, 2021.
+
+Butchart, Stuart H. M., et al. "Global Biodiversity: Indicators of Recent Declines." Science 328, no. 5982 (2010): 1164-1168.
+
+Cardinale, Bradley J., et al. "Biodiversity Loss and Its Impact on Humanity." Nature 486, no. 7401 (2012): 59-67.
+
+NASA. Earth Observation for Biodiversity and Conservation. Washington, D.C.: NASA Earth Science Division, 2021.
+
 ###### Operability Index:
 National Research Council. Disaster Resilience: A National Imperative. Washington, DC: The National Academies Press, 2012.
 
