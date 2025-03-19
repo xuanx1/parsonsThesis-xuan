@@ -288,6 +288,11 @@ Climate. Geneva: Intergovernmental Panel on Climate Change.
 
 World Bank. 2020. Urban Resilience and Infrastructure Safety in Seismic Zones. Washington, D.C.: The World Bank.
 
+Camuffo, Dario. Microclimate for Cultural Heritage: Conservation, Restoration, and Maintenance of Indoor and Outdoor Monuments. 3rd ed. Amsterdam: Elsevier, 2019.
+
+United States Geological Survey (USGS). Earthquake Hazards Program: Ground Motion Models and Seismic Risk Maps. Washington, D.C.: USGS, 2021.
+
+Bommer, Julian J., John Douglas, and Fredrik O. Strasser. "Engineering Seismology: Ground Motion Models for Seismic Hazard Assessment." Bulletin of Earthquake Engineering 10, no. 3 (2002): 329-345.
 
 ###### Environmental Impact Index:
 Millennium Ecosystem Assessment. Ecosystems and Human Well-being: Synthesis. Washington, DC: Island Press, 2005.
