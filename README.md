@@ -312,8 +312,21 @@ NASA. Earth Observation for Biodiversity and Conservation. Washington, D.C.: NAS
 ###### Operability Index:
 National Research Council. Disaster Resilience: A National Imperative. Washington, DC: The National Academies Press, 2012.
 
-###### Population Density Index:
-United Nations. World Urbanization Prospects: The 2018 Revision. New York: United Nations, 2019.
+###### Population-Economic Importance Index:
+Angel, Shlomo, et al. Making Room for a Planet of Cities. Cambridge, MA: Lincoln Institute of Land Policy, 2011.
+
+OECD. Regions and Cities at a Glance 2021. Paris: OECD Publishing, 2021.
+
+United Nations. World Population Prospects 2019: Highlights. New York: United Nations, 2019.
+
+Smith, Peter J., et al. "The Role of Geography in Economic Growth: Land Area and Population Density Effects." Journal of Economic Geography 18, no. 3 (2018): 499-522.
+
+World Bank. Urban Development: The Role of Cities in Economic Growth. Washington, D.C.: World Bank Group, 2022.
+
+OECD. Global Economic Outlook 2022: GDP Growth and Regional Trends. Paris: OECD Publishing, 2022.
+
+World Bank. The Global Economy: Trends and Projections 2022. Washington, D.C.: World Bank Group, 2022.
+
 
 #### 5.4 ASEAN Rail Infrastructure 
 ASEAN Secretariat. ASEAN Rail Transport Infrastructure Master Plan. Jakarta: ASEAN Secretariat, 2020.
