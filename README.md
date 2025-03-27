@@ -312,6 +312,34 @@ NASA. Earth Observation for Biodiversity and Conservation. Washington, D.C.: NAS
 ###### Operability Index:
 National Research Council. Disaster Resilience: A National Imperative. Washington, DC: The National Academies Press, 2012.
 
+Asian Development Bank (ADB). Infrastructure for a Seamless Asia. Tokyo: ADB Institute, 2019.
+
+United Nations. Sustainable Infrastructure for Urban Development. New York: UN-Habitat, 2020.
+
+Jonkman, S. N., B. Jonkman, and M. Kok. "Flood Risk Management: Principles and Implementation." Water Science & Technology 51, no. 5 (2005): 99-107.
+
+Wang, Xiaojie, et al. "Urban Flood Risks and Resilience Planning: A Multi-Criteria Approach." Journal of Urban Planning and Development 147, no. 4 (2021): 04021052.
+
+Eide, Arne, et al. "Emergency Response Time and Urban Accessibility: A GIS-Based Study." International Journal of Disaster Risk Science 7, no. 3 (2012): 249-261.
+
+World Bank. Urbanization and Emergency Preparedness. Washington, D.C.: World Bank Group, 2019.
+
+Angel, Shlomo, et al. Making Room for a Planet of Cities. Cambridge, MA: Lincoln Institute of Land Policy, 2011.
+
+OECD. Regions and Cities at a Glance 2021. Paris: OECD Publishing, 2021.
+
+World Health Organization. "Urban Health and Well-Being." Accessed March 18, 2025. https://www.who.int/health-topics/urban-health.
+
+OECD. "Emergency Management in Urban Areas." Accessed March 18, 2025. https://www.oecd.org/gov/emergency-management/urban-areas.
+
+Jonkman, S. N., et al. "Flood Risk Assessment in the Netherlands." Natural Hazards, vol. 37, no. 1, 2005, pp. 3-10.
+
+OECD. Emergency Management and Urban Resilience. OECD Publishing, 2020.
+
+United Nations. World Population Prospects 2020. United Nations Department of Economic and Social Affairs, 2020.
+
+World Bank. Infrastructure and Operations: Addressing the Global Infrastructure Gap. World Bank, 2020.
+
 ###### Population-Economic Importance Index:
 Angel, Shlomo, et al. Making Room for a Planet of Cities. Cambridge, MA: Lincoln Institute of Land Policy, 2011.
 
@@ -351,5 +379,7 @@ Singh, Daljit. "ASEAN’s Infrastructure Development: The Role of Rail Transport
 
 #### 5.5 Others
 “Open Train Project.” Travegeo. Accessed March 5, 2024, https://travegeo.com/articles/open-train-project/.
+
+OpenAI. ChatGPT, version GPT-4. March 18, 2025. Used for refining sentence structure and checking grammar. https://chat.openai.com.
 
 [Back to the Top](#enduring-networks-in-southeast-asia-a-data-driven-approach-to-rail-line-and-station-placement-using-combinatorial-optimization)
