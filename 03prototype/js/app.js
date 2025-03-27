@@ -92,7 +92,7 @@ zoomOutButton.addEventListener('click', () => {
 
 
 // compass control
-const compassControl = new mapboxgl.NavigationControl({ showZoom: false, }); //visualizePitch: true
+const compassControl = new mapboxgl.NavigationControl({ showZoom: false, visualizePitch: true });
 compassControl._container.style.borderRadius = '50%';
 compassControl._container.style.overflow = 'hidden';
 const compassContainer = document.createElement('div');
@@ -892,43 +892,43 @@ resizeMap();
 });
 
   // 2024 average humidity heatmap
-    const humidityFiles = [
-      'data/humidity/humidity_jan.tif',
-      'data/humidity/humidity_feb.tif',
-      'data/humidity/humidity_mar.tif',
-      'data/humidity/humidity_apr.tif',
-      'data/humidity/humidity_may.tif',
-      'data/humidity/humidity_jun.tif',
-      'data/humidity/humidity_jul.tif',
-      'data/humidity/humidity_aug.tif',
-      'data/humidity/humidity_sep.tif',
-      'data/humidity/humidity_oct.tif',
-      'data/humidity/humidity_nov.tif',
-      'data/humidity/humidity_dec.tif'
-    ];
+    // const humidityFiles = [
+    //   'data/humidity/humidity_jan.tif',
+    //   'data/humidity/humidity_feb.tif',
+    //   'data/humidity/humidity_mar.tif',
+    //   'data/humidity/humidity_apr.tif',
+    //   'data/humidity/humidity_may.tif',
+    //   'data/humidity/humidity_jun.tif',
+    //   'data/humidity/humidity_jul.tif',
+    //   'data/humidity/humidity_aug.tif',
+    //   'data/humidity/humidity_sep.tif',
+    //   'data/humidity/humidity_oct.tif',
+    //   'data/humidity/humidity_nov.tif',
+    //   'data/humidity/humidity_dec.tif'
+    // ];
 
-    map.on("load", () => {
-      map.addSource("geotiff-layer", {
-      type: "raster",
-      tiles: ["data/humidity/humidity_jan.tif"],
-      tileSize: 256,
-      });
+    // map.on("load", () => {
+    //   map.addSource("geotiff-layer", {
+    //   type: "raster",
+    //   tiles: ["data/humidity/humidity_jan.tif"],
+    //   tileSize: 256,
+    //   });
     
-      map.addLayer({
-      id: "geotiff-layer",
-      type: "raster",
-      source: "geotiff-layer",
-      paint: {
-        "raster-opacity": 0.8,
-      },
-      });
+    //   map.addLayer({
+    //   id: "geotiff-layer",
+    //   type: "raster",
+    //   source: "geotiff-layer",
+    //   paint: {
+    //     "raster-opacity": 0.8,
+    //   },
+    //   });
 
-      // Ensure the layer is visible
-      const visibility = map.getLayoutProperty('geotiff-layer', 'visibility');
-      if (visibility !== 'visible') {
-      map.setLayoutProperty('geotiff-layer', 'visibility', 'visible');
-      }
-    });
+    //   // Ensure the layer is visible
+    //   const visibility = map.getLayoutProperty('geotiff-layer', 'visibility');
+    //   if (visibility !== 'visible') {
+    //   map.setLayoutProperty('geotiff-layer', 'visibility', 'visible');
+    //   }
+    // });
 
   
     // // Add heatmap layer for average humidity
@@ -976,96 +976,96 @@ function invertScore(score) {
 
 
 
-//index - tsi
-function calculateTSI(elevation, distanceFromCoast, tsunamiCount) {
-  let elevationScore = normalize(elevation, 0, 100); // 0-100m elevation
-  let coastlineScore = normalize(distanceFromCoast, 0, 10); // 0-10 km from coast
-  let tsunamiScore = normalize(tsunamiCount, 0, 20); // 0-20 historical tsunamis
+// //index - tsi
+// function calculateTSI(elevation, distanceFromCoast, tsunamiCount) {
+//   let elevationScore = normalize(elevation, 0, 100); // 0-100m elevation
+//   let coastlineScore = normalize(distanceFromCoast, 0, 10); // 0-10 km from coast
+//   let tsunamiScore = normalize(tsunamiCount, 0, 20); // 0-20 historical tsunamis
 
-  return (0.2 * elevationScore) + (0.4 * coastlineScore) + (0.4 * invertScore(tsunamiScore));
-}
+//   return (0.2 * elevationScore) + (0.4 * coastlineScore) + (0.4 * invertScore(tsunamiScore));
+// }
 
-// Mock functions to retrieve data for the route
-function getElevationForRoute(start, end) {
-  // Simulate elevation data retrieval based on coordinates
-  const elevationData = {
-    "default": 50, // Default elevation in meters
-    "specific": [
-      { start: [110.0, 5.0], end: [120.0, 10.0], elevation: 80 },
-      { start: [100.0, 0.0], end: [110.0, 5.0], elevation: 30 }
-    ]
-  };
+// // Mock functions to retrieve data for the route
+// function getElevationForRoute(start, end) {
+//   // Simulate elevation data retrieval based on coordinates
+//   const elevationData = {
+//     "default": 50, // Default elevation in meters
+//     "specific": [
+//       { start: [110.0, 5.0], end: [120.0, 10.0], elevation: 80 },
+//       { start: [100.0, 0.0], end: [110.0, 5.0], elevation: 30 }
+//     ]
+//   };
 
-  const match = elevationData.specific.find(
-    (entry) =>
-      JSON.stringify(entry.start) === JSON.stringify(start) &&
-      JSON.stringify(entry.end) === JSON.stringify(end)
-  );
+//   const match = elevationData.specific.find(
+//     (entry) =>
+//       JSON.stringify(entry.start) === JSON.stringify(start) &&
+//       JSON.stringify(entry.end) === JSON.stringify(end)
+//   );
 
-  return match ? match.elevation : elevationData.default;
-}
+//   return match ? match.elevation : elevationData.default;
+// }
 
-function getDistanceFromCoastForRoute(start, end) {
-  // Simulate distance from coast data retrieval based on coordinates
-  const distanceData = {
-    "default": 5, // Default distance in kilometers
-    "specific": [
-      { start: [110.0, 5.0], end: [120.0, 10.0], distance: 8 },
-      { start: [100.0, 0.0], end: [110.0, 5.0], distance: 3 }
-    ]
-  };
+// function getDistanceFromCoastForRoute(start, end) {
+//   // Simulate distance from coast data retrieval based on coordinates
+//   const distanceData = {
+//     "default": 5, // Default distance in kilometers
+//     "specific": [
+//       { start: [110.0, 5.0], end: [120.0, 10.0], distance: 8 },
+//       { start: [100.0, 0.0], end: [110.0, 5.0], distance: 3 }
+//     ]
+//   };
 
-  const match = distanceData.specific.find(
-    (entry) =>
-      JSON.stringify(entry.start) === JSON.stringify(start) &&
-      JSON.stringify(entry.end) === JSON.stringify(end)
-  );
+//   const match = distanceData.specific.find(
+//     (entry) =>
+//       JSON.stringify(entry.start) === JSON.stringify(start) &&
+//       JSON.stringify(entry.end) === JSON.stringify(end)
+//   );
 
-  return match ? match.distance : distanceData.default;
-}
+//   return match ? match.distance : distanceData.default;
+// }
 
-function getHistoricalTsunamiCountForRoute(start, end) {
-  // Simulate tsunami count data retrieval based on coordinates
-  const tsunamiData = {
-    "default": 3, // Default tsunami count
-    "specific": [
-      { start: [110.0, 5.0], end: [120.0, 10.0], count: 5 },
-      { start: [100.0, 0.0], end: [110.0, 5.0], count: 1 }
-    ]
-  };
+// function getHistoricalTsunamiCountForRoute(start, end) {
+//   // Simulate tsunami count data retrieval based on coordinates
+//   const tsunamiData = {
+//     "default": 3, // Default tsunami count
+//     "specific": [
+//       { start: [110.0, 5.0], end: [120.0, 10.0], count: 5 },
+//       { start: [100.0, 0.0], end: [110.0, 5.0], count: 1 }
+//     ]
+//   };
 
-  const match = tsunamiData.specific.find(
-    (entry) =>
-      JSON.stringify(entry.start) === JSON.stringify(start) &&
-      JSON.stringify(entry.end) === JSON.stringify(end)
-  );
+//   const match = tsunamiData.specific.find(
+//     (entry) =>
+//       JSON.stringify(entry.start) === JSON.stringify(start) &&
+//       JSON.stringify(entry.end) === JSON.stringify(end)
+//   );
 
-  return match ? match.count : tsunamiData.default;
-}
+//   return match ? match.count : tsunamiData.default;
+// }
 
-// Use the origin and destination coordinates from the input fields
-const originValue = originInput.value;
-const destinationValue = destinationInput.value;
+// // Use the origin and destination coordinates from the input fields
+// const originValue = originInput.value;
+// const destinationValue = destinationInput.value;
 
-if (originValue && destinationValue) {
-  const originMatch = originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/);
-  const destinationMatch = destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/);
+// if (originValue && destinationValue) {
+//   const originMatch = originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/);
+//   const destinationMatch = destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/);
 
-  if (originMatch && destinationMatch) {
-    const start = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
-    const end = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
+//   if (originMatch && destinationMatch) {
+//     const start = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
+//     const end = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
 
-    let elevation = getElevationForRoute(start, end);
-    let distanceFromCoast = getDistanceFromCoastForRoute(start, end);
-    let tsunamiCount = getHistoricalTsunamiCountForRoute(start, end);
-    let tsi = calculateTSI(elevation, distanceFromCoast, tsunamiCount);
-    console.log("Tsunami Risk Index (TSI):", tsi.toFixed(2));
-  } else {
-    console.error("Invalid coordinates. Please ensure the inputs are in the correct format.");
-  }
-} else {
-  console.error("Please enter both origin and destination.");
-}
+//     let elevation = getElevationForRoute(start, end);
+//     let distanceFromCoast = getDistanceFromCoastForRoute(start, end);
+//     let tsunamiCount = getHistoricalTsunamiCountForRoute(start, end);
+//     let tsi = calculateTSI(elevation, distanceFromCoast, tsunamiCount);
+//     console.log("Tsunami Risk Index (TSI):", tsi.toFixed(2));
+//   } else {
+//     console.error("Invalid coordinates. Please ensure the inputs are in the correct format.");
+//   }
+// } else {
+//   console.error("Please enter both origin and destination.");
+// }
 
 
 
@@ -1138,16 +1138,12 @@ if (originValue && destinationValue) {
 //   return ffi;
 // }
 
-// function getColor(ffi) {
-//   if (ffi < 0.33) return Cesium.Color.RED;    // High Risk
-//   if (ffi < 0.66) return Cesium.Color.YELLOW; // Moderate Feasibility
-//   return Cesium.Color.GREEN;                  // High Feasibility
-// }
+
 
 
 // Draw 3x rail line - 1 colour for each line, but same set of origin and destination - green for highest e2i , orange for hightest ffi, blue for opi - when line appear, grey out everything in the map!
 
-  // Route button to draw the land route between origin and destination
+  // Route button to draw the land route between origin and destination with path avoiding high elevations, staying at least 10km away from the coastline, and ensuring all points are on land
   const routeButton = document.createElement("button");
   routeButton.textContent = "Draw Route";
   routeButton.style.position = "absolute";
@@ -1156,7 +1152,19 @@ if (originValue && destinationValue) {
   routeButton.style.zIndex = "1000";
   document.body.appendChild(routeButton);
 
-  routeButton.addEventListener("click", () => {
+  // loading bar
+  const loadingBar = document.createElement("div");
+  loadingBar.style.position = "absolute";
+  loadingBar.style.top = "0";
+  loadingBar.style.left = "0";
+  loadingBar.style.width = "0";
+  loadingBar.style.height = "3px";
+  loadingBar.style.backgroundColor = "#00ff00";
+  loadingBar.style.zIndex = "1001";
+  loadingBar.style.transition = "width 0.3s ease";
+  document.body.appendChild(loadingBar);
+
+  routeButton.addEventListener("click", async () => {
     const originValue = originInput.value;
     const destinationValue = destinationInput.value;
 
@@ -1165,7 +1173,28 @@ if (originValue && destinationValue) {
       return;
     }
 
-    // Parse coordinates from the input fields
+    // Show loading bar
+    loadingBar.style.width = "0";
+    loadingBar.style.display = "block";
+
+    // update the loading bar length until route appear
+    const interval = setInterval(() => {
+      const currentWidth = parseFloat(loadingBar.style.width);
+      if (currentWidth < 90) {
+        loadingBar.style.width = `${currentWidth + 10}%`;
+      }
+    }, 100);
+
+    // complete the loading bar when the route is added
+    map.once('sourcedata', () => {
+      clearInterval(interval);
+      loadingBar.style.width = "100%";
+      setTimeout(() => {
+        loadingBar.style.display = "none";
+      }, 5000);
+    });
+
+    // Parse coord from the input fields
     const originMatch = originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/);
     const destinationMatch = destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/);
 
@@ -1173,13 +1202,88 @@ if (originValue && destinationValue) {
       const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
       const destinationCoords = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
 
-      // Generate a simple straight-line route - for demo
-      const route = {
-        type: "LineString",
-        coordinates: [originCoords, destinationCoords],
+      // Fn to calculate a curved path avoiding high elevations, staying between 10m and 50m elevation, at least 10km away from the coastline, and ensuring all points are on land
+      async function calculateCurvedPath(start, end) {
+        const path = [];
+        const stepCount = 100; // Number of steps to divide the path
+        const curveFactor = 0.3; // Factor to add curvature to the path
+        const irregularityFactor = 0.05; // Factor to add irregularities to the path
+
+        for (let i = 0; i <= stepCount; i++) {
+          const t = i / stepCount;
+          const lng = start[0] * (1 - t) + end[0] * t;
+          const lat = start[1] * (1 - t) + end[1] * t;
+
+          // Add curvature by offsetting the midpoint
+          const curveOffset = Math.sin(Math.PI * t) * curveFactor;
+          const irregularityOffsetLng = (Math.random() - 0.5) * irregularityFactor;
+          const irregularityOffsetLat = (Math.random() - 0.5) * irregularityFactor;
+
+          // Add variation to move slightly left or right
+          const lateralOffset = (Math.random() - 0.5) * 0.01; // Small lateral variation
+
+          const curvedLng = lng + curveOffset * (end[1] - start[1]) + irregularityOffsetLng + lateralOffset;
+          const curvedLat = lat - curveOffset * (end[0] - start[0]) + irregularityOffsetLat;
+
+          // Simulate elevation, coastline distance, and land checks
+          const elevation = await getElevationAtPoint([curvedLng, curvedLat]);
+
+
+          if (elevation < 10 || elevation > 50 ) {
+        // Adjust path to avoid unsuitable elevation, proximity to the coastline, or water
+        const adjustedLat = curvedLat - 0.01; // Move slightly south
+        const adjustedLng = curvedLng + 0.05; // Move slightly east
+        path.push([adjustedLng, adjustedLat]);
+          } else {
+        path.push([curvedLng, curvedLat]);
+          }
+        }
+
+        return path;
+      }
+
+      // Function to get elevation data from Mapbox for a given point
+      const getElevationAtPoint = async (coordinates) => {
+        const url = `https://api.mapbox.com/v4/mapbox.mapbox-terrain-v2/tilequery/${coordinates[0]},${coordinates[1]}.json?layers=contour&limit=1&access_token=${mapboxgl.accessToken}`;
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          if (data.features && data.features.length > 0) {
+        return data.features[0].properties.ele; // Return elevation value
+          } else {
+        return 0; // Default to 0 if no elevation data is found
+          }
+        } catch (error) {
+          console.error("Error fetching elevation data:", error);
+          return 0; // Default to 0 in case of an error
+        }
       };
 
-      // Add the route to the map
+      // Function to calculate distance from the coastline
+
+
+      // Function to check if a point is on land
+      const isPointOnLand = async (coordinates) => {
+        const url = `https://api.mapbox.com/v4/mapbox.mapbox-terrain-v2/tilequery/${coordinates[0]},${coordinates[1]}.json?layers=landuse&limit=1&access_token=${mapboxgl.accessToken}`;
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          return data.features && data.features.length > 0; // Return true if the point is on land
+        } catch (error) {
+          console.error("Error checking if point is on land:", error);
+          return false; // Default to false in case of an error
+        }
+      };
+
+      // Generate curved path avoiding high elevations, staying at least 10km away from the coastline, and ensuring all points are on land
+      const routeCoordinates = await calculateCurvedPath(originCoords, destinationCoords);
+
+      // Add the route to map
+      const route = {
+        type: "LineString",
+        coordinates: routeCoordinates,
+      };
+
       if (map.getSource("route")) {
         map.getSource("route").setData({
           type: "Feature",
@@ -1200,7 +1304,7 @@ if (originValue && destinationValue) {
             type: "line",
             source: "route",
             paint: {
-              "line-color": "#ff0000", // Red color for the route
+              "line-color": "#00ff00", // Green route
               "line-width": 4,
               "line-opacity": 0.8,
             },
@@ -1208,12 +1312,42 @@ if (originValue && destinationValue) {
         }
       }
 
-      // Zoom to the route
+      // buffer around the route
+      const buffer = turf.buffer(route, 0.05, { units: "kilometers" });
+      if (map.getSource("route-buffer")) {
+        map.getSource("route-buffer").setData(buffer);
+      } else {
+        map.addSource("route-buffer", {
+          type: "geojson",
+          data: buffer,
+        });
+
+        if (!map.getLayer("route-buffer-layer")) {
+          map.addLayer({
+            id: "route-buffer-layer",
+            type: "fill",
+            source: "route-buffer",
+            paint: {
+              "fill-color": "#00ff00",
+              "fill-opacity": 0.2,
+            },
+          });
+        }
+      }
+
+      // Zoom to route
       const bounds = new mapboxgl.LngLatBounds();
       route.coordinates.forEach((coord) => bounds.extend(coord));
       map.fitBounds(bounds, { padding: 50 });
+
+      // Hide the loading bar after the route is loaded
+      loadingBar.style.width = "100%";
+      setTimeout(() => {
+        loadingBar.style.display = "none";
+      }, 300);
     } else {
       alert("Invalid coordinates. Please ensure the inputs are in the correct format.");
+      loadingBar.style.display = "none"; // Hide the loading bar in case of an error
     }
   });
 
