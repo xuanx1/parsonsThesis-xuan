@@ -563,63 +563,6 @@ resizeMap();
 
 
 
-  const geojsonFiles = [
-    'data/th/hotosm_tha_airports_points_geojson.geojson', 
-    'data/th/hotosm_tha_railways_lines_geojson.geojson', 
-    'data/th/hotosm_tha_sea_ports_points_geojson.geojson', 
-  ];
-
-  map.on('style.load', () => {
-    geojsonFiles.forEach((file) => {
-      fetch(file)
-        .then(response => response.json())
-        .then((geojson) => {
-          map.addSource(file, {
-            type: 'geojson',
-            data: geojson
-          });
-
-          const isLine = file.includes('railways') || file.includes('roads');
-          const layerType = isLine ? 'line' : 'circle';
-
-          const paintOptions = file.includes('sea_ports')
-            ? {
-                'circle-radius': 4,
-                'circle-color': '#0000ff', // Blue for seaports
-                'circle-opacity': 0.3
-              }
-            : file.includes('airports')
-            ? {
-                'circle-radius': 4,
-                'circle-color': '#ffff00', // Yellow for airports
-                'circle-opacity': 0.3
-              }
-            : file.includes('railways')
-            ? {
-                'line-color': '#ff0000', // Red for railways
-                'line-width': 3,
-                'line-opacity': 0.7
-              }
-            : file.includes('roads')
-            ? {
-                'line-color': '#ffa500', // Orange for roads
-                'line-width': 3,
-                'line-opacity': 0.7
-              }
-            : {};
-
-          map.addLayer({
-            id: `${file}-layer`,
-            type: layerType,
-            source: file,
-            paint: paintOptions
-          });
-        })
-        .catch((error) => {
-          console.error(`Failed to load ${file}:`, error);
-        });
-    });
-  });
 
   // legend
   const legendContainer = document.createElement('div');
@@ -695,6 +638,8 @@ resizeMap();
   });
 
 
+
+
   // coastlines
   map.on('load', () => {
     map.addSource('sea-coastline', {
@@ -744,6 +689,8 @@ resizeMap();
         }
       });
   });
+
+
 
 
   // 100 years earthquake 1923 - 2024
@@ -891,77 +838,534 @@ resizeMap();
     });
 });
 
-  // 2024 average humidity heatmap
-    // const humidityFiles = [
-    //   'data/humidity/humidity_jan.tif',
-    //   'data/humidity/humidity_feb.tif',
-    //   'data/humidity/humidity_mar.tif',
-    //   'data/humidity/humidity_apr.tif',
-    //   'data/humidity/humidity_may.tif',
-    //   'data/humidity/humidity_jun.tif',
-    //   'data/humidity/humidity_jul.tif',
-    //   'data/humidity/humidity_aug.tif',
-    //   'data/humidity/humidity_sep.tif',
-    //   'data/humidity/humidity_oct.tif',
-    //   'data/humidity/humidity_nov.tif',
-    //   'data/humidity/humidity_dec.tif'
-    // ];
 
-    // map.on("load", () => {
-    //   map.addSource("geotiff-layer", {
-    //   type: "raster",
-    //   tiles: ["data/humidity/humidity_jan.tif"],
-    //   tileSize: 256,
-    //   });
-    
-    //   map.addLayer({
-    //   id: "geotiff-layer",
-    //   type: "raster",
-    //   source: "geotiff-layer",
-    //   paint: {
-    //     "raster-opacity": 0.8,
-    //   },
-    //   });
 
-    //   // Ensure the layer is visible
-    //   const visibility = map.getLayoutProperty('geotiff-layer', 'visibility');
-    //   if (visibility !== 'visible') {
-    //   map.setLayoutProperty('geotiff-layer', 'visibility', 'visible');
-    //   }
-    // });
 
+map.on('style.load', () => {
+// southeast asian regional border sea.json
+fetch('data/sea.json')
+  .then(response => response.json())
+  .then(data => {
+    map.addSource('sea', {
+      type: 'geojson',
+      data: data
+    });
+    map.addLayer({
+      id: 'sea-layer',
+      type: 'fill',
+      source: 'sea',
+      paint: {
+        'fill-color': '#000000',
+        'fill-opacity': 0.3
+      }
+    });
+
+    // outline sea regional border
+    map.addLayer({
+      id: 'sea-outline-layer',
+      type: 'line',
+      source: 'sea',
+      paint: {
+        'line-color': '#ffffff', // White outline
+        'line-width': 1,
+        'line-opacity': 0.7
+      }
+    });
+  })
+  .catch(error => console.error('Error loading GeoJSON:', error));
+});
+
+
+
+
+// Spatial population https://api.mapbox.com/v4/{tileset_id}/{zoom}/{x}/{y}{@2x}.{format}
+map.on('load', function() {
+  // xuanx111.3josh1wj, vn
+  // xuanx111.cuxcvnbr, bn
+  // xuanx111.520thek8, tl
+  // xuanx111.96iq0mqw, sg
+  // xuanx111.d8izfyg0, pw
+  // xuanx111.9vhjaglf, la
+  // xuanx111.9unpgwbt, my
+  // xuanx111.0156dejf, th
+  // xuanx111.0nyni93u, mm
+  // xuanx111.a8vrhntz, ph
+  // xuanx111.26ax1s7t, kh
+  // xuanx111.agopr4of, id
   
-    // // Add heatmap layer for average humidity
-    // map.addSource('average-humidity', {
-    //   type: 'geojson',
-    //   data: 'data/average_humidity.geojson', // Replace with your processed GeoJSON file
-    // });
-
-    // map.addLayer({
-    //   id: 'average-humidity-heatmap',
-    //   type: 'heatmap',
-    //   source: 'average-humidity',
-    //   paint: {
-    //     'heatmap-weight': ['interpolate', ['linear'], ['get', 'humidity'], 0, 0, 100, 1],
-    //     'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 0, 1, 9, 3],
-    //     'heatmap-color': [
-    //       'interpolate',
-    //       ['linear'],
-    //       ['heatmap-density'],
-    //       0, 'rgba(33,102,172,0)',
-    //       0.2, 'rgb(103,169,207)',
-    //       0.4, 'rgb(209,229,240)',
-    //       0.6, 'rgb(253,219,199)',
-    //       0.8, 'rgb(239,138,98)',
-    //       1, 'rgb(178,24,43)'
-    //     ],
-    //     'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 0, 2, 9, 20],
-    //     'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 1, 9, 0]
-    //   }
-    // });
-
-
+  const tilesets = [
+      'xuanx111.3josh1wj',
+      'xuanx111.cuxcvnbr',
+      'xuanx111.520thek8',
+      'xuanx111.96iq0mqw',
+      'xuanx111.d8izfyg0',
+      'xuanx111.9vhjaglf',
+      'xuanx111.9unpgwbt',
+      'xuanx111.0156dejf',
+      'xuanx111.0nyni93u',
+      'xuanx111.a8vrhntz',
+      'xuanx111.26ax1s7t',
+      'xuanx111.agopr4of'
+  ];
   
+  tilesets.forEach((tileset, index) => {
+      const sourceId = `tileset-${index}`;
+      const layerId = `raster-layer-${index}`;
+  
+      map.addSource(sourceId, {
+          type: 'raster',
+          tiles: [`https://api.mapbox.com/v4/${tileset}/{z}/{x}/{y}@2x.jpg?access_token=` + mapboxgl.accessToken],
+          tileSize: 256
+      });
+  
+      map.addLayer({
+          id: layerId,
+          type: 'raster',
+          source: sourceId,
+          paint: { 
+              'raster-opacity': 0.8,
+              'raster-brightness-min': 1,
+              'raster-brightness-max': 1  
+          },
+          layout: {
+              'visibility': 'none' // visibility off by default
+          }
+      });
+
+      // toggle spatpop
+      const toggleContainer = d3
+        .select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "405px") // Fixed position for the toggle
+        .style("right", "5px")
+        .style("z-index", "1000");
+
+      toggleContainer
+        .append("img")
+        .attr("src", "images/population.svg")
+        .attr("alt", "Spatial Population")
+        .style("margin", "5px")
+        .style("padding", "5px")
+        .style("cursor", "pointer")
+        .style("width", "30px")
+        .style("height", "30px")
+        .style("border", "0px solid #ccc")
+        .style("border-radius", "50%")
+        .style("background-color", "#ffffff")
+        .style("filter", "brightness(100%)")
+        .on("click", () => {
+          tilesets.forEach((tileset, index) => {
+        const layerId = `raster-layer-${index}`;
+        const visibility = map.getLayoutProperty(layerId, 'visibility');
+        map.setLayoutProperty(layerId, 'visibility', visibility === 'visible' ? 'none' : 'visible');
+          });
+        });
+  });
+});
+
+//function for population count from raster tilesets, darker the colour, the more population
+function getPopulationCount(color) {
+  if (color === '#f7fbff') return 1000; // 1% white
+  if (color === '#deebf7') return 10000; // 10% white
+  if (color === '#9ecae1') return 40000; // 40% white
+  if (color === '#3182bd') return 60000; // 60% white
+  if (color === '#08519c') return 80000; // 80% white
+  if (color === '#08306b') return 100000; // 100% white
+  return 0;
+}
+
+
+
+
+
+
+
+
+map.on('style.load', () => {
+// Avg 2024 humidity - avgHU_vect.geojson classify into 5 classes - temperature
+fetch('data/avgHU_vect.geojson')
+  .then(response => response.json())
+  .then(data => {
+    map.addSource('avgHU', {
+      type: 'geojson',
+      data: data
+    });
+
+    map.addLayer({
+      id: 'avgHU-layer',
+      type: 'fill',
+      source: 'avgHU',
+      paint: {
+        'fill-color': [
+          'step',
+          ['get', 'DN'], 
+          '#ffffff', 159,   // 0-159: white
+          '#ffff00', 182,   // 160-182: yellow
+          '#ffa500', 197,   // 183-197: orange
+          '#ff0000', 209,   // 198-209: red
+          '#800080'         // 210-255: purple
+        ],
+        'fill-opacity': 0.5
+      },
+      layout: {
+        'visibility': 'none' // visibility off by default
+      }
+    });
+
+    // toggle avgHU-layer
+    const avgHUToggleContainer = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("top", "245px")
+      .style("right", "5px")
+      .style("z-index", "1000");
+
+    avgHUToggleContainer
+      .append("img")
+      .attr("src", "images/humidity.svg")
+      .attr("alt", "Humidity")
+      .style("margin", "5px")
+      .style("padding", "5px")
+      .style("cursor", "pointer")
+      .style("width", "30px")
+      .style("height", "30px")
+      .style("border", "0px solid #ccc")
+      .style("border-radius", "50%")
+      .style("background-color", "#00be9d")
+      .style("filter", "brightness(100%)")
+      .on("click", () => {
+        const visibility = map.getLayoutProperty('avgHU-layer', 'visibility');
+        if (visibility === 'visible') {
+          map.setLayoutProperty('avgHU-layer', 'visibility', 'none');
+        } else {
+          map.setLayoutProperty('avgHU-layer', 'visibility', 'visible');
+        }
+      });
+  })
+  .catch(error => console.error('Error loading GeoJSON:', error));
+});
+  
+
+
+
+
+map.on('style.load', () => {
+// amphibians_vect.geojson classify into 5 classes - yellow
+fetch('data/amphibians_vect.geojson')
+  .then(response => response.json())
+  .then(data => {
+    map.addSource('amphibians', {
+      type: 'geojson',
+      data: data
+    });
+
+    map.addLayer({
+      id: 'amphibians-layer',
+      type: 'fill',
+      source: 'amphibians',
+      paint: {
+        'fill-color': [
+          'step',
+          ['get', 'DN'], 
+          '#ffffcc', 1,   // 1: light yellow
+          '#ffeda0', 2,   // 2: pale yellow
+          '#fed976', 3,   // 3: soft yellow
+          '#feb24c', 5,   // 5: medium yellow
+          '#fd8d3c'       // 5-16: deep yellow
+        ],
+        'fill-opacity': 0.5
+      },
+      layout: {
+        'visibility': 'none' // visibility off by default
+      }
+    });
+
+    // toggle amphibians
+    const amphibiansToggleContainer = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("top", "285px")
+      .style("right", "5px")
+      .style("z-index", "1000");
+
+    amphibiansToggleContainer
+      .append("img")
+      .attr("src", "images/amphibians.svg")
+      .attr("alt", "Amphibians")
+      .style("margin", "5px")
+      .style("padding", "5px")
+      .style("cursor", "pointer")
+      .style("width", "30px")
+      .style("height", "30px")
+      .style("border", "0px solid #ccc")
+      .style("border-radius", "50%")
+      .style("background-color", "#daa520") // Mustard yellow
+      .style("filter", "brightness(100%)")
+      .on("click", () => {
+      const visibility = map.getLayoutProperty('amphibians-layer', 'visibility');
+      if (visibility === 'visible') {
+        map.setLayoutProperty('amphibians-layer', 'visibility', 'none');
+      } else {
+        map.setLayoutProperty('amphibians-layer', 'visibility', 'visible');
+      }
+      });
+  })
+  .catch(error => console.error('Error loading GeoJSON (amphibians_vect.geojson):', error));
+});
+
+
+
+
+
+map.on('style.load', () => {
+// birds_vect.geojson classify into 5 classes - orange
+fetch('data/birds_vect.geojson')
+  .then(response => response.json())
+  .then(data => {
+    map.addSource('birds', {
+      type: 'geojson',
+      data: data
+    });
+
+    map.addLayer({
+      id: 'birds-layer',
+      type: 'fill',
+      source: 'birds',
+      paint: {
+      'fill-color': [
+        'step',
+        ['get', 'DN'], 
+        '#ffffff', 139,   // 0-139: white
+        '#ffcc99', 185,   // 140-185: light orange
+        '#ff9933', 208,   // 186-208: orange
+        '#ff6600', 230,   // 209-230: deep orange
+        '#cc3300'         // 230-231: red
+      ],
+      'fill-opacity': 0.8
+      },
+      layout: {
+        'visibility': 'none' // visibility off by default
+      }
+    });
+
+    // toggle birds
+    const birdsToggleContainer = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("top", "325px")
+      .style("right", "5px")
+      .style("z-index", "1000");
+
+    birdsToggleContainer
+      .append("img")
+      .attr("src", "images/bird.svg")
+      .attr("alt", "Birds")
+      .style("margin", "5px")
+      .style("padding", "5px")
+      .style("cursor", "pointer")
+      .style("width", "30px")
+      .style("height", "30px")
+      .style("border", "0px solid #ccc")
+      .style("border-radius", "50%")
+      .style("background-color", "#fd5e53")
+      .style("filter", "brightness(100%)")
+      .on("click", () => {
+        const visibility = map.getLayoutProperty('birds-layer', 'visibility');
+        if (visibility === 'visible') {
+          map.setLayoutProperty('birds-layer', 'visibility', 'none');
+        } else {
+          map.setLayoutProperty('birds-layer', 'visibility', 'visible');
+        }
+      });
+  })
+  .catch(error => console.error('Error loading GeoJSON (birds_vect.geojson):', error));
+});
+
+
+
+map.on('style.load', () => {
+// mammals_vect1.geojson classify into 5 classes - purple
+fetch('data/mammals_vect1.geojson')
+  .then(response => response.json())
+  .then(data => {
+    map.addSource('mammals', {
+      type: 'geojson',
+      data: data
+    });
+
+    map.addLayer({
+      id: 'mammals-layer',
+      type: 'fill',
+      source: 'mammals',
+      paint: {
+      'fill-color': [
+        'step',
+        ['get', 'DN'], 
+        '#f2e6ff', 0,   // Light purple
+        '#d9b3ff', 10,  // Soft purple
+        '#bf80ff', 14,  // Medium purple
+        '#a64dff', 17,  // Deep purple
+        '#800080'       // Dark purple
+      ],
+      'fill-opacity': 0.4
+      },
+      layout: {
+        'visibility': 'none' // visibility off by default
+      }
+    });
+
+    // toggle mammals
+    const mammalsToggleContainer = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("top", "365px")
+      .style("right", "5px")
+      .style("z-index", "1000");
+
+    mammalsToggleContainer
+      .append("img")
+      .attr("src", "images/mammals.svg")
+      .attr("alt", "Mammals")
+      .style("margin", "5px")
+      .style("padding", "5px")
+      .style("cursor", "pointer")
+      .style("width", "30px")
+      .style("height", "30px")
+      .style("border", "0px solid #ccc")
+      .style("border-radius", "50%")
+      .style("background-color", "#800080")
+      .style("filter", "brightness(100%)")
+      .on("click", () => {
+        const visibility = map.getLayoutProperty('mammals-layer', 'visibility');
+        if (visibility === 'visible') {
+          map.setLayoutProperty('mammals-layer', 'visibility', 'none');
+        } else {
+          map.setLayoutProperty('mammals-layer', 'visibility', 'visible');
+        }
+      });
+  })
+  .catch(error => console.error('Error loading GeoJSON (mammals_vect1.geojson):', error));
+});
+
+
+
+
+// country's key connectivity infrastructure
+  const CountryGeojson = [
+    'data/th/hotosm_tha_airports_points_geojson.geojson', 
+    'data/th/hotosm_tha_railways_lines_geojson.geojson', 
+    'data/th/hotosm_tha_sea_ports_points_geojson.geojson', 
+
+    'data/bn/hotosm_brn_airports_points_geojson.geojson', 
+    'data/bn/hotosm_brn_railways_lines_geojson.geojson', 
+    'data/bn/hotosm_brn_sea_ports_points_geojson.geojson', 
+
+    'data/id/hotosm_idn_airports_points_geojson.geojson', 
+    'data/id/hotosm_idn_railways_lines_geojson.geojson', 
+    'data/id/hotosm_idn_sea_ports_points_geojson.geojson',
+     
+    'data/kh/hotosm_khm_airports_points_geojson.geojson', 
+    'data/kh/hotosm_khm_railways_lines_geojson.geojson', 
+    'data/kh/hotosm_khm_sea_ports_points_geojson.geojson', 
+
+    'data/la/hotosm_lao_airports_points_geojson.geojson', 
+    'data/la/hotosm_lao_railways_lines_geojson.geojson', 
+    'data/la/hotosm_lao_sea_ports_points_geojson.geojson', 
+
+    'data/mm/hotosm_mmr_airports_points_geojson.geojson', 
+    'data/mm/hotosm_mmr_railways_lines_geojson.geojson', 
+    'data/mm/hotosm_mmr_sea_ports_points_geojson.geojson', 
+
+    'data/my/hotosm_mys_airports_points_geojson.geojson', 
+    'data/my/hotosm_mys_railways_lines_geojson.geojson', 
+    'data/my/hotosm_mys_sea_ports_points_geojson.geojson', 
+
+    'data/ph/hotosm_phl_airports_points_geojson.geojson',
+    'data/ph/hotosm_phl_railways_lines_geojson.geojson',
+    'data/ph/hotosm_phl_sea_ports_points_geojson.geojson',
+
+    'data/pw/hotosm_plw_airports_points_geojson.geojson',
+    'data/pw/hotosm_plw_sea_ports_points_geojson.geojson',
+
+    'data/sg/hotosm_sgp_airports_points_geojson.geojson',
+    'data/sg/hotosm_sgp_sea_ports_points_geojson.geojson',
+
+    'data/tl/hotosm_tls_airports_points_geojson.geojson',
+    'data/tl/hotosm_tls_sea_ports_points_geojson.geojson',
+
+    'data/vn/hotosm_vnm_airports_points_geojson.geojson',
+    'data/vn/hotosm_vnm_railways_lines_geojson.geojson',
+    'data/vn/hotosm_vnm_sea_ports_points_geojson.geojson',
+  ];
+
+  map.on('style.load', () => {
+    CountryGeojson.forEach((file) => {
+      fetch(file)
+        .then(response => response.json())
+        .then((geojson) => {
+          map.addSource(file, {
+            type: 'geojson',
+            data: geojson
+          });
+
+          const isLine = file.includes('railways') || file.includes('roads');
+          const layerType = isLine ? 'line' : 'circle';
+
+          const paintOptions = file.includes('sea_ports')
+            ? {
+                'circle-radius': 4,
+                'circle-color': '#0000ff', // Blue for seaports
+                'circle-opacity': 0.3
+              }
+            : file.includes('airports')
+            ? {
+                'circle-radius': 4,
+                'circle-color': '#ffff00', // Yellow for airports
+                'circle-opacity': 0.3
+              }
+            : file.includes('railways')
+            ? {
+                'line-color': '#ff0000', // Red for railways
+                'line-width': 3,
+                'line-opacity': 0.7
+              }
+            : file.includes('roads')
+            ? {
+                'line-color': '#ffa500', // Orange for roads
+                'line-width': 3,
+                'line-opacity': 0.7
+              }
+            : {};
+
+          map.addLayer({
+            id: `${file}-layer`,
+            type: layerType,
+            source: file,
+            paint: paintOptions
+          });
+        })
+        .catch((error) => {
+          console.error(`Failed to load ${file}:`, error);
+          if (error.message.includes('404')) {
+            console.error(`File not found: ${file}. Please check the file path.`);
+          }
+        });
+    });
+  });
+
+
+
+
+
+//forest area
+
+//spatial gdp
+
 
 //indexes processing
 function normalize(value, min, max) {

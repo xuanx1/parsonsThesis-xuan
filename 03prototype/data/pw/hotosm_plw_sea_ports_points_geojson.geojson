@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "hotosm_plw_sea_ports_points_geojson",
+"features": [
+{ "type": "Feature", "properties": { "name": "Koror Port", "name:en": null, "amenity": "ferry_terminal", "building": null, "port": null, "operator:type": null, "addr:full": null, "addr:city": null, "source": null, "name:pau": null, "osm_id": 1389401974, "osm_type": "nodes" }, "geometry": { "type": "Point", "coordinates": [ 134.4573934, 7.3336755 ] } },
+{ "type": "Feature", "properties": { "name": "North Pier", "name:en": null, "amenity": "ferry_terminal", "building": null, "port": null, "operator:type": null, "addr:full": null, "addr:city": null, "source": null, "name:pau": null, "osm_id": 4416358839, "osm_type": "nodes" }, "geometry": { "type": "Point", "coordinates": [ 134.266462600000011, 7.0490105 ] } },
+{ "type": "Feature", "properties": { "name": null, "name:en": null, "amenity": "ferry_terminal", "building": null, "port": null, "operator:type": null, "addr:full": null, "addr:city": null, "source": null, "name:pau": null, "osm_id": 4212361675, "osm_type": "nodes" }, "geometry": { "type": "Point", "coordinates": [ 134.448847199999989, 7.3343962 ] } }
+]
+}
