@@ -204,7 +204,7 @@ map.on('style.load', () => {
 const insetContainer = document.createElement('div');
 insetContainer.id = 'inset-map';
 insetContainer.style.position = 'absolute';
-insetContainer.style.width = '300px';
+insetContainer.style.width = '320px';
 insetContainer.style.height = '150px';
 insetContainer.style.bottom = '10px';
 insetContainer.style.right = '10px';
@@ -212,7 +212,7 @@ insetContainer.style.border = '2px solid #ccc';
 insetContainer.style.zIndex = '1000';
 document.body.appendChild(insetContainer);
 
-// Map inset highlighting SEA white and the rest in dark grey
+// inset highlighting SEA white
 const insetMap = new mapboxgl.Map({
   container: 'inset-map',
   style: 'mapbox://styles/mapbox/dark-v10',
@@ -221,6 +221,20 @@ const insetMap = new mapboxgl.Map({
   interactive: false,
   attributionControl: false
 });
+
+// inset title
+const insetTitle = document.createElement('div');
+insetTitle.textContent = 'Southeast Asia';
+insetTitle.style.position = 'absolute';
+insetTitle.style.top = '5px';
+insetTitle.style.left = '10px';
+insetTitle.style.zIndex = '1001';
+insetTitle.style.color = 'white';
+insetTitle.style.opacity = '0.5';
+insetTitle.style.fontSize = '16px';
+insetTitle.style.fontWeight = 'Bold';
+// insetTitle.style.textShadow = '1px 1px 2px black';
+insetContainer.appendChild(insetTitle);
 
 // remove logo from the inset map
 const insetLogoElement = document.querySelector('#inset-map .mapboxgl-ctrl-logo');
@@ -567,19 +581,16 @@ resizeMap();
   // legend
   const legendContainer = document.createElement('div');
   legendContainer.style.position = 'absolute';
-  legendContainer.style.bottom = '170px';
-  legendContainer.style.right = '25px';
+  legendContainer.style.bottom = '175px';
+  legendContainer.style.right = '15px';
   legendContainer.style.zIndex = '1000';
-
   legendContainer.style.fontSize = '12px';
   legendContainer.style.color = '#2b2b2b';
-
-  const legendTitle = document.createElement('div');
-  legendTitle.style.marginBottom = '5px';
-  legendContainer.appendChild(legendTitle);
+  legendContainer.style.display = 'flex';
+  legendContainer.style.gap = '25px';
 
   const legendItems = [
-    { color: '#0000ff', label: 'Seaports' },
+    { color: '#00ffff', label: 'Seaports' },
     { color: '#ffff00', label: 'Airports' },
     { color: '#ff0000', label: 'Railways' },
     { color: '#ffa500', label: 'Roads' }
@@ -589,18 +600,18 @@ resizeMap();
     const legendItem = document.createElement('div');
     legendItem.style.display = 'flex';
     legendItem.style.alignItems = 'center';
-    legendItem.style.marginBottom = '10px';
 
     const colorBox = document.createElement('div');
-    colorBox.style.width = '12px';
-    colorBox.style.height = '12px';
+    colorBox.style.width = '8px';
+    colorBox.style.height = '8px';
     colorBox.style.backgroundColor = item.color;
     colorBox.style.marginRight = '7px';
+    colorBox.style.borderRadius = '4px';
     legendItem.appendChild(colorBox);
 
     const label = document.createElement('span');
     label.textContent = item.label;
-    label.style.color = 'white'; 
+    label.style.color = 'white';
     legendItem.appendChild(label);
 
     legendContainer.appendChild(legendItem);
@@ -667,7 +678,7 @@ resizeMap();
       .style("right", "5px")
       .style("z-index", "1000");
 
-    coastlineToggleContainer
+    const coastlineButton = coastlineToggleContainer
       .append("img")
       .attr("src", "images/coast.svg")
       .attr("alt", "Coastline")
@@ -676,17 +687,47 @@ resizeMap();
       .style("cursor", "pointer")
       .style("width", "30px")
       .style("height", "30px")
-      .style("border", "1px solid #ccc")
+      .style("border", "0px solid #ccc")
       .style("border-radius", "50%")
-      .style("background-color", "#00ffff")
-      .style("filter", "invert(100%) sepia(100%) saturate(1000%) hue-rotate(180deg) brightness(100%) contrast(100%)")
+      .style("background-color", "#4181f2")
+      .style("filter", "brightness(100%)") // Start as coloured
       .on("click", () => {
-        const visibility = map.getLayoutProperty('sea-coastline-layer', 'visibility');
-        if (visibility === 'visible') {
-          map.setLayoutProperty('sea-coastline-layer', 'visibility', 'none');
-        } else {
-          map.setLayoutProperty('sea-coastline-layer', 'visibility', 'visible');
-        }
+      const visibility = map.getLayoutProperty('sea-coastline-layer', 'visibility');
+      if (visibility === 'visible') {
+        map.setLayoutProperty('sea-coastline-layer', 'visibility', 'none');
+        coastlineButton.style("filter", "brightness(30%)"); // Greyed out
+      } else {
+        map.setLayoutProperty('sea-coastline-layer', 'visibility', 'visible');
+        coastlineButton.style("filter", "brightness(100%)"); // Coloured
+      }
+      });
+
+    // hover description
+    const coastlineDescription = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("padding", "7px")
+      .style("background-color", "white")
+      .style("border", "0px solid #ccc")
+      .style("border-radius", "20px")
+      .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+      .style("font-size", "14px")
+      .style("color", "#333")
+      .style("display", "none")
+      .style("top", "210px") 
+      .style("right", "50px")
+      .text("Show Coastline");
+
+    coastlineButton
+      .on("mouseover", (event) => {
+      coastlineDescription
+        // .style("left", `${event.pageX - 160}px`)
+        // .style("top", `${event.pageY + 0}px`)
+        .style("display", "block");
+      })
+      .on("mouseout", () => {
+      coastlineDescription.style("display", "none");
       });
   });
 
@@ -725,6 +766,9 @@ resizeMap();
           // 'circle-stroke-width': 1,
           'circle-stroke-color': '#ff7900', // Orange
         },
+        layout: {
+          'visibility': 'none' // visibility off by default
+        }
       });
     });
 
@@ -737,7 +781,7 @@ resizeMap();
       .style("right", "5px")
       .style("z-index", "1000");
 
-    earthquakeToggleContainer
+    const earthquakeButton = earthquakeToggleContainer
       .append("img")
       .attr("src", "images/quake.svg")
       .attr("alt", "Earthquakes")
@@ -746,18 +790,51 @@ resizeMap();
       .style("cursor", "pointer")
       .style("width", "30px")
       .style("height", "30px")
-      .style("border", "1px solid #ccc")
+      .style("border", "0px solid #ccc")
       .style("border-radius", "50%")
       .style("background-color", "#ff7900")
-      .style("filter", "invert(100%) sepia(100%) saturate(1000%) hue-rotate(0deg) brightness(100%) contrast(100%)")
+      .style("filter", "brightness(30%)") // Start as greyed out
       .on("click", () => {
       const visibility = map.getLayoutProperty('earthquake-points', 'visibility');
       if (visibility === 'visible') {
         map.setLayoutProperty('earthquake-points', 'visibility', 'none');
+        earthquakeButton.style("filter", "brightness(30%)"); // Greyed out
       } else {
         map.setLayoutProperty('earthquake-points', 'visibility', 'visible');
+        earthquakeButton.style("filter", "brightness(100%)"); // Coloured
       }
       });
+
+    // hover description
+    const descriptionWindow = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("padding", "7px")
+      .style("background-color", "white")
+      .style("border", "0px solid #ccc")
+      .style("border-radius", "20px")
+      .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+      .style("font-size", "14px")
+      .style("color", "#333")
+      .style("display", "none")
+      .style("top", "170px")
+      .style("right", "50px")
+      .text("Show Historical Earthquakes");
+
+    earthquakeButton
+      .on("mouseover", (event) => {
+      descriptionWindow
+        // .style("left", `${event.pageX - 240}px`)
+        // .style("top", `${event.pageY + 0}px`)
+        .style("display", "block");
+      })
+      .on("mouseout", () => {
+      descriptionWindow.style("display", "none");
+      });
+
+    // Set the initial visibility to 'none'
+    map.setLayoutProperty('earthquake-points', 'visibility', 'none');
   });
 
 
@@ -793,28 +870,31 @@ resizeMap();
 
             // tsunami pt
             map.addLayer({
-                id: 'tsunami-points',
-                type: 'circle',
-                source: 'tsunami',
-                paint: {
-                    'circle-radius': ['interpolate', ['linear'], ['get', 'mag'], 0, 4, 10, 20],
-                    'circle-color': '#6dbefe', // Teal #00be9d
-                    'circle-opacity': 0.4,
-                    'circle-stroke-width': 1,
-                    'circle-stroke-color': '#6dbefe', // Teal
-                },
+              id: 'tsunami-points',
+              type: 'circle',
+              source: 'tsunami',
+              paint: {
+                'circle-radius': ['interpolate', ['linear'], ['get', 'mag'], 0, 4, 10, 20],
+                'circle-color': '#6dbefe', // Teal #00be9d
+                'circle-opacity': 0.4,
+                'circle-stroke-width': 1,
+                'circle-stroke-color': '#6dbefe', // Teal
+              },
+              layout: {
+                'visibility': 'none' // visibility off by default
+              }
             });
 
             // toggle tsunami
             const toggleContainer = d3
-                .select("body") // Changed from "#app" to "body" to ensure it is appended to the correct container
-                .append("div")
-                .style("position", "absolute")
-                .style("top", "125px")
-                .style("right", "5px")
-                .style("z-index", "1000");
+              .select("body")
+              .append("div")
+              .style("position", "absolute")
+              .style("top", "125px")
+              .style("right", "5px")
+              .style("z-index", "1000");
 
-            toggleContainer
+            const toggleButton = toggleContainer
               .append("img")
               .attr("src", "images/tsunami.svg")
               .attr("alt", "Tsunami")
@@ -823,17 +903,47 @@ resizeMap();
               .style("cursor", "pointer")
               .style("width", "30px")
               .style("height", "30px")
-              .style("border", "1px solid #ccc")
+              .style("border", "0px solid #ccc")
               .style("border-radius", "50%")
-              .style("background-color", "#008080")
-              .style("filter", "invert(100%) sepia(100%) saturate(1000%) hue-rotate(180deg) brightness(100%) contrast(100%)") // Apply color filter
+              .style("background-color", "#6dbefe")
+              .style("filter", "brightness(30%)") // Start as greyed out
               .on("click", () => {
-                const visibility = map.getLayoutProperty('tsunami-points', 'visibility');
-                if (visibility === 'visible') {
-                  map.setLayoutProperty('tsunami-points', 'visibility', 'none');
-                } else {
-                  map.setLayoutProperty('tsunami-points', 'visibility', 'visible');
-                }
+              const visibility = map.getLayoutProperty('tsunami-points', 'visibility');
+              if (visibility === 'visible') {
+                map.setLayoutProperty('tsunami-points', 'visibility', 'none');
+                toggleButton.style("filter", "brightness(30%)"); // Greyed out
+              } else {
+                map.setLayoutProperty('tsunami-points', 'visibility', 'visible');
+                toggleButton.style("filter", "brightness(100%)"); // Coloured
+              }
+              });
+
+            // hover description
+            const descriptionWindow = d3
+              .select("body")
+              .append("div")
+              .style("position", "absolute")
+              .style("padding", "7px")
+              .style("background-color", "white")
+              .style("border", "0px solid #ccc")
+              .style("border-radius", "20px")
+              .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+              .style("font-size", "14px")
+              .style("color", "#333")
+              .style("display", "none")
+              .style("top", "130px")
+              .style("right", "50px")
+              .text("Show Historical Tsunamis");
+
+            toggleButton
+              .on("mouseover", (event) => {
+              descriptionWindow
+                // .style("left", `${event.pageX - 240}px`)
+                // .style("top", `${event.pageY + 0}px`)
+                .style("display", "block");
+              })
+              .on("mouseout", () => {
+              descriptionWindow.style("display", "none");
               });
     });
 });
@@ -923,7 +1033,7 @@ map.on('load', function() {
           type: 'raster',
           source: sourceId,
           paint: { 
-              'raster-opacity': 0.8,
+              'raster-opacity': 1,
               'raster-brightness-min': 1,
               'raster-brightness-max': 1  
           },
@@ -941,7 +1051,7 @@ map.on('load', function() {
         .style("right", "5px")
         .style("z-index", "1000");
 
-      toggleContainer
+      const toggleButton = toggleContainer
         .append("img")
         .attr("src", "images/population.svg")
         .attr("alt", "Spatial Population")
@@ -953,13 +1063,46 @@ map.on('load', function() {
         .style("border", "0px solid #ccc")
         .style("border-radius", "50%")
         .style("background-color", "#ffffff")
-        .style("filter", "brightness(100%)")
+        .style("filter", "brightness(30%)") // Start as greyed out
         .on("click", () => {
+          let isActive = false;
           tilesets.forEach((tileset, index) => {
         const layerId = `raster-layer-${index}`;
         const visibility = map.getLayoutProperty(layerId, 'visibility');
-        map.setLayoutProperty(layerId, 'visibility', visibility === 'visible' ? 'none' : 'visible');
+        if (visibility === 'visible') {
+          map.setLayoutProperty(layerId, 'visibility', 'none');
+          isActive = false;
+        } else {
+          map.setLayoutProperty(layerId, 'visibility', 'visible');
+          isActive = true;
+        }
           });
+          toggleButton.style("filter", isActive ? "brightness(100%)" : "brightness(30%)"); // Update button color
+        });
+
+      // hover description
+      const descriptionWindow = d3
+        .select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("padding", "7px")
+        .style("background-color", "white")
+        .style("border", "0px solid #ccc")
+        .style("border-radius", "20px")
+        .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+        .style("font-size", "14px")
+        .style("color", "#333")
+        .style("display", "none")
+        .style("top", "410px")
+        .style("right", "50px")
+        .text("Show Spatial Population");
+
+      toggleButton
+        .on("mouseover", () => {
+          descriptionWindow.style("display", "block");
+        })
+        .on("mouseout", () => {
+          descriptionWindow.style("display", "none");
         });
   });
 });
@@ -1022,7 +1165,7 @@ fetch('data/avgHU_vect.geojson')
       .style("right", "5px")
       .style("z-index", "1000");
 
-    avgHUToggleContainer
+    const avgHUButton = avgHUToggleContainer
       .append("img")
       .attr("src", "images/humidity.svg")
       .attr("alt", "Humidity")
@@ -1034,14 +1177,41 @@ fetch('data/avgHU_vect.geojson')
       .style("border", "0px solid #ccc")
       .style("border-radius", "50%")
       .style("background-color", "#00be9d")
-      .style("filter", "brightness(100%)")
+      .style("filter", "brightness(30%)") // Start as greyed out
       .on("click", () => {
-        const visibility = map.getLayoutProperty('avgHU-layer', 'visibility');
-        if (visibility === 'visible') {
-          map.setLayoutProperty('avgHU-layer', 'visibility', 'none');
-        } else {
-          map.setLayoutProperty('avgHU-layer', 'visibility', 'visible');
-        }
+      const visibility = map.getLayoutProperty('avgHU-layer', 'visibility');
+      if (visibility === 'visible') {
+        map.setLayoutProperty('avgHU-layer', 'visibility', 'none');
+        avgHUButton.style("filter", "brightness(30%)"); // Greyed out
+      } else {
+        map.setLayoutProperty('avgHU-layer', 'visibility', 'visible');
+        avgHUButton.style("filter", "brightness(100%)"); // Coloured
+      }
+      });
+
+    // hover description
+    const avgHUDescription = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("padding", "7px")
+      .style("background-color", "white")
+      .style("border", "0px solid #ccc")
+      .style("border-radius", "20px")
+      .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+      .style("font-size", "14px")
+      .style("color", "#333")
+      .style("display", "none")
+      .style("top", "250px")
+      .style("right", "50px")
+      .text("Show Humidity");
+
+    avgHUButton
+      .on("mouseover", (event) => {
+      avgHUDescription.style("display", "block");
+      })
+      .on("mouseout", () => {
+      avgHUDescription.style("display", "none");
       });
   })
   .catch(error => console.error('Error loading GeoJSON:', error));
@@ -1091,7 +1261,7 @@ fetch('data/amphibians_vect.geojson')
       .style("right", "5px")
       .style("z-index", "1000");
 
-    amphibiansToggleContainer
+    const amphibiansButton = amphibiansToggleContainer
       .append("img")
       .attr("src", "images/amphibians.svg")
       .attr("alt", "Amphibians")
@@ -1103,14 +1273,41 @@ fetch('data/amphibians_vect.geojson')
       .style("border", "0px solid #ccc")
       .style("border-radius", "50%")
       .style("background-color", "#daa520") // Mustard yellow
-      .style("filter", "brightness(100%)")
+      .style("filter", "brightness(30%)") // Start as greyed out
       .on("click", () => {
       const visibility = map.getLayoutProperty('amphibians-layer', 'visibility');
       if (visibility === 'visible') {
         map.setLayoutProperty('amphibians-layer', 'visibility', 'none');
+        amphibiansButton.style("filter", "brightness(30%)"); // Greyed out
       } else {
         map.setLayoutProperty('amphibians-layer', 'visibility', 'visible');
+        amphibiansButton.style("filter", "brightness(100%)"); // Coloured
       }
+      });
+
+    // hover description
+    const amphibiansDescription = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("padding", "7px")
+      .style("background-color", "white")
+      .style("border", "0px solid #ccc")
+      .style("border-radius", "20px")
+      .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+      .style("font-size", "14px")
+      .style("color", "#333")
+      .style("display", "none")
+      .style("top", "290px")
+      .style("right", "50px")
+      .text("Show Amphibians");
+
+    amphibiansButton
+      .on("mouseover", () => {
+      amphibiansDescription.style("display", "block");
+      })
+      .on("mouseout", () => {
+      amphibiansDescription.style("display", "none");
       });
   })
   .catch(error => console.error('Error loading GeoJSON (amphibians_vect.geojson):', error));
@@ -1160,7 +1357,7 @@ fetch('data/birds_vect.geojson')
       .style("right", "5px")
       .style("z-index", "1000");
 
-    birdsToggleContainer
+    const birdsButton = birdsToggleContainer
       .append("img")
       .attr("src", "images/bird.svg")
       .attr("alt", "Birds")
@@ -1172,14 +1369,41 @@ fetch('data/birds_vect.geojson')
       .style("border", "0px solid #ccc")
       .style("border-radius", "50%")
       .style("background-color", "#fd5e53")
-      .style("filter", "brightness(100%)")
+      .style("filter", "brightness(30%)") // Start as greyed out
       .on("click", () => {
-        const visibility = map.getLayoutProperty('birds-layer', 'visibility');
-        if (visibility === 'visible') {
-          map.setLayoutProperty('birds-layer', 'visibility', 'none');
-        } else {
-          map.setLayoutProperty('birds-layer', 'visibility', 'visible');
-        }
+      const visibility = map.getLayoutProperty('birds-layer', 'visibility');
+      if (visibility === 'visible') {
+        map.setLayoutProperty('birds-layer', 'visibility', 'none');
+        birdsButton.style("filter", "brightness(30%)"); // Greyed out
+      } else {
+        map.setLayoutProperty('birds-layer', 'visibility', 'visible');
+        birdsButton.style("filter", "brightness(100%)"); // Coloured
+      }
+      });
+
+    // hover description
+    const birdsDescription = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("padding", "7px")
+      .style("background-color", "white")
+      .style("border", "0px solid #ccc")
+      .style("border-radius", "20px")
+      .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+      .style("font-size", "14px")
+      .style("color", "#333")
+      .style("display", "none")
+      .style("top", "330px")
+      .style("right", "50px")
+      .text("Show Birds");
+
+    birdsButton
+      .on("mouseover", () => {
+      birdsDescription.style("display", "block");
+      })
+      .on("mouseout", () => {
+      birdsDescription.style("display", "none");
       });
   })
   .catch(error => console.error('Error loading GeoJSON (birds_vect.geojson):', error));
@@ -1227,7 +1451,7 @@ fetch('data/mammals_vect1.geojson')
       .style("right", "5px")
       .style("z-index", "1000");
 
-    mammalsToggleContainer
+    const mammalsButton = mammalsToggleContainer
       .append("img")
       .attr("src", "images/mammals.svg")
       .attr("alt", "Mammals")
@@ -1239,14 +1463,41 @@ fetch('data/mammals_vect1.geojson')
       .style("border", "0px solid #ccc")
       .style("border-radius", "50%")
       .style("background-color", "#800080")
-      .style("filter", "brightness(100%)")
+      .style("filter", "brightness(30%)") // Start as greyed out
       .on("click", () => {
-        const visibility = map.getLayoutProperty('mammals-layer', 'visibility');
-        if (visibility === 'visible') {
-          map.setLayoutProperty('mammals-layer', 'visibility', 'none');
-        } else {
-          map.setLayoutProperty('mammals-layer', 'visibility', 'visible');
-        }
+      const visibility = map.getLayoutProperty('mammals-layer', 'visibility');
+      if (visibility === 'visible') {
+        map.setLayoutProperty('mammals-layer', 'visibility', 'none');
+        mammalsButton.style("filter", "brightness(30%)"); // Greyed out
+      } else {
+        map.setLayoutProperty('mammals-layer', 'visibility', 'visible');
+        mammalsButton.style("filter", "brightness(100%)"); // Coloured
+      }
+      });
+
+    // hover description
+    const mammalsDescription = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("padding", "7px")
+      .style("background-color", "white")
+      .style("border", "0px solid #ccc")
+      .style("border-radius", "20px")
+      .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+      .style("font-size", "14px")
+      .style("color", "#333")
+      .style("display", "none")
+      .style("top", "370px")
+      .style("right", "50px")
+      .text("Show Mammals");
+
+    mammalsButton
+      .on("mouseover", () => {
+      mammalsDescription.style("display", "block");
+      })
+      .on("mouseout", () => {
+      mammalsDescription.style("display", "none");
       });
   })
   .catch(error => console.error('Error loading GeoJSON (mammals_vect1.geojson):', error));
@@ -1319,26 +1570,20 @@ fetch('data/mammals_vect1.geojson')
           const paintOptions = file.includes('sea_ports')
             ? {
                 'circle-radius': 4,
-                'circle-color': '#0000ff', // Blue for seaports
-                'circle-opacity': 0.3
+                'circle-color': '#00ffff', // turquoise for seaports
+                'circle-opacity': 0.1
               }
             : file.includes('airports')
             ? {
                 'circle-radius': 4,
                 'circle-color': '#ffff00', // Yellow for airports
-                'circle-opacity': 0.3
+                'circle-opacity': 0.2
               }
             : file.includes('railways')
             ? {
                 'line-color': '#ff0000', // Red for railways
                 'line-width': 3,
-                'line-opacity': 0.7
-              }
-            : file.includes('roads')
-            ? {
-                'line-color': '#ffa500', // Orange for roads
-                'line-width': 3,
-                'line-opacity': 0.7
+                'line-opacity': 0.5
               }
             : {};
 
@@ -1356,15 +1601,112 @@ fetch('data/mammals_vect1.geojson')
           }
         });
     });
+  }); // separate into differnt toggles - airport / rail / seaport svg
+
+
+
+
+
+
+// Spatial GDP https://api.mapbox.com/v4/{tileset_id}/{zoom}/{x}/{y}{@2x}.{format}
+map.on('load', function() {
+  const tileset = 'xuanx111.409ps0ou'; // Spatial GDP tileset
+
+  const sourceId = 'gdp-tileset';
+  const layerId = 'gdp-raster-layer';
+
+  map.addSource(sourceId, {
+    type: 'raster',
+    tiles: [`https://api.mapbox.com/v4/${tileset}/{z}/{x}/{y}@2x.jpg?access_token=` + mapboxgl.accessToken],
+    tileSize: 256
   });
 
+  map.addLayer({
+    id: layerId,
+    type: 'raster',
+    source: sourceId,
+    paint: { 
+      'raster-opacity': 1,
+      'raster-color' : '#FFDFBF',
+      'raster-brightness-min': 0,
+    },
+    layout: {
+      'visibility': 'none' // visibility off by default
+    }
+  });
+
+  // toggle spatial GDP
+  const toggleContainer = d3
+    .select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("top", "445px") // Fixed position for the toggle
+    .style("right", "5px")
+    .style("z-index", "1000");
+
+  const toggleButton = toggleContainer
+    .append("img")
+    .attr("src", "images/gdp.svg")
+    .attr("alt", "Spatial GDP")
+    .style("margin", "5px")
+    .style("padding", "5px")
+    .style("cursor", "pointer")
+    .style("width", "30px")
+    .style("height", "30px")
+    .style("border", "0px solid #ccc")
+    .style("border-radius", "50%")
+    .style("background-color", "#ffffff")
+    .style("filter", "brightness(30%)") // Start as greyed out
+    .on("click", () => {
+      const visibility = map.getLayoutProperty(layerId, 'visibility');
+      if (visibility === 'visible') {
+        map.setLayoutProperty(layerId, 'visibility', 'none');
+        toggleButton.style("filter", "brightness(30%)"); // Greyed out
+      } else {
+        map.setLayoutProperty(layerId, 'visibility', 'visible');
+        toggleButton.style("filter", "brightness(100%)"); // Coloured
+      }
+    });
+
+  // hover description
+  const descriptionWindow = d3
+    .select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("padding", "7px")
+    .style("background-color", "white")
+    .style("border", "0px solid #ccc")
+    .style("border-radius", "20px")
+    .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+    .style("font-size", "14px")
+    .style("color", "#333")
+    .style("display", "none")
+    .style("top", "450px")
+    .style("right", "50px")
+    .text("Show Spatial GDP");
+
+  toggleButton
+    .on("mouseover", () => {
+      descriptionWindow.style("display", "block");
+    })
+    .on("mouseout", () => {
+      descriptionWindow.style("display", "none");
+    });
+});
 
 
 
 
-//forest area
 
-//spatial gdp
+//forest area - api
+
+
+
+
+
+
+
+
 
 
 //indexes processing
@@ -1376,6 +1718,21 @@ function invertScore(score) {
   return 1 - score;
 }
 
+
+
+//radius for trains based on speed
+
+// button dividers?
+// add tutorial/intructions? 
+
+// prototype - Success criteria - scoring board
+
+// Point that is random vs city - am.i opening up connection with underserved communities - can avoided by overlaying population distribution 
+
+// Boundaries that are clear - state requirements - show indexes
+
+// Justify with population served - in final report
+// cover page - explain system swiss cheese
 
 
 
