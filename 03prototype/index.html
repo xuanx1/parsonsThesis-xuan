@@ -32,6 +32,12 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/geotiff"></script>
+
+
+    
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/element-plus"></script>
     
 <script>
   console.log(GeoTIFF);
@@ -49,7 +55,46 @@ body { margin: 0; padding: 0; }
         <div id="map"></div>
     </div>
     <script src="js/app.js" type="module" async></script>
-    <script src="js/quake.js" type="module" async></script>
+
+    <!-- <div id="container">
+        <div id="map"></div>
+    </div>
+    <div id="app">
+        <el-switch
+            v-model="switchValue"
+            active-text="Layer ON"
+            inactive-text="Layer OFF"
+            @change="toggleLayer"
+        ></el-switch>
+    </div>
+
+    <script>
+        // Initialize Vue App
+        const app = Vue.createApp({
+            data() {
+                return {
+                    switchValue: false, // Initial state of the toggle
+                };
+            },
+            methods: {
+                toggleLayer(value) {
+                    console.log("Toggle state:", value);
+                    const visibility = value ? "visible" : "none";
+                    // Example: Toggle a map layer
+                    if (map.getLayer("sea-layer")) {
+                        map.setLayoutProperty("sea-layer", "visibility", visibility);
+                    }
+                },
+            },
+        });
+
+        // Register Element Plus components
+        app.use(ElementPlus);
+
+        // Mount Vue App
+        app.mount("#app");
+    </script> -->
+
 </body>
 
 </html>

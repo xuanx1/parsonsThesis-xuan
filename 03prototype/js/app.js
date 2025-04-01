@@ -15,12 +15,12 @@ const map = new mapboxgl.Map({
   zoom: 4,
   center: [110.0, 5.0], // center of Southeast Asia
   pitch: 60,
-  bearing: 40,
-  style: 'mapbox://styles/mapbox/satellite-streets-v12',
+  bearing: 50,
+  style: 'mapbox://styles/mapbox-map-design/claitl3i0002715qm9990tl95',
   attributionControl: false,
   maxBounds: [
-    [90.0, -15.0], // sw corner bounding box
-    [140.0, 25.0]  // ne corner bounding box
+    [80.0, -25.0], // sw corner bounding box
+    [150.0, 35.0]  // ne corner bounding box
 
     // [91.0, -12.0], // sw corner bounding box
     // [142.0, -12.0], // se corner bounding box
@@ -52,33 +52,38 @@ map.on('style.load', () => {
   });
 });
 
+
 // Add zoom controls separately
-const zoomInButton = document.createElement('button');
-zoomInButton.textContent = '+';
+const zoomInButton = document.createElement('img');
+zoomInButton.src = 'images/plus.svg';
+zoomInButton.alt = '+';
 zoomInButton.style.position = 'absolute';
 zoomInButton.style.top = '10px';
 zoomInButton.style.right = '10px';
 zoomInButton.style.zIndex = '1000';
 zoomInButton.style.width = '30px';
 zoomInButton.style.height = '30px';
-zoomInButton.style.borderRadius = '20px';
+zoomInButton.style.borderRadius = '50%';
 zoomInButton.style.backgroundColor = '#fff';
 zoomInButton.style.border = '1px solid #ccc';
 zoomInButton.style.cursor = 'pointer';
+zoomInButton.style.padding = '5px';
 document.body.appendChild(zoomInButton);
 
-const zoomOutButton = document.createElement('button');
-zoomOutButton.textContent = '-';
+const zoomOutButton = document.createElement('img');
+zoomOutButton.src = 'images/minus.svg';
+zoomOutButton.alt = '-';
 zoomOutButton.style.position = 'absolute';
 zoomOutButton.style.top = '50px';
 zoomOutButton.style.right = '10px';
 zoomOutButton.style.zIndex = '1000';
 zoomOutButton.style.width = '30px';
 zoomOutButton.style.height = '30px';
-zoomOutButton.style.borderRadius = '20px';
+zoomOutButton.style.borderRadius = '50%';
 zoomOutButton.style.backgroundColor = '#fff';
 zoomOutButton.style.border = '1px solid #ccc';
 zoomOutButton.style.cursor = 'pointer';
+zoomOutButton.style.padding = '5px';
 document.body.appendChild(zoomOutButton);
 
 // Zoom in and out functionality
@@ -198,6 +203,18 @@ map.on('style.load', () => {
   });
   // add 3d terrain
   map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 2 });  
+
+  // map.addLayer({
+  //   id: 'sky',
+  //   type: 'sky',
+  //   paint: {
+  //     'sky-type': 'atmosphere',
+  //     'sky-atmosphere-sun': [0.0, 0.0],
+  //     'sky-atmosphere-sun-intensity': 0.0, 
+  //     'sky-atmosphere-color': '#000000', 
+  //     'sky-atmosphere-halo-color': '#000033'
+  //   }
+  // });
 });
 
 // inset map container
@@ -328,22 +345,57 @@ resizeMap();
   originInput.style.width = "250px";
   originInput.style.borderRadius = "20px";
   originInput.style.padding = "5px";
+  originInput.style.border = "none";
   document.body.appendChild(originInput);
 
-  const enableClickButton = document.createElement("button");
-  enableClickButton.textContent = "Pinpoint Origin";
+
+  // 3dots
+  const threeDots = document.createElement("img");
+  threeDots.src = "images/3dots.svg";
+  threeDots.alt = "Pinpoint Origin";
+  threeDots.style.position = "absolute";
+  threeDots.style.top = "49px";
+  threeDots.style.left = "7px";
+  threeDots.style.zIndex = "1000";
+  threeDots.style.cursor = "pointer";
+  threeDots.style.width = "30px";
+  threeDots.style.height = "30px";
+  threeDots.style.borderRadius = "50%";
+  threeDots.style.backgroundColor = "none";
+  threeDots.style.padding = "5px";
+  document.body.appendChild(threeDots);
+
+
+  const enableClickButton = document.createElement("img");
+  enableClickButton.src = "images/pin_blue.svg";
+  enableClickButton.alt = "Pinpoint Origin";
   enableClickButton.style.position = "absolute";
   enableClickButton.style.top = "10px";
   enableClickButton.style.left = "270px";
   enableClickButton.style.zIndex = "1000";
+  enableClickButton.style.cursor = "pointer";
+  enableClickButton.style.width = "30px";
+  enableClickButton.style.height = "30px";
+  enableClickButton.style.border = "0px solid #ccc";
+  enableClickButton.style.borderRadius = "50%";
+  enableClickButton.style.backgroundColor = "#ffffff";
+  enableClickButton.style.padding = "5px";
   document.body.appendChild(enableClickButton);
 
-  const okButton = document.createElement("button");
-  okButton.textContent = "OK";
+  const okButton = document.createElement("img");
+  okButton.src = "images/ok.svg";
+  okButton.alt = "OK";
   okButton.style.position = "absolute";
   okButton.style.top = "10px";
-  okButton.style.left = "400px";
+  okButton.style.left = "270px";
   okButton.style.zIndex = "1000";
+  okButton.style.cursor = "pointer";
+  okButton.style.width = "30px";
+  okButton.style.height = "30px";
+  okButton.style.border = "0px solid #ccc";
+  okButton.style.borderRadius = "50%";
+  okButton.style.backgroundColor = "#ffffff";
+  okButton.style.padding = "5px";
   okButton.style.display = "none";
   document.body.appendChild(okButton);
 
@@ -381,57 +433,51 @@ resizeMap();
 
 
 
-  const originClearButton = document.createElement("img");
-  originClearButton.src = "images/cross.svg";
-  originClearButton.style.filter = "grayscale(100%)";
-  originClearButton.alt = "Clear";
-  originClearButton.style.position = "absolute";
-  originClearButton.style.top = "18px";
-  originClearButton.style.left = "235px";
-  originClearButton.style.zIndex = "1000";
-  originClearButton.style.cursor = "pointer";
-  originClearButton.style.display = "none";
-  originClearButton.style.width = "16px";
-  originClearButton.style.height = "16px";
-  originClearButton.addEventListener("click", () => {
-    originInput.value = "";
-    originClearButton.style.display = "none";
 
-    // Close the dropdown if it is open
-    originSuggestionBox.style.display = "none";
-  });
-  document.body.appendChild(originClearButton);
-
-  originInput.addEventListener("input", () => {
-    originClearButton.style.display = originInput.value ? "block" : "none";
-  });
 
   const destinationInput = document.createElement("input");
   destinationInput.type = "text";
   destinationInput.placeholder = " Destination";
   destinationInput.style.position = "absolute";
-  destinationInput.style.top = "60px";
+  destinationInput.style.top = "90px";
   destinationInput.style.left = "10px";
   destinationInput.style.zIndex = "1000";
   destinationInput.style.width = "250px";
   destinationInput.style.borderRadius = "20px";
   destinationInput.style.padding = "5px";
+  destinationInput.style.border = "none";
   document.body.appendChild(destinationInput);
 
-  const enableDestinationClickButton = document.createElement("button");
-  enableDestinationClickButton.textContent = "Pinpoint Destination";
+  const enableDestinationClickButton = document.createElement("img");
+  enableDestinationClickButton.src = "images/pin.svg";
+  enableDestinationClickButton.alt = "Pinpoint Destination";
   enableDestinationClickButton.style.position = "absolute";
-  enableDestinationClickButton.style.top = "60px";
+  enableDestinationClickButton.style.top = "90px";
   enableDestinationClickButton.style.left = "270px";
   enableDestinationClickButton.style.zIndex = "1000";
+  enableDestinationClickButton.style.cursor = "pointer";
+  enableDestinationClickButton.style.width = "30px";
+  enableDestinationClickButton.style.height = "30px";
+  enableDestinationClickButton.style.border = "0px solid #ccc";
+  enableDestinationClickButton.style.borderRadius = "50%";
+  enableDestinationClickButton.style.backgroundColor = "#ffffff";
+  enableDestinationClickButton.style.padding = "5px";
   document.body.appendChild(enableDestinationClickButton);
 
-  const destinationOkButton = document.createElement("button");
-  destinationOkButton.textContent = "OK";
+  const destinationOkButton = document.createElement("img");
+  destinationOkButton.src = "images/ok.svg";
+  destinationOkButton.alt = "OK";
   destinationOkButton.style.position = "absolute";
-  destinationOkButton.style.top = "60px";
-  destinationOkButton.style.left = "400px";
+  destinationOkButton.style.top = "90px";
+  destinationOkButton.style.left = "270px";
   destinationOkButton.style.zIndex = "1000";
+  destinationOkButton.style.cursor = "pointer";
+  destinationOkButton.style.width = "30px";
+  destinationOkButton.style.height = "30px";
+  destinationOkButton.style.border = "0px solid #ccc";
+  destinationOkButton.style.borderRadius = "50%";
+  destinationOkButton.style.backgroundColor = "#ffffff";
+  destinationOkButton.style.padding = "5px";
   destinationOkButton.style.display = "none";
   document.body.appendChild(destinationOkButton);
 
@@ -452,47 +498,21 @@ resizeMap();
     if (destinationClickEnabled) {
       const coordinates = event.lngLat;
 
-      // Remove the previous marker if it exists
+      // remove previous marker
       if (destinationMarker) {
         destinationMarker.remove();
       }
 
-      // Add a new marker for the destination
+      // add new destination marker
       destinationMarker = new mapboxgl.Marker({ color: "red" })
         .setLngLat([coordinates.lng, coordinates.lat])
         .addTo(map);
 
-      // Update the destination input with the clicked location's coordinates
+      // update destination input with clicked location's coordinates
       destinationInput.value = `Lat: ${coordinates.lat.toFixed(4)}, Lng: ${coordinates.lng.toFixed(4)}`;
     }
   });
 
-
-
-  const destinationClearButton = document.createElement("img");
-  destinationClearButton.src = "images/cross.svg";
-  destinationClearButton.style.filter = "grayscale(100%)";
-  destinationClearButton.alt = "Clear";
-  destinationClearButton.style.position = "absolute";
-  destinationClearButton.style.top = "68px";
-  destinationClearButton.style.left = "225px";
-  destinationClearButton.style.zIndex = "1000";
-  destinationClearButton.style.cursor = "pointer";
-  destinationClearButton.style.display = "none"; 
-  destinationClearButton.style.width = "36px";
-  destinationClearButton.style.height = "16px";
-  destinationClearButton.addEventListener("click", () => {
-    destinationInput.value = "";
-    destinationClearButton.style.display = "none"; 
-
-    // Close the dropdown if it is open
-    destinationSuggestionBox.style.display = "none";
-  });
-  document.body.appendChild(destinationClearButton);
-
-  destinationInput.addEventListener("input", () => {
-    destinationClearButton.style.display = destinationInput.value ? "block" : "none";
-  });
 
   const originSuggestionBox = document.createElement("div");
   originSuggestionBox.style.position = "absolute";
@@ -509,7 +529,7 @@ resizeMap();
 
   const destinationSuggestionBox = document.createElement("div");
   destinationSuggestionBox.style.position = "absolute";
-  destinationSuggestionBox.style.top = "85px";
+  destinationSuggestionBox.style.top = "115px";
   destinationSuggestionBox.style.left = "10px";
   destinationSuggestionBox.style.zIndex = "9999";
   destinationSuggestionBox.style.backgroundColor = "white";
@@ -534,7 +554,7 @@ resizeMap();
       .catch(error => console.error("Error fetching locations:", error));
   }
 
-  function handleInput(inputElement, suggestionBox, pinColor) {
+  function handleInput(inputElement, suggestionBox, pinColor, markerReference) {
     inputElement.addEventListener("input", (event) => {
       const query = event.target.value.toLowerCase();
       suggestionBox.innerHTML = "";
@@ -554,10 +574,20 @@ resizeMap();
                 inputElement.value = location.name;
                 suggestionBox.style.display = "none";
 
+                // Remove the previous marker if it exists
+                if (markerReference.marker) {
+                  markerReference.marker.remove();
+                }
+
                 // Drop a pin on the map
-                new mapboxgl.Marker({ color: pinColor })
+                markerReference.marker = new mapboxgl.Marker({ color: pinColor })
                   .setLngLat(location.coordinates)
                   .addTo(map);
+
+                // convert coordinates to lat/lng
+                const lat = location.coordinates[1];
+                const lng = location.coordinates[0];
+                console.log(`Selected location: Lat: ${lat}, Lng: ${lng}`);
 
                 // Center the map on the selected location
                 map.flyTo({ center: location.coordinates, zoom: 10 });
@@ -569,9 +599,81 @@ resizeMap();
       }
     });
   }
+  
 
-  handleInput(originInput, originSuggestionBox, "blue"); // Blue pin for origin
-  handleInput(destinationInput, destinationSuggestionBox, "red"); // Red pin for destination
+  const originClearButton = document.createElement("img");
+  originClearButton.src = "images/cross.svg";
+  originClearButton.style.filter = "grayscale(100%)";
+  originClearButton.alt = "Clear";
+  originClearButton.style.position = "absolute";
+  originClearButton.style.top = "16px";
+  originClearButton.style.left = "235px";
+  originClearButton.style.zIndex = "1000";
+  originClearButton.style.cursor = "pointer";
+  originClearButton.style.display = "none";
+  originClearButton.style.width = "16px";
+  originClearButton.style.height = "16px";
+  originClearButton.addEventListener("click", () => {
+    originInput.value = "";
+    originClearButton.style.display = "none";
+
+    // Close the dropdown if it is open
+    originSuggestionBox.style.display = "none";
+  });
+  document.body.appendChild(originClearButton);
+
+  originInput.addEventListener("input", () => {
+    originClearButton.style.display = originInput.value ? "block" : "none";
+  });
+
+  const destinationClearButton = document.createElement("img");
+  destinationClearButton.src = "images/cross.svg";
+  destinationClearButton.style.filter = "grayscale(100%)";
+  destinationClearButton.alt = "Clear";
+  destinationClearButton.style.position = "absolute";
+  destinationClearButton.style.top = "96px";
+  destinationClearButton.style.left = "225px";
+  destinationClearButton.style.zIndex = "1000";
+  destinationClearButton.style.cursor = "pointer";
+  destinationClearButton.style.display = "none"; 
+  destinationClearButton.style.width = "36px";
+  destinationClearButton.style.height = "16px";
+  destinationClearButton.addEventListener("click", () => {
+    destinationInput.value = "";
+    destinationClearButton.style.display = "none"; 
+
+    // Close the dropdown if open
+    destinationSuggestionBox.style.display = "none";
+  });
+  document.body.appendChild(destinationClearButton);
+
+
+  destinationInput.addEventListener("input", () => {
+    destinationClearButton.style.display = destinationInput.value ? "block" : "none";
+  });
+
+
+  const originMarkerRef = { marker: null };
+  const destinationMarkerRef = { marker: null };
+
+  handleInput(originInput, originSuggestionBox, "blue", originMarkerRef); // Blue pin for origin
+  handleInput(destinationInput, destinationSuggestionBox, "red", destinationMarkerRef); // Red pin for destination
+
+  originClearButton.addEventListener("click", () => {
+    if (originMarkerRef.marker) {
+      originMarkerRef.marker.remove();
+      originMarkerRef.marker = null;
+    }
+  });
+
+  destinationClearButton.addEventListener("click", () => {
+    if (destinationMarkerRef.marker) {
+      destinationMarkerRef.marker.remove();
+      destinationMarkerRef.marker = null;
+    }
+  });
+
+  
 
 
 
@@ -590,7 +692,7 @@ resizeMap();
   legendContainer.style.gap = '25px';
 
   const legendItems = [
-    { color: '#00ffff', label: 'Seaports' },
+    { color: '#0000ff', label: 'Seaports' },
     { color: '#ffff00', label: 'Airports' },
     { color: '#ff0000', label: 'Railways' },
     { color: '#ffa500', label: 'Roads' }
@@ -1047,7 +1149,7 @@ map.on('load', function() {
         .select("body")
         .append("div")
         .style("position", "absolute")
-        .style("top", "405px") // Fixed position for the toggle
+        .style("top", "465px") // Fixed position for the toggle
         .style("right", "5px")
         .style("z-index", "1000");
 
@@ -1093,7 +1195,7 @@ map.on('load', function() {
         .style("font-size", "14px")
         .style("color", "#333")
         .style("display", "none")
-        .style("top", "410px")
+        .style("top", "470px")
         .style("right", "50px")
         .text("Show Spatial Population");
 
@@ -1257,7 +1359,7 @@ fetch('data/amphibians_vect.geojson')
       .select("body")
       .append("div")
       .style("position", "absolute")
-      .style("top", "285px")
+      .style("top", "335px")
       .style("right", "5px")
       .style("z-index", "1000");
 
@@ -1298,7 +1400,7 @@ fetch('data/amphibians_vect.geojson')
       .style("font-size", "14px")
       .style("color", "#333")
       .style("display", "none")
-      .style("top", "290px")
+      .style("top", "339px")
       .style("right", "50px")
       .text("Show Amphibians");
 
@@ -1353,7 +1455,7 @@ fetch('data/birds_vect.geojson')
       .select("body")
       .append("div")
       .style("position", "absolute")
-      .style("top", "325px")
+      .style("top", "375px")
       .style("right", "5px")
       .style("z-index", "1000");
 
@@ -1394,7 +1496,7 @@ fetch('data/birds_vect.geojson')
       .style("font-size", "14px")
       .style("color", "#333")
       .style("display", "none")
-      .style("top", "330px")
+      .style("top", "380px")
       .style("right", "50px")
       .text("Show Birds");
 
@@ -1447,7 +1549,7 @@ fetch('data/mammals_vect1.geojson')
       .select("body")
       .append("div")
       .style("position", "absolute")
-      .style("top", "365px")
+      .style("top", "415px")
       .style("right", "5px")
       .style("z-index", "1000");
 
@@ -1488,7 +1590,7 @@ fetch('data/mammals_vect1.geojson')
       .style("font-size", "14px")
       .style("color", "#333")
       .style("display", "none")
-      .style("top", "370px")
+      .style("top", "420px")
       .style("right", "50px")
       .text("Show Mammals");
 
@@ -1570,7 +1672,7 @@ fetch('data/mammals_vect1.geojson')
           const paintOptions = file.includes('sea_ports')
             ? {
                 'circle-radius': 4,
-                'circle-color': '#00ffff', // turquoise for seaports
+                'circle-color': '#0000ff', // blue for seaports
                 'circle-opacity': 0.1
               }
             : file.includes('airports')
@@ -1640,7 +1742,7 @@ map.on('load', function() {
     .select("body")
     .append("div")
     .style("position", "absolute")
-    .style("top", "445px") // Fixed position for the toggle
+    .style("top", "505px") // Fixed position for the toggle
     .style("right", "5px")
     .style("z-index", "1000");
 
@@ -1681,7 +1783,7 @@ map.on('load', function() {
     .style("font-size", "14px")
     .style("color", "#333")
     .style("display", "none")
-    .style("top", "450px")
+    .style("top", "510px")
     .style("right", "50px")
     .text("Show Spatial GDP");
 
@@ -1698,13 +1800,200 @@ map.on('load', function() {
 
 
 
-//forest area - api
+//forest area
+map.on('load', function() {
+  const tileset = 'xuanx111.forest_tileset'; // Forest tileset
+
+  const sourceId = 'forest-tileset';
+  const layerId = 'forest-raster-layer';
+
+  map.addSource(sourceId, {
+    type: 'raster',
+    tiles: [`https://api.mapbox.com/v4/${tileset}/{z}/{x}/{y}@2x.jpg?access_token=` + mapboxgl.accessToken],
+    tileSize: 256
+  });
+
+  map.addLayer({
+    id: layerId,
+    type: 'raster',
+    source: sourceId,
+    paint: { 
+      'raster-opacity': 1,
+      'raster-color': '#228B22', // Forest green
+      'raster-brightness-min': 0,
+    },
+    layout: {
+      'visibility': 'none' // visibility off by default
+    }
+  });
+  // toggle forest
+  const toggleContainer = d3
+    .select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("top", "285px")
+    .style("right", "5px")
+    .style("z-index", "1000");
+
+  const toggleButton = toggleContainer
+    .append("img")
+    .attr("src", "images/tree.svg")
+    .attr("alt", "Forest Cover")
+    .style("margin", "5px")
+    .style("padding", "5px")
+    .style("cursor", "pointer")
+    .style("width", "30px")
+    .style("height", "30px")
+    .style("border", "0px solid #ccc")
+    .style("border-radius", "50%")
+    .style("padding", "7px")
+    .style("background-color", "#228B22")
+    .style("filter", "brightness(30%)") // Start as greyed out
+    .on("click", () => {
+      const visibility = map.getLayoutProperty(layerId, 'visibility');
+      if (visibility === 'visible') {
+        map.setLayoutProperty(layerId, 'visibility', 'none');
+        toggleButton.style("filter", "brightness(30%)"); // Greyed out
+      } else {
+        map.setLayoutProperty(layerId, 'visibility', 'visible');
+        toggleButton.style("filter", "brightness(100%)"); // Coloured
+      }
+    });
+
+  // hover description
+  const descriptionWindow = d3
+    .select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("padding", "7px")
+    .style("background-color", "white")
+    .style("border", "0px solid #ccc")
+    .style("border-radius", "20px")
+    .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+    .style("font-size", "14px")
+    .style("color", "#333")
+    .style("display", "none")
+    .style("top", "290px")
+    .style("right", "50px")
+    .text("Show Forest Coverage");
+
+  toggleButton
+    .on("mouseover", () => {
+      descriptionWindow.style("display", "block");
+    })
+    .on("mouseout", () => {
+      descriptionWindow.style("display", "none");
+    });
+});
 
 
 
 
 
+// major cities
+const majorCities = {
+  type: 'FeatureCollection',
+  features: [
+    // Indonesia
+    { type: 'Feature', properties: { name: 'Jakarta', height: 300, country: 'Indonesia', population: '10.56M' }, geometry: { type: 'Point', coordinates: [106.8650, -6.1751] } },
+    { type: 'Feature', properties: { name: 'Surabaya', height: 220, country: 'Indonesia', population: '2.87M' }, geometry: { type: 'Point', coordinates: [112.7521, -7.2575] } },
+    { type: 'Feature', properties: { name: 'Bandung', height: 200, country: 'Indonesia', population: '2.4M' }, geometry: { type: 'Point', coordinates: [107.6186, -6.9175] } },
+    { type: 'Feature', properties: { name: 'Medan', height: 180, country: 'Indonesia', population: '2.1M' }, geometry: { type: 'Point', coordinates: [98.6722, 3.5952] } },
+    { type: 'Feature', properties: { name: 'Nusantara', height: 250, country: 'Indonesia', population: '0.2M' }, geometry: { type: 'Point', coordinates: [115.0000, -1.0000] } },
+    
+    // Thailand
+    { type: 'Feature', properties: { name: 'Bangkok', height: 280, country: 'Thailand', population: '8.3M' }, geometry: { type: 'Point', coordinates: [100.5018, 13.7563] } },
+    { type: 'Feature', properties: { name: 'Chiang Mai', height: 150, country: 'Thailand', population: '1.2M' }, geometry: { type: 'Point', coordinates: [98.9853, 18.7883] } },
+    { type: 'Feature', properties: { name: 'Pattaya', height: 120, country: 'Thailand', population: '1.1M' }, geometry: { type: 'Point', coordinates: [100.8834, 12.9236] } },
+    
+    // Philippines
+    { type: 'Feature', properties: { name: 'Manila', height: 250, country: 'Philippines', population: '1.78M' }, geometry: { type: 'Point', coordinates: [120.9842, 14.5995] } },
+    { type: 'Feature', properties: { name: 'Cebu City', height: 170, country: 'Philippines', population: '0.92M' }, geometry: { type: 'Point', coordinates: [123.8854, 10.3157] } },
+    { type: 'Feature', properties: { name: 'Davao City', height: 160, country: 'Philippines', population: '1.63M' }, geometry: { type: 'Point', coordinates: [125.6129, 7.0731] } },
+    
+    // Vietnam
+    { type: 'Feature', properties: { name: 'Ho Chi Minh City', height: 240, country: 'Vietnam', population: '8.4M' }, geometry: { type: 'Point', coordinates: [106.6297, 10.8231] } },
+    { type: 'Feature', properties: { name: 'Hanoi', height: 230, country: 'Vietnam', population: '7.7M' }, geometry: { type: 'Point', coordinates: [105.8342, 21.0278] } },
+    { type: 'Feature', properties: { name: 'Da Nang', height: 140, country: 'Vietnam', population: '1.1M' }, geometry: { type: 'Point', coordinates: [108.2022, 16.0544] } },
+    
+    // Malaysia
+    { type: 'Feature', properties: { name: 'Kuala Lumpur', height: 210, country: 'Malaysia', population: '1.8M' }, geometry: { type: 'Point', coordinates: [101.6869, 3.1390] } },
+    { type: 'Feature', properties: { name: 'Penang', height: 130, country: 'Malaysia', population: '0.7M' }, geometry: { type: 'Point', coordinates: [100.3298, 5.4164] } },
+    { type: 'Feature', properties: { name: 'Kuching', height: 130, country: 'Malaysia', population: '0.7M' }, geometry: { type: 'Point', coordinates: [110.3522, 1.5533] } },
+    
+    // Singapore
+    { type: 'Feature', properties: { name: 'Singapore', height: 270, country: 'Singapore', population: '5.7M' }, geometry: { type: 'Point', coordinates: [103.8198, 1.3521] } },
+    
+    // Myanmar
+    { type: 'Feature', properties: { name: 'Yangon', height: 190, country: 'Myanmar', population: '5.2M' }, geometry: { type: 'Point', coordinates: [96.1951, 16.8409] } },
+    { type: 'Feature', properties: { name: 'Mandalay', height: 140, country: 'Myanmar', population: '1.3M' }, geometry: { type: 'Point', coordinates: [96.0833, 21.9831] } },
+    
+    // Cambodia
+    { type: 'Feature', properties: { name: 'Phnom Penh', height: 160, country: 'Cambodia', population: '2.1M' }, geometry: { type: 'Point', coordinates: [104.9160, 11.5564] } },
+    { type: 'Feature', properties: { name: 'Siem Reap', height: 90, country: 'Cambodia', population: '0.2M' }, geometry: { type: 'Point', coordinates: [103.8509, 13.3671] } },
+    
+    // Laos
+    { type: 'Feature', properties: { name: 'Vientiane', height: 120, country: 'Laos', population: '0.8M' }, geometry: { type: 'Point', coordinates: [102.6331, 17.9757] } },
+    { type: 'Feature', properties: { name: 'Luang Prabang', height: 70, country: 'Laos', population: '0.05M' }, geometry: { type: 'Point', coordinates: [102.1353, 19.8834] } },
+    
+    // Brunei
+    { type: 'Feature', properties: { name: 'Bandar Seri Begawan', height: 100, country: 'Brunei', population: '0.1M' }, geometry: { type: 'Point', coordinates: [114.9403, 4.9031] } },
+    
+    // East Timor
+    { type: 'Feature', properties: { name: 'Dili', height: 80, country: 'East Timor', population: '0.2M' }, geometry: { type: 'Point', coordinates: [125.5679, -8.5569] } },
 
+    // Palau
+    { type: 'Feature', properties: { name: 'Ngerulmud', height: 50, country: 'Palau', population: '0.01M' }, geometry: { type: 'Point', coordinates: [134.6232, 7.5000] } },
+    { type: 'Feature', properties: { name: 'Koror', height: 20, country: 'Palau', population: '0.02M' }, geometry: { type: 'Point', coordinates: [134.4822, 7.3669] } }
+  ]
+};
+
+map.on('load', () => {
+  map.addSource('majorCities', {
+    type: 'geojson',
+    data: majorCities
+  });
+
+  // // city labels for low pitch
+  // map.addLayer({
+  //   id: 'major-cities-low-pitch',
+  //   type: 'symbol',
+  //   source: 'majorCities',
+  //   layout: {
+  //     'text-field': ['get', 'name'],
+  //     'text-size': 12,
+  //     'text-offset': [0, -10],
+  //     'text-anchor': 'top'
+  //   },
+  //   paint: {
+  //     'text-color': '#ffffff',
+  //     'text-halo-color': '#000000',
+  //     'text-halo-width': 1
+  //   },
+  //   filter: ['all', ['<', ['pitch'], 60], ['<=', ['zoom'], 8]]
+  // });
+
+  // city labels for high pitch 
+  map.addLayer({
+    id: 'major-cities-high-pitch',
+    type: 'symbol',
+    source: 'majorCities',
+    layout: {
+      'text-field': ['get', 'name'],
+      'text-size': 13,
+      'text-offset': [0, -10],
+      'text-anchor': 'bottom',
+      'icon-image': 'leader_line',
+      'icon-anchor': 'bottom'
+    },
+    paint: {
+      'text-color': '#ffffff',
+      'text-halo-color': '#000000',
+      'text-halo-width': 1
+    },
+    filter: ['all', ['>=', ['pitch'], 60], ['<=', ['zoom'], 8]]
+  });
+});
 
 
 
@@ -1719,20 +2008,54 @@ function invertScore(score) {
 }
 
 
+// dividers
+const divider = document.createElement("img");
+divider.src = "images/divider.svg";
+divider.alt = "Pinpoint Origin";
+divider.style.position = "absolute";
+divider.style.top = "310px";
+divider.style.right = "5px";
+divider.style.zIndex = "2000";
+divider.style.cursor = "pointer";
+divider.style.width = "40px";
+divider.style.height = "40px";
+divider.style.borderRadius = "50%";
+divider.style.backgroundColor = "none";
+divider.style.padding = "0px";
+divider.style.opacity = "0.8";
+document.body.appendChild(divider);
 
-//radius for trains based on speed
+const divider1 = document.createElement("img");
+divider1.src = "images/divider.svg";
+divider1.alt = "Pinpoint Origin";
+divider1.style.position = "absolute";
+divider1.style.top = "440px";
+divider1.style.right = "5px";
+divider1.style.zIndex = "2000";
+divider1.style.cursor = "pointer";
+divider1.style.width = "40px";
+divider1.style.height = "40px";
+divider1.style.borderRadius = "50%";
+divider1.style.backgroundColor = "none";
+divider1.style.padding = "0px";
+divider1.style.opacity = "0.8";
+document.body.appendChild(divider1);
 
-// button dividers?
-// add tutorial/intructions? 
 
-// prototype - Success criteria - scoring board
 
-// Point that is random vs city - am.i opening up connection with underserved communities - can avoided by overlaying population distribution 
 
-// Boundaries that are clear - state requirements - show indexes
+
+
+// process indexes + setting dashboard - 1. radius for trains based on speed + 2. interval distance/pop threshold for station placement 3. toggle indexes 4. show 3 alternative routes with each index's strengths
+
+
+// Boundaries that are clear - state requirements - show indexes + scoring board as success criteria
 
 // Justify with population served - in final report
+
 // cover page - explain system swiss cheese
+// add tutorial/intructions? 
+
 
 
 
@@ -1905,13 +2228,157 @@ function invertScore(score) {
 // Draw 3x rail line - 1 colour for each line, but same set of origin and destination - green for highest e2i , orange for hightest ffi, blue for opi - when line appear, grey out everything in the map!
 
   // Route button to draw the land route between origin and destination with path avoiding high elevations, staying at least 10km away from the coastline, and ensuring all points are on land
-  const routeButton = document.createElement("button");
-  routeButton.textContent = "Draw Route";
+  const routeButton = document.createElement("img");
+  routeButton.src = "images/draw.svg";
+  routeButton.alt = "Draw Route";
   routeButton.style.position = "absolute";
-  routeButton.style.top = "110px";
-  routeButton.style.left = "10px";
+  routeButton.style.top = "50px";
+  routeButton.style.left = "330px";
   routeButton.style.zIndex = "1000";
+  routeButton.style.cursor = "pointer";
+  routeButton.style.width = "30px";
+  routeButton.style.height = "30px";
+  routeButton.style.border = "0px solid #ccc";
+  routeButton.style.borderRadius = "50%";
+  routeButton.style.backgroundColor = "#ffffff";
+  routeButton.style.padding = "5px";
   document.body.appendChild(routeButton);
+
+  // hover description
+  const routeDescription = d3
+    .select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("padding", "7px")
+    .style("background-color", "white")
+    .style("border", "0px solid #ccc")
+    .style("border-radius", "20px")
+    .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+    .style("font-size", "14px")
+    .style("color", "#333")
+    .style("display", "none")
+    .style("top", "35px")
+    .style("left", "350px")
+    .text("Calculate Route");
+
+  routeButton.addEventListener("mouseover", () => {
+    routeDescription.style("display", "block");
+  });
+
+  routeButton.addEventListener("mouseout", () => {
+    routeDescription.style("display", "none");
+  });
+
+
+
+  // reset button
+  const resetButton = document.createElement("img");
+  resetButton.src = "images/restart.svg";
+  resetButton.alt = "Reset Route";
+  resetButton.style.position = "absolute";
+  resetButton.style.bottom = "240px";
+  resetButton.style.right = "10px";
+  resetButton.style.zIndex = "1000";
+  resetButton.style.cursor = "pointer";
+  resetButton.style.width = "30px";
+  resetButton.style.height = "30px";
+  resetButton.style.border = "0px solid #ccc";
+  resetButton.style.borderRadius = "50%";
+  resetButton.style.backgroundColor = "#ffffff";
+  resetButton.style.padding = "7px";
+  document.body.appendChild(resetButton);
+
+  resetButton.addEventListener("click", () => {
+    // remove route and buffer layers
+    if (map.getLayer("route-layer")) {
+      map.removeLayer("route-layer");
+    }
+    if (map.getSource("route")) {
+      map.removeSource("route");
+    }
+    if (map.getLayer("route-buffer-layer")) {
+      map.removeLayer("route-buffer-layer");
+    }
+    if (map.getSource("route-buffer")) {
+      map.removeSource("route-buffer");
+    }
+
+    // clear origin and destination inputs
+    originInput.value = "";
+    destinationInput.value = "";
+
+    // remove origin and destination markers
+    if (originMarkerRef.marker) {
+      originMarkerRef.marker.remove();
+      originMarkerRef.marker = null;
+    }
+    if (destinationMarkerRef.marker) {
+      destinationMarkerRef.marker.remove();
+      destinationMarkerRef.marker = null;
+    }
+
+    // reset map view to center of Southeast Asia
+    map.flyTo({
+      center: [110.0, 5.0], 
+      zoom: 4,
+      pitch: 60,
+      bearing: 50
+    });
+
+    // reset visibility of all layers to default
+    const layersToReset = [
+      "earthquake-points",
+      "tsunami-points",
+      "avgHU-layer",
+      "amphibians-layer",
+      "birds-layer",
+      "mammals-layer",
+    ];
+    layersToReset.forEach(layerId => {
+      if (map.getLayer(layerId)) {
+        map.setLayoutProperty(layerId, "visibility", "none");
+      }
+    });
+
+    // reset toggle buttons to default -greyed
+    d3.selectAll("img")
+      .filter(function() {
+      const altText = d3.select(this).attr("alt");
+      return altText !== "Draw Route" && altText !== "Pinpoint Origin" && altText !== "Pinpoint Destination" && altText !== "+" && altText !== "-" && altText !== "Coastline" && altText !== "Reset Route";
+      })
+      .style("filter", "brightness(30%)");
+  });
+
+  // hover description
+  const resetDescription = d3
+    .select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("padding", "7px")
+    .style("background-color", "white")
+    .style("border", "0px solid #ccc")
+    .style("border-radius", "20px")
+    .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+    .style("font-size", "14px")
+    .style("color", "#333")
+    .style("display", "none")
+    .style("bottom", "240px")
+    .style("right", "50px")
+    .text("Restart All");
+
+  resetButton
+    .addEventListener("mouseover", () => {
+      resetDescription.style("display", "block");
+    });
+
+  resetButton
+    .addEventListener("mouseout", () => {
+      resetDescription.style("display", "none");
+    });
+    
+
+
+
 
   // loading bar
   const loadingBar = document.createElement("div");
@@ -1930,7 +2397,7 @@ function invertScore(score) {
     const destinationValue = destinationInput.value;
 
     if (!originValue || !destinationValue) {
-      alert("Please enter both origin and destination.");
+      alert("Please enter both the origin and destination.");
       return;
     }
 
