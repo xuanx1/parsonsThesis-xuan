@@ -400,7 +400,7 @@ resizeMap();
   document.body.appendChild(okButton);
 
   let clickEnabled = false;
-  let originMarker = null; // Store the marker for the origin
+  let originMarker = null; // origin marker
 
   enableClickButton.addEventListener("click", () => {
     clickEnabled = true;
@@ -416,13 +416,22 @@ resizeMap();
     if (clickEnabled) {
       const coordinates = event.lngLat;
 
-      // Remove the previous marker if it exists
+      // remove previous marker if it exists
       if (originMarker) {
         originMarker.remove();
       }
 
-      // Add a new marker for the origin
-      originMarker = new mapboxgl.Marker({ color: "blue" })
+      // add new origin marker 
+      originMarker = new mapboxgl.Marker({
+        element: (() => {
+          const markerElement = document.createElement('img');
+          markerElement.src = 'images/marker_o.svg';
+          markerElement.alt = 'Origin Marker';
+          markerElement.style.width = '40px';
+          markerElement.style.height = '40px';
+          return markerElement;
+        })()
+      })
         .setLngLat([coordinates.lng, coordinates.lat])
         .addTo(map);
 
@@ -482,7 +491,7 @@ resizeMap();
   document.body.appendChild(destinationOkButton);
 
   let destinationClickEnabled = false;
-  let destinationMarker = null; // Store the marker for the destination
+  let destinationMarker = null; // store destination marker 
 
   enableDestinationClickButton.addEventListener("click", () => {
     destinationClickEnabled = true;
@@ -504,7 +513,16 @@ resizeMap();
       }
 
       // add new destination marker
-      destinationMarker = new mapboxgl.Marker({ color: "red" })
+      destinationMarker = new mapboxgl.Marker({
+        element: (() => {
+          const markerElement = document.createElement('img');
+          markerElement.src = 'images/marker_d.svg';
+          markerElement.alt = 'Destination Marker';
+          markerElement.style.width = '40px';
+          markerElement.style.height = '40px';
+          return markerElement;
+        })()
+      })
         .setLngLat([coordinates.lng, coordinates.lat])
         .addTo(map);
 
@@ -1323,6 +1341,104 @@ fetch('data/avgHU_vect.geojson')
 
 
 
+//forest area - virtual raster, compress, 8 bit, clip, reclassify, host, get tile key, bright green
+map.on('load', function() {
+  fetch('data/sea_forest_vect.geojson')
+    .then(response => response.json())
+    .then(data => {
+      map.addSource('forest-geojson', {
+        type: 'geojson',
+        data: data
+      });
+
+      map.addLayer({
+        id: 'forest-layer',
+        type: 'fill',
+        source: 'forest-geojson',
+        paint: { 
+          'fill-color': [
+        'step',
+        ['get', 'DN'], 
+        '#e5f5e0', 11,   // 0-11: very light green
+        '#a1d99b', 29,   // 12-29: light green
+        '#41ab5d', 47,   // 30-47: medium green
+        '#006d2c', 104,  // 48-104: darker green
+        '#00441b'        // 105-255: deepest dark green
+          ],
+          'fill-opacity': 0.3
+        },
+        layout: {
+          'visibility': 'none' // visibility off by default
+        }
+      });
+
+      // toggle forest
+      const toggleContainer = d3
+        .select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "285px")
+        .style("right", "5px")
+        .style("z-index", "1000");
+
+      const toggleButton = toggleContainer
+        .append("img")
+        .attr("src", "images/tree.svg")
+        .attr("alt", "Forest Cover")
+        .style("margin", "5px")
+        .style("padding", "5px")
+        .style("cursor", "pointer")
+        .style("width", "30px")
+        .style("height", "30px")
+        .style("border", "0px solid #ccc")
+        .style("border-radius", "50%")
+        .style("padding", "7px")
+        .style("background-color", "#228B22")
+        .style("filter", "brightness(30%)") // Start as greyed out
+        .on("click", () => {
+          const visibility = map.getLayoutProperty('forest-layer', 'visibility');
+          if (visibility === 'visible') {
+            map.setLayoutProperty('forest-layer', 'visibility', 'none');
+            toggleButton.style("filter", "brightness(30%)"); // Greyed out
+          } else {
+            map.setLayoutProperty('forest-layer', 'visibility', 'visible');
+            toggleButton.style("filter", "brightness(100%)"); // Coloured
+          }
+        });
+
+      // hover description
+      const descriptionWindow = d3
+        .select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("padding", "7px")
+        .style("background-color", "white")
+        .style("border", "0px solid #ccc")
+        .style("border-radius", "20px")
+        .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+        .style("font-size", "14px")
+        .style("color", "#333")
+        .style("display", "none")
+        .style("top", "290px")
+        .style("right", "50px")
+        .text("Show Forest Coverage");
+
+      toggleButton
+        .on("mouseover", () => {
+          descriptionWindow.style("display", "block");
+        })
+        .on("mouseout", () => {
+          descriptionWindow.style("display", "none");
+        });
+    })
+    .catch(error => console.error('Error loading GeoJSON (sea_forest_vect.geojson):', error));
+});
+
+
+
+
+
+
 map.on('style.load', () => {
 // amphibians_vect.geojson classify into 5 classes - yellow
 fetch('data/amphibians_vect.geojson')
@@ -1800,96 +1916,6 @@ map.on('load', function() {
 
 
 
-//forest area
-map.on('load', function() {
-  const tileset = 'xuanx111.forest_tileset'; // Forest tileset
-
-  const sourceId = 'forest-tileset';
-  const layerId = 'forest-raster-layer';
-
-  map.addSource(sourceId, {
-    type: 'raster',
-    tiles: [`https://api.mapbox.com/v4/${tileset}/{z}/{x}/{y}@2x.jpg?access_token=` + mapboxgl.accessToken],
-    tileSize: 256
-  });
-
-  map.addLayer({
-    id: layerId,
-    type: 'raster',
-    source: sourceId,
-    paint: { 
-      'raster-opacity': 1,
-      'raster-color': '#228B22', // Forest green
-      'raster-brightness-min': 0,
-    },
-    layout: {
-      'visibility': 'none' // visibility off by default
-    }
-  });
-  // toggle forest
-  const toggleContainer = d3
-    .select("body")
-    .append("div")
-    .style("position", "absolute")
-    .style("top", "285px")
-    .style("right", "5px")
-    .style("z-index", "1000");
-
-  const toggleButton = toggleContainer
-    .append("img")
-    .attr("src", "images/tree.svg")
-    .attr("alt", "Forest Cover")
-    .style("margin", "5px")
-    .style("padding", "5px")
-    .style("cursor", "pointer")
-    .style("width", "30px")
-    .style("height", "30px")
-    .style("border", "0px solid #ccc")
-    .style("border-radius", "50%")
-    .style("padding", "7px")
-    .style("background-color", "#228B22")
-    .style("filter", "brightness(30%)") // Start as greyed out
-    .on("click", () => {
-      const visibility = map.getLayoutProperty(layerId, 'visibility');
-      if (visibility === 'visible') {
-        map.setLayoutProperty(layerId, 'visibility', 'none');
-        toggleButton.style("filter", "brightness(30%)"); // Greyed out
-      } else {
-        map.setLayoutProperty(layerId, 'visibility', 'visible');
-        toggleButton.style("filter", "brightness(100%)"); // Coloured
-      }
-    });
-
-  // hover description
-  const descriptionWindow = d3
-    .select("body")
-    .append("div")
-    .style("position", "absolute")
-    .style("padding", "7px")
-    .style("background-color", "white")
-    .style("border", "0px solid #ccc")
-    .style("border-radius", "20px")
-    .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
-    .style("font-size", "14px")
-    .style("color", "#333")
-    .style("display", "none")
-    .style("top", "290px")
-    .style("right", "50px")
-    .text("Show Forest Coverage");
-
-  toggleButton
-    .on("mouseover", () => {
-      descriptionWindow.style("display", "block");
-    })
-    .on("mouseout", () => {
-      descriptionWindow.style("display", "none");
-    });
-});
-
-
-
-
-
 // major cities
 const majorCities = {
   type: 'FeatureCollection',
@@ -2045,15 +2071,114 @@ document.body.appendChild(divider1);
 
 
 
+// intro dialog window
+window.addEventListener("load", () => {
+  const dialogContainer = document.createElement("div");
+  dialogContainer.style.position = "fixed";
+  dialogContainer.style.top = "0";
+  dialogContainer.style.left = "0";
+  dialogContainer.style.width = "100%";
+  dialogContainer.style.height = "100%";
+  dialogContainer.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+  dialogContainer.style.zIndex = "2000";
+  dialogContainer.style.display = "flex";
+  dialogContainer.style.justifyContent = "center";
+  dialogContainer.style.alignItems = "center";
 
-// process indexes + setting dashboard - 1. radius for trains based on speed + 2. interval distance/pop threshold for station placement 3. toggle indexes 4. show 3 alternative routes with each index's strengths
+  const dialogBox = document.createElement("div");
+  dialogBox.style.backgroundColor = "white";
+  dialogBox.style.padding = "20px";
+  dialogBox.style.opacity = 0.8;
+  dialogBox.style.borderRadius = "10px";
+  dialogBox.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.3)";
+  dialogBox.style.textAlign = "center";
+  dialogBox.style.maxWidth = "520px";
+  dialogBox.style.border = "1px solid white";
+
+  const dialogTitle = document.createElement("h1");
+  dialogTitle.textContent = "Trains, Lanes, and Data Grains!";
+  dialogTitle.style.marginTop = "10px";
+  dialogTitle.style.marginBottom = "15px";
+  dialogTitle.style.marginLeft = "13px";
+  dialogTitle.style.fontSize = "30px";
+  dialogTitle.style.textAlign = "left";
+  dialogTitle.style.color = "orange";
+  dialogBox.appendChild(dialogTitle);
+
+  const dialogsubTitle = document.createElement("h2");
+  dialogsubTitle.textContent = "Mapping Southeast Asia’s Future";
+  dialogsubTitle.style.marginBottom = "30px";
+  dialogsubTitle.style.marginLeft = "13px";
+  dialogsubTitle.style.textAlign = "left";
+  dialogsubTitle.style.fontSize = "16px";
+  dialogsubTitle.style.color = "grey";
+  dialogBox.appendChild(dialogsubTitle);
+
+  const dialogMessage = document.createElement("p");
+  dialogMessage.innerHTML = "Welcome to the Rail Feasibility Mapper!<br>This tool allows you to explore and evaluate rail feasibility based on various indexes and criteria specific to Southeast Asia.<br><br>Using the tools provided, you can pinpoint an origin-destination pair, calculate said routes, toggle layer visibility, control level of influence of the indexes and analyze the feasibility of your connectivity project in the final result.<br><br>Let's map the future of Southeast Asia together!";
+  dialogMessage.style.fontSize = "14px";
+  dialogMessage.style.color = "black";
+  dialogMessage.style.marginLeft = "13px";
+  dialogMessage.style.marginRight = "13px";
+  dialogMessage.style.lineHeight = "1.5";
+  dialogMessage.style.textAlign = "justify";
+  dialogMessage.style.marginBottom = "0px";
+  dialogBox.appendChild(dialogMessage);
+
+  // Container for fine print and arrow button
+  const dialogFooter = document.createElement("div");
+  dialogFooter.style.display = "flex";
+  dialogFooter.style.justifyContent = "space-between";
+  dialogFooter.style.alignItems = "center";
+  dialogFooter.style.marginTop = "20px";
+
+  // Fine print
+  const finePrint = document.createElement("p");
+  finePrint.textContent = "For the best performance, use this app on a desktop. While it may work on mobile devices, some features are optimized for larger screens and keyboard/mouse interactions. Outcomes should not be considered definitive endorsements or rejections of any rail project.";
+  finePrint.style.fontSize = "8px";
+  finePrint.style.color = "grey";
+  finePrint.style.lineHeight = "1.5";
+  finePrint.style.textAlign = "left";
+  finePrint.style.marginLeft = "13px";
+  finePrint.style.maxWidth = "66%"; // Set max width to 2/3 of the container
+  dialogFooter.appendChild(finePrint);
+
+  // Arrow button
+  const okButton = document.createElement("img");
+  okButton.src = "images/arrow.svg";
+  okButton.alt = "Let's Get to Work!";
+  okButton.style.padding = "15px";
+  okButton.style.border = "none";
+  okButton.style.borderRadius = "50%";
+  okButton.style.backgroundColor = "orange";
+  okButton.style.marginBottom = "10px";
+  okButton.style.marginRight = "10px";
+  okButton.style.opacity = 1;
+  okButton.style.cursor = "pointer";
+  okButton.style.width = "60px";
+  okButton.style.height = "60px";
+  okButton.addEventListener("click", () => {
+    document.body.removeChild(dialogContainer);
+  });
+  dialogFooter.appendChild(okButton);
+
+  dialogBox.appendChild(dialogFooter);
+
+  dialogContainer.appendChild(dialogBox);
+  document.body.appendChild(dialogContainer);
+});
 
 
-// Boundaries that are clear - state requirements - show indexes + scoring board as success criteria
 
-// Justify with population served - in final report
+
+
+
+// process indexes + setting dashboard - 1. radius for trains based on speed + 2. interval distance/pop threshold for station placement 3. toggle indexes 4. show 3 alternative routes with each index's strengths - ask TA' separates into smaller js file
+
+// success requirements - show indexes + scoring board as success criteria + Justify with population served - in final report +  integrate germini to generate description w// germini
 
 // cover page - explain system swiss cheese
+
 // add tutorial/intructions? 
 
 
@@ -2257,8 +2382,8 @@ document.body.appendChild(divider1);
     .style("font-size", "14px")
     .style("color", "#333")
     .style("display", "none")
-    .style("top", "35px")
-    .style("left", "350px")
+    .style("top", "50px")
+    .style("left", "370px")
     .text("Calculate Route");
 
   routeButton.addEventListener("mouseover", () => {
@@ -2289,6 +2414,10 @@ document.body.appendChild(divider1);
   document.body.appendChild(resetButton);
 
   resetButton.addEventListener("click", () => {
+    const confirmReset = confirm("Are you sure you want to reset all settings? It is highly advisable to export a report as a PDF before resetting as it will not be possible to undo this action.");
+    // if user cancels, do nothing
+    if (!confirmReset) return;
+
     // remove route and buffer layers
     if (map.getLayer("route-layer")) {
       map.removeLayer("route-layer");
@@ -2333,6 +2462,9 @@ document.body.appendChild(divider1);
       "amphibians-layer",
       "birds-layer",
       "mammals-layer",
+      "gdp-raster-layer",
+      "forest-raster-layer",
+      ...Array.from({ length: 12 }, (_, i) => `raster-layer-${i}`),
     ];
     layersToReset.forEach(layerId => {
       if (map.getLayer(layerId)) {
@@ -2340,13 +2472,25 @@ document.body.appendChild(divider1);
       }
     });
 
-    // reset toggle buttons to default -greyed
+    // coastline visible
+    if (map.getLayer('sea-coastline-layer')) {
+      map.setLayoutProperty('sea-coastline-layer', 'visibility', 'visible');
+    }
+    
+    // reset toggle buttons to default - greyed, except coastline button
     d3.selectAll("img")
       .filter(function() {
-      const altText = d3.select(this).attr("alt");
-      return altText !== "Draw Route" && altText !== "Pinpoint Origin" && altText !== "Pinpoint Destination" && altText !== "+" && altText !== "-" && altText !== "Coastline" && altText !== "Reset Route";
+        const altText = d3.select(this).attr("alt");
+        return altText !== "Draw Route" && altText !== "Pinpoint Origin" && altText !== "Pinpoint Destination" && altText !== "+" && altText !== "-" && altText !== "Reset Route" && altText !== "OK" && altText !== "Coastline";
       })
       .style("filter", "brightness(30%)");
+
+    // ensure coastline button remains active
+    d3.selectAll("img")
+      .filter(function() {
+        return d3.select(this).attr("alt") === "Coastline";
+      })
+      .style("filter", "brightness(100%)");
   });
 
   // hover description
@@ -2364,7 +2508,7 @@ document.body.appendChild(divider1);
     .style("display", "none")
     .style("bottom", "240px")
     .style("right", "50px")
-    .text("Restart All");
+    .text("Reset All Settings");
 
   resetButton
     .addEventListener("mouseover", () => {
@@ -2375,7 +2519,6 @@ document.body.appendChild(divider1);
     .addEventListener("mouseout", () => {
       resetDescription.style("display", "none");
     });
-    
 
 
 
@@ -2387,7 +2530,7 @@ document.body.appendChild(divider1);
   loadingBar.style.left = "0";
   loadingBar.style.width = "0";
   loadingBar.style.height = "3px";
-  loadingBar.style.backgroundColor = "#00ff00";
+  loadingBar.style.backgroundColor = "#f67a0a";
   loadingBar.style.zIndex = "1001";
   loadingBar.style.transition = "width 0.3s ease";
   document.body.appendChild(loadingBar);
@@ -2490,18 +2633,18 @@ document.body.appendChild(divider1);
       // Function to calculate distance from the coastline
 
 
-      // Function to check if a point is on land
-      const isPointOnLand = async (coordinates) => {
-        const url = `https://api.mapbox.com/v4/mapbox.mapbox-terrain-v2/tilequery/${coordinates[0]},${coordinates[1]}.json?layers=landuse&limit=1&access_token=${mapboxgl.accessToken}`;
-        try {
-          const response = await fetch(url);
-          const data = await response.json();
-          return data.features && data.features.length > 0; // Return true if the point is on land
-        } catch (error) {
-          console.error("Error checking if point is on land:", error);
-          return false; // Default to false in case of an error
-        }
-      };
+      // // Function to check if a point is on land
+      // const isPointOnLand = async (coordinates) => {
+      //   const url = `https://api.mapbox.com/v4/mapbox.mapbox-terrain-v2/tilequery/${coordinates[0]},${coordinates[1]}.json?layers=landuse&limit=1&access_token=${mapboxgl.accessToken}`;
+      //   try {
+      //     const response = await fetch(url);
+      //     const data = await response.json();
+      //     return data.features && data.features.length > 0; // Return true if the point is on land
+      //   } catch (error) {
+      //     console.error("Error checking if point is on land:", error);
+      //     return false; // Default to false in case of an error
+      //   }
+      // };
 
       // Generate curved path avoiding high elevations, staying at least 10km away from the coastline, and ensuring all points are on land
       const routeCoordinates = await calculateCurvedPath(originCoords, destinationCoords);
