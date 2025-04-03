@@ -124,7 +124,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  
 #### 2.2 Weighing Major Indexes
 
- ##### 2.2.1 Tsunami Risk Index
+ #### 2.2.1 Tsunami Risk Index
  $$
  TSI = 0.4 \times (\text{Tsunami Prevalence Score}) + 0.4 \times (\text{Coastline Proximity Score}) + 0.2 \times (\text{Elevation Score})
  $$
@@ -132,38 +132,47 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  Where:
  ##### Tsunami Prevalence Score
  Few Tsunami Count – Score ~ 0.67 - 1.0
+ 
  Some Tsunami Count – Score ~ 0.34 - 0.66
+ 
  Frequent Tsunamis – Score < 0.33
-    
-    - Coastline Proximity Score
-    > 10 km from Coast – Score ~ 0.67 - 1.0
-    5 - 10 km from Coast – Score ~ 0.34 - 0.66
-    0 - 5 km from Coast – Score < 0.33
-    
-    
-    - Ground Elevation Score: 
-    Low elevation (Below sea level or < 10 m above sea level) – Score < 0.33
-    Moderate elevation (10 m – 50 m) – Score ~ 0.34 - 0.66
-    High elevation (> 50 m) – Score 0.67 - 1.0
-    
-    $$
-    \text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}
-    $$
-    
-    ##### 2.2.2 Structure Durability Index
-    lorem
  
-    ##### 2.2.3 Environmental Impact Index
-    lorem
+    
+ ##### Coastline Proximity Score
+ > 10 km from Coast – Score ~ 0.67 - 1.0
+
+ 5 - 10 km from Coast – Score ~ 0.34 - 0.66
  
-    ##### 2.2.4 Operability Index
-    lorem
+ 0 - 5 km from Coast – Score < 0.33
+    
+    
+ ##### Ground Elevation Score
+ $$
+ \text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}
+ $$
  
-    ##### 2.2.5 Population-Economic Importance Index
-    lorem
+ Low elevation (Below sea level or < 10 m above sea level) – Score < 0.33
+ 
+ Moderate elevation (10 m – 50 m) – Score ~ 0.34 - 0.66
+ 
+ High elevation (> 50 m) – Score 0.67 - 1.0
+    
+
+    
+ ##### 2.2.2 Structure Durability Index
+ 
+ 
+ ##### 2.2.3 Environmental Impact Index
+ 
+ 
+ ##### 2.2.4 Operability Index
+ 
+ 
+ ##### 2.2.5 Population-Economic Importance Index
+ 
 
 #### 2.3 Final Feasibility Index
-    ##### lorem
+
 
  
 #### 2.4 Visualization and Interpretation
