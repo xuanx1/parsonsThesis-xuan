@@ -323,21 +323,89 @@ $$
  **Elevation >60m** - Score 0 
 
 
-  #### Operability Index - Humidity Score
+  #### Operability Index - Existing Network
  <p>
- $$\text{Humidity Score} = 1 - \frac{\text{Humidity} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ $$\text{Existing Network} = 1 - \frac{\text{Network Density} - \text{Network Density}_{\text{min}}}{\text{Network Density}_{\text{max}} - \text{Network Density}_{\text{min}}}$$
  </p>
  
- **High Humidity (> 80%)** – Score < 0.33
+ **High Accessibility (> 5 km/km²)** – Score < 0.33
  
- **Moderate Humidity (50% - 80%)** – Score ~ 0.34 - 0.66
+ **Moderate Accessibility (1-5 km/km²)** – Score ~ 0.34 - 0.66
  
- **Low Humidity (< 50%)** – Score 0.67 - 1.0
+ **Low Accessibility (<1 km/km²)** – Score 0.67 - 1.0
+
+
+   #### Operability Index - Urban Proximity Score
+ <p>
+ $$\text{Urban Proximity Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **Low Accessibility (> 50 km from urban center)** – Score < 0.33
+ 
+ **Moderate Accessibility (15 km - 50 km from urban center)** – Score ~ 0.34 - 0.66
+ 
+ **High Accessibility (< 15 km from urban center)** – Score 0.67 - 1.0
+
+
+   #### Operability Index - Population Density Score
+ <p>
+ $$\text{Population Density Score} = 1 - \frac{\text{Density} - \text{Density}_{\text{min}}}{\text{Density}_{\text{max}} - \text{Density}_{\text{min}}}$$
+ </p>
+ 
+ **Low Demand (<500 people/km²)** – Score < 0.33
+ 
+ **Moderate Demand (500-5,000 people/km²)** – Score ~ 0.34 - 0.66
+ 
+ **High Demand (>5,000 people/km²)** – Score 0.67 - 1.0
+
 
  
- 
  #### 2.2.5 Population-Economic Importance Index
+ $$
+ PEI = 0.35 \times (\text{Population Density Score}) + 0.4 \times (\text{GDP Per Capita Score}) + 0.25 \times (\text{Land Area Normalised})
+ $$
+  
+Highlights the economic and population significance based on population density, land area, and GDP per capita.
+
+| **Importance Score** (Min 0 - Max 1) | **Interpretation**                                                                 |
+|--------------------------------------|-----------------------------------------------------------------------------------|
+| **Low Importance** (0.00 - 0.33)     | Sparse population, High level of economic activity                                |
+| **Moderate Importance** (0.34 - 0.66) | Balanced population and economic activity                                        |
+| **High Importance** (0.67 - 1.0)      | High population density, Low level of economic activity                          |
+
+
+ *Where:*
+
+  #### Population-Economic Importance Index - Population Density Score
+ <p>
+ $$\text{Population Density Score} = 1 - \frac{\text{Density} - \text{Density}_{\text{min}}}{\text{Density}_{\text{max}} - \text{Density}_{\text{min}}}$$
+ </p>
  
+ **Low Economic Importance (< 500 people/km²)** – Score < 0.33
+ 
+ **Moderate Economic Importance (500 - 5,000 people/km²)** – Score ~ 0.34 - 0.66
+ 
+ **High Economic Importance (> 5,000 people/km²)** – Score 0.67 - 1.0
+
+
+   #### Population-Economic Importance Index - Normalised Land Area
+ <p>
+ $$\text{Normalized Land Area} = 1 - \frac{\text{log(X)} - \text{log(Xmin)}{\text{log(Xmax)} - \text{log(Xmin)}}$$
+ </p>
+
+ 
+  #### Population-Economic Importance Index - GDP Per Capita Score
+ <p>
+ $$\text{Existing Network} = 1 - \frac{\text{Network Density} - \text{Network Density}_{\text{min}}}{\text{Network Density}_{\text{max}} - \text{Network Density}_{\text{min}}}$$
+ </p>
+ 
+ **High Accessibility (> 5 km/km²)** – Score < 0.33
+ 
+ **Moderate Accessibility (1-5 km/km²)** – Score ~ 0.34 - 0.66
+ 
+ **Low Accessibility (<1 km/km²)** – Score 0.67 - 1.0
+
+
 
 #### 2.3 Final Feasibility Index
 
