@@ -138,6 +138,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
 
 
  *Where:*
+ 
  **2.2.1.1 Tsunami Prevalence Score**
  <p>
  $$\text{Tsunami Prevalence Score} = 1 - \frac{\text{Historical Tsunamis within 100 km Radius} - \text{Tsunami}_{\text{minWithinRegion}}}  {\text{Tsunami}_{\text{maxWithinRegion}} - \text{Tsunami}_{\text{minWithinRegion}}}$$
