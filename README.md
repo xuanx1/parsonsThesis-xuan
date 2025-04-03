@@ -299,14 +299,18 @@ Determines the operational feasibility considering ground elevation, network den
  *Where:*
  
  #### Operability Index - Ground Elevation Score
- <p>
- $$\text{Elevation Score} = $$
-- **0** if X < 5m or X > 60m  
-- **(X - 5) / 5** if 5 ≤ X < 10m  
-- **1** if 10 ≤ X ≤ 50m  
-- **(60 - X) / 10** if 50 < X ≤ 60m  
-- **0** if X > 60m  
- </p>
+<p align="center">
+$$
+\text{Elevation Score} =
+\begin{cases} 
+0, & \text{if } X < 5m \text{ or } X > 60m \\
+\frac{X - 5}{5}, & \text{if } 5 \leq X < 10m \\
+1, & \text{if } 10 \leq X \leq 50m \\
+\frac{60 - X}{10}, & \text{if } 50 < X \leq 60m \\
+0, & \text{if } X > 60m
+\end{cases}
+$$
+</p>
 
  **Elevation <5m or >50m** - Score 0 
  
