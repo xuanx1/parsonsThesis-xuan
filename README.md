@@ -411,10 +411,15 @@ Highlights the economic and population significance based on population density,
 In this context, the 5 constituent indexes are combined, forming a new index which determines the score of the route from Point A to Point B. The goal is to minimise construction effort (ie. distance, terrain difficulty) while maximising regional connectivity, economic impact, and population engagement. The value here states how well the route adheres to identified constraints such as geographical hazards, population coverage, and structural resilience as the algorithm avoids areas prone to flooding or tsunamis
 
 The Final Feasibility Index is an index that aggregates and integrates all 5 indexes into a single score:
+
 **1. Tsunami Risk Index** (Hazard Vulnerability)
+
 **2. Structure Durability Index** (Structural Resilience)
+
 **3. Environmental Impact Index** (Environmental Sustainability)
+
 **4. Operability Index** (Overall Usefulness)
+
 **5. Population-Economic Importance Index** (Economic and Demographic Value)
 
 The weightage assigned to each of the 5 indexes in the Final Feasibility Index is based on its significance when it comes to the feasibility of the route. 
@@ -429,11 +434,11 @@ The Operability Index (OPI) is weighted the highest as it directly affects the f
  FFI = 0.2 \times (\text{Tsunami Risk Index}) + 0.2 \times (\text{Structure Durability Index}) + 0.15 \times (\text{Environmental Impact Index}) + 0.25 \times (\text{Operability Index}) + 0.2 \times (\text{Population-Economic Importance Index})
  $$
 
-| **Feasibility Final Score** (Min 0 - Max 1) | **Interpretation**                     |
-|---------------------------------------------|----------------------------------------|
-| **Low Feasibility** (0.00 - 0.33)           | Description for low feasibility...     |
-| **Moderate Feasibility** (0.34 - 0.66)      | Description for moderate feasibility...|
-| **High Feasibility** (0.67 - 1.0)           | Description for high feasibility...    |
+| **Feasibility Final Score** (Min 0 - Max 1) | **Interpretation** (aka Reality Check) |
+|---------------------------------------------|---------------------------------------|
+| **"Why Bother?" Tier** (0.00 - 0.33) | Costs more than your annual coffee budget. Requires solving cold fusion. Permitting process involves blood sacrifices. |
+| **"Maybe If We Stretch" Tier** (0.34 - 0.66) | Budget will hurt but won't kill you. Engineers will complain but do it. Only needs 3 miracle approvals. |
+| **"Shut Up and Take My Money" Tier** (0.67 - 1.0) | Basically IKEA assembly instructions. Approval process involves one bored intern. ROI before lunch. |
 
  
 #### 2.4 Visualization and Interpretation
