@@ -23,39 +23,35 @@ This project aims to develop a rail routing calculator for the general public, p
 LINK TO PROJECT + PAPER
  
 ## Table of Contents
-1. [Introduction](#1introduction)
+1. [Introduction](#1-introduction)
    - [1.1  Costs of Infrastructure Projects in the Southeast Asian Context](#11--costs-of-infrastructure-projects-in-the-southeast-asian-context)
    - [1.2 Project Scope](#12-project-scope)
    - [1.3 Contextualization with Existing Frameworks](#13-contextualization-with-existing-frameworks)
    - [1.4 Contextualization with Existing Methodologies](#14-contextualization-with-existing-methodologies)
  
-2. [Treatment](#2treatment)
-   - [2.5 Translate Criteria Matrix to Conditions]
-      - [2.5.1 Terrain Data]
-         - [2.5.1.1 Ground Elevation - flooding]
-         - [2.5.1.2 Earthquake Safety Distance]
-         - [2.5.1.3 Minimal Deforestation]
-      - [2.5.2 Census Data]
-         - [2.5.2.1 Population Density]
-         - [2.5.2.2 GDP Per Capita]
-      - [2.5.3 Miscellaneous]
-          - [2.5.3.1 Existing Network Lines]
-   - [2.6 Visualization and Interpretation]
-      - [2.6.1 Interaction]
-      - [2.6.2 Settings]
+2. [Treatment](#2-treatment)
+   - [2.1 Data Types and Collection](#21-data-types-and-collection)
+   - [2.2 Weighing Major Indexes](#22-weighing-major-indexes)
+      - [2.2.1 Tsunami Risk Index](#221-tsunami-risk-index)
+      - [2.2.2 Structure Durability Index](#222-structure-durability-index)
+      - [2.2.3 Environmental Impact Index](#223-environmental-impact-index)
+      - [2.2.4 Operability Index](#224-operability-index)
+      - [2.2.5 Population-Economic Importance Index](#225-population-economic-importance-index)
+   - [2.3 Final Feasibility Index](#23-final-feasibility-index)
+   - [2.4 Visualization and Interpretation](#24-visualization-and-interpretation)
  
-3. [Mockup and Prototype](#3mockup-and-prototype)
+4. [Mockup and Prototype](#3-mockup-and-prototype)
  
-4. [Final Product](#4-final-product)
+5. [Final Product](#4-final-product)
    - [4.1 Conclusion](#41-conclusion)
  
-5. [Literature Review](#5literature-review)
+6. [Literature Review](#5-literature-review)
    - [5.1 Books](#51-books)  
    - [5.2 Articles](#52-articles)
    - [5.3 Indexes Development](#53-indexes-development)
    - [5.4 ASEAN Rail Infrastructure ](#54-asean-rail-infrastructure)
  
-## 1.Introduction
+## 1. Introduction
 #### 1.1  Costs of Infrastructure Projects in the Southeast Asian Context
 Historically, Southeast Asia has struggled to develop cohesive transport networks due to natural barriers, political fragmentation, and economic disparities, which has contributed to poor urban planning and underutilized transport routes. Such pan-regional infrastructure generally requires substantial amount of funding, time and resources.
 
@@ -97,7 +93,7 @@ Historically, the focus on railway expansion has always been solely on economica
  | **Climate-Resilient Infrastructure Frameworks** | Extra considerations placed on designing and building infrastructure that can withstand the impacts of extreme weather. |
  
  
-## 2.Treatment
+## 2. Treatment
 #### 2.1 Data Types and Collection
 
 #### Terrain Data
@@ -126,49 +122,33 @@ Economic Activity: Economic data to identify high-demand areas. https://data.wor
 Existing Network: Point/Line shapefiles on roads, railways to assess connectivity and avoid redundancy and repetition of new lines on existing networks. https://data.opendatasoft.com/pages/home/
  
  
-#### 2.2 Indexes
+#### 2.2 Weighing Major Indexes
 
-    ##### 2.5.1 Terrain Data
+    ##### 2.2.1 Tsunami Risk Index
     lorem
  
-       ##### 2.5.1.1 Ground Elevation - flooding
-       lorem
- 
-       ##### 2.5.1.2 Earthquake Safety Distance
-       lorem
- 
-       ##### 2.5.1.3 Minimal Deforestation
-       lorem
- 
-       ##### 2.5.1.4 Distance from Coasts
-       lorem
- 
-       ##### 2.5.1.5 Tsunami Risk Index
-       lorem
- 
-       ##### 2.5.1.6 Humidity Index
-       lorem
-       
-       ##### 2.5.1.7 Proximity Risk Index – Disaster vs Population vs Forest
-       lorem
- 
-    ##### 2.5.2 Census Data
+    ##### 2.2.2 Structure Durability Index
     lorem
  
-       ##### 2.5.2.1 Population Density
-       lorem
- 
-       ##### 2.5.2.2 GDP Per Capita
-       lorem
- 
-    ##### 2.5.3 Miscellaneous
+    ##### 2.2.3 Environmental Impact Index
     lorem
  
-       ##### 2.5.3.1 Existing Network Lines
-       lorem
+    ##### 2.2.4 Operability Index
+    lorem
+ 
+    ##### 2.2.5 Population-Economic Importance Index
+    lorem
+
+#### 2.3 Final Feasibility Index
+    ##### lorem
+
+ 
+#### 2.4 Visualization and Interpretation
+lorem
+ 
  
 
-## 3.Mockup and Prototype
+## 3. Mockup and Prototype
 [Mockup](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/02mockup/mockup.md)
 ![418837055-03b19321-f25a-425b-8f55-a445a6c7c242](https://github.com/user-attachments/assets/183747cf-728b-42a5-81ee-bed34741f56f)
 
@@ -181,7 +161,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
 lorem
  
 
-## 5.Literature Review
+## 5. Literature Review
 #### 5.1 Books
  
 Graham, Stephen. Disrupted cities: When infrastructure fails. New York, NY: Routledge, 2010. 
