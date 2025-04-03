@@ -22,7 +22,6 @@ const map = new mapboxgl.Map({
   maxBounds: [
     [80.0, -25.0], // sw corner bounding box
     [150.0, 35.0]  // ne corner bounding box
-
     // [91.0, -12.0], // sw corner bounding box
     // [142.0, -12.0], // se corner bounding box
     // [142.0, 30.0], // ne corner bounding box
@@ -338,7 +337,7 @@ resizeMap();
   // origin-destination UI + dropdown suggestions
   const originInput = document.createElement("input");
   originInput.type = "text";
-  originInput.placeholder = " Origin";
+  originInput.placeholder = "Origin";
   originInput.style.position = "absolute";
   originInput.style.top = "10px";
   originInput.style.left = "10px";
@@ -347,8 +346,21 @@ resizeMap();
   originInput.style.borderRadius = "20px";
   originInput.style.padding = "5px";
   originInput.style.border = "none";
+  originInput.style.paddingLeft = "25px";
+  originInput.style.paddingRight = "29px";
   document.body.appendChild(originInput);
 
+  // blue circle origin
+  const bluCircle = document.createElement("div");
+  bluCircle.style.position = "absolute";
+  bluCircle.style.top = "19px";
+  bluCircle.style.left = "20px";
+  bluCircle.style.width = "10px";
+  bluCircle.style.height = "10px";
+  bluCircle.style.borderRadius = "50%";
+  bluCircle.style.backgroundColor = "#019cde";
+  bluCircle.style.zIndex = "1000";
+  document.body.appendChild(bluCircle);
 
   // 3dots
   const threeDots = document.createElement("img");
@@ -447,7 +459,7 @@ resizeMap();
 
   const destinationInput = document.createElement("input");
   destinationInput.type = "text";
-  destinationInput.placeholder = " Destination";
+  destinationInput.placeholder = "Destination";
   destinationInput.style.position = "absolute";
   destinationInput.style.top = "90px";
   destinationInput.style.left = "10px";
@@ -456,7 +468,21 @@ resizeMap();
   destinationInput.style.borderRadius = "20px";
   destinationInput.style.padding = "5px";
   destinationInput.style.border = "none";
+  destinationInput.style.paddingLeft = "25px";
+  destinationInput.style.paddingRight = "29px";
   document.body.appendChild(destinationInput);
+
+  // red circle destination
+  const redCircle = document.createElement("div");
+  redCircle.style.position = "absolute";
+  redCircle.style.top = "99px";
+  redCircle.style.left = "20px";
+  redCircle.style.width = "10px";
+  redCircle.style.height = "10px";
+  redCircle.style.borderRadius = "50%";
+  redCircle.style.backgroundColor = "#e95247";
+  redCircle.style.zIndex = "1000";
+  document.body.appendChild(redCircle);
 
   const enableDestinationClickButton = document.createElement("img");
   enableDestinationClickButton.src = "images/pin.svg";
@@ -694,6 +720,317 @@ resizeMap();
 
   
 
+
+
+  // index dashboard
+  const dashboardContainer = document.createElement('div');
+  dashboardContainer.style.position = 'fixed';
+  dashboardContainer.style.top = '0';
+  dashboardContainer.style.left = '-300px'; // initially hidden
+  dashboardContainer.style.width = '300px';
+  dashboardContainer.style.top = '190px';
+  dashboardContainer.style.height = '65%';
+  dashboardContainer.style.opacity = 0.95;
+  dashboardContainer.style.backgroundColor = '#ffffff';
+  dashboardContainer.style.boxShadow = '2px 0 5px rgba(0, 0, 0, 0.2)';
+  dashboardContainer.style.zIndex = '2000';
+  dashboardContainer.style.transition = 'left 0.3s ease';
+  dashboardContainer.style.overflowY = 'auto';
+  dashboardContainer.style.borderTopRightRadius = '15px';
+  dashboardContainer.style.borderBottomRightRadius = '15px';
+  dashboardContainer.style.scrollbarWidth = 'thin'; // Minimalist scrollbar for Firefox
+  dashboardContainer.style.scrollbarColor = '#ccc transparent'; // Custom scrollbar color for Firefox
+  document.body.appendChild(dashboardContainer);
+
+  // Minimalist scrollbar for WebKit browsers
+  const style = document.createElement('style');
+  style.textContent = `
+    #dashboardContainer::-webkit-scrollbar {
+      width: 6px;
+    }
+    #dashboardContainer::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 3px;
+    }
+    #dashboardContainer::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  `;
+  document.head.appendChild(style);
+  dashboardContainer.id = 'dashboardContainer';
+
+
+  // index dashboard button with icon and text
+  const dashboardToggleButtonContainer = document.createElement('div');
+  dashboardToggleButtonContainer.style.position = 'absolute';
+  dashboardToggleButtonContainer.style.top = '139px';
+  dashboardToggleButtonContainer.style.left = '10px';
+  dashboardToggleButtonContainer.style.zIndex = '2001';
+  dashboardToggleButtonContainer.style.cursor = 'pointer';
+  // dashboardToggleButtonContainer.style.width = '100px';
+  dashboardToggleButtonContainer.style.display = 'flex';
+  dashboardToggleButtonContainer.style.alignItems = 'center';
+  dashboardToggleButtonContainer.style.backgroundColor = '#ffffff';
+  dashboardToggleButtonContainer.style.padding = '5px 10px';
+  dashboardToggleButtonContainer.style.borderRadius = '20px';
+  dashboardToggleButtonContainer.style.boxShadow = '0px 2px 5px rgba(0, 0, 0, 0.2)';
+  document.body.appendChild(dashboardToggleButtonContainer);
+
+  const dashboardToggleButtonIcon = document.createElement('img');
+  dashboardToggleButtonIcon.src = 'images/dashboard.svg';
+  dashboardToggleButtonIcon.alt = 'Dashboard';
+  dashboardToggleButtonIcon.style.width = '20px';
+  dashboardToggleButtonIcon.style.height = '20px';
+  dashboardToggleButtonIcon.style.marginRight = '3px';
+  dashboardToggleButtonContainer.appendChild(dashboardToggleButtonIcon);
+
+  const dashboardToggleButtonText = document.createElement('span');
+  dashboardToggleButtonText.textContent = 'Indexes';
+  dashboardToggleButtonText.style.fontSize = '14px';
+  dashboardToggleButtonText.style.color = '#333';
+  dashboardToggleButtonText.style.fontWeight = 'bold';
+  dashboardToggleButtonContainer.appendChild(dashboardToggleButtonText);
+
+
+
+  // toggle index dashboard
+  let isDashboardOpen = false;
+  dashboardToggleButtonContainer.addEventListener('click', () => {
+    if (isDashboardOpen) {
+      dashboardContainer.style.left = '-300px'; // Slide out
+    } else {
+      dashboardContainer.style.left = '0'; // Slide in
+    }
+    isDashboardOpen = !isDashboardOpen;
+  });
+
+  // index dashboard content
+  const dashboardTitle = document.createElement('h2');
+  dashboardTitle.textContent = 'Weighing Indexes';
+  dashboardTitle.style.margin = '20px';
+  dashboardTitle.style.fontSize = '18px';
+  dashboardTitle.style.color = '#333';
+  dashboardContainer.appendChild(dashboardTitle);
+
+  const dashboardContent = document.createElement('p');
+  dashboardContent.innerHTML = `
+    <strong style="font-size: 14px;">Tsunami Risk Index</strong><br>
+    <span style="font-size: 12px;">Measures the risk of tsunamis based on ground elevation, proximity to the coastline, and historical tsunami occurrences.</span><br>
+    <input type="range" id="tsi-filter" min="0" max="1" step="0.01" value="0.5" style="width: 100%; margin-top: 10px; accent-color: orange;">
+    <span id="tsi-value" style="font-size: 12px; color: #333;">0.5</span><br><br>
+    
+    <strong style="font-size: 14px;">Structure Durability Index</strong><br>
+    <span style="font-size: 12px;">Evaluates the durability of structures considering seismic activity, ground elevation, proximity to the coastline, and humidity levels.</span><br>
+    <input type="range" id="sdi-filter" min="0" max="1" step="0.01" value="0.5" style="width: 100%; margin-top: 10px; accent-color: orange;">
+    <span id="sdi-value" style="font-size: 12px; color: #333;">0.5</span><br><br>
+    
+    <strong style="font-size: 14px;">Environmental Impact Index</strong><br>
+    <span style="font-size: 12px;">Assesses the environmental impact based on land use changes and biodiversity loss.</span><br>
+    <input type="range" id="e2i-filter" min="0" max="1" step="0.01" value="0.5" style="width: 100%; margin-top: 10px; accent-color: orange;">
+    <span id="e2i-value" style="font-size: 12px; color: #333;">0.5</span><br><br>
+    
+    <strong style="font-size: 14px;">Operability Index</strong><br>
+    <span style="font-size: 12px;">Determines the operational feasibility considering ground elevation, network density, urban proximity, and population density.</span><br>
+    <input type="range" id="opi-filter" min="0" max="1" step="0.01" value="0.5" style="width: 100%; margin-top: 10px; accent-color: orange;">
+    <span id="opi-value" style="font-size: 12px; color: #333;">0.5</span><br><br>
+    
+    <strong style="font-size: 14px;">Population-Economic Importance</strong><br>
+    <span style="font-size: 12px;">Highlights the economic and population significance based on population density, land area, and GDP per capita.</span><br>
+    <input type="range" id="pei-filter" min="0" max="1" step="0.01" value="0.5" style="width: 100%; margin-top: 10px; accent-color: orange;">
+    <span id="pei-value" style="font-size: 12px; color: #333;">0.5</span><br><br>
+    
+    <strong style="font-size: 14px;">Final Feasibility Index</strong><br>
+    <span style="font-size: 12px;">Combines all indexes to provide an overall feasibility score for the project.</span><br>
+    <input type="range" id="ffi-filter" min="0" max="1" step="0.01" value="0.5" style="width: 100%; margin-top: 10px; accent-color: orange;">
+    <span id="ffi-value" style="font-size: 12px; color: #333;">0.5</span><br><br>
+  `;
+  dashboardContent.style.margin = '20px';
+  dashboardContent.style.fontSize = '14px';
+  dashboardContent.style.color = '#666';
+  dashboardContent.style.lineHeight = '1.3';
+  dashboardContainer.appendChild(dashboardContent);
+
+  // update values when sliders are adjusted
+  const updateFilterValue = (id, valueId) => {
+    const slider = document.getElementById(id);
+    const valueDisplay = document.getElementById(valueId);
+    slider.addEventListener('input', () => {
+      valueDisplay.textContent = slider.value;
+    });
+  };
+
+  updateFilterValue('tsi-filter', 'tsi-value');
+  updateFilterValue('sdi-filter', 'sdi-value');
+  updateFilterValue('e2i-filter', 'e2i-value');
+  updateFilterValue('opi-filter', 'opi-value');
+  updateFilterValue('pei-filter', 'pei-value');
+  updateFilterValue('ffi-filter', 'ffi-value');
+
+
+
+
+
+  // layers dashboard
+  const layersDashboardContainer = document.createElement('div');
+  layersDashboardContainer.style.position = 'fixed';
+  layersDashboardContainer.style.top = '0';
+  layersDashboardContainer.style.left = '-300px'; // initially hidden
+  layersDashboardContainer.style.width = '300px';
+  layersDashboardContainer.style.top = '190px';
+  layersDashboardContainer.style.height = '65%';
+  layersDashboardContainer.style.opacity = 0.95;
+  layersDashboardContainer.style.backgroundColor = 'white';
+  layersDashboardContainer.style.boxShadow = '2px 0 5px rgba(0, 0, 0, 0.2)';
+  layersDashboardContainer.style.zIndex = '2000';
+  layersDashboardContainer.style.transition = 'left 0.3s ease';
+  layersDashboardContainer.style.overflowY = 'auto';
+  layersDashboardContainer.style.borderTopRightRadius = '15px';
+  layersDashboardContainer.style.borderBottomRightRadius = '15px';
+  layersDashboardContainer.style.scrollbarWidth = 'thin'; // Minimalist scrollbar for Firefox
+  layersDashboardContainer.style.scrollbarColor = '#ccc transparent'; // Custom scrollbar color for Firefox
+  document.body.appendChild(layersDashboardContainer);
+
+  // Minimalist scrollbar for WebKit browsers
+  const layersStyle = document.createElement('style');
+  layersStyle.textContent = `
+    #layersDashboardContainer::-webkit-scrollbar {
+      width: 6px;
+    }
+    #layersDashboardContainer::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 3px;
+    }
+    #layersDashboardContainer::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  `;
+  document.head.appendChild(layersStyle);
+  layersDashboardContainer.id = 'layersDashboardContainer';
+
+  // layers dashboard button with icon and text
+  const layersDashboardToggleButtonContainer = document.createElement('div');
+  layersDashboardToggleButtonContainer.style.position = 'absolute';
+  layersDashboardToggleButtonContainer.style.top = '139px';
+  layersDashboardToggleButtonContainer.style.left = '124px';
+  layersDashboardToggleButtonContainer.style.zIndex = '2001';
+  layersDashboardToggleButtonContainer.style.cursor = 'pointer';
+  layersDashboardToggleButtonContainer.style.display = 'flex';
+  layersDashboardToggleButtonContainer.style.alignItems = 'center';
+  layersDashboardToggleButtonContainer.style.backgroundColor = '#ffffff';
+  layersDashboardToggleButtonContainer.style.padding = '5px 10px';
+  layersDashboardToggleButtonContainer.style.borderRadius = '20px';
+  layersDashboardToggleButtonContainer.style.boxShadow = '0px 2px 5px rgba(0, 0, 0, 0.2)';
+  document.body.appendChild(layersDashboardToggleButtonContainer);
+
+  const layersDashboardToggleButtonIcon = document.createElement('img');
+  layersDashboardToggleButtonIcon.src = 'images/layer.svg';
+  layersDashboardToggleButtonIcon.alt = 'Layers';
+  layersDashboardToggleButtonIcon.style.width = '20px';
+  layersDashboardToggleButtonIcon.style.height = '20px';
+  layersDashboardToggleButtonIcon.style.marginRight = '3px';
+  layersDashboardToggleButtonContainer.appendChild(layersDashboardToggleButtonIcon);
+
+  const layersDashboardToggleButtonText = document.createElement('span');
+  layersDashboardToggleButtonText.textContent = 'Layers';
+  layersDashboardToggleButtonText.style.fontSize = '14px';
+  layersDashboardToggleButtonText.style.color = '#333';
+  layersDashboardToggleButtonText.style.fontWeight = 'bold';
+  layersDashboardToggleButtonContainer.appendChild(layersDashboardToggleButtonText);
+
+  // toggle layers dashboard
+  let isLayersDashboardOpen = false;
+  layersDashboardToggleButtonContainer.addEventListener('click', () => {
+    if (isLayersDashboardOpen) {
+      layersDashboardContainer.style.left = '-300px'; // Slide out
+    } else {
+      layersDashboardContainer.style.left = '0'; // Slide in
+    }
+    isLayersDashboardOpen = !isLayersDashboardOpen;
+  });
+
+  // layers dashboard content
+  const layersDashboardTitle = document.createElement('h2');
+  layersDashboardTitle.textContent = 'Layers Glossary';
+  layersDashboardTitle.style.margin = '20px';
+  layersDashboardTitle.style.fontSize = '18px';
+  layersDashboardTitle.style.color = '#333';
+  layersDashboardContainer.appendChild(layersDashboardTitle);
+
+  const layersDashboardContent = document.createElement('p');
+  layersDashboardContent.innerHTML = `
+    <div style="display: flex; align-items: center;">
+      <img src="images/tsunami.svg" alt="Tsunamis" style="width: 20px; height: 20px; margin-right: 10px; filter: invert(100%); opacity: 0.7;">
+      <strong style="color: #f67a0a;">Historical Tsunamis</strong>
+    </div>
+    Shows historical tsunami points from 1923 to 2024.<br><br>
+    <div style="display: flex; align-items: center;">
+      <img src="images/quake.svg" alt="Earthquakes" style="width: 20px; height: 20px; margin-right: 10px; filter: invert(100%); opacity: 0.7;">
+      <strong style="color: #f67a0a;">Historical Earthquakes</strong>
+    </div>
+    Shows historical earthquake sites from 1923 to 2024.<br><br>
+    <div style="display: flex; align-items: center;">
+      <img src="images/coast.svg" alt="Coastline" style="width: 20px; height: 20px; margin-right: 10px; filter: invert(100%); opacity: 0.7;">
+      <strong style="color: #f67a0a;">Coastline</strong>
+    </div>
+    Shows the coastline boundaries for Southeast Asia.<br><br>
+    <div style="display: flex; align-items: center;">
+      <img src="images/humidity.svg" alt="Humidity" style="width: 20px; height: 20px; margin-right: 10px; filter: invert(100%); opacity: 0.7;">
+      <strong style="color: #f67a0a;">Humidity</strong>
+    </div>
+    Shows average humidity for the year 2024. Data resolution is approximately 1km² per pixel.<br><br>
+    <div style="display: flex; align-items: center;">
+      <img src="images/tree.svg" alt="Forest Coverage" style="width: 20px; height: 20px; margin-right: 10px; filter: invert(100%); opacity: 0.7;">
+      <strong style="color: #f67a0a;">Forest Coverage</strong>
+    </div>
+    Shows forest coverage based on satellite imagery from 2015. Data resolution is approximately 30m per pixel.<br><br>
+    <div style="display: flex; align-items: center;">
+      <img src="images/amphibians.svg" alt="Amphibians" style="width: 20px; height: 20px; margin-right: 10px; filter: invert(100%); opacity: 0.7;">
+      <strong style="color: #f67a0a;">Amphibians</strong>
+    </div>
+    Shows presence of amphibian biodiversity based on data collected up to 2020. Data resolution is approximately 1km² per pixel.<br><br>
+    <div style="display: flex; align-items: center;">
+      <img src="images/bird.svg" alt="Birds" style="width: 20px; height: 20px; margin-right: 10px; filter: invert(100%); opacity: 0.7;">
+      <strong style="color: #f67a0a;">Birds</strong>
+    </div>
+    Shows presence of bird biodiversity based on data collected up to 2020. Data resolution is approximately 1km² per pixel.<br><br>
+    <div style="display: flex; align-items: center;">
+      <img src="images/mammals.svg" alt="Mammals" style="width: 20px; height: 20px; margin-right: 10px; filter: invert(100%); opacity: 0.7;">
+      <strong style="color: #f67a0a;">Mammals</strong>
+    </div>
+    Shows presence of mammal biodiversity based on data collected up to 2020. Data resolution is approximately 1km² per pixel.<br><br>
+    <div style="display: flex; align-items: center;">
+      <img src="images/gdp.svg" alt="GDP" style="width: 20px; height: 20px; margin-right: 10px; opacity: 0.7;">
+      <strong style="color: #f67a0a;">Spatial GDP Per Capita</strong>
+    </div>
+    Shows spatial distribution of the Gross Domestic Product (GDP) per head for the year 2022. Data resolution is approximately 5km² per pixel.<br><br>
+    <div style="display: flex; align-items: center;">
+      <img src="images/population.svg" alt="Population" style="width: 20px; height: 20px; margin-right: 10px; opacity: 0.7;">
+      <strong style="color: #f67a0a;">Spatial Population</strong>
+    </div>
+    Shows spatial distribution of population for the year 2022. Data resolution is approximately 30m per pixel.<br><br>
+    <div style="display: flex; align-items: center;">
+      <img src="images/plus.svg" alt="Infrastructure" style="width: 20px; height: 20px; margin-right: 10px; opacity: 0.7;">
+      <strong style="color: #f67a0a;">Key Infrastructure</strong>
+    </div>
+    Displays key connectivity infrastructure such as airports, railways, and seaports within each Southeast Asian country.<br><br>
+    <div style="display: flex; align-items: center;">
+    </div>
+      <br>
+      <br>
+      <br>
+      <strong><a href="https://github.com/xuanx1?tab=repositories" target="_blank" style="color: #00be9d; text-decoration: none;">Project Repository</a></strong>
+    Explore the source code and related projects.<br><br>
+    <div style="display: flex; align-items: center;"></div>
+
+      <strong><a href="https://xuanx1.github.io/designArchiveWinter24/loading.html" target="_blank" style="color: #00be9d; text-decoration: none;">Design Archive</a></strong>
+    View Xuan's portfolio, encompassing numerous interdisciplinary projects.<br><br>
+    <div style="display: flex; align-items: center;"></div>
+  `;
+  layersDashboardContent.style.margin = '20px';
+  layersDashboardContent.style.fontSize = '14px';
+  layersDashboardContent.style.color = '#666';
+  layersDashboardContent.style.lineHeight = '1.5';
+  layersDashboardContainer.appendChild(layersDashboardContent);
 
 
 
@@ -2081,7 +2418,7 @@ window.addEventListener("load", () => {
   dialogContainer.style.width = "100%";
   dialogContainer.style.height = "100%";
   dialogContainer.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
-  dialogContainer.style.zIndex = "2000";
+  dialogContainer.style.zIndex = "2002";
   dialogContainer.style.display = "flex";
   dialogContainer.style.justifyContent = "center";
   dialogContainer.style.alignItems = "center";
@@ -2089,7 +2426,7 @@ window.addEventListener("load", () => {
   const dialogBox = document.createElement("div");
   dialogBox.style.backgroundColor = "white";
   dialogBox.style.padding = "20px";
-  dialogBox.style.opacity = 0.8;
+  dialogBox.style.opacity = 0.9;
   dialogBox.style.borderRadius = "10px";
   dialogBox.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.3)";
   dialogBox.style.textAlign = "center";
@@ -2369,8 +2706,8 @@ window.addEventListener("load", () => {
   routeButton.src = "images/draw.svg";
   routeButton.alt = "Draw Route";
   routeButton.style.position = "absolute";
-  routeButton.style.top = "50px";
-  routeButton.style.left = "330px";
+  routeButton.style.top = "139px";
+  routeButton.style.left = "230px";
   routeButton.style.zIndex = "1000";
   routeButton.style.cursor = "pointer";
   routeButton.style.width = "30px";
@@ -2394,8 +2731,8 @@ window.addEventListener("load", () => {
     .style("font-size", "14px")
     .style("color", "#333")
     .style("display", "none")
-    .style("top", "50px")
-    .style("left", "370px")
+    .style("top", "130px")
+    .style("left", "270px")
     .text("Calculate Route");
 
   routeButton.addEventListener("mouseover", () => {
@@ -2532,7 +2869,76 @@ window.addEventListener("load", () => {
       resetDescription.style("display", "none");
     });
 
+  
+  
+  
+  
+  // export button - chaneg to 100% brightness when a line is drawn
+  const exportButton = document.createElement("img");
+  exportButton.src = "images/export.svg";
+  exportButton.alt = "Export Report";
+  exportButton.style.position = "absolute";
+  exportButton.style.bottom = "200px";
+  exportButton.style.right = "10px";
+  exportButton.style.zIndex = "1000";
+  exportButton.style.cursor = "pointer";
+  exportButton.style.width = "30px";
+  exportButton.style.height = "30px";
+  exportButton.style.border = "0px solid #ccc";
+  exportButton.style.borderRadius = "50%";
+  exportButton.style.backgroundColor = "#ffffff";
+  exportButton.style.padding = "7px";
+  exportButton.style.filter = "brightness(30%)"; // Initially greyed out
+  document.body.appendChild(exportButton);
 
+  exportButton.addEventListener("click", () => {
+    const routeData = map.getSource("route") ? map.getSource("route")._data : null;
+    if (!routeData) {
+      alert("No route data available to export.");
+      return;
+    }
+
+    const report = JSON.stringify(routeData, null, 2);
+    const blob = new Blob([report], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "rail_feasibility_report.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // hover description
+  const exportDescription = d3
+    .select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("padding", "7px")
+    .style("background-color", "white")
+    .style("border", "0px solid #ccc")
+    .style("border-radius", "20px")
+    .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+    .style("font-size", "14px")
+    .style("color", "#333")
+    .style("display", "none")
+    .style("bottom", "200px")
+    .style("right", "50px")
+    .text("Export Report");
+
+  exportButton
+    .addEventListener("mouseover", () => {
+      exportDescription.style("display", "block");
+    });
+
+  exportButton
+    .addEventListener("mouseout", () => {
+      exportDescription.style("display", "none");
+    });
+
+
+
+
+      
 
 
   // loading bar
