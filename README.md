@@ -147,9 +147,9 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
     
     
  ##### 2.2.1.3 Ground Elevation Score
- $$
- {Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}
- $$
+$$
+Elevation Score = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}
+$$
  
  Low elevation (Below sea level or < 10 m above sea level) – Score < 0.33
  
