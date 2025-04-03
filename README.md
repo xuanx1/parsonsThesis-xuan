@@ -227,12 +227,109 @@ Evaluates the durability of structures considering seismic activity, ground elev
  
  **High elevation (> 50 m)** – Score 0.67 - 1.0
 
+
+  #### Structure Durability Index - Humidity Score
+ <p>
+ $$\text{Humidity Score} = 1 - \frac{\text{Humidity} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **High Humidity (> 80%)** – Score < 0.33
+ 
+ **Moderate Humidity (50% - 80%)** – Score ~ 0.34 - 0.66
+ 
+ **Low Humidity (< 50%)** – Score 0.67 - 1.0
+
  
  
  #### 2.2.3 Environmental Impact Index
+ $$
+ E2I = 0.55 \times (\text{Land Use Change}) + 0.45 \times (\text{Biodiversity Score})
+ $$
+  
+Assesses the environmental impact based on land use changes and biodiversity loss.
+
+| Impact Level       | Score (Min 0 - Max 1) | Interpretation |
+|-------------------|----------------------|----------------|
+| **High Impact**  | 0.00 - 0.33          | - Significant land conversion  <br> - High biodiversity presence |
+| **Moderate Impact** | 0.34 - 0.66       | - Some land conversion  <br> - Moderate biodiversity presence |
+| **Low Impact**   | 0.67 - 1.00          | - Minimal land conversion  <br> - Low biodiversity presence |
+
+
+ *Where:*
+ 
+ #### Environmental Impact Index - Land Use Change
+ <p>
+ $$\text{Land Use Change} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **Land Use Change < 10%** – Score ~ 0.67 - 1.0
+ 
+ **Land Use Change 10 - 25%** – Score ~ 0.34 - 0.66
+ 
+ **Land Use Change > 25%** – Score < 0.33
  
  
+ #### Environmental Impact Index - Biodiversity Score
+ <p>
+ $$\text{Biodiversity Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **Species Density < 10%** – Score ~ 0.67 - 1.0
+
+ **Species Density 10 - 35%** – Score ~ 0.34 - 0.66
+ 
+ **Species Density > 30%** – Score < 0.33
+    
+
+
  #### 2.2.4 Operability Index
+ $$
+ OPI = 0.24 \times (\text{Elevation Score}) + 0.45 \times (\text{Existing Network Score}) + 0.45 \times (\text{Urban Proximity Score}) + 0.45 \times (\text{Population Density Score})
+ $$
+  
+Determines the operational feasibility considering ground elevation, network density, urban proximity, and population density.
+
+| Operability Level    | Score (Min 0 - Max 1) | Interpretation |
+|---------------------|----------------------|----------------|
+| **Low Operability**  | 0.00 - 0.33          | - Isolated  <br> - High elevation  <br> - Low accessibility, not emergency-ready  <br> - Low population |
+| **Moderate Operability** | 0.34 - 0.66       | - Moderately connected  <br> - Moderate elevation  <br> - Medium accessibility  <br> - Average population |
+| **High Operability**   | 0.67 - 1.00          | - Well-connected  <br> - Low elevation  <br> - High accessibility, emergency-ready |
+
+
+ *Where:*
+ 
+ #### Operability Index - Ground Elevation Score
+ <p>
+ $$\text{Elevation Score} = $$
+- **0** if X < 5m or X > 60m  
+- **(X - 5) / 5** if 5 ≤ X < 10m  
+- **1** if 10 ≤ X ≤ 50m  
+- **(60 - X) / 10** if 50 < X ≤ 60m  
+- **0** if X > 60m  
+ </p>
+
+ **Elevation <5m or >50m** - Score 0 
+ 
+ **Elevation between 5-10m** - Linear increase from 0 to 1
+ 
+ **Elevation between 10-50m** - Score 1 
+ 
+ **Elevation between 50-60m** - Linear decrease from 1 to 0; transition to undesirable
+ 
+ **Elevation >60m** - Score 0 
+
+
+  #### Operability Index - Humidity Score
+ <p>
+ $$\text{Humidity Score} = 1 - \frac{\text{Humidity} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **High Humidity (> 80%)** – Score < 0.33
+ 
+ **Moderate Humidity (50% - 80%)** – Score ~ 0.34 - 0.66
+ 
+ **Low Humidity (< 50%)** – Score 0.67 - 1.0
+
  
  
  #### 2.2.5 Population-Economic Importance Index
