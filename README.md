@@ -30,22 +30,11 @@ LINK TO PROJECT + PAPER
    - [1.4 Contextualization with Existing Methodologies](#14-contextualization-with-existing-methodologies)
  
 2. [Treatment](#2treatment)
-   - [2.1 Data Types and Collection](#21-Data-Types-and-Collection)  
-   - [2.2 Preprocessing]
-      - [2.2.1 Standardization and Normalization]
-   - [2.3 Combinatorial Optimization]
-   - [2.4 Setting Requirements]
-      - [2.4.1 Requirements for Construction Criteria]
-         - [2.4.2 Criteria Matrix]
    - [2.5 Translate Criteria Matrix to Conditions]
       - [2.5.1 Terrain Data]
          - [2.5.1.1 Ground Elevation - flooding]
          - [2.5.1.2 Earthquake Safety Distance]
          - [2.5.1.3 Minimal Deforestation]
-         - [2.5.1.4 Distance from Coasts]
-         - [2.5.1.5 Tsunami Risk Index]
-         - [2.5.1.6 Humidity Index]
-         - [2.5.1.7 Proximity Risk Index – Disaster vs Population vs Forest]
       - [2.5.2 Census Data]
          - [2.5.2.1 Population Density]
          - [2.5.2.2 GDP Per Capita]
@@ -59,9 +48,6 @@ LINK TO PROJECT + PAPER
  
 4. [Conclusion](#4conclusion)
    - [4.1 Final Statement](#41-final-statement)
-   - [4.2 Benefits to Southeast Asia](#42-benefits-to-southeast-asia)
-   - [4.3 Disadvantages of Technique to Southeast Asia](#43-disadvantages-of-such-technique)
-   - [4.4 Further Areas of Interest / Consideration](#44-further-areas-of-interest--consideration)
  
 5. [Literature Review](#5literature-review)
    - [5.1 Books](#51-books)  
