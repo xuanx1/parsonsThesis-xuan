@@ -139,7 +139,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
 
  *Where:*
  
- **2.2.1.1 Tsunami Prevalence Score**
+ **Tsunami Risk Index - Tsunami Prevalence Score**
  <p>
  $$\text{Tsunami Prevalence Score} = 1 - \frac{\text{Historical Tsunamis within 100 km Radius} - \text{Tsunami}_{\text{minWithinRegion}}}  {\text{Tsunami}_{\text{maxWithinRegion}} - \text{Tsunami}_{\text{minWithinRegion}}}$$
  </p>
@@ -151,7 +151,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **Frequent Tsunamis** – Score < 0.33
  
  
- **2.2.1.2 Coastline Proximity Score**
+ **Tsunami Risk Index - Coastline Proximity Score**
  <p>
  $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
  </p>
@@ -163,7 +163,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **0 - 5 km from Coast** – Score < 0.33
     
     
- **2.2.1.3 Ground Elevation Score**
+ **Tsunami Risk Index - Ground Elevation Score**
  <p>
  $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
  </p>
@@ -180,9 +180,19 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  $$
  SDI = 0.4 \times (\text{Seismic Safe Score}) + 0.25 \times (\text{Elevation Score}) + 0.2 \times (\text{Coastline Proximity Score}) + 0.25 \times (\text{Humidity})
  $$
- 
+  
+Evaluates the durability of structures considering seismic activity, ground elevation, proximity to the coastline, and humidity levels.
+
+| Durability        | Score (Min 0 - Max 1) | Interpretation |
+|------------------|----------------------|----------------|
+| **Poor Durability**  | 0.00 - 0.33          | - High seismic activity  <br> - Low elevation  <br> - High humidity |
+| **Moderate Durability** | 0.34 - 0.66       | - Some seismic activity  <br> - Moderate elevation  <br> - Moderate humidity |
+| **High Durability**   | 0.67 - 1.00          | - Low seismic activity  <br> - High elevation  <br> - Low humidity |
+
+
  *Where:*
- #### 2.2.2.1 Seismic Safe Score
+ 
+ #### Structure Durability Index - Seismic Safe Score
  <p>
  $$\text{Seismic Safe Score} = \frac{\text{Distance to Fault Line} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
  </p>
@@ -194,7 +204,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **0 - 50 km Away** – Score < 0.33
  
  
- #### 2.2.1.2 Coastline Proximity Score
+ #### Structure Durability Index - Coastline Proximity Score
  <p>
  $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
  </p>
@@ -206,7 +216,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **0 - 5 km from Coast** – Score < 0.33
     
     
- #### 2.2.1.3 Ground Elevation Score
+ #### Structure Durability Index - Ground Elevation Score
  <p>
  $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
  </p>
