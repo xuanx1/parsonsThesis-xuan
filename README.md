@@ -428,7 +428,7 @@ The Tsunami Risk Index (TSI), Population-Economic Importance Index (PEI), and St
 
 The Operability Index (OPI) is weighted the highest as it directly affects the functionality and accessibility of the area, with access to emergency services being critical to its success as a conduit (OECD 2020). The Environmental Impact Index (E2I) is weighted the lowest as environmental sustainability is crucial but less immediately impactful in the operational aspects of such connection (World Bank 2020). 
 
-<span style="color: orange; font-weight: bold;">In the FFI, the higher the value, the more feasible the project.</span>
+**In the FFI, the higher the value, the more feasible the project.**
 
  $$
  FFI = 0.2 \times (\text{Tsunami Risk Index}) + 0.2 \times (\text{Structure Durability Index}) + 0.15 \times (\text{Environmental Impact Index}) + 0.25 \times (\text{Operability Index}) + 0.2 \times (\text{Population-Economic Importance Index})
@@ -472,10 +472,10 @@ The results are visualized using interactive network graphs, allowing users to e
 hero image + video
 
 #### 4.1 Conclusion
-lorem
+The project demonstrates that combinatorial optimization can be a powerful tool in planning public transport networks in Southeast Asia, particularly in the face of the region's challenging terrain and climate. By integrating indexes and key indicators, the tool provides a data-driven approach to rail line and station placement. The proposed rail network gives space for the general public to conceptualise hypothetic connections that has yet to exist but should have existed.
 
 #### 4.2 Disclaimer
-lorem 
+Given the multidisciplinary nature and numerous expertise involved—engineers, urban planners, environmental scientists and policymakers, in projects of such scale, it is prudent to note that this visualization will serve as a hypothetical planning tool that democratize access to information necessary to its realisation. This would allow the public to explore different possibilities and simulate outcomes based on varying parameters (e.g. environmental factors, or population needs), while considering factors and challenges specific to Southeast Asia. 
 
 ## 5. Literature Review
 #### 5.1 Books
