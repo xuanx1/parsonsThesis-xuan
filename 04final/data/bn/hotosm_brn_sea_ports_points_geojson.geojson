@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "hotosm_brn_sea_ports_points_geojson",
+"features": [
+{ "type": "Feature", "properties": { "name": null, "name:en": null, "amenity": "ferry_terminal", "building": null, "port": null, "operator:type": null, "addr:full": null, "addr:city": null, "source": null, "name:ms": null, "osm_id": 2077198460, "osm_type": "nodes" }, "geometry": { "type": "Point", "coordinates": [ 115.0667253, 5.0150689 ] } },
+{ "type": "Feature", "properties": { "name": null, "name:en": null, "amenity": "ferry_terminal", "building": null, "port": null, "operator:type": null, "addr:full": null, "addr:city": null, "source": null, "name:ms": null, "osm_id": 3800269337, "osm_type": "nodes" }, "geometry": { "type": "Point", "coordinates": [ 115.0661217, 5.0155144 ] } }
+]
+}

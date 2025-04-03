@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "hotosm_plw_airports_points_geojson",
+"features": [
+{ "type": "Feature", "properties": { "name": null, "name:en": null, "aeroway": "holding_position", "building": null, "emergency": null, "emergency:helipad": null, "operator:type": null, "capacity:persons": null, "addr:full": null, "addr:city": null, "source": "Bing", "name:pau": null, "osm_id": 2666845259, "osm_type": "nodes" }, "geometry": { "type": "Point", "coordinates": [ 134.5342037, 7.3668431 ] } },
+{ "type": "Feature", "properties": { "name": null, "name:en": null, "aeroway": "navigationaid", "building": null, "emergency": null, "emergency:helipad": null, "operator:type": null, "capacity:persons": null, "addr:full": null, "addr:city": null, "source": "Bing", "name:pau": null, "osm_id": 2666845258, "osm_type": "nodes" }, "geometry": { "type": "Point", "coordinates": [ 134.551574100000011, 7.366697 ] } },
+{ "type": "Feature", "properties": { "name": null, "name:en": null, "aeroway": "navigationaid", "building": null, "emergency": null, "emergency:helipad": null, "operator:type": null, "capacity:persons": null, "addr:full": null, "addr:city": null, "source": "Bing", "name:pau": null, "osm_id": 2666845260, "osm_type": "nodes" }, "geometry": { "type": "Point", "coordinates": [ 134.5370742, 7.3679472 ] } },
+{ "type": "Feature", "properties": { "name": "Peleliu Airport", "name:en": null, "aeroway": "aerodrome", "building": null, "emergency": null, "emergency:helipad": null, "operator:type": "public", "capacity:persons": null, "addr:full": null, "addr:city": null, "source": null, "name:pau": null, "osm_id": 368380043, "osm_type": "nodes" }, "geometry": { "type": "Point", "coordinates": [ 134.2294444, 6.9952778 ] } },
+{ "type": "Feature", "properties": { "name": "Angaur Airstrip", "name:en": null, "aeroway": "aerodrome", "building": null, "emergency": null, "emergency:helipad": null, "operator:type": "public", "capacity:persons": null, "addr:full": null, "addr:city": null, "source": null, "name:pau": null, "osm_id": 368380048, "osm_type": "nodes" }, "geometry": { "type": "Point", "coordinates": [ 134.1428659, 6.904784 ] } }
+]
+}
