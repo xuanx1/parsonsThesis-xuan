@@ -3,7 +3,7 @@ https://xuanx1.github.io/parsonsThesis-xuan/03prototype/
 # Foreshadowing Regions Connectivity
 ![preview](https://github.com/user-attachments/assets/6ae3bd85-f44c-49a7-81d8-0727575b43d1)
 
-Trains, Lanes, and Data Grains: Mapping the Future of Southeast Asia’s Rail Connectivity
+### Trains, Lanes, and Data Grains: Mapping the Future of Southeast Asia’s Rail Connectivity
 
 This speculative urban planning engine offers a dynamic exploration of rail connectivity development in Southeast Asia, blending real-world infrastructure challenges with a data-driven approach. Like SimCity, but with real stakes, the tool visualizes how rail networks could evolve based on environmental, demographic, and economic factors.
 
