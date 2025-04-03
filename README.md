@@ -428,7 +428,7 @@ The Tsunami Risk Index (TSI), Population-Economic Importance Index (PEI), and St
 
 The Operability Index (OPI) is weighted the highest as it directly affects the functionality and accessibility of the area, with access to emergency services being critical to its success as a conduit (OECD 2020). The Environmental Impact Index (E2I) is weighted the lowest as environmental sustainability is crucial but less immediately impactful in the operational aspects of such connection (World Bank 2020). 
 
-<strong style="color: orange;">In the FFI, the higher the value, the more feasible the project.</strong>
+<span style="color: orange; font-weight: bold;">In the FFI, the higher the value, the more feasible the project.</span>
 
  $$
  FFI = 0.2 \times (\text{Tsunami Risk Index}) + 0.2 \times (\text{Structure Durability Index}) + 0.15 \times (\text{Environmental Impact Index}) + 0.25 \times (\text{Operability Index}) + 0.2 \times (\text{Population-Economic Importance Index})
