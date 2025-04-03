@@ -46,6 +46,7 @@ LINK TO PROJECT + PAPER
  
 5. [Final Product](#4-final-product)
    - [4.1 Conclusion](#41-conclusion)
+   - [4.2 Disclaimer](#42-disclaimer)
  
 6. [Literature Review](#5-literature-review)
    - [5.1 Books](#51-books)  
@@ -159,9 +160,12 @@ lorem
 
 ## 4. Final Product
 hero image + video
+
 #### 4.1 Conclusion
 lorem
- 
+
+#### 4.2 Disclaimer
+lorem 
 
 ## 5. Literature Review
 #### 5.1 Books
