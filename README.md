@@ -124,16 +124,16 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  
 #### 2.2 Weighing Major Indexes
 
-    ##### 2.2.1 Tsunami Risk Index
-    $$
-    TSI = 0.4 \times (\text{Tsunami Prevalence Score}) + 0.4 \times (\text{Coastline Proximity Score}) + 0.2 \times (\text{Elevation Score})
-    $$
+ ##### 2.2.1 Tsunami Risk Index
+ $$
+ TSI = 0.4 \times (\text{Tsunami Prevalence Score}) + 0.4 \times (\text{Coastline Proximity Score}) + 0.2 \times (\text{Elevation Score})
+ $$
 
-    Where:
-    - Tsunami Prevalence Score
-    Few Tsunami Count – Score ~ 0.67 - 1.0
-    Some Tsunami Count – Score ~ 0.34 - 0.66
-    Frequent Tsunamis – Score < 0.33
+ Where:
+ ##### Tsunami Prevalence Score
+ Few Tsunami Count – Score ~ 0.67 - 1.0
+ Some Tsunami Count – Score ~ 0.34 - 0.66
+ Frequent Tsunamis – Score < 0.33
     
     - Coastline Proximity Score
     > 10 km from Coast – Score ~ 0.67 - 1.0
