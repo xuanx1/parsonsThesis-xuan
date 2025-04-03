@@ -155,8 +155,8 @@ lorem
 [Prototype](https://xuanx1.github.io/parsonsThesis-xuan/03prototype/)
 ![preview](https://github.com/user-attachments/assets/07123e7a-210d-4624-9db4-3f6541cbded6)
 
-## 4.Final Product
-
+## 4. Final Product
+hero image + video
 #### 4.1 Conclusion
 lorem
  
