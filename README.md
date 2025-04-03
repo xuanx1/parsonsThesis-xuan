@@ -129,16 +129,16 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  TSI = 0.4 \times (\text{Tsunami Prevalence Score}) + 0.4 \times (\text{Coastline Proximity Score}) + 0.2 \times (\text{Elevation Score})
  $$
 
- Where:
- ##### Tsunami Prevalence Score
+ *Where:*
+ ##### 1. Tsunami Prevalence Score
  Few Tsunami Count – Score ~ 0.67 - 1.0
  
  Some Tsunami Count – Score ~ 0.34 - 0.66
  
  Frequent Tsunamis – Score < 0.33
  
-    
- ##### Coastline Proximity Score
+ 
+ ##### 2. Coastline Proximity Score
  > 10 km from Coast – Score ~ 0.67 - 1.0
 
  5 - 10 km from Coast – Score ~ 0.34 - 0.66
@@ -146,7 +146,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  0 - 5 km from Coast – Score < 0.33
     
     
- ##### Ground Elevation Score
+ ##### 3. Ground Elevation Score
  $$
  \text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}
  $$
