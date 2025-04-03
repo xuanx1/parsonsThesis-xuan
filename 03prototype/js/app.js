@@ -1,5 +1,6 @@
 import { combinedCoordinates } from './sea_coord.js';
 
+
 // main map
 const app = d3
   .select("#app")
@@ -2507,16 +2508,27 @@ window.addEventListener("load", () => {
 
 
 
+// restrict to land area using regional map (so no going to other black out countries/ocean)
 
+//Sell speculative capabilities - Exploratory to the level of determining risk - activists , city planner, city planners who are bored - make it robusts
 
+// process indexes - 1. radius for trains based on speed + 2. interval distance/pop threshold for station placement 3. toggle indexes 4. show 3 alternative routes with specific strengths(shortest, greenest, safest) 
 
-// process indexes + setting dashboard - 1. radius for trains based on speed + 2. interval distance/pop threshold for station placement 3. toggle indexes 4. show 3 alternative routes with each index's strengths - ask TA' separates into smaller js file
+// ask TA' separates into smaller js file
 
-// success requirements - show indexes + scoring board as success criteria + Justify with population served - in final report +  integrate germini to generate description w// germini
+// success requirements - with population served as success criteria - in final report, integrate germini to generate description
 
 // cover page - explain system swiss cheese
 
-// add tutorial/intructions? 
+// add tutorial - where to click for: 
+// 1.origin-destination + route button(draw)
+// 2.settings + glossary
+// 3.zoom + pan + toggle layers + reset + export button
+
+// intructions
+// 1.choose origin-destination pair(set indexes in neccessary)
+// 2.calculate routes
+// 3.export result 
 
 
 
