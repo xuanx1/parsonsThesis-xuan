@@ -128,9 +128,16 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  $$
  TSI = 0.4 \times (\text{Tsunami Prevalence Score}) + 0.4 \times (\text{Coastline Proximity Score}) + 0.2 \times (\text{Elevation Score})
  $$
+ Measures the risk of tsunamis based on ground elevation, proximity to the coastline, and historical  tsunami occurrences.
+| Risk Category   | Score (Min 0 - Max 1) | Interpretation |
+|----------------|----------------------|----------------|
+| **High Risk**  | 0.00 - 0.33          | - Frequent past tsunamis  <br> - Low elevation  <br> - Near the coast |
+| **Moderate Risk** | 0.34 - 0.66       | - Occasional tsunami activity  <br> - Medium elevation |
+| **Low Risk**   | 0.67 - 1.00          | - No tsunami history  <br> - High elevation  <br> - Far from coast |
+
 
  *Where:*
- ##### 2.2.1.1 Tsunami Prevalence Score
+ #### 2.2.1.1 Tsunami Prevalence Score
  <p>
  $$\text{Tsunami Prevalence Score} = 1 - \frac{\text{Historical Tsunamis within 100 km Radius} - \text{Tsunami}_{\text{minWithinRegion}}}  {\text{Tsunami}_{\text{maxWithinRegion}} - \text{Tsunami}_{\text{minWithinRegion}}}$$
  </p>
@@ -142,7 +149,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **Frequent Tsunamis** – Score < 0.33
  
  
- ##### 2.2.1.2 Coastline Proximity Score
+ #### 2.2.1.2 Coastline Proximity Score
  <p>
  $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
  </p>
@@ -154,7 +161,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **0 - 5 km from Coast** – Score < 0.33
     
     
- ##### 2.2.1.3 Ground Elevation Score
+ #### 2.2.1.3 Ground Elevation Score
  <p>
  $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
  </p>
@@ -167,16 +174,56 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
     
 
     
- ##### 2.2.2 Structure Durability Index
+ #### 2.2.2 Structure Durability Index
+ $$
+ SDI = 0.4 \times (\text{Seismic Safe Score}) + 0.25 \times (\text{Elevation Score}) + 0.2 \times (\text{Coastline Proximity Score}) + 0.25 \times (\text{Humidity})
+ $$
+ 
+ *Where:*
+ #### 2.2.2.1 Seismic Safe Score
+ <p>
+ $$\text{Seismic Safe Score} = \frac{\text{Distance to Fault Line} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **> 150 km Away** – Score ~ 0.67 - 1.0
+ 
+ **50 - 150 km Away** – Score ~ 0.34 - 0.66
+ 
+ **0 - 50 km Away** – Score < 0.33
  
  
- ##### 2.2.3 Environmental Impact Index
+ #### 2.2.1.2 Coastline Proximity Score
+ <p>
+ $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **> 10 km from Coast** – Score ~ 0.67 - 1.0
+
+ **5 - 10 km from Coast** – Score ~ 0.34 - 0.66
+ 
+ **0 - 5 km from Coast** – Score < 0.33
+    
+    
+ #### 2.2.1.3 Ground Elevation Score
+ <p>
+ $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
+ </p>
+ 
+ **Low elevation (Below sea level or < 10 m above sea level)** – Score < 0.33
+ 
+ **Moderate elevation (10 m – 50 m)** – Score ~ 0.34 - 0.66
+ 
+ **High elevation (> 50 m)** – Score 0.67 - 1.0
+
  
  
- ##### 2.2.4 Operability Index
+ #### 2.2.3 Environmental Impact Index
  
  
- ##### 2.2.5 Population-Economic Importance Index
+ #### 2.2.4 Operability Index
+ 
+ 
+ #### 2.2.5 Population-Economic Importance Index
  
 
 #### 2.3 Final Feasibility Index
