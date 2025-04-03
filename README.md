@@ -7,8 +7,8 @@ By transforming biodiversity and census data into hypothetical “What-if” sce
 
 What if you could find the best-fit route that maximizes services to the majority of the population while avoiding seasonal hurricanes? Now, you can.
 
-[Mockup](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/02mockup/mockup.md)
- 
+
+
 [Prototype](https://xuanx1.github.io/parsonsThesis-xuan/03prototype/)
 
 ## Abstract
@@ -44,10 +44,10 @@ LINK TO PROJECT + PAPER
       - [2.6.1 Interaction]
       - [2.6.2 Settings]
  
-3. [Results and Findings](#3results-and-findings)
+3. [Mockup and Prototype](#3mockup-and-prototype)
  
-4. [Conclusion](#4conclusion)
-   - [4.1 Final Statement](#41-final-statement)
+4. [Final Product](#4-final-product)
+   - [4.1 Conclusion](#41-conclusion)
  
 5. [Literature Review](#5literature-review)
    - [5.1 Books](#51-books)  
@@ -168,11 +168,16 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
        lorem
  
 
-## 3.Results and Findings
- 
-## 4.Conclusion
+## 3.Mockup and Prototype
+[Mockup](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/02mockup/mockup.md)
+![418837055-03b19321-f25a-425b-8f55-a445a6c7c242](https://github.com/user-attachments/assets/183747cf-728b-42a5-81ee-bed34741f56f)
 
-#### 4.1 Final Statement
+[Mockup](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/02mockup/mockup.md)
+![418837055-03b19321-f25a-425b-8f55-a445a6c7c242](https://github.com/user-attachments/assets/183747cf-728b-42a5-81ee-bed34741f56f)
+
+## 4.Final Product
+
+#### 4.1 Conclusion
 lorem
  
 
