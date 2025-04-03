@@ -1,7 +1,7 @@
 https://xuanx1.github.io/parsonsThesis-xuan/03prototype/
 
 # Foreshadowing Regions Connectivity
-![preview](https://github.com/user-attachments/assets/6ae3bd85-f44c-49a7-81d8-0727575b43d1)
+![preview](https://github.com/user-attachments/assets/07123e7a-210d-4624-9db4-3f6541cbded6)
 
 ### Trains, Lanes, and Data Grains: Mapping the Future of Southeast Asia’s Rail Connectivity
 
