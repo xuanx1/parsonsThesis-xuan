@@ -396,7 +396,7 @@ Highlights the economic and population significance based on population density,
  
   #### Population-Economic Importance Index - GDP Per Capita Score
  <p>
- $$\text{GDP Per Capita Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ $$\text{GDP Per Capita Score} = \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
  </p>
  
  **Low Economic Importance (< $5,000 USD)** – Score < 0.33
@@ -408,11 +408,51 @@ Highlights the economic and population significance based on population density,
 
 
 #### 2.3 Final Feasibility Index
+In this context, the 5 constituent indexes are combined, forming a new index which determines the score of the route from Point A to Point B. The goal is to minimise construction effort (ie. distance, terrain difficulty) while maximising regional connectivity, economic impact, and population engagement. The value here states how well the route adheres to identified constraints such as geographical hazards, population coverage, and structural resilience as the algorithm avoids areas prone to flooding or tsunamis
 
+The Final Feasibility Index is an index that aggregates and integrates all 5 indexes into a single score:
+**1. Tsunami Risk Index** (Hazard Vulnerability)
+**2. Structure Durability Index** (Structural Resilience)
+**3. Environmental Impact Index** (Environmental Sustainability)
+**4. Operability Index** (Overall Usefulness)
+**5. Population-Economic Importance Index** (Economic and Demographic Value)
+
+The weightage assigned to each of the 5 indexes in the Final Feasibility Index is based on its significance when it comes to the feasibility of the route. 
+
+The Tsunami Risk Index (TSI), Population-Economic Importance Index (PEI), and Structure Durability Index (SDI) are all weighted the same due to an equal emphasis on safety and prioritization serving the majority of the population, which is essential for long-term viability (Jonkman et al. 2005). 
+
+The Operability Index (OPI) is weighted the highest as it directly affects the functionality and accessibility of the area, with access to emergency services being critical to its success as a conduit (OECD 2020). The Environmental Impact Index (E2I) is weighted the lowest as environmental sustainability is crucial but less immediately impactful in the operational aspects of such connection (World Bank 2020). 
+
+**In the FFI, the higher the value, the more feasible the project.**
+
+ $$
+ FFI = 0.2 \times (\text{Tsunami Risk Index}) + 0.2 \times (\text{Structure Durability Index}) + 0.15 \times (\text{Environmental Impact Index}) + 0.25 \times (\text{Operability Index}) + 0.2 \times (\text{Population-Economic Importance Index})
+ $$
+
+| **Feasibility Final Score** (Min 0 - Max 1) | **Interpretation**                     |
+|---------------------------------------------|----------------------------------------|
+| **Low Feasibility** (0.00 - 0.33)           | Description for low feasibility...     |
+| **Moderate Feasibility** (0.34 - 0.66)      | Description for moderate feasibility...|
+| **High Feasibility** (0.67 - 1.0)           | Description for high feasibility...    |
 
  
 #### 2.4 Visualization and Interpretation
-lorem
+The results are visualized using interactive network graphs, allowing users to explore the proposed network. Key features incorporated include:
+
+-Optimal rail lines and station placements that maximize accessibility and economic impact while minimizing exposure to potential risks.
+
+-Index value settings to amend the final result.
+
+-Interval distances / population density threshold for station placement.
+
+-The projected benefits of the project, one route for each strength: 
+   1. Reduced travel time
+   2. Improved personal safety
+   3. Greater accessibility to specific regions.
+
+-Terrain Cross Section
+
+-Annotation on additional infrastructure required for project realisation ie. bridge, tunnel
  
  
 
