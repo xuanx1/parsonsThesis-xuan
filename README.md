@@ -7,7 +7,7 @@ By transforming biodiversity and census data into hypothetical “What-if” sce
 
 What if you could find the best-fit route that maximizes services to the majority of the population while avoiding seasonal hurricanes? 
 
-**![Now, you can.](https://xuanx1.github.io/parsonsThesis-xuan/04final/)**
+**[Now, you can.](https://xuanx1.github.io/parsonsThesis-xuan/04final/)**
 
 
 ## Abstract
