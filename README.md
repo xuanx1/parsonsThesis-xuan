@@ -172,8 +172,8 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
 [Mockup](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/02mockup/mockup.md)
 ![418837055-03b19321-f25a-425b-8f55-a445a6c7c242](https://github.com/user-attachments/assets/183747cf-728b-42a5-81ee-bed34741f56f)
 
-[Mockup](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/02mockup/mockup.md)
-![418837055-03b19321-f25a-425b-8f55-a445a6c7c242](https://github.com/user-attachments/assets/183747cf-728b-42a5-81ee-bed34741f56f)
+[Prototype](https://xuanx1.github.io/parsonsThesis-xuan/03prototype/)
+![preview](https://github.com/user-attachments/assets/07123e7a-210d-4624-9db4-3f6541cbded6)
 
 ## 4.Final Product
 
