@@ -138,7 +138,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
 
 
  *Where:*
- #### 2.2.1.1 Tsunami Prevalence Score
+ **2.2.1.1 Tsunami Prevalence Score**
  <p>
  $$\text{Tsunami Prevalence Score} = 1 - \frac{\text{Historical Tsunamis within 100 km Radius} - \text{Tsunami}_{\text{minWithinRegion}}}  {\text{Tsunami}_{\text{maxWithinRegion}} - \text{Tsunami}_{\text{minWithinRegion}}}$$
  </p>
@@ -150,7 +150,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **Frequent Tsunamis** – Score < 0.33
  
  
- #### 2.2.1.2 Coastline Proximity Score
+ **2.2.1.2 Coastline Proximity Score**
  <p>
  $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
  </p>
@@ -162,7 +162,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **0 - 5 km from Coast** – Score < 0.33
     
     
- #### 2.2.1.3 Ground Elevation Score
+ **2.2.1.3 Ground Elevation Score**
  <p>
  $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
  </p>
