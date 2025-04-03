@@ -390,20 +390,20 @@ Highlights the economic and population significance based on population density,
 
    #### Population-Economic Importance Index - Normalised Land Area
  <p>
- $$\text{Normalized Land Area} = 1 - \frac{\text{log(X)} - \text{log(Xmin)}{\text{log(Xmax)} - \text{log(Xmin)}}$$
+ $$\text{Normalized Land Area} = \frac{\log(X) - \log(X_{\text{min}})}{\log(X_{\text{max}}) - \log(X_{\text{min}})}$$
  </p>
 
  
   #### Population-Economic Importance Index - GDP Per Capita Score
  <p>
- $$\text{Existing Network} = 1 - \frac{\text{Network Density} - \text{Network Density}_{\text{min}}}{\text{Network Density}_{\text{max}} - \text{Network Density}_{\text{min}}}$$
+ $$\text{GDP Per Capita Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
  </p>
  
- **High Accessibility (> 5 km/km²)** – Score < 0.33
+ **Low Economic Importance (< $5,000 USD)** – Score < 0.33
  
- **Moderate Accessibility (1-5 km/km²)** – Score ~ 0.34 - 0.66
+ **Moderate Economic Importance ($5,000 - $40,000 USD)** – Score ~ 0.34 - 0.66
  
- **Low Accessibility (<1 km/km²)** – Score 0.67 - 1.0
+ **High Economic Importance (> $40,000 USD)** – Score 0.67 - 1.0
 
 
 
