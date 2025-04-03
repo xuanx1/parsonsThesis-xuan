@@ -128,6 +128,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  $$
  TSI = 0.4 \times (\text{Tsunami Prevalence Score}) + 0.4 \times (\text{Coastline Proximity Score}) + 0.2 \times (\text{Elevation Score})
  $$
+ 
  Measures the risk of tsunamis based on ground elevation, proximity to the coastline, and historical  tsunami occurrences.
 | Risk Category   | Score (Min 0 - Max 1) | Interpretation |
 |----------------|----------------------|----------------|
