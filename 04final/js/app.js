@@ -449,7 +449,22 @@ resizeMap();
         .addTo(map);
 
       // Update the origin input with the clicked location's coordinates
-      originInput.value = `Lat: ${coordinates.lat.toFixed(4)}, Lng: ${coordinates.lng.toFixed(4)}`;
+      fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates.lng},${coordinates.lat}.json?access_token=${mapboxgl.accessToken}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.features && data.features.length > 0) {
+        originInput.value = data.features[0].place_name;
+          } else {
+        originInput.value = `Unknown Location`;
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching place name:", error);
+          originInput.value = `Unknown Location`;
+        });
+
+      // Show the clear button for origin input
+      originClearButton.style.display = "block";
     }
   });
 
@@ -554,7 +569,22 @@ resizeMap();
         .addTo(map);
 
       // update destination input with clicked location's coordinates
-      destinationInput.value = `Lat: ${coordinates.lat.toFixed(4)}, Lng: ${coordinates.lng.toFixed(4)}`;
+      fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates.lng},${coordinates.lat}.json?access_token=${mapboxgl.accessToken}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.features && data.features.length > 0) {
+        destinationInput.value = data.features[0].place_name;
+          } else {
+        destinationInput.value = `Unknown Location`;
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching place name:", error);
+          destinationInput.value = `Unknown Location`;
+        });
+
+      // show clear button for destination input
+      destinationClearButton.style.display = "block";
     }
   });
 
@@ -611,10 +641,26 @@ resizeMap();
             suggestionBox.style.display = "block";
             locations.forEach(location => {
               const suggestionItem = document.createElement("div");
-              suggestionItem.textContent = location.name;
+              suggestionItem.style.display = "flex";
+              suggestionItem.style.alignItems = "center";
               suggestionItem.style.padding = "5px";
               suggestionItem.style.cursor = "pointer";
               suggestionItem.style.color = "#2b2b2b"; // Dark grey
+
+              // Add SVG marker
+              const svgMarker = document.createElement("img");
+              svgMarker.src = pinColor === "blue" ? "images/marker_o.svg" : "images/marker_d.svg";
+              svgMarker.alt = "Marker";
+              svgMarker.style.width = "20px";
+              svgMarker.style.height = "20px";
+              svgMarker.style.marginRight = "10px";
+              suggestionItem.appendChild(svgMarker);
+
+              // Add location name
+              const locationName = document.createElement("span");
+              locationName.textContent = location.name;
+              suggestionItem.appendChild(locationName);
+
               suggestionItem.addEventListener("click", () => {
                 inputElement.value = location.name;
                 suggestionBox.style.display = "none";
@@ -625,11 +671,20 @@ resizeMap();
                 }
 
                 // Drop a pin on the map
-                markerReference.marker = new mapboxgl.Marker({ color: pinColor })
+                markerReference.marker = new mapboxgl.Marker({
+                  element: (() => {
+                    const markerElement = document.createElement("img");
+                    markerElement.src = pinColor === "blue" ? "images/marker_o.svg" : "images/marker_d.svg";
+                    markerElement.alt = "Marker";
+                    markerElement.style.width = "40px";
+                    markerElement.style.height = "40px";
+                    return markerElement;
+                  })()
+                })
                   .setLngLat(location.coordinates)
                   .addTo(map);
 
-                // convert coordinates to lat/lng
+                // Convert coordinates to lat/lng
                 const lat = location.coordinates[1];
                 const lng = location.coordinates[0];
                 console.log(`Selected location: Lat: ${lat}, Lng: ${lng}`);
@@ -2508,9 +2563,11 @@ window.addEventListener("load", () => {
 
 
 
-// restrict to land area using regional map (so no going to other black out countries/ocean)
+
 
 // process indexes - 1. radius for trains based on speed + 2. interval distance/pop threshold for station placement 3. toggle indexes 4. show 3 alternative routes with specific strengths(shortest, greenest, safest) 
+
+//loading animation - line drawing 
 
 // ask TA' separates into smaller js file
 
@@ -2526,20 +2583,20 @@ window.addEventListener("load", () => {
 // intructions
 // 1.choose origin-destination pair(set indexes if neccessary)
 // 2.calculate routes
-// 3.export result 
+// 3.export result - pop served - crowd sourced infrastructure, dont play poke without money - uplaod user results to a server, public record / high score - call ot action
 
 
 
 
 
-// //index - tsi
-// function calculateTSI(elevation, distanceFromCoast, tsunamiCount) {
-//   let elevationScore = normalize(elevation, 0, 100); // 0-100m elevation
-//   let coastlineScore = normalize(distanceFromCoast, 0, 10); // 0-10 km from coast
-//   let tsunamiScore = normalize(tsunamiCount, 0, 20); // 0-20 historical tsunamis
+//index - tsi
+function calculateTSI(elevation, distanceFromCoast, tsunamiCount) {
+  let elevationScore = normalize(elevation, 0, 100); // 0-100m elevation
+  let coastlineScore = normalize(distanceFromCoast, 0, 10); // 0-10 km from coast
+  let tsunamiScore = normalize(tsunamiCount, 0, 20); // 0-20 historical tsunamis
 
-//   return (0.2 * elevationScore) + (0.4 * coastlineScore) + (0.4 * invertScore(tsunamiScore));
-// }
+  return (0.2 * elevationScore) + (0.4 * coastlineScore) + (0.4 * invertScore(tsunamiScore));
+}
 
 // // Mock functions to retrieve data for the route
 // function getElevationForRoute(start, end) {
@@ -2626,14 +2683,14 @@ window.addEventListener("load", () => {
 
 
 
-// function calculateSDI(distanceFromSeismicZone, elevation, distanceFromCoast, humidity) {
-//   let seismicScore = normalize(distanceFromSeismicZone, 0, 150); // >150km = safer
-//   let elevationScore = normalize(elevation, 0, 100); // 0-100m elevation
-//   let coastlineScore = normalize(distanceFromCoast, 0, 10); // 0-10 km
-//   let humidityScore = normalize(humidity, 50, 100); // 50% to 100% relative humidity
+function calculateSDI(distanceFromSeismicZone, elevation, distanceFromCoast, humidity) {
+  let seismicScore = normalize(distanceFromSeismicZone, 0, 150); // >150km = safer
+  let elevationScore = normalize(elevation, 0, 100); // 0-100m elevation
+  let coastlineScore = normalize(distanceFromCoast, 0, 10); // 0-10 km
+  let humidityScore = normalize(humidity, 50, 100); // 50% to 100% relative humidity
 
-//   return (0.4 * seismicScore) + (0.25 * elevationScore) + (0.2 * coastlineScore) + (0.15 * invertScore(humidityScore));
-// }
+  return (0.4 * seismicScore) + (0.25 * elevationScore) + (0.2 * coastlineScore) + (0.15 * invertScore(humidityScore));
+}
 
 // let distanceFromSeismicZone = getDistanceFromSeismicZoneForRoute(start, end);
 // // let elevation = getElevationForRoute(start, end);
@@ -2656,14 +2713,14 @@ window.addEventListener("load", () => {
 // console.log("Environmental Impact Index (E2I):", e2i.toFixed(2));
 
 
-// function calculateOPI(elevation, networkDensity, urbanProximity, populationDensity) {
-//   let elevationScore = normalize(elevation, 10, 50); // Optimal range 10-50m
-//   let networkScore = normalize(networkDensity, 0, 5); // km/km²
-//   let urbanScore = normalize(urbanProximity, 0, 50); // 0-50 km from urban area
-//   let populationScore = normalize(populationDensity, 500, 5000); // 500-5000 people/km²
+function calculateOPI(elevation, networkDensity, urbanProximity, populationDensity) {
+  let elevationScore = normalize(elevation, 10, 50); // Optimal range 10-50m
+  let networkScore = normalize(networkDensity, 0, 5); // km/km²
+  let urbanScore = normalize(urbanProximity, 0, 50); // 0-50 km from urban area
+  let populationScore = normalize(populationDensity, 500, 5000); // 500-5000 people/km²
 
-//   return (0.24 * elevationScore) + (0.28 * networkScore) + (0.24 * urbanScore) + (0.24 * populationScore);
-// }
+  return (0.24 * elevationScore) + (0.28 * networkScore) + (0.24 * urbanScore) + (0.24 * populationScore);
+}
 
 // // let elevation = getElevationForRoute(start, end);
 // let networkDensity = getNetworkDensityForRoute(start, end);
@@ -2674,13 +2731,13 @@ window.addEventListener("load", () => {
 // console.log("Operability Index (OPI):", opi.toFixed(2));
 
 
-// function calculatePEI(populationDensity, landArea, gdpPerCapita) {
-//   let populationScore = normalize(populationDensity, 500, 5000); // 500-5000 people/km²
-//   let landAreaScore = normalize(Math.log(landArea), Math.log(10), Math.log(1000)); // Normalize log-scaled land area
-//   let gdpScore = normalize(gdpPerCapita, 5000, 40000); // $5,000 - $40,000 USD
+function calculatePEI(populationDensity, landArea, gdpPerCapita) {
+  let populationScore = normalize(populationDensity, 500, 5000); // 500-5000 people/km²
+  let landAreaScore = normalize(Math.log(landArea), Math.log(10), Math.log(1000)); // Normalize log-scaled land area
+  let gdpScore = normalize(gdpPerCapita, 5000, 40000); // $5,000 - $40,000 USD
 
-//   return (0.35 * populationScore) + (0.25 * landAreaScore) + (0.40 * gdpScore);
-// }
+  return (0.35 * populationScore) + (0.25 * landAreaScore) + (0.40 * gdpScore);
+}
 
 // //let populationDensity = getPopulationDensityForRoute(start, end);
 // let landArea = getLandAreaForRoute(start, end);
@@ -2688,11 +2745,11 @@ window.addEventListener("load", () => {
 // let pei = calculatePEI(populationDensity, landArea, gdpPerCapita);
 // console.log("Population-Economic Importance Index (PEI):", pei.toFixed(2));
 
-// function calculateFFI(tsi, sdi, e2i, opi, pei) {
-//   let ffi = (0.20 * tsi) + (0.20 * sdi) + (0.15 * e2i) + (0.25 * opi) + (0.20 * pei);
-//   console.log("Final Feasibility Index (FFI):", ffi.toFixed(2));
-//   return ffi;
-// }
+function calculateFFI(tsi, sdi, e2i, opi, pei) {
+  let ffi = (0.20 * tsi) + (0.20 * sdi) + (0.15 * e2i) + (0.25 * opi) + (0.20 * pei);
+  console.log("Final Feasibility Index (FFI):", ffi.toFixed(2));
+  return ffi;
+}
 
 
 
@@ -2729,7 +2786,7 @@ window.addEventListener("load", () => {
     .style("font-size", "14px")
     .style("color", "#333")
     .style("display", "none")
-    .style("top", "130px")
+    .style("top", "139px")
     .style("left", "270px")
     .text("Calculate Route");
 
@@ -2934,8 +2991,6 @@ window.addEventListener("load", () => {
     });
 
 
-
-
       
 
 
@@ -2982,8 +3037,23 @@ window.addEventListener("load", () => {
     });
 
     // Parse coord from the input fields
-    const originMatch = originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/);
-    const destinationMatch = destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/);
+    const originMatch = originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || await fetchLocationCoordinates(originValue);
+    const destinationMatch = destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || await fetchLocationCoordinates(destinationValue);
+
+    async function fetchLocationCoordinates(locationName) {
+      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(locationName)}.json?access_token=${mapboxgl.accessToken}`;
+      try {
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.features && data.features.length > 0) {
+        const [lng, lat] = data.features[0].center;
+        return { 1: lat, 2: lng }; // Mimic regex match object
+      }
+      } catch (error) {
+      console.error("Error fetching coordinates for location:", error);
+      }
+      return null;
+    }
 
     if (originMatch && destinationMatch) {
       const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
@@ -3046,21 +3116,12 @@ window.addEventListener("load", () => {
         }
       };
 
+      // restrict to only draw on boundaries in sea.json map (so no going to other black out countries/ocean), less than 1km in the sea
+
+      
       // Function to calculate distance from the coastline
 
 
-      // // Function to check if a point is on land
-      // const isPointOnLand = async (coordinates) => {
-      //   const url = `https://api.mapbox.com/v4/mapbox.mapbox-terrain-v2/tilequery/${coordinates[0]},${coordinates[1]}.json?layers=landuse&limit=1&access_token=${mapboxgl.accessToken}`;
-      //   try {
-      //     const response = await fetch(url);
-      //     const data = await response.json();
-      //     return data.features && data.features.length > 0; // Return true if the point is on land
-      //   } catch (error) {
-      //     console.error("Error checking if point is on land:", error);
-      //     return false; // Default to false in case of an error
-      //   }
-      // };
 
       // Generate curved path avoiding high elevations, staying at least 10km away from the coastline, and ensuring all points are on land
       const routeCoordinates = await calculateCurvedPath(originCoords, destinationCoords);
@@ -3143,16 +3204,6 @@ window.addEventListener("load", () => {
   
 
 
-// function generateReport(routeData) {
-//   let report = JSON.stringify(routeData, null, 2);
-//   let blob = new Blob([report], {type: "application/json"});
-//   let url = URL.createObjectURL(blob);
-//   let a = document.createElement("a");
-//   a.href = url;
-//   a.download = "rail_feasibility_report.json";
-//   a.click();
-// }
 
-// <button onclick="generateReport(routeData)">Download Report</button>
 
 
