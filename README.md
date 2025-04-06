@@ -7,9 +7,8 @@ By transforming biodiversity and census data into hypothetical “What-if” sce
 
 What if you could find the best-fit route that maximizes services to the majority of the population while avoiding seasonal hurricanes? 
 
-**Now, you can.** - embed link to final product
+**[Now, you can.](https://xuanx1.github.io/parsonsThesis-xuan/04final/)**
 
-[Prototype](https://xuanx1.github.io/parsonsThesis-xuan/03prototype/)
 
 ## Abstract
 ![20241012_ASP502](https://github.com/user-attachments/assets/cdaa2dc4-d57e-4b52-9a3b-9ee315577f20)
@@ -125,27 +124,340 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  
 #### 2.2 Weighing Major Indexes
 
-    ##### 2.2.1 Tsunami Risk Index
-    lorem
+ #### 2.2.1 Tsunami Risk Index
+ $$
+ TSI = 0.4 \times (\text{Tsunami Prevalence Score}) + 0.4 \times (\text{Coastline Proximity Score}) + 0.2 \times (\text{Elevation Score})
+ $$
  
-    ##### 2.2.2 Structure Durability Index
-    lorem
+ Measures the risk of tsunamis based on ground elevation, proximity to the coastline, and historical  tsunami occurrences.
+| Risk Category   | Score (Min 0 - Max 1) | Interpretation |
+|----------------|----------------------|----------------|
+| **High Risk**  | 0.00 - 0.33          | - Frequent past tsunamis  <br> - Low elevation  <br> - Near the coast |
+| **Moderate Risk** | 0.34 - 0.66       | - Occasional tsunami activity  <br> - Medium elevation |
+| **Low Risk**   | 0.67 - 1.00          | - No tsunami history  <br> - High elevation  <br> - Far from coast |
+
+
+ *Where:*
  
-    ##### 2.2.3 Environmental Impact Index
-    lorem
+ **Tsunami Risk Index - Tsunami Prevalence Score**
+ <p>
+ $$\text{Tsunami Prevalence Score} = 1 - \frac{\text{Historical Tsunamis within 100 km Radius} - \text{Tsunami}_{\text{minWithinRegion}}}  {\text{Tsunami}_{\text{maxWithinRegion}} - \text{Tsunami}_{\text{minWithinRegion}}}$$
+ </p>
  
-    ##### 2.2.4 Operability Index
-    lorem
+ **Few Tsunami Count** – Score ~ 0.67 - 1.0
  
-    ##### 2.2.5 Population-Economic Importance Index
-    lorem
+ **Some Tsunami Count** – Score ~ 0.34 - 0.66
+ 
+ **Frequent Tsunamis** – Score < 0.33
+ 
+ 
+ **Tsunami Risk Index - Coastline Proximity Score**
+ <p>
+ $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **> 10 km from Coast** – Score ~ 0.67 - 1.0
+
+ **5 - 10 km from Coast** – Score ~ 0.34 - 0.66
+ 
+ **0 - 5 km from Coast** – Score < 0.33
+    
+    
+ **Tsunami Risk Index - Ground Elevation Score**
+ <p>
+ $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
+ </p>
+ 
+ **Low elevation (Below sea level or < 10 m above sea level)** – Score < 0.33
+ 
+ **Moderate elevation (10 m – 50 m)** – Score ~ 0.34 - 0.66
+ 
+ **High elevation (> 50 m)** – Score 0.67 - 1.0
+    
+
+    
+ #### 2.2.2 Structure Durability Index
+ $$
+ SDI = 0.4 \times (\text{Seismic Safe Score}) + 0.25 \times (\text{Elevation Score}) + 0.2 \times (\text{Coastline Proximity Score}) + 0.25 \times (\text{Humidity})
+ $$
+  
+Evaluates the durability of structures considering seismic activity, ground elevation, proximity to the coastline, and humidity levels.
+
+| Durability        | Score (Min 0 - Max 1) | Interpretation |
+|------------------|----------------------|----------------|
+| **Poor Durability**  | 0.00 - 0.33          | - High seismic activity  <br> - Low elevation  <br> - High humidity |
+| **Moderate Durability** | 0.34 - 0.66       | - Some seismic activity  <br> - Moderate elevation  <br> - Moderate humidity |
+| **High Durability**   | 0.67 - 1.00          | - Low seismic activity  <br> - High elevation  <br> - Low humidity |
+
+
+ *Where:*
+ 
+ #### Structure Durability Index - Seismic Safe Score
+ <p>
+ $$\text{Seismic Safe Score} = \frac{\text{Distance to Fault Line} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **> 150 km Away** – Score ~ 0.67 - 1.0
+ 
+ **50 - 150 km Away** – Score ~ 0.34 - 0.66
+ 
+ **0 - 50 km Away** – Score < 0.33
+ 
+ 
+ #### Structure Durability Index - Coastline Proximity Score
+ <p>
+ $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **> 10 km from Coast** – Score ~ 0.67 - 1.0
+
+ **5 - 10 km from Coast** – Score ~ 0.34 - 0.66
+ 
+ **0 - 5 km from Coast** – Score < 0.33
+    
+    
+ #### Structure Durability Index - Ground Elevation Score
+ <p>
+ $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
+ </p>
+ 
+ **Low elevation (Below sea level or < 10 m above sea level)** – Score < 0.33
+ 
+ **Moderate elevation (10 m – 50 m)** – Score ~ 0.34 - 0.66
+ 
+ **High elevation (> 50 m)** – Score 0.67 - 1.0
+
+
+  #### Structure Durability Index - Humidity Score
+ <p>
+ $$\text{Humidity Score} = 1 - \frac{\text{Humidity} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **High Humidity (> 80%)** – Score < 0.33
+ 
+ **Moderate Humidity (50% - 80%)** – Score ~ 0.34 - 0.66
+ 
+ **Low Humidity (< 50%)** – Score 0.67 - 1.0
+
+ 
+ 
+ #### 2.2.3 Environmental Impact Index
+ $$
+ E2I = 0.55 \times (\text{Land Use Change}) + 0.45 \times (\text{Biodiversity Score})
+ $$
+  
+Assesses the environmental impact based on land use changes and biodiversity loss.
+
+| Impact Level       | Score (Min 0 - Max 1) | Interpretation |
+|-------------------|----------------------|----------------|
+| **High Impact**  | 0.00 - 0.33          | - Significant land conversion  <br> - High biodiversity presence |
+| **Moderate Impact** | 0.34 - 0.66       | - Some land conversion  <br> - Moderate biodiversity presence |
+| **Low Impact**   | 0.67 - 1.00          | - Minimal land conversion  <br> - Low biodiversity presence |
+
+
+ *Where:*
+ 
+ #### Environmental Impact Index - Land Use Change
+ <p>
+ $$\text{Land Use Change} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **Land Use Change < 10%** – Score ~ 0.67 - 1.0
+ 
+ **Land Use Change 10 - 25%** – Score ~ 0.34 - 0.66
+ 
+ **Land Use Change > 25%** – Score < 0.33
+ 
+ 
+ #### Environmental Impact Index - Biodiversity Score
+ <p>
+ $$\text{Biodiversity Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **Species Density < 10%** – Score ~ 0.67 - 1.0
+
+ **Species Density 10 - 35%** – Score ~ 0.34 - 0.66
+ 
+ **Species Density > 30%** – Score < 0.33
+    
+
+
+ #### 2.2.4 Operability Index
+ $$
+ OPI = 0.24 \times (\text{Elevation Score}) + 0.45 \times (\text{Existing Network Score}) + 0.45 \times (\text{Urban Proximity Score}) + 0.45 \times (\text{Population Density Score})
+ $$
+  
+Determines the operational feasibility considering ground elevation, network density, urban proximity, and population density.
+
+| Operability Level    | Score (Min 0 - Max 1) | Interpretation |
+|---------------------|----------------------|----------------|
+| **Low Operability**  | 0.00 - 0.33          | - Isolated  <br> - High elevation  <br> - Low accessibility, not emergency-ready  <br> - Low population |
+| **Moderate Operability** | 0.34 - 0.66       | - Moderately connected  <br> - Moderate elevation  <br> - Medium accessibility  <br> - Average population |
+| **High Operability**   | 0.67 - 1.00          | - Well-connected  <br> - Low elevation  <br> - High accessibility, emergency-ready |
+
+
+ *Where:*
+ 
+ #### Operability Index - Ground Elevation Score
+<p align="center">
+$$
+\text{Elevation Score} =
+\begin{cases} 
+0, & \text{if } X < 5m \text{ or } X > 60m \\
+\frac{X - 5}{5}, & \text{if } 5 \leq X < 10m \\
+1, & \text{if } 10 \leq X \leq 50m \\
+\frac{60 - X}{10}, & \text{if } 50 < X \leq 60m \\
+0, & \text{if } X > 60m
+\end{cases}
+$$
+</p>
+
+ **Elevation <5m or >50m** - Score 0 
+ 
+ **Elevation between 5-10m** - Linear increase from 0 to 1
+ 
+ **Elevation between 10-50m** - Score 1 
+ 
+ **Elevation between 50-60m** - Linear decrease from 1 to 0; transition to undesirable
+ 
+ **Elevation >60m** - Score 0 
+
+
+  #### Operability Index - Existing Network
+ <p>
+ $$\text{Existing Network} = 1 - \frac{\text{Network Density} - \text{Network Density}_{\text{min}}}{\text{Network Density}_{\text{max}} - \text{Network Density}_{\text{min}}}$$
+ </p>
+ 
+ **High Accessibility (> 5 km/km²)** – Score < 0.33
+ 
+ **Moderate Accessibility (1-5 km/km²)** – Score ~ 0.34 - 0.66
+ 
+ **Low Accessibility (<1 km/km²)** – Score 0.67 - 1.0
+
+
+   #### Operability Index - Urban Proximity Score
+ <p>
+ $$\text{Urban Proximity Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **Low Accessibility (> 50 km from urban center)** – Score < 0.33
+ 
+ **Moderate Accessibility (15 km - 50 km from urban center)** – Score ~ 0.34 - 0.66
+ 
+ **High Accessibility (< 15 km from urban center)** – Score 0.67 - 1.0
+
+
+   #### Operability Index - Population Density Score
+ <p>
+ $$\text{Population Density Score} = 1 - \frac{\text{Density} - \text{Density}_{\text{min}}}{\text{Density}_{\text{max}} - \text{Density}_{\text{min}}}$$
+ </p>
+ 
+ **Low Demand (<500 people/km²)** – Score < 0.33
+ 
+ **Moderate Demand (500-5,000 people/km²)** – Score ~ 0.34 - 0.66
+ 
+ **High Demand (>5,000 people/km²)** – Score 0.67 - 1.0
+
+
+ 
+ #### 2.2.5 Population-Economic Importance Index
+ $$
+ PEI = 0.35 \times (\text{Population Density Score}) + 0.4 \times (\text{GDP Per Capita Score}) + 0.25 \times (\text{Land Area Normalised})
+ $$
+  
+Highlights the economic and population significance based on population density, land area, and GDP per capita.
+
+| **Importance Score** (Min 0 - Max 1) | **Interpretation**                                                                 |
+|--------------------------------------|-----------------------------------------------------------------------------------|
+| **Low Importance** (0.00 - 0.33)     | Sparse population, High level of economic activity                                |
+| **Moderate Importance** (0.34 - 0.66) | Balanced population and economic activity                                        |
+| **High Importance** (0.67 - 1.0)      | High population density, Low level of economic activity                          |
+
+
+ *Where:*
+
+  #### Population-Economic Importance Index - Population Density Score
+ <p>
+ $$\text{Population Density Score} = 1 - \frac{\text{Density} - \text{Density}_{\text{min}}}{\text{Density}_{\text{max}} - \text{Density}_{\text{min}}}$$
+ </p>
+ 
+ **Low Economic Importance (< 500 people/km²)** – Score < 0.33
+ 
+ **Moderate Economic Importance (500 - 5,000 people/km²)** – Score ~ 0.34 - 0.66
+ 
+ **High Economic Importance (> 5,000 people/km²)** – Score 0.67 - 1.0
+
+
+   #### Population-Economic Importance Index - Normalised Land Area
+ <p>
+ $$\text{Normalized Land Area} = \frac{\log(X) - \log(X_{\text{min}})}{\log(X_{\text{max}}) - \log(X_{\text{min}})}$$
+ </p>
+
+ 
+  #### Population-Economic Importance Index - GDP Per Capita Score
+ <p>
+ $$\text{GDP Per Capita Score} = \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
+ </p>
+ 
+ **Low Economic Importance (< $5,000 USD)** – Score < 0.33
+ 
+ **Moderate Economic Importance ($5,000 - $40,000 USD)** – Score ~ 0.34 - 0.66
+ 
+ **High Economic Importance (> $40,000 USD)** – Score 0.67 - 1.0
+
+
 
 #### 2.3 Final Feasibility Index
-    ##### lorem
+In this context, the 5 constituent indexes are combined, forming a new index which determines the score of the route from Point A to Point B. The goal is to minimise construction effort (ie. distance, terrain difficulty) while maximising regional connectivity, economic impact, and population engagement. The value here states how well the route adheres to identified constraints such as geographical hazards, population coverage, and structural resilience as the algorithm avoids areas prone to flooding or tsunamis
+
+The Final Feasibility Index is an index that aggregates and integrates all 5 indexes into a single score:
+
+**1. Tsunami Risk Index** (Hazard Vulnerability)
+
+**2. Structure Durability Index** (Structural Resilience)
+
+**3. Environmental Impact Index** (Environmental Sustainability)
+
+**4. Operability Index** (Overall Usefulness)
+
+**5. Population-Economic Importance Index** (Economic and Demographic Value)
+
+The weightage assigned to each of the 5 indexes in the Final Feasibility Index is based on its significance when it comes to the feasibility of the route. 
+
+The Tsunami Risk Index (TSI), Population-Economic Importance Index (PEI), and Structure Durability Index (SDI) are all weighted the same due to an equal emphasis on safety and prioritization serving the majority of the population, which is essential for long-term viability (Jonkman et al. 2005). 
+
+The Operability Index (OPI) is weighted the highest as it directly affects the functionality and accessibility of the area, with access to emergency services being critical to its success as a conduit (OECD 2020). The Environmental Impact Index (E2I) is weighted the lowest as environmental sustainability is crucial but less immediately impactful in the operational aspects of such connection (World Bank 2020). 
+
+**In the FFI, the higher the value, the more feasible the project.**
+
+ $$
+ FFI = 0.2 \times (\text{Tsunami Risk Index}) + 0.2 \times (\text{Structure Durability Index}) + 0.15 \times (\text{Environmental Impact Index}) + 0.25 \times (\text{Operability Index}) + 0.2 \times (\text{Population-Economic Importance Index})
+ $$
+
+| **Feasibility Final Score** (Min 0 - Max 1) | **Interpretation** (aka Reality Check) |
+|---------------------------------------------|---------------------------------------|
+| **"Why Bother?" Tier** (0.00 - 0.33) | Costs more than your annual coffee budget. Requires solving cold fusion. Permitting process involves blood sacrifices. |
+| **"Maybe If We Stretch" Tier** (0.34 - 0.66) | Budget will hurt but won't kill you. Engineers will complain but do it. Only needs 3 miracle approvals. |
+| **"Shut Up and Take My Money" Tier** (0.67 - 1.0) | Basically IKEA assembly instructions. Approval process involves one bored intern. ROI before lunch. |
 
  
 #### 2.4 Visualization and Interpretation
-lorem
+The results are visualized using interactive network graphs, allowing users to explore the proposed network. Key features incorporated include:
+
+-Optimal rail lines and station placements that maximize accessibility and economic impact while minimizing exposure to potential risks.
+
+-Index value settings to amend the final result.
+
+-Interval distances / population density threshold for station placement.
+
+-The projected benefits of the project, one route for each strength: 
+   1. Reduced travel time
+   2. Improved personal safety
+   3. Greater accessibility to specific regions.
+
+-Terrain Cross Section
+
+-Annotation on additional infrastructure required for project realisation ie. bridge, tunnel
  
  
 
@@ -160,10 +472,10 @@ lorem
 hero image + video
 
 #### 4.1 Conclusion
-lorem
+The project demonstrates that combinatorial optimization can be a powerful tool in planning public transport networks in Southeast Asia, particularly in the face of the region's challenging terrain and climate. By integrating indexes and key indicators, the tool provides a data-driven approach to rail line and station placement. The proposed rail network gives space for the general public to conceptualise hypothetic connections that has yet to exist but should have existed.
 
 #### 4.2 Disclaimer
-lorem 
+Given the multidisciplinary nature and numerous expertise involved—engineers, urban planners, environmental scientists and policymakers, in projects of such scale, it is prudent to note that this visualization will serve as a hypothetical planning tool that democratize access to information necessary to its realisation. This would allow the public to explore different possibilities and simulate outcomes based on varying parameters (e.g. environmental factors, or population needs), while considering factors and challenges specific to Southeast Asia. 
 
 ## 5. Literature Review
 #### 5.1 Books
