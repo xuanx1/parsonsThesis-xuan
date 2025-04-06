@@ -1,8 +1,12 @@
-https://xuanx1.github.io/parsonsThesis-xuan/03prototype/
+![preview](https://github.com/user-attachments/assets/07123e7a-210d-4624-9db4-3f6541cbded6)
 
-# Foreshadowing Regions Connectivity
-![preview](https://github.com/user-attachments/assets/6ae3bd85-f44c-49a7-81d8-0727575b43d1)
+# Trains, Lanes, and Data Grains
+### Mapping Southeast Asia’s Future
 
-A visualization mapping 100 years of earthquakes from 1923 to 2023 reveals a dynamic picture of global seismic activity, capturing the frequency, magnitude, and distribution of tremors across the planet. The visualization includes a world map overlaid with color-coded points or circles, where each point represents an earthquake event, with larger circles and deeper colors indicating higher magnitudes. Temporal progression highlights earthquake patterns by decade, showing clusters in tectonically active zones like the Pacific "Ring of Fire" and areas around major fault lines in Asia, North and South America, and parts of Europe.
+A speculative exploratory urban planning engine designed for activists, policymakers, and city planners looking to shake things up. Forecasting rail connectivity development in Southeast Asia, this tool is like SimCity meets real-world infrastructure—except the stakes are higher.
 
-Interactive features, like zooming into specific regions or filtering by magnitude and year, allow viewers to explore areas of interest or significant historical events, such as the 1964 Alaska earthquake or the 2011 Japan earthquake. An animated time-lapse effect brings the visualization to life, illustrating how seismic activity has shifted or intensified over the century. Overall, this visualization provides both a macro and micro perspective on earthquake trends, serving as a powerful tool for understanding seismic risks and the geological forces that shape our world.
+By transforming biodiversity and census data into hypothetical “What-if” scenarios, it reveals indiscernible pathways through challenging terrains and natural hazards like earthquakes. Whether advocating for underserved communities or optimizing railway routes, users can explore how data-driven urban futures can reshape regional connectivity.
+
+What if you could find the best-fit route that maximizes services to the majority of the population while avoiding seasonal hurricanes? 
+
+**[Now, you can.](https://xuanx1.github.io/parsonsThesis-xuan/04final/)**
