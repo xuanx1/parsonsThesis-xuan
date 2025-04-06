@@ -466,7 +466,8 @@ The results are visualized using interactive network graphs, allowing users to e
 ![418837055-03b19321-f25a-425b-8f55-a445a6c7c242](https://github.com/user-attachments/assets/183747cf-728b-42a5-81ee-bed34741f56f)
 
 [Prototype](https://xuanx1.github.io/parsonsThesis-xuan/03prototype/)
-![preview](https://github.com/user-attachments/assets/07123e7a-210d-4624-9db4-3f6541cbded6)
+![prototype-mockup-13](https://github.com/user-attachments/assets/b5b3e56c-8784-4349-ba3b-fd14eb8d8e16)
+
 
 ## 4. Final Product
 hero image + video
