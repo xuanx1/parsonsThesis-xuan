@@ -19,6 +19,7 @@ const map = new mapboxgl.Map({
   bearing: 50,
   style: 'mapbox://styles/mapbox-map-design/claitl3i0002715qm9990tl95',
   attributionControl: false,
+  collectResourceTiming: false,
   maxBounds: [
     [80.0, -25.0], // sw corner bounding box
     [150.0, 35.0]  // ne corner bounding box
@@ -3245,7 +3246,7 @@ async function getPopulationDensityScore(coordinates) {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        console.warn(`Tileset ${tilesetId} not found for coordinates.`);
+        // console.warn(`Tileset ${tilesetId} not found for coordinates.`);
         continue; // Skip to the next tileset if this one fails
       }
 
