@@ -328,11 +328,11 @@ $$
  $$\text{Existing Network} = 1 - \frac{\text{Network Density} - \text{Network Density}_{\text{min}}}{\text{Network Density}_{\text{max}} - \text{Network Density}_{\text{min}}}$$
  </p>
  
- **High Accessibility (> 5 km/km²)** – Score < 0.33
+ **High Accessibility (> 0.5 km/km²)** – Score < 0.33
  
- **Moderate Accessibility (1-5 km/km²)** – Score ~ 0.34 - 0.66
+ **Moderate Accessibility (0.1-0.5 km/km²)** – Score ~ 0.34 - 0.66
  
- **Low Accessibility (<1 km/km²)** – Score 0.67 - 1.0
+ **Low Accessibility (<0.1 km/km²)** – Score 0.67 - 1.0
 
 
    #### Operability Index - Urban Proximity Score
