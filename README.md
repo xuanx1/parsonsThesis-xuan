@@ -178,7 +178,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
     
  #### 2.2.2 Structure Durability Index
  $$
- SDI = 0.4 \times (\text{Seismic Safe Score}) + 0.25 \times (\text{Elevation Score}) + 0.2 \times (\text{Coastline Proximity Score}) + 0.25 \times (\text{Humidity})
+ SDI = 0.4 \times (\text{Seismic Safe Score}) + 0.25 \times (\text{Elevation Score}) + 0.2 \times (\text{Coastline Proximity Score}) + 0.15 \times (\text{Humidity})
  $$
   
 Evaluates the durability of structures considering seismic activity, ground elevation, proximity to the coastline, and humidity levels.
