@@ -3445,25 +3445,25 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
   return ffi;
 }
 
-// test ffi kl
-const klCoordinates = [101.6869, 3.1390];
+// // test ffi kl
+// const klCoordinates = [101.6869, 3.1390];
 
-Promise.all([
-  getElevationScore(klCoordinates),
-  getCoastlineScore(klCoordinates),
-  getTsunamiScore(klCoordinates),
-  getSeismicScore(klCoordinates),
-  getHumidityScore(klCoordinates),
-  getPopulationDensityScore(klCoordinates),
-  getGDPScore(klCoordinates)
-]).then(([elevationScore, coastlineScore, tsunamiScore, seismicScore, humidityScore, populationDensityScore, gdpScore]) => {
-  const tsi = calculateTSI(elevationScore, coastlineScore, tsunamiScore);
-  const sdi = calculateSDI(seismicScore, elevationScore, coastlineScore, humidityScore);
-  const pei = calculatePEI(populationDensityScore, gdpScore);
+// Promise.all([
+//   getElevationScore(klCoordinates),
+//   getCoastlineScore(klCoordinates),
+//   getTsunamiScore(klCoordinates),
+//   getSeismicScore(klCoordinates),
+//   getHumidityScore(klCoordinates),
+//   getPopulationDensityScore(klCoordinates),
+//   getGDPScore(klCoordinates)
+// ]).then(([elevationScore, coastlineScore, tsunamiScore, seismicScore, humidityScore, populationDensityScore, gdpScore]) => {
+//   const tsi = calculateTSI(elevationScore, coastlineScore, tsunamiScore);
+//   const sdi = calculateSDI(seismicScore, elevationScore, coastlineScore, humidityScore);
+//   const pei = calculatePEI(populationDensityScore, gdpScore);
 
-  const ffi = calculateFFI(tsi, sdi, 0, 0, pei); // Assuming e2i and opi are 0 for simplicity
-  console.log(`Final Feasibility Index (FFI) for Kuala Lumpur: ${ffi.toFixed(2)}`);
-});
+//   const ffi = calculateFFI(tsi, sdi, 0, 0, pei); // Assuming e2i and opi are 0 for simplicity
+//   console.log(`Final Feasibility Index (FFI) for Kuala Lumpur: ${ffi.toFixed(2)}`);
+// });
 
 
 
