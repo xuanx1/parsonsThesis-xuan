@@ -284,7 +284,7 @@ Assesses the environmental impact based on land use changes and biodiversity los
 
  #### 2.2.4 Operability Index
  $$
- OPI = 0.24 \times (\text{Elevation Score}) + 0.45 \times (\text{Existing Network Score}) + 0.45 \times (\text{Urban Proximity Score}) + 0.45 \times (\text{Population Density Score})
+ OPI = 0.24 \times (\text{Elevation Score}) + 0.28 \times (\text{Existing Network Score}) + 0.24 \times (\text{Urban Proximity Score}) + 0.24 \times (\text{Population Density Score})
  $$
   
 Determines the operational feasibility considering ground elevation, network density, urban proximity, and population density.
