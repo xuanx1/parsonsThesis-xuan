@@ -178,7 +178,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
     
  #### 2.2.2 Structure Durability Index
  $$
- SDI = 0.4 \times (\text{Seismic Safe Score}) + 0.25 \times (\text{Elevation Score}) + 0.2 \times (\text{Coastline Proximity Score}) + 0.25 \times (\text{Humidity})
+ SDI = 0.4 \times (\text{Seismic Safe Score}) + 0.25 \times (\text{Elevation Score}) + 0.2 \times (\text{Coastline Proximity Score}) + 0.15 \times (\text{Humidity})
  $$
   
 Evaluates the durability of structures considering seismic activity, ground elevation, proximity to the coastline, and humidity levels.
@@ -284,7 +284,7 @@ Assesses the environmental impact based on land use changes and biodiversity los
 
  #### 2.2.4 Operability Index
  $$
- OPI = 0.24 \times (\text{Elevation Score}) + 0.45 \times (\text{Existing Network Score}) + 0.45 \times (\text{Urban Proximity Score}) + 0.45 \times (\text{Population Density Score})
+ OPI = 0.24 \times (\text{Elevation Score}) + 0.28 \times (\text{Existing Network Score}) + 0.24 \times (\text{Urban Proximity Score}) + 0.24 \times (\text{Population Density Score})
  $$
   
 Determines the operational feasibility considering ground elevation, network density, urban proximity, and population density.
@@ -328,11 +328,11 @@ $$
  $$\text{Existing Network} = 1 - \frac{\text{Network Density} - \text{Network Density}_{\text{min}}}{\text{Network Density}_{\text{max}} - \text{Network Density}_{\text{min}}}$$
  </p>
  
- **High Accessibility (> 5 km/km²)** – Score < 0.33
+ **High Accessibility (> 0.5 km/km²)** – Score < 0.33
  
- **Moderate Accessibility (1-5 km/km²)** – Score ~ 0.34 - 0.66
+ **Moderate Accessibility (0.1-0.5 km/km²)** – Score ~ 0.34 - 0.66
  
- **Low Accessibility (<1 km/km²)** – Score 0.67 - 1.0
+ **Low Accessibility (<0.1 km/km²)** – Score 0.67 - 1.0
 
 
    #### Operability Index - Urban Proximity Score
