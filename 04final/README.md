@@ -1,4 +1,4 @@
-![prototype-mockup-13](https://github.com/user-attachments/assets/b5b3e56c-8784-4349-ba3b-fd14eb8d8e16)
+![preview](https://github.com/user-attachments/assets/07123e7a-210d-4624-9db4-3f6541cbded6)
 
 # Trains, Lanes, and Data Grains
 ### Mapping Southeast Asia’s Future

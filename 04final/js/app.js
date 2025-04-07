@@ -273,7 +273,7 @@ insetMap.on('load', () => {
     type: 'vector',
     url: 'mapbox://mapbox.country-boundaries-v1'
   });
-  console.log(insetMap.getStyle().layers);
+  // console.log(insetMap.getStyle().layers);
 
   insetMap.addLayer({
     id: 'rest-world',
@@ -1249,7 +1249,7 @@ resizeMap();
 
   // 100 years earthquake 1923 - 2024
   d3.json("data/worldQuakesMiles.json").then((data) => {
-    console.log(data);
+    // console.log(data);
 
     const geoData = {
       type: "FeatureCollection",
@@ -1355,7 +1355,7 @@ resizeMap();
 
   // 100 years tsunami 1923 - 2024
   d3.tsv("data/tsunami.tsv").then((data) => {
-    console.log(data);
+    // console.log(data);
 
     const filteredData = data.filter((d) => d.Longitude && d.Latitude);
 
@@ -1619,18 +1619,6 @@ map.on('load', function() {
         });
   });
 });
-
-//function for population count from raster tilesets, darker the colour, the more population
-function getPopulationCount(color) {
-  if (color === '#f7fbff') return 1000; // 1% white
-  if (color === '#deebf7') return 10000; // 10% white
-  if (color === '#9ecae1') return 40000; // 40% white
-  if (color === '#3182bd') return 60000; // 60% white
-  if (color === '#08519c') return 80000; // 80% white
-  if (color === '#08306b') return 100000; // 100% white
-  return 0;
-}
-
 
 
 
@@ -2239,7 +2227,7 @@ map.on('load', function() {
     paint: { 
       'raster-opacity': 1,
       'raster-color' : '#FFDFBF',
-      'raster-brightness-min': 0,
+      'raster-brightness-min': 1,
     },
     layout: {
       'visibility': 'none' // visibility off by default
@@ -2565,7 +2553,933 @@ window.addEventListener("load", () => {
 
 
 
-// process indexes - 1. radius for trains based on speed + 2. interval distance/pop threshold for station placement 3. toggle indexes 4. show 3 alternative routes with specific strengths(shortest, greenest, safest) 
+//index - tsi - data query + score
+
+// elevationScore from mapbox terrain - Low elevation (Below sea level or < 10 m above sea level) – Score < 0.33, Moderate elevation (10 m – 50 m) – Score ~ 0.34 - 0.66, High elevation (> 50 m) – Score 0.67 - 1.0
+
+const getElevationAtPoint = async (coordinates) => {
+  const url = `https://api.mapbox.com/v4/mapbox.mapbox-terrain-v2/tilequery/${coordinates[0]},${coordinates[1]}.json?layers=contour&limit=1&access_token=${mapboxgl.accessToken}`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+    }
+    const data = await response.json();
+    if (data.features && data.features.length > 0) {
+      return Math.abs(data.features[0].properties.ele); // Return absolute elevation value
+    } else {
+      return 0; // Default to 0 if no elevation data is found
+    }
+  } catch (error) {
+    console.error("Error fetching elevation data:", error);
+    return 0; // Default to 0 in case of an error
+  }
+};
+
+async function getElevationScore(coordinates) {
+  const elevation = await getElevationAtPoint(coordinates); // Fetch elevation using Mapbox API
+  let elevationScore;
+
+  if (elevation < 0) {
+    elevationScore = 0; // Negative elevation gets a score of 0
+  } else if (elevation < 10) {
+    elevationScore = elevation / 30; // Scale 0-10m to 0-0.33
+  } else if (elevation <= 50) {
+    elevationScore = 0.34 + ((elevation - 10) / 40) * 0.32; // Scale 10-50m to 0.34-0.66
+  } else {
+    elevationScore = 0.67 + ((elevation - 50) / 50) * 0.33; // Scale >50m to 0.67-1.0
+    elevationScore = Math.min(elevationScore, 1.0); // Cap at 1.0
+  }
+
+  console.log(`Elevation: ${elevation}m, Elevation Score: ${elevationScore.toFixed(2)}`);
+  return elevationScore;
+}
+
+// // Eg elevation Bangkok
+// const bangkokCoordinates = [100.5018, 13.7563];
+// getElevationScore(bangkokCoordinates).then(score => {
+//   console.log(`Elevation Score for Bangkok: ${score.toFixed(2)}`);
+// });
+
+
+// coastlineScore from earth-coastlines.geo.json - > 10 km from Coast – Score ~ 0.67 - 1.0, 5 - 10 km from Coast – Score ~ 0.34 - 0.66, 0 - 5 km from Coast – Score < 0.33 + console log
+async function getCoastlineScore(coordinates) {
+  const coastlineData = await fetch('data/earth-coastlines.geo.json').then(res => res.json());
+  const point = turf.point(coordinates);
+  let minDistance = Infinity;
+
+  if (coastlineData && coastlineData.geometries) {
+    coastlineData.geometries.forEach((geometry) => {
+      if (geometry.type === 'MultiPolygon') {
+        geometry.coordinates.forEach((polygon) => {
+          polygon.forEach((ring) => {
+            ring.forEach((coord) => {
+              const distance = turf.distance(point, turf.point(coord), { units: 'kilometers' });
+              minDistance = Math.min(minDistance, distance);
+            });
+          });
+        });
+      }
+    });
+  }
+
+  console.log(`Distance to nearest coastline: ${minDistance.toFixed(2)} km`);
+
+  // tabulate score based on distance
+  let coastlineScore;
+  if (minDistance > 10) {
+    coastlineScore = 0.67 + (minDistance - 10) * 0.033; // Scale > 10 km
+    coastlineScore = Math.min(coastlineScore, 1.0); // Cap at 1.0
+  } else if (minDistance > 5) {
+    coastlineScore = 0.34 + (minDistance - 5) * 0.066; // Scale 5-10 km
+  } else {
+    coastlineScore = minDistance * 0.066; // Scale 0-5 km
+  }
+
+  console.log(`Coastline Score: ${coastlineScore.toFixed(2)}`);
+  return coastlineScore;
+}
+
+// // Eg coastline score Chiang Mai
+// getCoastlineScore([98.9853, 18.7883]).then(coastlineScore => {
+//   console.log(`Coastline Score for Chiang Mai: ${coastlineScore.toFixed(2)}`);
+// });
+
+
+// tsunamiScore - counts with 100km radius from tsunami.tsv mapped - Few Tsunami Count – Score ~ 0.67 - 1.0, Some Tsunami Count – Score ~ 0.34 - 0.66, Frequent Tsunamis – Score < 0.33 + console log
+async function getTsunamiScore(coordinates) {
+  const tsunamiData = await fetch('data/tsunami.tsv')
+    .then(res => res.text())
+    .then(tsv => d3.tsvParse(tsv));
+
+  const point = turf.point(coordinates);
+  const radius = 100; // 100 km radius
+  const nearbyTsunamis = tsunamiData.filter(tsunami => {
+    const tsunamiPoint = turf.point([+tsunami.Longitude, +tsunami.Latitude]);
+    const distance = turf.distance(point, tsunamiPoint, { units: 'kilometers' });
+    return distance <= radius;
+  });
+
+  const tsunamiCount = nearbyTsunamis.length;
+  console.log(`Tsunami Count within 100km: ${tsunamiCount}`);
+
+  // Tabulate score based on tsunami count
+  let tsunamiScore;
+  if (tsunamiCount <= 5) {
+    tsunamiScore = 0.67 + (5 - tsunamiCount) * 0.066; // Scale 0-5 tsunamis
+    tsunamiScore = Math.min(tsunamiScore, 1.0); // Cap at 1.0
+  } else if (tsunamiCount <= 15) {
+    tsunamiScore = 0.34 + (15 - tsunamiCount) * 0.033; // Scale 6-15 tsunamis
+  } else {
+    tsunamiScore = Math.max(0, 0.33 - (tsunamiCount - 15) * 0.033); // Scale >15 tsunamis
+  }
+
+  console.log(`Tsunami Score: ${tsunamiScore.toFixed(2)}`);
+  return tsunamiScore;
+}
+
+// // Eg for tsunmai Score Manila
+// getTsunamiScore([120.9842, 14.5995]).then(tsunamiScore => {
+//   console.log(`Tsunami Score for Manila: ${tsunamiScore.toFixed(2)}`);
+// });
+
+
+// final tsi
+function calculateTSI(elevationScore, coastlineScore, tsunamiScore) {
+
+  return (0.2 * elevationScore) + (0.4 * coastlineScore) + (0.4 * invertScore(tsunamiScore));
+}
+
+// // Eg for Siem Reap
+// const siemReapCoordinates = [103.8509, 13.3671];
+
+// Promise.all([
+//   getElevationScore(siemReapCoordinates),
+//   getCoastlineScore(siemReapCoordinates),
+//   getTsunamiScore(siemReapCoordinates)
+// ]).then(([elevationScore, coastlineScore, tsunamiScore]) => {
+//   const tsi = calculateTSI(elevationScore, coastlineScore, tsunamiScore);
+//   console.log(`Tsunami Risk Index (TSI) for Siem Reap: ${tsi.toFixed(2)}`);
+// });
+
+
+
+
+
+//index - sdi - data query + score
+
+// seismicScore - > 150 km Away – Score ~ 0.67 - 1.0, 50 - 150 km Away – Score ~ 0.34 - 0.66, 0 - 50 km Away – Score < 0.33
+async function getSeismicScore(coordinates) {
+  const earthquakeData = await fetch('data/worldQuakesMiles.json')
+    .then(res => res.json());
+
+  const point = turf.point(coordinates);
+  const radius = 150; // 150 km radius
+  const nearbyEarthquakes = earthquakeData.features.filter(earthquake => {
+    const earthquakePoint = turf.point(earthquake.geometry.coordinates);
+    const distance = turf.distance(point, earthquakePoint, { units: 'kilometers' });
+    return distance <= radius;
+  });
+
+  const minDistance = nearbyEarthquakes.reduce((min, earthquake) => {
+    const earthquakePoint = turf.point(earthquake.geometry.coordinates);
+    const distance = turf.distance(point, earthquakePoint, { units: 'kilometers' });
+    return Math.min(min, distance);
+  }, Infinity);
+
+  console.log(`Minimum Distance to Earthquake: ${minDistance.toFixed(2)} km`);
+
+  // Tabulate score based on distance
+  let seismicScore;
+  if (minDistance > 150) {
+    seismicScore = 0.67 + (minDistance - 150) * 0.0022; // Scale > 150 km
+    seismicScore = Math.min(seismicScore, 1.0); // Cap at 1.0
+  } else if (minDistance > 50) {
+    seismicScore = 0.34 + (minDistance - 50) * 0.0033; // Scale 50-150 km
+  } else {
+    seismicScore = Math.max(0, 0.33 - (50 - minDistance) * 0.0066); // Scale < 50 km
+  }
+
+  console.log(`Seismic Score: ${seismicScore.toFixed(2)}`);
+  return seismicScore;
+}
+
+// // Eg seismic Score Dili
+// getSeismicScore([125.5679, -8.5569]).then(seismicScore => {
+//   console.log(`Seismic Score for Dili: ${seismicScore.toFixed(2)}`);
+// });
+
+
+// humidty score - High Humidity (> 80%) – Score < 0.33, Moderate Humidity (50% - 80%) – Score ~ 0.34 - 0.66, Low Humidity (< 50%) – Score 0.67 - 1.0
+
+async function getHumidityScore(coordinates) {
+  const humidityData = await fetch('data/avgHU_vect.geojson')
+    .then(res => res.json());
+  const point = turf.point(coordinates);
+
+  let humidityValue = null;
+
+  // Iterate through each feature to find the polygon containing the point
+  for (const feature of humidityData.features) {
+    if (turf.booleanPointInPolygon(point, feature)) {
+      humidityValue = feature.properties.DN;
+      break;
+    }
+  }
+
+  if (humidityValue === null) {
+    console.log("Point is not within any polygon.");
+    return 0.0; // Default score if point is not found in any polygon
+  }
+
+  console.log(`Humidity Value: ${humidityValue}`);
+  let humidityScore;
+  humidityScore = 1.0 - (humidityValue / 255); // Continuous scale from 0 to 255
+  console.log(`Humidity Score: ${humidityScore.toFixed(2)}`);
+  return humidityScore;
+}
+
+// // Eg humidity score for Hanoi
+// getHumidityScore([105.8342, 21.0278]).then(humidityScore => {
+//   console.log(`Humidity Score for Hanoi: ${humidityScore.toFixed(2)}`);
+// });
+  
+
+// final sdi
+function calculateSDI(seismicScore, elevationScore, coastlineScore, humidityScore) {
+
+  return (0.4 * seismicScore) + (0.25 * elevationScore) + (0.2 * coastlineScore) + (0.15 * invertScore(humidityScore));
+}
+
+// // sdi for hanoi
+// const hanoiCoordinates = [105.8342, 21.0278];
+
+// Promise.all([
+//   getSeismicScore(hanoiCoordinates),
+//   getElevationScore(hanoiCoordinates),
+//   getCoastlineScore(hanoiCoordinates),
+//   getHumidityScore(hanoiCoordinates)
+// ]).then(([seismicScore, elevationScore, coastlineScore, humidityScore]) => {
+//   const sdi = calculateSDI(seismicScore, elevationScore, coastlineScore, humidityScore);
+//   console.log(`Structure Durability Index (SDI) for Hanoi: ${sdi.toFixed(2)}`);
+// });
+
+
+
+//index - e2i - data query + score
+
+// landUseChange - Land Use Change < 10% – Score ~ 0.67 - 1.0, Land Use Change 10 - 25% – Score ~ 0.34 - 0.66, Land Use Change > 25% – Score < 0.33 - based on percentage of line intersecting with forest geojson
+async function getLandUseChangeScore(route) {
+  const forestData = await fetch('data/sea_forest_vect.geojson').then(res => res.json());
+  const routeLine = turf.lineString(route.coordinates);
+
+  let totalIntersectLength = 0;
+  let totalRouteLength = turf.length(routeLine, { units: 'kilometers' });
+
+  forestData.features.forEach((feature) => {
+    const intersection = turf.lineIntersect(routeLine, feature);
+    if (intersection.features.length > 0) {
+      const intersectLine = turf.lineString(intersection.features.map((f) => f.geometry.coordinates));
+      totalIntersectLength += turf.length(intersectLine, { units: 'kilometers' });
+    }
+  });
+
+  const landUseChangePercentage = (totalIntersectLength / totalRouteLength) * 100;
+  console.log(`Land Use Change Percentage: ${landUseChangePercentage.toFixed(2)}%`);
+
+  let landUseChangeScore;
+  if (landUseChangePercentage <= 11) {
+    landUseChangeScore = 1.0; // Max score for very light green
+  } else if (landUseChangePercentage <= 29) {
+    landUseChangeScore = 1.0 - ((landUseChangePercentage - 11) / 18) * (1.0 - 0.8); // Linear decrease from 1.0 to 0.8 between 12% and 29%
+  } else if (landUseChangePercentage <= 47) {
+    landUseChangeScore = 0.8 - ((landUseChangePercentage - 29) / 18) * (0.8 - 0.6); // Linear decrease from 0.8 to 0.6 between 30% and 47%
+  } else if (landUseChangePercentage <= 104) {
+    landUseChangeScore = 0.6 - ((landUseChangePercentage - 47) / 57) * (0.6 - 0.4); // Linear decrease from 0.6 to 0.4 between 48% and 104%
+  } else {
+    landUseChangeScore = Math.max(0.4 - ((landUseChangePercentage - 104) / 151) * 0.4, 0); // Further decrease beyond 104%
+  }
+
+  console.log(`Land Use Change Score: ${landUseChangeScore.toFixed(2)}`);
+  return landUseChangeScore;
+}
+
+// // Land Use Change Score test jakarta Lat: -6.175394, Lng: 106.827183 TO bandung Lat: -6.913611, Lng: 107.61036
+// const jakartaToBandungRoute = {
+//   coordinates: [
+//     [106.827183, -6.175394], // Jakarta
+//     [107.61036, -6.913611],  // Bandung
+//   ],
+// };
+
+// getLandUseChangeScore(jakartaToBandungRoute).then((landUseChangeScore) => {
+//   console.log(`Land Use Change Score for Jakarta to Bandung: ${landUseChangeScore.toFixed(2)}`);
+// });
+
+
+
+// biodiversityScore - Biodiversity Impact < 10% – Score ~ 0.67 - 1.0, Biodiversity Impact 10 - 14% – Score ~ 0.34 - 0.66, Biodiversity Impact > 14% – Score < 0.33 - based on percentage of line intersecting with biodiversity 3x geojson
+
+async function getMammalsScore(route) {
+  const mammalsData = await fetch('data/mammals_vect1.geojson').then(res => res.json());
+  const routeLine = turf.lineString(route.coordinates);
+
+  let totalIntersectLength = 0;
+  let totalRouteLength = turf.length(routeLine, { units: 'kilometers' });
+
+  mammalsData.features.forEach((feature) => {
+    const intersection = turf.lineIntersect(routeLine, feature);
+    if (intersection.features.length > 0) {
+      intersection.features.forEach((feature) => {
+        if (feature.geometry && feature.geometry.type === 'LineString') {
+          const intersectLine = turf.lineString(feature.geometry.coordinates);
+          totalIntersectLength += turf.length(intersectLine, { units: 'kilometers' });
+        }
+      });
+    }
+  });
+
+  const mammalsImpactPercentage = (totalIntersectLength / totalRouteLength) * 100;
+  console.log(`Mammals Impact Percentage: ${mammalsImpactPercentage.toFixed(2)}%`);
+
+  let mammalsScore;
+  if (mammalsImpactPercentage <= 10) {
+    mammalsScore = 1.0; // Max score for minimal impact
+  } else if (mammalsImpactPercentage <= 30) {
+    mammalsScore = 1.0 - ((mammalsImpactPercentage - 10) / 20) * (1.0 - 0.67); // Linear decrease from 1.0 to 0.67 between 10% and 30%
+  } else if (mammalsImpactPercentage <= 50) {
+    mammalsScore = 0.67 - ((mammalsImpactPercentage - 30) / 20) * (0.67 - 0.33); // Linear decrease from 0.67 to 0.33 between 30% and 50%
+  } else {
+    mammalsScore = Math.max(0.33 - ((mammalsImpactPercentage - 50) / 50) * 0.33, 0); // Further decrease beyond 50%
+  }
+
+  console.log(`Mammals Score: ${mammalsScore.toFixed(2)}`);
+  return mammalsScore;
+}
+
+async function getBirdsScore(route) {
+  const birdsData = await fetch('data/birds_vect.geojson').then(res => res.json());
+  const routeLine = turf.lineString(route.coordinates);
+
+  let totalIntersectLength = 0;
+  let totalRouteLength = turf.length(routeLine, { units: 'kilometers' });
+
+  birdsData.features.forEach((feature) => {
+    const intersection = turf.lineIntersect(routeLine, feature);
+    if (intersection.features.length > 0) {
+      intersection.features.forEach((feature) => {
+        if (feature.geometry && feature.geometry.type === 'LineString') {
+          const intersectLine = turf.lineString(feature.geometry.coordinates);
+          totalIntersectLength += turf.length(intersectLine, { units: 'kilometers' });
+        }
+      });
+    }
+  });
+
+  const birdsImpactPercentage = (totalIntersectLength / totalRouteLength) * 100;
+  console.log(`Birds Impact Percentage: ${birdsImpactPercentage.toFixed(2)}%`);
+
+  let birdsScore;
+  if (birdsImpactPercentage <= 10) {
+    birdsScore = 1.0; // Max score for minimal impact
+  } else if (birdsImpactPercentage <= 30) {
+    birdsScore = 1.0 - ((birdsImpactPercentage - 10) / 20) * (1.0 - 0.67); // Linear decrease from 1.0 to 0.67 between 10% and 30%
+  } else if (birdsImpactPercentage <= 50) {
+    birdsScore = 0.67 - ((birdsImpactPercentage - 30) / 20) * (0.67 - 0.33); // Linear decrease from 0.67 to 0.33 between 30% and 50%
+  } else {
+    birdsScore = Math.max(0.33 - ((birdsImpactPercentage - 50) / 50) * 0.33, 0); // Further decrease beyond 50%
+  }
+
+  console.log(`Birds Score: ${birdsScore.toFixed(2)}`);
+  return birdsScore;
+}
+
+async function getAmphibiansScore(route) {
+  const amphibiansData = await fetch('data/amphibians_vect.geojson').then(res => res.json());
+  const routeLine = turf.lineString(route.coordinates);
+
+  let totalIntersectLength = 0;
+  let totalRouteLength = turf.length(routeLine, { units: 'kilometers' });
+
+  amphibiansData.features.forEach((feature) => {
+    const intersection = turf.lineIntersect(routeLine, feature);
+    if (intersection.features.length > 0) {
+      intersection.features.forEach((feature) => {
+        if (feature.geometry && feature.geometry.type === 'LineString') {
+          const intersectLine = turf.lineString(feature.geometry.coordinates);
+          totalIntersectLength += turf.length(intersectLine, { units: 'kilometers' });
+        }
+      });
+    }
+  });
+
+  const amphibiansImpactPercentage = (totalIntersectLength / totalRouteLength) * 100;
+  console.log(`Amphibians Impact Percentage: ${amphibiansImpactPercentage.toFixed(2)}%`);
+
+  let amphibiansScore;
+  if (amphibiansImpactPercentage <= 10) {
+    amphibiansScore = 1.0; // Max score for minimal impact
+  } else if (amphibiansImpactPercentage <= 30) {
+    amphibiansScore = 1.0 - ((amphibiansImpactPercentage - 10) / 20) * (1.0 - 0.67); // Linear decrease from 1.0 to 0.67 between 10% and 30%
+  } else if (amphibiansImpactPercentage <= 50) {
+    amphibiansScore = 0.67 - ((amphibiansImpactPercentage - 30) / 20) * (0.67 - 0.33); // Linear decrease from 0.67 to 0.33 between 30% and 50%
+  } else {
+    amphibiansScore = Math.max(0.33 - ((amphibiansImpactPercentage - 50) / 50) * 0.33, 0); // Further decrease beyond 50%
+  }
+
+  console.log(`Amphibians Score: ${amphibiansScore.toFixed(2)}`);
+  return amphibiansScore;
+}
+
+async function calculateBiodiversityImpactScore(route) {
+  const [birdsScore, amphibiansScore, mammalsScore] = await Promise.all([
+    getBirdsScore(route),
+    getAmphibiansScore(route),
+    getMammalsScore(route)
+  ]);
+
+  const biodiversityImpact = (1 - birdsScore) + (1 - amphibiansScore) + (1 - mammalsScore);
+  const biodiversityImpactPercentage = (biodiversityImpact / 3) * 100; // Normalize to percentage
+  console.log(`Biodiversity Impact Percentage: ${biodiversityImpactPercentage.toFixed(2)}%`);
+
+  let biodiversityScore;
+  if (biodiversityImpactPercentage <= 10) {
+    biodiversityScore = 1.0; // Max score for minimal impact
+  } else if (biodiversityImpactPercentage <= 14) {
+    biodiversityScore = 1.0 - ((biodiversityImpactPercentage - 10) / 4) * (1.0 - 0.67); // Linear decrease from 1.0 to 0.67 between 10% and 14%
+  } else {
+    biodiversityScore = Math.max(0.67 - ((biodiversityImpactPercentage - 14) / 86) * 0.67, 0); // Further decrease beyond 14%
+  }
+
+  console.log(`Biodiversity Impact Score: ${biodiversityScore.toFixed(2)}`);
+  return biodiversityScore;
+}
+
+
+// // Biodiversity Score test jakarta Lat: -6.175394, Lng: 106.827183 TO bandung Lat: -6.913611, Lng: 107.61036
+// const jakartaToBandungRoute = {
+//   coordinates: [
+//     [106.827183, -6.175394], // Jakarta
+//     [107.61036, -6.913611],  // Bandung
+//   ],
+// };
+
+// calculateBiodiversityImpactScore(jakartaToBandungRoute).then((biodiversityScore) => {
+//   console.log(`Biodiversity Impact Score for Jakarta to Bandung: ${biodiversityScore.toFixed(2)}`);
+// });
+
+
+// final e2i
+function calculateE2I(landUseChangeScore, biodiversityScore) {
+  return (0.55 * invertScore(landUseChangeScore)) + (0.45 * invertScore(biodiversityScore));
+}
+
+// // e2i for jakarta to bandung
+// calculateBiodiversityImpactScore(jakartaToBandungRoute).then((biodiversityScore) => {
+//   getLandUseChangeScore(jakartaToBandungRoute).then((landUseChangeScore) => {
+//     const e2i = calculateE2I(landUseChangeScore, biodiversityScore);
+//     console.log(`Environmental Impact Index (E2I) for Jakarta to Bandung: ${e2i.toFixed(2)}`);
+//   });
+// });
+
+
+
+
+//index - opi - data query + score
+
+// Elevation <5m or >50m - Score 0, Elevation between 5-10m - Linear increase from 0 to 1, Elevation between 10-50m - Score 1,Elevation between 50-60m - Linear decrease from 1 to 0; transition to undesirable, Elevation >60m - Score 0
+async function getElevationScoreOPI(coordinates) {
+  const elevation = await getElevationAtPoint(coordinates); // Fetch elevation using Mapbox API
+  let elevationScoreOPI;
+
+  if (elevation < 5 || elevation > 60) {
+    elevationScoreOPI = 0; // Elevation <5m or >60m gets a score of 0
+  } else if (elevation >= 5 && elevation < 10) {
+    elevationScoreOPI = (elevation - 5) / 5; // Linear increase from 0 to 1 between 5m and 10m
+  } else if (elevation >= 10 && elevation <= 50) {
+    elevationScoreOPI = 1; // Score of 1 between 10m and 50m
+  } else if (elevation > 50 && elevation <= 60) {
+    elevationScoreOPI = 1 - ((elevation - 50) / 10); // Linear decrease from 1 to 0 between 50m and 60m
+  }
+
+  console.log(`Elevation: ${elevation}m, Elevation Score: ${elevationScoreOPI.toFixed(2)}`);
+  return elevationScoreOPI;
+}
+
+// //elevation test on Da Nang
+// const daNangCoordinates = [108.2022, 16.0544];
+// getElevationScore(daNangCoordinates).then(score => {
+//   console.log(`Elevation Score for Da Nang: ${score.toFixed(2)}`);
+// });
+
+
+
+// get length of roads/railways from maptiler and get density of existing network(roads/railways) within 200km radius + score High Accessibility (> 5 km/km²) – Score < 0.33, Moderate Accessibility (1-5 km/km²) – Score ~ 0.34 - 0.66, Low Accessibility (<1 km/km²) – Score 0.67 - 1.0
+
+// Function to add delays between requests (for throttling)
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Function to compute network density score
+function computeNetworkScore(density) {
+  if (density > 0.5) return Math.max(0.33 - ((density - 5) * 0.033), 0);
+  if (density > 0.1) return 0.34 + ((0.5 - density) * 0.066);
+  return Math.min(0.67 + ((0.1 - density) * 0.33), 1.0);
+}
+
+// Function to get network density score for each city
+async function getNetworkDensityScore(coordinates, radius = 100) {
+  const query = `
+    [out:json][timeout:25];
+    (
+      way["highway"](around:${radius * 1000},${coordinates[1]},${coordinates[0]});
+      way["railway"](around:${radius * 1000},${coordinates[1]},${coordinates[0]});
+    );
+    out geom qt 500;  // Limit the number of features returned per city
+  `;
+  const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+
+    if (!data.elements || data.elements.length === 0) {
+      console.warn("No network data found.");
+      return 0;
+    }
+
+    let totalRoadLength = 0;
+    let totalRailwayLength = 0;
+
+    data.elements.forEach(way => {
+      if (!way.geometry) return;
+      const coords = way.geometry.map(p => [p.lon, p.lat]);
+      if (coords.length < 2) return;
+
+      const line = turf.lineString(coords);
+      const length = turf.length(line, { units: "kilometers" });
+
+      if (way.tags && way.tags.highway) {
+        totalRoadLength += length;
+      } else if (way.tags && way.tags.railway) {
+        totalRailwayLength += length;
+      }
+    });
+
+    console.log(`Total Road Length: ${totalRoadLength.toFixed(2)} km`);
+    console.log(`Total Railway Length: ${totalRailwayLength.toFixed(2)} km`);
+
+    const area = Math.PI * Math.pow(radius, 2); // km²
+    const density = (totalRoadLength + totalRailwayLength) / area;
+    return computeNetworkScore(density);
+  } catch (err) {
+    console.error("Failed to fetch data:", err);
+    return 0;
+  }
+}
+
+// Function to process cities in smaller batches (with throttling)
+async function processCitiesInBatches(cities, batchSize = 2, delayMs = 1000) {
+  const results = [];
+
+  for (let i = 0; i < cities.length; i++) {
+    const { name, coordinates } = cities[i];
+    console.log(`\nProcessing: ${name}`);
+    const score = await getNetworkDensityScore(coordinates);
+    results.push({ name, score: score.toFixed(2) });
+
+    // Throttle requests
+    if ((i + 1) % batchSize === 0 || i === cities.length - 1) {
+      console.log(`Batch processed: ${i + 1}`);
+      await sleep(delayMs);  // Delay between batches
+    }
+  }
+
+  return results;
+}
+
+// //test road rail density on sea cities
+// const southeastAsiaCities = [
+//   { name: "Ho Chi Minh City", coordinates: [106.6297, 10.8231] },
+//   { name: "Bangkok", coordinates: [100.5018, 13.7563] },
+//   { name: "Jakarta", coordinates: [106.8456, -6.2088] },
+//   { name: "Manila", coordinates: [120.9842, 14.5995] },
+//   { name: "Phnom Penh", coordinates: [104.8885, 11.5564] }
+// ];
+
+// // Process cities with smaller batches and throttling
+// processCitiesInBatches(southeastAsiaCities, 2, 1500).then(results => {
+//   console.table(results);
+// });
+
+
+
+
+// get shortest distance to urban centers + score Low Accessibility (> 50 km from urban center) – Score < 0.33, Moderate Accessibility (15 km - 50 km from urban center) – Score ~ 0.34 - 0.66, High Accessibility (< 15 km from urban center) – Score 0.67 - 1.0
+async function getUrbanProximityScore(coordinates) {
+  const urbanCenters = majorCities.features.map(city => city.geometry.coordinates);
+  let minDistance = Infinity;
+
+  urbanCenters.forEach(center => {
+    const distance = turf.distance(turf.point(coordinates), turf.point(center), { units: 'kilometers' });
+    minDistance = Math.min(minDistance, distance);
+  });
+
+  console.log(`Shortest Distance to Urban Center: ${minDistance.toFixed(2)} km`);
+
+  let urbanProximityScore;
+  if (minDistance < 15) {
+    urbanProximityScore = 0.67 + ((15 - minDistance) / 15) * 0.33; // Scale < 15 km
+    urbanProximityScore = Math.min(urbanProximityScore, 1.0); // Cap at 1.0
+  } else if (minDistance <= 50) {
+    urbanProximityScore = 0.34 + ((50 - minDistance) / 35) * 0.33; // Scale 15-50 km
+  } else {
+    urbanProximityScore = Math.max(0, 0.33 - ((minDistance - 50) / 50) * 0.33); // Scale > 50 km
+  }
+
+  console.log(`Urban Proximity Score: ${urbanProximityScore.toFixed(2)}`);
+  return urbanProximityScore;
+}
+
+// // Eg urban proximity score
+// getUrbanProximityScore([99.797837, 1.578427]).then(score => {
+//   console.log(`Urban Proximity Score for Paolan Halongonan, North Padang Lawas Regency, North Sumatra, Indonesia: ${score.toFixed(2)}`);
+// });
+
+
+
+// populationDensityScore from raster tile- Low Demand (<500 people/km²) – Score < 0.33, Moderate Demand (500-5,000 people/km²) – Score ~ 0.34 - 0.66, High Demand (>5,000 people/km²) – Score 0.67 - 1.0
+
+//function for population count from raster tilesets
+function getPopulationCount(color) {
+  const rgb = color.match(/\d+/g);
+  if (!rgb) return 0;
+
+  const [r, g, b] = rgb.map(Number);
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000; // calculate brightness
+
+  // Map brightness to population count
+  if (brightness < 100) {
+    return 0; // Darkest, no one
+  } else if (brightness < 150) {
+    return 35;
+  } else if (brightness < 200) {
+    return 50;
+  } else if (brightness < 250) {
+    return 85;
+  } else {
+    return 110;
+  }
+}
+
+
+async function getPopulationDensityScore(coordinates) {
+  const zoomLevel = 12; // Adjust zoom level as needed
+  const [lng, lat] = coordinates;
+  const radiusKm = 20;
+  const radiusPixels = Math.ceil(radiusKm * 256 / (40075 / Math.pow(2, zoomLevel))); // Convert radius to pixels
+
+  const tilesets = [
+    'xuanx111.3josh1wj',
+    'xuanx111.cuxcvnbr',
+    'xuanx111.520thek8',
+    'xuanx111.96iq0mqw',
+    'xuanx111.d8izfyg0',
+    'xuanx111.9vhjaglf',
+    'xuanx111.9unpgwbt',
+    'xuanx111.0156dejf',
+    'xuanx111.0nyni93u',
+    'xuanx111.a8vrhntz',
+    'xuanx111.26ax1s7t',
+    'xuanx111.agopr4of'
+  ];
+
+  for (const tilesetId of tilesets) {
+    const tileX = Math.floor((lng + 180) / 360 * Math.pow(2, zoomLevel));
+    const tileY = Math.floor((1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoomLevel));
+
+    const url = `https://api.mapbox.com/v4/${tilesetId}/${zoomLevel}/${tileX}/${tileY}@2x.pngraw?access_token=${mapboxgl.accessToken}`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        console.warn(`Tileset ${tilesetId} not found for coordinates.`);
+        continue; // Skip to the next tileset if this one fails
+      }
+
+      const blob = await response.blob();
+      const imageBitmap = await createImageBitmap(blob);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = imageBitmap.width;
+      canvas.height = imageBitmap.height;
+
+      const context = canvas.getContext('2d');
+      context.drawImage(imageBitmap, 0, 0);
+
+      const centerX = Math.floor(((lng + 180) % 360) / 360 * imageBitmap.width);
+      const centerY = Math.floor((1 - (Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI)) / 2 * imageBitmap.height);
+
+      let totalPopulation = 0;
+      let pixelCount = 0;
+
+      for (let x = -radiusPixels; x <= radiusPixels; x++) {
+        for (let y = -radiusPixels; y <= radiusPixels; y++) {
+          const pixelX = centerX + x;
+          const pixelY = centerY + y;
+
+          if (pixelX >= 0 && pixelX < imageBitmap.width && pixelY >= 0 && pixelY < imageBitmap.height) {
+            const distance = Math.sqrt(x * x + y * y);
+            if (distance <= radiusPixels) {
+              const pixelData = context.getImageData(pixelX, pixelY, 1, 1).data;
+              const color = `rgb(${pixelData[0]},${pixelData[1]},${pixelData[2]})`;
+
+              totalPopulation += getPopulationCount(color);
+              pixelCount++;
+            }
+          }
+        }
+      }
+
+      const areaKm2 = Math.PI * Math.pow(radiusKm, 2); // Area of the circle in km²
+      const populationDensity = totalPopulation / areaKm2;
+
+      console.log(`Total Population: ${totalPopulation}`);
+      console.log(`Population Density: ${populationDensity.toFixed(2)} people/km²`);
+
+      let populationDensityScore;
+      if (populationDensity < 500) {
+        populationDensityScore = (populationDensity / 500) * 0.33; // Scale < 500 people/km²
+      } else if (populationDensity <= 5000) {
+        populationDensityScore = 0.34 + ((populationDensity - 500) / 4500) * 0.32; // Scale 500-5,000 people/km²
+      } else {
+        populationDensityScore = Math.min(0.67 + ((populationDensity - 5000) / 5000) * 0.33, 1.0); // Scale > 5,000 people/km²
+      }
+
+      console.log(`Population Density Score from tileset ${tilesetId}: ${populationDensityScore.toFixed(2)}`);
+      return populationDensityScore; // Return the score from the first matching tileset
+    } catch (error) {
+      console.error(`Error fetching population density from tileset ${tilesetId}:`, error);
+    }
+  }
+
+  console.warn('No matching tileset found for the given coordinates.');
+  return 0.0; // Default score if no tileset matches
+}
+
+
+// // test population density score on singapore
+// getPopulationDensityScore([103.8198, 1.3521]).then(score => {
+//   console.log(`Population Density Score for Singapore: ${score.toFixed(2)}`);
+// });
+
+// // test population density score on hue
+// getPopulationDensityScore([107.5909, 16.4637]).then(score => {
+//   console.log(`Population Density Score for Hue: ${score.toFixed(2)}`);
+// });
+
+// // test population density score on jakarta
+// getPopulationDensityScore([106.8456, -6.2088]).then(score => {
+//   console.log(`Population Density Score for Jakarta: ${score.toFixed(2)}`);
+// });
+
+
+
+// final opi
+function calculateOPI(elevationScoreOPI, computeNetworkScore, urbanProximityScore, populationDensityScore) {
+
+  return (0.24 * elevationScoreOPI) + (0.28 * computeNetworkScore) + (0.24 * urbanProximityScore) + (0.24 * populationDensityScore);
+}
+
+// // test opi jakarta
+// const jakartaCoordinates = [106.8456, -6.2088];
+
+// Promise.all([
+//   getElevationScoreOPI(jakartaCoordinates),
+//   getNetworkDensityScore(jakartaCoordinates),
+//   getUrbanProximityScore(jakartaCoordinates),
+//   getPopulationDensityScore(jakartaCoordinates)
+// ]).then(([elevationScoreOPI, networkDensityScore, urbanProximityScore, populationDensityScore]) => {
+//   const opi = calculateOPI(elevationScoreOPI, networkDensityScore, urbanProximityScore, populationDensityScore);
+//   console.log(`Operability Index (OPI) for Jakarta: ${opi.toFixed(2)}`);
+// });
+
+
+
+
+//index - pei - data query + score
+// // landArea - 20km radius of coordinates and points along the route
+// async function getLandArea(coordinates) {
+//   const radius = 20; // 20 km radius
+//   const area = Math.PI * Math.pow(radius, 2); // Area of the circle in km²
+//   console.log(`Land Area within ${radius} km radius: ${area.toFixed(2)} km²`);
+//   return area;
+// }
+
+// // get land area on medan
+// const medanCoordinates = [98.6722, 3.5952];
+// const landArea = getLandArea(medanCoordinates);
+// console.log(`Land Area for Medan: ${landArea.toFixed(2)} km²`);
+
+
+// gdp score - use brightness of raster tilesets(const tileset = 'xuanx111.409ps0ou') to get gdp per capita - Low Economic Importance (< $5,000 USD) – Score < 0.33, Moderate Economic Importance ($5,000 - $40,000 USD) – Score ~ 0.34 - 0.66, High Economic Importance (> $40,000 USD) – Score 0.67 - 1.0
+
+async function getGDPScore(coordinates) {
+  const gdpData = await fetch('data/testData/spatgdp.geojson').then(res => res.json());
+  const point = turf.point(coordinates);
+
+  let gdpValue = null;
+
+  // Iterate through each feature to find the polygon containing the point
+  for (const feature of gdpData.features) {
+    if (turf.booleanPointInPolygon(point, feature)) {
+      gdpValue = feature.properties.DN;
+      break;
+    }
+  }
+
+  if (gdpValue === null) {
+    console.log("Point is not within any polygon.");
+    return 0.0; // Default score if point is not found in any polygon
+  }
+
+  console.log(`GDP Value (DN): ${gdpValue}`);
+
+  // Tabulate score based on DN value (0-238 classified into 5 classes of GDP value)
+  let gdpScore;
+
+  if (gdpValue <= 47) {
+    gdpScore = 1.0; // Class 1: High economic importance
+  } else if (gdpValue <= 94) {
+    gdpScore = 0.8; // Class 2: Moderately high economic importance
+  } else if (gdpValue <= 141) {
+    gdpScore = 0.6; // Class 3: Moderate economic importance
+  } else if (gdpValue <= 188) {
+    gdpScore = 0.4; // Class 4: Low economic importance
+  } else {
+    gdpScore = 0.2; // Class 5: Very low economic importance
+  }
+
+  console.log(`GDP Score: ${gdpScore.toFixed(2)}`);
+  return gdpScore;
+}
+
+
+// // test gdp score on Kuala Lumpur
+// getGDPScore([101.6869, 3.1390]).then(score => {
+//   console.log(`GDP Score for Kuala Lumpur: ${score.toFixed(2)}`);
+// });
+
+// // test gdp score on medan
+// getGDPScore([98.6722, 3.5952]).then(score => {
+//   console.log(`GDP Score for Medan: ${score.toFixed(2)}`);
+// });
+
+
+
+// final pei Population-Economic Importance Index (PEI)
+function calculatePEI(populationDensityScore, gdpScore) {
+
+  return (0.35 * 0.25 * populationDensityScore) + (0.40 * gdpScore);
+}
+
+// // test pei on medan
+// const medanCoordinates = [98.6722, 3.5952];
+// Promise.all([
+//   getPopulationDensityScore(medanCoordinates),
+//   getGDPScore(medanCoordinates)
+// ]).then(([populationDensityScore, gdpScore]) => {
+//   const pei = calculatePEI(populationDensityScore, gdpScore);
+//   console.log(`Population-Economic Importance Index (PEI) for Medan: ${pei.toFixed(2)}`);
+// });
+
+
+
+// final feasibility index
+function calculateFFI(tsi, sdi, e2i, opi, pei) {
+  let ffi = (0.20 * tsi) + (0.20 * sdi) + (0.15 * e2i) + (0.25 * opi) + (0.20 * pei);
+  console.log("Final Feasibility Index (FFI):", ffi.toFixed(2));
+  return ffi;
+}
+
+// test ffi kl
+const klCoordinates = [101.6869, 3.1390];
+
+Promise.all([
+  getElevationScore(klCoordinates),
+  getCoastlineScore(klCoordinates),
+  getTsunamiScore(klCoordinates),
+  getSeismicScore(klCoordinates),
+  getHumidityScore(klCoordinates),
+  getPopulationDensityScore(klCoordinates),
+  getGDPScore(klCoordinates)
+]).then(([elevationScore, coastlineScore, tsunamiScore, seismicScore, humidityScore, populationDensityScore, gdpScore]) => {
+  const tsi = calculateTSI(elevationScore, coastlineScore, tsunamiScore);
+  const sdi = calculateSDI(seismicScore, elevationScore, coastlineScore, humidityScore);
+  const pei = calculatePEI(populationDensityScore, gdpScore);
+
+  const ffi = calculateFFI(tsi, sdi, 0, 0, pei); // Assuming e2i and opi are 0 for simplicity
+  console.log(`Final Feasibility Index (FFI) for Kuala Lumpur: ${ffi.toFixed(2)}`);
+});
+
+
+
+
+// restrict to land area using regional map (so no going to other black out countries/ocean), less than 1km in the sea
+
+
+// connect indexes to ui buttons
+// let landUseChange = getLandUseChangeForRoute(start, end);
+
+
+// 1. radius for trains based on speed
+// 2. interval distance/pop threshold for station placement 
+// 3. toggle indexes 
+// 4. show 3 preset index settings that produces routes with specific strengths(shortest, greenest, safest) 
+
+
 
 //loading animation - line drawing 
 
@@ -2588,173 +3502,7 @@ window.addEventListener("load", () => {
 
 
 
-
-//index - tsi
-function calculateTSI(elevation, distanceFromCoast, tsunamiCount) {
-  let elevationScore = normalize(elevation, 0, 100); // 0-100m elevation
-  let coastlineScore = normalize(distanceFromCoast, 0, 10); // 0-10 km from coast
-  let tsunamiScore = normalize(tsunamiCount, 0, 20); // 0-20 historical tsunamis
-
-  return (0.2 * elevationScore) + (0.4 * coastlineScore) + (0.4 * invertScore(tsunamiScore));
-}
-
-// // Mock functions to retrieve data for the route
-// function getElevationForRoute(start, end) {
-//   // Simulate elevation data retrieval based on coordinates
-//   const elevationData = {
-//     "default": 50, // Default elevation in meters
-//     "specific": [
-//       { start: [110.0, 5.0], end: [120.0, 10.0], elevation: 80 },
-//       { start: [100.0, 0.0], end: [110.0, 5.0], elevation: 30 }
-//     ]
-//   };
-
-//   const match = elevationData.specific.find(
-//     (entry) =>
-//       JSON.stringify(entry.start) === JSON.stringify(start) &&
-//       JSON.stringify(entry.end) === JSON.stringify(end)
-//   );
-
-//   return match ? match.elevation : elevationData.default;
-// }
-
-// function getDistanceFromCoastForRoute(start, end) {
-//   // Simulate distance from coast data retrieval based on coordinates
-//   const distanceData = {
-//     "default": 5, // Default distance in kilometers
-//     "specific": [
-//       { start: [110.0, 5.0], end: [120.0, 10.0], distance: 8 },
-//       { start: [100.0, 0.0], end: [110.0, 5.0], distance: 3 }
-//     ]
-//   };
-
-//   const match = distanceData.specific.find(
-//     (entry) =>
-//       JSON.stringify(entry.start) === JSON.stringify(start) &&
-//       JSON.stringify(entry.end) === JSON.stringify(end)
-//   );
-
-//   return match ? match.distance : distanceData.default;
-// }
-
-// function getHistoricalTsunamiCountForRoute(start, end) {
-//   // Simulate tsunami count data retrieval based on coordinates
-//   const tsunamiData = {
-//     "default": 3, // Default tsunami count
-//     "specific": [
-//       { start: [110.0, 5.0], end: [120.0, 10.0], count: 5 },
-//       { start: [100.0, 0.0], end: [110.0, 5.0], count: 1 }
-//     ]
-//   };
-
-//   const match = tsunamiData.specific.find(
-//     (entry) =>
-//       JSON.stringify(entry.start) === JSON.stringify(start) &&
-//       JSON.stringify(entry.end) === JSON.stringify(end)
-//   );
-
-//   return match ? match.count : tsunamiData.default;
-// }
-
-// // Use the origin and destination coordinates from the input fields
-// const originValue = originInput.value;
-// const destinationValue = destinationInput.value;
-
-// if (originValue && destinationValue) {
-//   const originMatch = originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/);
-//   const destinationMatch = destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/);
-
-//   if (originMatch && destinationMatch) {
-//     const start = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
-//     const end = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
-
-//     let elevation = getElevationForRoute(start, end);
-//     let distanceFromCoast = getDistanceFromCoastForRoute(start, end);
-//     let tsunamiCount = getHistoricalTsunamiCountForRoute(start, end);
-//     let tsi = calculateTSI(elevation, distanceFromCoast, tsunamiCount);
-//     console.log("Tsunami Risk Index (TSI):", tsi.toFixed(2));
-//   } else {
-//     console.error("Invalid coordinates. Please ensure the inputs are in the correct format.");
-//   }
-// } else {
-//   console.error("Please enter both origin and destination.");
-// }
-
-
-
-
-function calculateSDI(distanceFromSeismicZone, elevation, distanceFromCoast, humidity) {
-  let seismicScore = normalize(distanceFromSeismicZone, 0, 150); // >150km = safer
-  let elevationScore = normalize(elevation, 0, 100); // 0-100m elevation
-  let coastlineScore = normalize(distanceFromCoast, 0, 10); // 0-10 km
-  let humidityScore = normalize(humidity, 50, 100); // 50% to 100% relative humidity
-
-  return (0.4 * seismicScore) + (0.25 * elevationScore) + (0.2 * coastlineScore) + (0.15 * invertScore(humidityScore));
-}
-
-// let distanceFromSeismicZone = getDistanceFromSeismicZoneForRoute(start, end);
-// // let elevation = getElevationForRoute(start, end);
-// // let distanceFromCoast = getDistanceFromCoastForRoute(start, end);
-// let humidity = getHumidityForRoute(start, end);
-// let sdi = calculateSDI(distanceFromSeismicZone, elevation, distanceFromCoast, humidity);
-// console.log("Structure Durability Index (SDI):", sdi.toFixed(2));
-
-
-// function calculateE2I(landUseChange, biodiversityImpact) {
-//   let landUseScore = normalize(landUseChange, 0, 30); // 0-30% land change
-//   let biodiversityScore = normalize(biodiversityImpact, 0, 30); // 0-30% species loss
-
-//   return (0.55 * invertScore(landUseScore)) + (0.45 * invertScore(biodiversityScore));
-// }
-
-// let landUseChange = getLandUseChangeForRoute(start, end);
-// let biodiversityImpact = getBiodiversityImpactForRoute(start, end);
-// let e2i = calculateE2I(landUseChange, biodiversityImpact);
-// console.log("Environmental Impact Index (E2I):", e2i.toFixed(2));
-
-
-function calculateOPI(elevation, networkDensity, urbanProximity, populationDensity) {
-  let elevationScore = normalize(elevation, 10, 50); // Optimal range 10-50m
-  let networkScore = normalize(networkDensity, 0, 5); // km/km²
-  let urbanScore = normalize(urbanProximity, 0, 50); // 0-50 km from urban area
-  let populationScore = normalize(populationDensity, 500, 5000); // 500-5000 people/km²
-
-  return (0.24 * elevationScore) + (0.28 * networkScore) + (0.24 * urbanScore) + (0.24 * populationScore);
-}
-
-// // let elevation = getElevationForRoute(start, end);
-// let networkDensity = getNetworkDensityForRoute(start, end);
-// let urbanProximity = getUrbanProximityForRoute(start, end);
-// let populationDensity = getPopulationDensityForRoute(start, end);
-
-// let opi = calculateOPI(elevation, networkDensity, urbanProximity, populationDensity);
-// console.log("Operability Index (OPI):", opi.toFixed(2));
-
-
-function calculatePEI(populationDensity, landArea, gdpPerCapita) {
-  let populationScore = normalize(populationDensity, 500, 5000); // 500-5000 people/km²
-  let landAreaScore = normalize(Math.log(landArea), Math.log(10), Math.log(1000)); // Normalize log-scaled land area
-  let gdpScore = normalize(gdpPerCapita, 5000, 40000); // $5,000 - $40,000 USD
-
-  return (0.35 * populationScore) + (0.25 * landAreaScore) + (0.40 * gdpScore);
-}
-
-// //let populationDensity = getPopulationDensityForRoute(start, end);
-// let landArea = getLandAreaForRoute(start, end);
-// let gdpPerCapita = getGDPPerCapitaForRoute(start, end);
-// let pei = calculatePEI(populationDensity, landArea, gdpPerCapita);
-// console.log("Population-Economic Importance Index (PEI):", pei.toFixed(2));
-
-function calculateFFI(tsi, sdi, e2i, opi, pei) {
-  let ffi = (0.20 * tsi) + (0.20 * sdi) + (0.15 * e2i) + (0.25 * opi) + (0.20 * pei);
-  console.log("Final Feasibility Index (FFI):", ffi.toFixed(2));
-  return ffi;
-}
-
-
-
-
-// Draw 3x rail line - 1 colour for each line, but same set of origin and destination - green for highest e2i , orange for hightest ffi, blue for opi - when line appear, grey out everything in the map!
+// Draw 3x rail line - 1 colour for each line, but same set of origin and destination - green for highest e2i , orange for hightest ffi, blue for opi
 
   // Route button to draw the land route between origin and destination with path avoiding high elevations, staying at least 10km away from the coastline, and ensuring all points are on land
   const routeButton = document.createElement("img");
@@ -3099,22 +3847,8 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
         return path;
       }
 
-      // Function to get elevation data from Mapbox for a given point
-      const getElevationAtPoint = async (coordinates) => {
-        const url = `https://api.mapbox.com/v4/mapbox.mapbox-terrain-v2/tilequery/${coordinates[0]},${coordinates[1]}.json?layers=contour&limit=1&access_token=${mapboxgl.accessToken}`;
-        try {
-          const response = await fetch(url);
-          const data = await response.json();
-          if (data.features && data.features.length > 0) {
-        return data.features[0].properties.ele; // Return elevation value
-          } else {
-        return 0; // Default to 0 if no elevation data is found
-          }
-        } catch (error) {
-          console.error("Error fetching elevation data:", error);
-          return 0; // Default to 0 in case of an error
-        }
-      };
+
+
 
       // restrict to only draw on boundaries in sea.json map (so no going to other black out countries/ocean), less than 1km in the sea
 
