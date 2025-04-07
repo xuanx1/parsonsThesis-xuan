@@ -218,108 +218,124 @@ map.on('style.load', () => {
   // });
 });
 
-// inset map container
-const insetContainer = document.createElement('div');
-insetContainer.id = 'inset-map';
-insetContainer.style.position = 'absolute';
-insetContainer.style.width = '320px';
-insetContainer.style.height = '150px';
-insetContainer.style.bottom = '10px';
-insetContainer.style.right = '10px';
-insetContainer.style.border = '2px solid #ccc';
-insetContainer.style.zIndex = '1000';
-document.body.appendChild(insetContainer);
+// Responsive inset map
+const createInsetMap = () => {
+  const insetContainer = document.createElement('div');
+  insetContainer.id = 'inset-map';
+  insetContainer.style.position = 'absolute';
+  insetContainer.style.width = window.innerWidth > 768 ? '320px' : '200px'; // Adjust width for smaller screens
+  insetContainer.style.height = window.innerWidth > 768 ? '150px' : '100px'; // Adjust height for smaller screens
+  insetContainer.style.bottom = '10px';
+  insetContainer.style.right = '10px';
+  insetContainer.style.border = '2px solid #ccc';
+  insetContainer.style.zIndex = '1000';
+  document.body.appendChild(insetContainer);
 
-// inset highlighting SEA white
-const insetMap = new mapboxgl.Map({
-  container: 'inset-map',
-  style: 'mapbox://styles/mapbox/dark-v10',
-  center: map.getCenter(),
-  zoom: 0.1,
-  interactive: false,
-  attributionControl: false
-});
+  const insetMap = new mapboxgl.Map({
+    container: 'inset-map',
+    style: 'mapbox://styles/mapbox/dark-v10',
+    center: map.getCenter(),
+    zoom: 0.1,
+    interactive: false,
+    attributionControl: false
+  });
 
-// inset title
-const insetTitle = document.createElement('div');
-insetTitle.textContent = 'Southeast Asia';
-insetTitle.style.position = 'absolute';
-insetTitle.style.top = '5px';
-insetTitle.style.left = '10px';
-insetTitle.style.zIndex = '1001';
-insetTitle.style.color = 'white';
-insetTitle.style.opacity = '0.5';
-insetTitle.style.fontSize = '16px';
-insetTitle.style.fontWeight = 'Bold';
-// insetTitle.style.textShadow = '1px 1px 2px black';
-insetContainer.appendChild(insetTitle);
+  // inset title
+  const insetTitle = document.createElement('div');
+  insetTitle.textContent = 'Southeast Asia';
+  insetTitle.style.position = 'absolute';
+  insetTitle.style.top = '5px';
+  insetTitle.style.left = '10px';
+  insetTitle.style.zIndex = '1001';
+  insetTitle.style.color = 'white';
+  insetTitle.style.opacity = '0.5';
+  insetTitle.style.fontSize = window.innerWidth > 768 ? '16px' : '12px'; // Adjust font size for smaller screens
+  insetTitle.style.fontWeight = 'Bold';
+  insetContainer.appendChild(insetTitle);
 
-// remove logo from the inset map
+  // remove logo from the inset map
 const insetLogoElement = document.querySelector('#inset-map .mapboxgl-ctrl-logo');
 if (insetLogoElement) {
   insetLogoElement.style.display = 'none'; // Hide the logo
 }
 
-// Set label font color to light grey
-insetMap.on('style.load', () => {
-  insetMap.getStyle().layers.forEach((layer) => {
-    if (layer.type === 'symbol' && layer.layout && layer.layout['text-field']) {
-      insetMap.setPaintProperty(layer.id, 'text-color', '#d3d3d3'); // Light grey
-    }
-  });
-});
-
-insetMap.on('load', () => {
-  insetMap.addSource('countries', {
-    type: 'vector',
-    url: 'mapbox://mapbox.country-boundaries-v1'
-  });
-  // console.log(insetMap.getStyle().layers);
-
-  insetMap.addLayer({
-    id: 'rest-world',
-    type: 'fill',
-    source: 'countries',
-    'source-layer': 'country_boundaries',
-    paint: {
-      'fill-color': '#2b2b2b',
-      'fill-opacity': 0.6
-    },
-    filter: ['!in', 'iso_3166_1_alpha_3', 'IDN', 'VNM', 'LAO', 'BRN', 'THA', 'MMR', 'PHL', 'KHM', 'TLS', 'SGP', 'MYS']
+  insetMap.on('style.load', () => {
+    insetMap.getStyle().layers.forEach((layer) => {
+      if (layer.type === 'symbol' && layer.layout && layer.layout['text-field']) {
+        insetMap.setPaintProperty(layer.id, 'text-color', '#d3d3d3');
+      }
+    });
   });
 
-  insetMap.addLayer({
-    id: 'highlight-sea',
-    type: 'fill',
-    source: 'countries',
-    'source-layer': 'country_boundaries',
-    paint: {
-      'fill-color': '#ffffff',
-      'fill-opacity': 0.6
-    },
-    filter: ['in', 'iso_3166_1_alpha_3', 'IDN', 'LAO', 'BRN', 'THA', 'MMR', 'KHM', 'TLS', 'SGP', 'MYS']
+  insetMap.on('load', () => {
+    insetMap.addSource('countries', {
+      type: 'vector',
+      url: 'mapbox://mapbox.country-boundaries-v1'
+    });
+
+    insetMap.addLayer({
+      id: 'rest-world',
+      type: 'fill',
+      source: 'countries',
+      'source-layer': 'country_boundaries',
+      paint: {
+        'fill-color': '#2b2b2b',
+        'fill-opacity': 0.6
+      },
+      filter: ['!in', 'iso_3166_1_alpha_3', 'IDN', 'VNM', 'LAO', 'BRN', 'THA', 'MMR', 'PHL', 'KHM', 'TLS', 'SGP', 'MYS']
+    });
+
+    insetMap.addLayer({
+      id: 'highlight-sea',
+      type: 'fill',
+      source: 'countries',
+      'source-layer': 'country_boundaries',
+      paint: {
+        'fill-color': '#ffffff',
+        'fill-opacity': 0.6
+      },
+      filter: ['in', 'iso_3166_1_alpha_3', 'IDN', 'LAO', 'BRN', 'THA', 'MMR', 'KHM', 'TLS', 'SGP', 'MYS']
+    });
+
+    insetMap.addLayer({
+      id: 'highlight-philippines-vietnam',
+      type: 'fill',
+      source: 'countries',
+      'source-layer': 'country_boundaries',
+      paint: {
+        'fill-color': '#ffffff',
+        'fill-opacity': 0.4
+      },
+      filter: ['in', 'iso_3166_1_alpha_3', 'PHL', 'VNM']
+    });
+
+    insetMap.moveLayer('highlight-sea', 'country-label');
+    insetMap.moveLayer('highlight-philippines-vietnam', 'country-label');
+    insetMap.moveLayer('rest-world', 'country-label');
   });
 
-  insetMap.addLayer({
-    id: 'highlight-philippines-vietnam',
-    type: 'fill',
-    source: 'countries',
-    'source-layer': 'country_boundaries',
-    paint: {
-      'fill-color': '#ffffff',
-      'fill-opacity': 0.4
-    },
-    filter: ['in', 'iso_3166_1_alpha_3', 'PHL', 'VNM']
+  map.on('move', () => {
+    insetMap.setCenter(map.getCenter());
+    insetMap.setZoom(map.getZoom() - 4);
   });
 
-  insetMap.moveLayer('highlight-sea', 'country-label');
-  insetMap.moveLayer('highlight-philippines-vietnam', 'country-label');
-  insetMap.moveLayer('rest-world', 'country-label');
-});
+  return insetContainer;
+};
 
-map.on('move', () => {
-  insetMap.setCenter(map.getCenter());
-  insetMap.setZoom(map.getZoom() - 4);
+// Create inset map if screen width is greater than 480px
+if (window.innerWidth > 480) {
+  createInsetMap();
+}
+
+// Adjust inset map on window resize
+window.addEventListener('resize', () => {
+  const existingInsetMap = document.getElementById('inset-map');
+  if (existingInsetMap) {
+    existingInsetMap.remove();
+  }
+  if (window.innerWidth > 480) {
+    createInsetMap();
+  }
 });
 
 
@@ -834,7 +850,7 @@ resizeMap();
 
   const dashboardToggleButtonIcon = document.createElement('img');
   dashboardToggleButtonIcon.src = 'images/dashboard.svg';
-  dashboardToggleButtonIcon.alt = 'Dashboard';
+  dashboardToggleButtonIcon.alt = 'Indexes';
   dashboardToggleButtonIcon.style.width = '20px';
   dashboardToggleButtonIcon.style.height = '20px';
   dashboardToggleButtonIcon.style.marginRight = '3px';
@@ -1102,6 +1118,7 @@ resizeMap();
   legendContainer.style.color = '#2b2b2b';
   legendContainer.style.display = 'flex';
   legendContainer.style.gap = '25px';
+  legendContainer.style.flexWrap = 'wrap'; // Allow wrapping for mobile
 
   const legendItems = [
     { color: '#0000ff', label: 'Seaports' },
@@ -1114,6 +1131,7 @@ resizeMap();
     const legendItem = document.createElement('div');
     legendItem.style.display = 'flex';
     legendItem.style.alignItems = 'center';
+    legendItem.style.marginBottom = '5px'; // Add spacing for wrapping
 
     const colorBox = document.createElement('div');
     colorBox.style.width = '8px';
@@ -1132,6 +1150,34 @@ resizeMap();
   });
 
   document.body.appendChild(legendContainer);
+
+  // mobile layout  
+  function adjustLegendLayout() {
+    if (window.innerWidth <= 768) {
+      legendContainer.style.flexDirection = 'column';
+      legendContainer.style.gap = '5px';
+      legendContainer.style.bottom = '120px';
+      legendContainer.style.right = '14px';
+
+      Array.from(legendContainer.children).forEach(item => {
+        item.style.flexDirection = 'row-reverse';
+        item.style.gap = '5px'; 
+      });
+    } else {
+      legendContainer.style.flexDirection = 'row';
+      legendContainer.style.gap = '25px';
+      legendContainer.style.bottom = '175px';
+      legendContainer.style.right = '15px';
+
+      Array.from(legendContainer.children).forEach(item => {
+        item.style.flexDirection = 'row';
+        item.style.gap = '0px';
+      });
+    }
+  }
+
+  window.addEventListener('resize', adjustLegendLayout);
+  adjustLegendLayout(); // Initial adjustment
 
 
 
@@ -1307,7 +1353,7 @@ resizeMap();
       .style("border", "0px solid #ccc")
       .style("border-radius", "50%")
       .style("background-color", "#ff7900")
-      .style("filter", "brightness(30%)") // Start as greyed out
+      .style("filter", "brightness(100%)") // Start as greyed out
       .on("click", () => {
       const visibility = map.getLayoutProperty('earthquake-points', 'visibility');
       if (visibility === 'visible') {
@@ -3467,45 +3513,81 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
 
 
 
+// Update calculated values of the indexes dynamically
+const updateIndexes = async () => {
+  const originValue = originInput.value;
+  const destinationValue = destinationInput.value;
 
-// restrict to land area using regional map (so no going to other black out countries/ocean), less than 1km in the sea
+  // if (!originValue || !destinationValue) {
+  //   console.warn("Origin or destination is missing. Cannot calculate indexes.");
+  //   return;
+  // }
+
+  const originMatch = originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || await fetchLocationCoordinates(originValue);
+  const destinationMatch = destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || await fetchLocationCoordinates(destinationValue);
+
+  if (originMatch && destinationMatch) {
+    const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
+    const destinationCoords = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
+
+    const route = { coordinates: routeCoordinates };
+
+    // Calculate indexes for the entire route
+    const [
+      elevationScoreRoute,
+      coastlineScoreRoute,
+      tsunamiScoreRoute,
+      seismicScoreRoute,
+      humidityScoreRoute,
+      populationDensityScoreRoute,
+      gdpScoreRoute
+    ] = await Promise.all([
+      getElevationScore(routeCoordinates[0]), 
+      getCoastlineScore(routeCoordinates[0]), 
+      getTsunamiScore(routeCoordinates[0]), 
+      getSeismicScore(routeCoordinates[0]), 
+      getHumidityScore(routeCoordinates[0]), 
+      getPopulationDensityScore(routeCoordinates[0]), 
+      getGDPScore(routeCoordinates[0]) 
+    ]);
+
+    const tsiRoute = calculateTSI(elevationScoreRoute, coastlineScoreRoute, tsunamiScoreRoute);
+    const sdiRoute = calculateSDI(seismicScoreRoute, elevationScoreRoute, coastlineScoreRoute, humidityScoreRoute);
+    const peiRoute = calculatePEI(populationDensityScoreRoute, gdpScoreRoute);
+
+    // Calculate e2i and opi for the route
+    const e2iRoute = calculateE2I(
+      await getLandUseChangeScore(route),
+      await calculateBiodiversityImpactScore(route)
+    );
+
+    const opiRoute = calculateOPI(
+      await getElevationScoreOPI(routeCoordinates[0]), 
+      await getNetworkDensityScore(routeCoordinates[0]),
+      await getUrbanProximityScore(routeCoordinates[0]), 
+      populationDensityScoreRoute
+    );
+
+    // Update UI with calculated values
+    document.getElementById('tsi-value').textContent = tsiRoute.toFixed(2);
+    document.getElementById('sdi-value').textContent = sdiRoute.toFixed(2);
+    document.getElementById('pei-value').textContent = peiRoute.toFixed(2);
+    document.getElementById('e2i-value').textContent = e2iRoute.toFixed(2);
+    document.getElementById('opi-value').textContent = opiRoute.toFixed(2);
+
+    // Calculate ffi
+    const ffi = calculateFFI(tsiRoute, sdiRoute, e2iRoute, opiRoute, peiRoute);
+    document.getElementById('ffi-value').textContent = ffi.toFixed(2);
+    } else {
+    console.error("Invalid coordinates for origin or destination.");
+    }
+  };
+
+  updateIndexes();
 
 
-// connect indexes to ui buttons
-// let landUseChange = getLandUseChangeForRoute(start, end);
 
-
-// 1. radius for trains based on speed
-// 2. interval distance/pop threshold for station placement 
-// 3. toggle indexes 
-// 4. show 3 preset index settings that produces routes with specific strengths(shortest, greenest, safest) 
-
-
-
-//loading animation - line drawing 
-
-// ask TA' separates into smaller js file
-
-// success requirements - with population served as success criteria - in final report, integrate germini to generate description
-
-// cover page - explain system swiss cheese
-
-// add tutorial - where to click for: 
-// 1.origin-destination + route button(draw)
-// 2.settings + glossary
-// 3.zoom + pan + toggle layers + reset + export button
-
-// intructions
-// 1.choose origin-destination pair(set indexes if neccessary)
-// 2.calculate routes
-// 3.export result - pop served - crowd sourced infrastructure, dont play poke without money - uplaod user results to a server, public record / high score - call ot action
-
-
-
-
-// Draw 3x rail line - 1 colour for each line, but same set of origin and destination - green for highest e2i , orange for hightest ffi, blue for opi
-
-  // Route button to draw the land route between origin and destination with path avoiding high elevations, staying at least 10km away from the coastline, and ensuring all points are on land
+  // Route button to draw
   const routeButton = document.createElement("img");
   routeButton.src = "images/draw.svg";
   routeButton.alt = "Draw Route";
@@ -3536,6 +3618,7 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
     .style("color", "#333")
     .style("display", "none")
     .style("top", "139px")
+    .style("z-index", "1005")
     .style("left", "270px")
     .text("Calculate Route");
 
@@ -3554,8 +3637,8 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
   resetButton.src = "images/restart.svg";
   resetButton.alt = "Reset Route";
   resetButton.style.position = "absolute";
-  resetButton.style.bottom = "240px";
-  resetButton.style.right = "10px";
+  resetButton.style.top = "10px";
+  resetButton.style.right = "50px";
   resetButton.style.zIndex = "1000";
   resetButton.style.cursor = "pointer";
   resetButton.style.width = "30px";
@@ -3571,18 +3654,24 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
     // if user cancels, do nothing
     if (!confirmReset) return;
 
-    // remove route and buffer layers
-    if (map.getLayer("route-layer")) {
-      map.removeLayer("route-layer");
+    // remove routes
+    if (map.getLayer("e2i-path-layer")) {
+      map.removeLayer("e2i-path-layer");
     }
-    if (map.getSource("route")) {
-      map.removeSource("route");
+    if (map.getSource("e2i-path")) {
+      map.removeSource("e2i-path");
     }
-    if (map.getLayer("route-buffer-layer")) {
-      map.removeLayer("route-buffer-layer");
+    if (map.getLayer("ffi-path-layer")) {
+      map.removeLayer("ffi-path-layer");
     }
-    if (map.getSource("route-buffer")) {
-      map.removeSource("route-buffer");
+    if (map.getSource("ffi-path")) {
+      map.removeSource("ffi-path");
+    }
+    if (map.getLayer("opi-path-layer")) {
+      map.removeLayer("opi-path-layer");
+    }
+    if (map.getSource("opi-path")) {
+      map.removeSource("opi-path");
     }
 
     // clear origin and destination inputs
@@ -3625,23 +3714,27 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
       }
     });
 
-    // coastline visible
+    // coastline and earthquake visible
     if (map.getLayer('sea-coastline-layer')) {
       map.setLayoutProperty('sea-coastline-layer', 'visibility', 'visible');
     }
+    if (map.getLayer('earthquake-points')) {
+      map.setLayoutProperty('earthquake-points', 'visibility', 'visible');
+    }
     
-    // reset toggle buttons to default - greyed, except coastline button
+    // reset toggle buttons to default - greyed, except coastline and earthquake buttons
     d3.selectAll("img")
       .filter(function() {
         const altText = d3.select(this).attr("alt");
-        return altText !== "Draw Route" && altText !== "Pinpoint Origin" && altText !== "Pinpoint Destination" && altText !== "+" && altText !== "-" && altText !== "Reset Route" && altText !== "OK" && altText !== "Coastline";
+        return altText !== "Draw Route" && altText !== "Pinpoint Origin" && altText !== "Pinpoint Destination" && altText !== "+" && altText !== "-" && altText !== "Reset Route" && altText !== "OK" && altText !== "Coastline" && altText !== "Earthquakes" && altText !== "Indexes" && altText !== "Layers";
       })
       .style("filter", "brightness(30%)");
 
-    // ensure coastline button remains active
+    // ensure coastline and earthquake buttons remain active
     d3.selectAll("img")
       .filter(function() {
-        return d3.select(this).attr("alt") === "Coastline";
+        const altText = d3.select(this).attr("alt");
+        return altText === "Coastline" || altText === "Earthquakes";
       })
       .style("filter", "brightness(100%)");
   });
@@ -3659,8 +3752,8 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
     .style("font-size", "14px")
     .style("color", "#333")
     .style("display", "none")
-    .style("bottom", "240px")
-    .style("right", "50px")
+    .style("top", "10px")
+    .style("right", "90px")
     .text("Reset All Settings");
 
   resetButton
@@ -3677,13 +3770,13 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
   
   
   
-  // export button - chaneg to 100% brightness when a line is drawn
+  // export button - change to 100% brightness when a line is drawn
   const exportButton = document.createElement("img");
   exportButton.src = "images/export.svg";
   exportButton.alt = "Export Report";
   exportButton.style.position = "absolute";
-  exportButton.style.bottom = "200px";
-  exportButton.style.right = "10px";
+  exportButton.style.top = "139px";
+  exportButton.style.left = "270px";
   exportButton.style.zIndex = "1000";
   exportButton.style.cursor = "pointer";
   exportButton.style.width = "30px";
@@ -3694,23 +3787,6 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
   exportButton.style.padding = "7px";
   exportButton.style.filter = "brightness(30%)"; // Initially greyed out
   document.body.appendChild(exportButton);
-
-  exportButton.addEventListener("click", () => {
-    const routeData = map.getSource("route") ? map.getSource("route")._data : null;
-    if (!routeData) {
-      alert("No route data available to export.");
-      return;
-    }
-
-    const report = JSON.stringify(routeData, null, 2);
-    const blob = new Blob([report], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "rail_feasibility_report.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  });
 
   // hover description
   const exportDescription = d3
@@ -3725,8 +3801,8 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
     .style("font-size", "14px")
     .style("color", "#333")
     .style("display", "none")
-    .style("bottom", "200px")
-    .style("right", "50px")
+    .style("top", "139px")
+    .style("left", "310px")
     .text("Export Report");
 
   exportButton
@@ -3738,6 +3814,13 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
     .addEventListener("mouseout", () => {
       exportDescription.style("display", "none");
     });
+
+  // Change brightness to 100% when routes are loaded
+  map.on('sourcedata', () => {
+    if (map.getSource("ffi-path") || map.getSource("e2i-path") || map.getSource("opi-path")) {
+      exportButton.style.filter = "brightness(100%)"; // Set to full brightness
+    }
+  });
 
 
       
@@ -3808,133 +3891,186 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
       const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
       const destinationCoords = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
 
-      // Fn to calculate a curved path avoiding high elevations, staying between 10m and 50m elevation, at least 10km away from the coastline, and ensuring all points are on land
-      async function calculateCurvedPath(start, end) {
-        const path = [];
-        const stepCount = 100; // Number of steps to divide the path
-        const curveFactor = 0.3; // Factor to add curvature to the path
-        const irregularityFactor = 0.05; // Factor to add irregularities to the path
 
+
+      
+
+      
+
+// Draw 3x rail line - 1 colour for each line, but from same set of origin and destination - green for highest e2i , orange for hightest ffi, blue for opi - each line is calculated based on the indexes, default at 0.5 and line will change when the user adjust the values of the indexes. and ensure all coordinates in the route to be only within sea.json and maximmum with 1km outwards offset - use bezier curve to draw the line
+
+
+      async function calculateCurvedPath(start, end) {
+        console.log("Starting calculation of curved path...");
+        const path = [];
+        const stepCount = 20;
+        const curveFactor = 0.5; 
+        const irregularityFactor = 0.1; 
+
+        console.log("Fetching sea.json data...");
+        const seaData = await fetch('data/sea.json').then(res => res.json());
+        console.log("Sea data fetched successfully.");
+
+        console.log("Creating buffer around sea.json boundary...");
+        const bufferedSea = turf.buffer(seaData, 1, { units: 'kilometers' }); // 1km buffer sea.json
+        const seaPolygon = bufferedSea.features[0]; // get 1st polygon from FeatureCollection
+        console.log("Buffer created successfully.");
+
+        console.log("Generating path points...");
         for (let i = 0; i <= stepCount; i++) {
           const t = i / stepCount;
           const lng = start[0] * (1 - t) + end[0] * t;
           const lat = start[1] * (1 - t) + end[1] * t;
 
           // Add curvature by offsetting the midpoint
-          const curveOffset = Math.sin(Math.PI * t) * curveFactor;
-          const irregularityOffsetLng = (Math.random() - 0.5) * irregularityFactor;
-          const irregularityOffsetLat = (Math.random() - 0.5) * irregularityFactor;
+            const curveOffset = Math.sin(Math.PI * t) * curveFactor * (1 + Math.sin(5 * Math.PI * t) * 0.2); // sine wave variation
+            const irregularityOffsetLng = (Math.random() - 0.5) * irregularityFactor;
+            const irregularityOffsetLat = (Math.random() - 0.5) * irregularityFactor;
 
-          // Add variation to move slightly left or right
-          const lateralOffset = (Math.random() - 0.5) * 0.01; // Small lateral variation
+            const curvedLng = lng + curveOffset * (end[1] - start[1]) + irregularityOffsetLng;
+            const curvedLat = lat - curveOffset * (end[0] - start[0]) + irregularityOffsetLat;
 
-          const curvedLng = lng + curveOffset * (end[1] - start[1]) + irregularityOffsetLng + lateralOffset;
-          const curvedLat = lat - curveOffset * (end[0] - start[0]) + irregularityOffsetLat;
+            const point = turf.point([curvedLng, curvedLat]);
 
-          // Simulate elevation, coastline distance, and land checks
-          const elevation = await getElevationAtPoint([curvedLng, curvedLat]);
-
-
-          if (elevation < 10 || elevation > 50 ) {
-        // Adjust path to avoid unsuitable elevation, proximity to the coastline, or water
-        const adjustedLat = curvedLat - 0.01; // Move slightly south
-        const adjustedLng = curvedLng + 0.05; // Move slightly east
-        path.push([adjustedLng, adjustedLat]);
-          } else {
+          // Ensure the point is within the sea.json boundary
+          if (turf.booleanPointInPolygon(point, seaPolygon)) {
+        console.log(`Point ${i} is within the boundary: [${curvedLng}, ${curvedLat}]`);
         path.push([curvedLng, curvedLat]);
+          } else {
+        console.log(`Point ${i} is outside the boundary and will be skipped: [${curvedLng}, ${curvedLat}]`);
           }
         }
 
+        console.log("Path generation completed.");
         return path;
       }
 
+      async function drawRailLines(origin, destination) {
+        // Calculate paths for each index
+        const e2iPath = await calculateCurvedPath(origin, destination);
+        const ffiPath = await calculateCurvedPath(origin, destination);
+        const opiPath = await calculateCurvedPath(origin, destination);
 
+        // Add paths to the map
+        const paths = [
+          { id: 'e2i-path', color: '#00ff00', coordinates: e2iPath }, // Green for e2i
+          { id: 'ffi-path', color: '#ffa500', coordinates: ffiPath }, // Orange for ffi
+          { id: 'opi-path', color: '#0000ff', coordinates: opiPath }, // Blue for opi
+        ];
 
-
-      // restrict to only draw on boundaries in sea.json map (so no going to other black out countries/ocean), less than 1km in the sea
-
-      
-      // Function to calculate distance from the coastline
-
-
-
-      // Generate curved path avoiding high elevations, staying at least 10km away from the coastline, and ensuring all points are on land
-      const routeCoordinates = await calculateCurvedPath(originCoords, destinationCoords);
-
-      // Add the route to map
-      const route = {
-        type: "LineString",
-        coordinates: routeCoordinates,
-      };
-
-      if (map.getSource("route")) {
-        map.getSource("route").setData({
-          type: "Feature",
-          geometry: route,
+        paths.forEach(({ id, color, coordinates }) => {
+          if (map.getSource(id)) {
+        map.getSource(id).setData({
+          type: 'Feature',
+          geometry: { type: 'LineString', coordinates },
         });
-      } else {
-        map.addSource("route", {
-          type: "geojson",
+          } else {
+        map.addSource(id, {
+          type: 'geojson',
           data: {
-            type: "Feature",
-            geometry: route,
+            type: 'Feature',
+            geometry: { type: 'LineString', coordinates },
           },
         });
 
-        if (!map.getLayer("route-layer")) {
-          map.addLayer({
-            id: "route-layer",
-            type: "line",
-            source: "route",
-            paint: {
-              "line-color": "#00ff00", // Green route
-              "line-width": 4,
-              "line-opacity": 0.8,
-            },
-          });
-        }
-      }
-
-      // buffer around the route
-      const buffer = turf.buffer(route, 0.05, { units: "kilometers" });
-      if (map.getSource("route-buffer")) {
-        map.getSource("route-buffer").setData(buffer);
-      } else {
-        map.addSource("route-buffer", {
-          type: "geojson",
-          data: buffer,
+        map.addLayer({
+          id: `${id}-layer`,
+          type: 'line',
+          source: id,
+          paint: {
+            'line-color': color,
+            'line-width': 4,
+            'line-opacity': 0.8,
+          },
         });
-
-        if (!map.getLayer("route-buffer-layer")) {
-          map.addLayer({
-            id: "route-buffer-layer",
-            type: "fill",
-            source: "route-buffer",
-            paint: {
-              "fill-color": "#00ff00",
-              "fill-opacity": 0.2,
-            },
-          });
-        }
+          }
+        });
       }
+
+      // Call drawRailLines when the route button is clicked
+      routeButton.addEventListener('click', async () => {
+        const originValue = originInput.value;
+        const destinationValue = destinationInput.value;
+
+        if (!originValue || !destinationValue) {
+          alert('Please enter both the origin and destination.');
+          return;
+        }
+
+        const originMatch = originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || await fetchLocationCoordinates(originValue);
+        const destinationMatch = destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || await fetchLocationCoordinates(destinationValue);
+
+        if (originMatch && destinationMatch) {
+          const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
+          const destinationCoords = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
+
+          await drawRailLines(originCoords, destinationCoords);
+        } else {
+          alert('Invalid coordinates. Please ensure the inputs are in the correct format.');
+        }
+      });
+
+      // Update rail lines dynamically when sliders are adjusted
+      const sliders = ['e2i-filter', 'ffi-filter', 'opi-filter'];
+      sliders.forEach((sliderId) => {
+        document.getElementById(sliderId).addEventListener('input', async () => {
+          const originValue = originInput.value;
+          const destinationValue = destinationInput.value;
+
+          if (!originValue || !destinationValue) return;
+
+          const originMatch = originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || await fetchLocationCoordinates(originValue);
+          const destinationMatch = destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || await fetchLocationCoordinates(destinationValue);
+
+          if (originMatch && destinationMatch) {
+        const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
+        const destinationCoords = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
+
+        await drawRailLines(originCoords, destinationCoords);
+          }
+        });
+      });
+
 
       // Zoom to route
-      const bounds = new mapboxgl.LngLatBounds();
-      route.coordinates.forEach((coord) => bounds.extend(coord));
-      map.fitBounds(bounds, { padding: 50 });
+      if (map.getSource('ffi-path')) {
+        const ffiPathData = map.getSource('ffi-path')._data;
+        const bounds = turf.bbox(ffiPathData);
+        map.fitBounds(bounds, { padding: 50 });
+      }
+
 
       // Hide the loading bar after the route is loaded
       loadingBar.style.width = "100%";
       setTimeout(() => {
         loadingBar.style.display = "none";
-      }, 300);
+      }, 100);
     } else {
       alert("Invalid coordinates. Please ensure the inputs are in the correct format.");
       loadingBar.style.display = "none"; // Hide the loading bar in case of an error
     }
+
+
   });
+  
 
+    // export paths in json
+    exportButton.addEventListener("click", () => {
+      const paths = [
+      { id: 'e2i-path', color: '#00ff00', coordinates: map.getSource('e2i-path')?._data?.geometry?.coordinates || [] },
+      { id: 'ffi-path', color: '#ffa500', coordinates: map.getSource('ffi-path')?._data?.geometry?.coordinates || [] },
+      { id: 'opi-path', color: '#0000ff', coordinates: map.getSource('opi-path')?._data?.geometry?.coordinates || [] },
+      ];
 
+      const report = JSON.stringify(paths, null, 2);
+      const blob = new Blob([report], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "rail_feasibility_paths.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
 
   
 
