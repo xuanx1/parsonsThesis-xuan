@@ -43,9 +43,9 @@ LINK TO PROJECT + PAPER
    
 4. [Prototype](#4-prototype)
  
-5. [Final Product](#4-final-product)
-   - [5.1 Conclusion](#41-conclusion)
-   - [5.2 Disclaimer](#42-disclaimer)
+5. [Final Product](#5-final-product)
+   - [5.1 Conclusion](#51-conclusion)
+   - [5.2 Disclaimer](#52-disclaimer)
  
 6. [Literature Review](#6-literature-review)
    - [6.1 Books](#61-books)  
