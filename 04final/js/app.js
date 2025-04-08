@@ -781,12 +781,24 @@ resizeMap();
       originMarkerRef.marker.remove();
       originMarkerRef.marker = null;
     }
+
+    // Remove marker_o SVG if it exists
+    const markerOSVG = document.querySelector('img[src="images/marker_o.svg"]');
+    if (markerOSVG) {
+      markerOSVG.remove();
+    }
   });
 
   destinationClearButton.addEventListener("click", () => {
     if (destinationMarkerRef.marker) {
       destinationMarkerRef.marker.remove();
       destinationMarkerRef.marker = null;
+    }
+
+    // Remove marker_d SVG if it exists
+    const markerDSVG = document.querySelector('img[src="images/marker_d.svg"]');
+    if (markerDSVG) {
+      markerDSVG.remove();
     }
   });
 
@@ -1327,7 +1339,7 @@ resizeMap();
           'circle-stroke-color': '#ff7900', // Orange
         },
         layout: {
-          'visibility': 'none' // visibility off by default
+          'visibility': 'visible'
         }
       });
     });
@@ -1614,7 +1626,7 @@ map.on('load', function() {
       const toggleButton = toggleContainer
         .append("img")
         .attr("src", "images/population.svg")
-        .attr("alt", "Spatial Population")
+        .attr("alt", "Spatial Population Density")
         .style("margin", "5px")
         .style("padding", "5px")
         .style("cursor", "pointer")
@@ -1655,7 +1667,7 @@ map.on('load', function() {
         .style("display", "none")
         .style("top", "470px")
         .style("right", "50px")
-        .text("Show Spatial Population");
+        .text("Show Spatial Population Density");
 
       toggleButton
         .on("mouseover", () => {
@@ -2293,7 +2305,7 @@ map.on('load', function() {
   const toggleButton = toggleContainer
     .append("img")
     .attr("src", "images/gdp.svg")
-    .attr("alt", "Spatial GDP")
+    .attr("alt", "Spatial GDP Per Capita PPP")
     .style("margin", "5px")
     .style("padding", "5px")
     .style("cursor", "pointer")
@@ -2329,7 +2341,7 @@ map.on('load', function() {
     .style("display", "none")
     .style("top", "510px")
     .style("right", "50px")
-    .text("Show Spatial GDP");
+    .text("Show Spatial GDP Per Capita PPP");
 
   toggleButton
     .on("mouseover", () => {
@@ -2550,10 +2562,10 @@ window.addEventListener("load", () => {
   dialogMessage.style.marginRight = "13px";
   dialogMessage.style.lineHeight = "1.5";
   dialogMessage.style.textAlign = "justify";
-  dialogMessage.style.marginBottom = "0px";
+  dialogMessage.style.marginBottom = "20px";
   dialogBox.appendChild(dialogMessage);
 
-  // Container for fine print and arrow button
+  // Container for fine print, dots, and arrow button
   const dialogFooter = document.createElement("div");
   dialogFooter.style.display = "flex";
   dialogFooter.style.justifyContent = "space-between";
@@ -2571,10 +2583,48 @@ window.addEventListener("load", () => {
   finePrint.style.maxWidth = "66%"; // Set max width to 2/3 of the container
   dialogFooter.appendChild(finePrint);
 
+  // Dots for page indicator
+  const pageIndicator = document.createElement("div");
+  pageIndicator.style.display = "flex";
+  pageIndicator.style.justifyContent = "left";
+  pageIndicator.style.alignItems = "center";
+  pageIndicator.style.gap = "7px";
+  pageIndicator.style.marginTop = "25px";
+  pageIndicator.style.marginLeft = "12px";
+
+  const dots = [];
+  for (let i = 0; i < 3; i++) {
+    const dot = document.createElement("div");
+    dot.style.width = "8px";
+    dot.style.height = "8px";
+    dot.style.borderRadius = "50%";
+    dot.style.backgroundColor = i === 0 ? "orange" : "lightgrey"; // Highlight the first dot
+    dots.push(dot);
+    pageIndicator.appendChild(dot);
+  }
+  dialogBox.appendChild(pageIndicator);
+
+  // Back button
+  const backButton = document.createElement("img");
+  backButton.src = "images/arrow.svg";
+  backButton.style.transform = "rotate(180deg)";
+  backButton.alt = "Previous Page";
+  backButton.style.padding = "10px";
+  backButton.style.border = "none";
+  backButton.style.borderRadius = "50%";
+  backButton.style.backgroundColor = "lightgrey";
+  backButton.style.marginBottom = "10px";
+  backButton.style.marginLeft = "10px";
+  backButton.style.opacity = 1;
+  backButton.style.cursor = "pointer";
+  backButton.style.width = "40px";
+  backButton.style.height = "40px";
+  dialogFooter.appendChild(backButton);
+
   // Arrow button
   const okButton = document.createElement("img");
   okButton.src = "images/arrow.svg";
-  okButton.alt = "Let's Get to Work!";
+  okButton.alt = "Next Page";
   okButton.style.padding = "15px";
   okButton.style.border = "none";
   okButton.style.borderRadius = "50%";
@@ -2585,15 +2635,205 @@ window.addEventListener("load", () => {
   okButton.style.cursor = "pointer";
   okButton.style.width = "60px";
   okButton.style.height = "60px";
-  okButton.addEventListener("click", () => {
-    document.body.removeChild(dialogContainer);
-  });
   dialogFooter.appendChild(okButton);
 
   dialogBox.appendChild(dialogFooter);
 
   dialogContainer.appendChild(dialogBox);
   document.body.appendChild(dialogContainer);
+
+  // Back button functionality
+  backButton.addEventListener("click", () => {
+    if (currentPage === 2) {
+      // Define page1Content to go back to page 1
+      const page1Content = () => {
+        dialogTitle.textContent = "Trains, Lanes, and Data Grains!";
+        dialogsubTitle.textContent = "Mapping Southeast Asia’s Future";
+        dialogMessage.innerHTML = "Welcome to the Rail Feasibility Mapper!<br>This tool allows you to explore and evaluate rail feasibility based on various indexes and criteria specific to Southeast Asia.<br><br>Using the tools provided, you can pinpoint an origin-destination pair, calculate said routes, toggle layer visibility, control level of influence of the indexes and analyze the feasibility of your connectivity project in the final result.<br><br>Let's map the future of Southeast Asia together!";
+        okButton.alt = "Next Page";
+
+        // Update dots
+        dots.forEach((dot, index) => {
+          dot.style.backgroundColor = index === 0 ? "orange" : "lightgrey";
+        });
+
+        // back button grey page 1
+        backButton.style.backgroundColor = "lightgrey";
+      };
+
+      page1Content();
+      currentPage--;
+    } else if (currentPage === 3) {
+      page2Content();
+      currentPage--;
+    }
+  });
+
+  // Page 2
+  const page2Content = () => {
+    dialogTitle.textContent = "EXPLORE";
+    dialogsubTitle.textContent = "The Criteria of Assessing Feasibility";
+    dialogMessage.innerHTML = `
+      <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 50px; margin-bottom: 50px;">
+      <div style="display: flex; flex-direction: column; gap: 44px;">
+      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #6dbefe; display: flex; justify-content: center; align-items: center;">
+      <img src="images/tsunami.svg" alt="Tsunami" style="width: 30px; height: 30px;">
+      </div>
+      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #f67a0a; display: flex; justify-content: center; align-items: center;">
+      <img src="images/quake.svg" alt="Earthquake" style="width: 30px; height: 30px;">
+      </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 34px;">
+      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #4181f2; display: flex; justify-content: center; align-items: center;">
+      <img src="images/coast.svg" alt="Coastline" style="width: 30px; height: 30px;">
+      </div>
+      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #00be9d; display: flex; justify-content: center; align-items: center;">
+      <img src="images/humidity.svg" alt="Humidity" style="width: 30px; height: 30px;">
+      </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 42px;">
+      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #268723; display: flex; justify-content: center; align-items: center;">
+      <img src="images/tree.svg" alt="Forest" style="width: 30px; height: 30px;">
+      </div>
+      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #cbaa2f; display: flex; justify-content: center; align-items: center;">
+      <img src="images/amphibians.svg" alt="Amphibians" style="width: 30px; height: 30px;">
+      </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 22px;">
+      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #ff6056; display: flex; justify-content: center; align-items: center;">
+      <img src="images/bird.svg" alt="Birds" style="width: 30px; height: 30px;">
+      </div>
+      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #840079; display: flex; justify-content: center; align-items: center;">
+      <img src="images/mammals.svg" alt="Mammals" style="width: 30px; height: 30px;">
+      </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 40px;">
+      <div style="width: 60px; height: 60px; border-radius: 50%; background-color:rgb(230, 230, 230); display: flex; justify-content: center; align-items: center;">
+      <img src="images/population.svg" alt="Spatial Population" style="width: 30px; height: 30px;">
+      </div>
+      <div style="width: 60px; height: 60px; border-radius: 50%; background-color:rgb(230, 230, 230); display: flex; justify-content: center; align-items: center;">
+      <img src="images/gdp.svg" alt="Spatial GDP" style="width: 30px; height: 30px;">
+      </div>
+      </div>
+      </div>
+    `;
+
+    // Hover descriptions for each icon
+    const icons = [
+      { selector: "img[alt='Tsunami']", description: "Historical Tsunamis" },
+      { selector: "img[alt='Earthquake']", description: "Historical Earthquakes" },
+      { selector: "img[alt='Coastline']", description: "Coastline Proximity" },
+      { selector: "img[alt='Humidity']", description: "Humidity Levels" },
+      { selector: "img[alt='Forest']", description: "Forest Coverage" },
+      { selector: "img[alt='Amphibians']", description: "Amphibian Presence" },
+      { selector: "img[alt='Birds']", description: "Bird Presence" },
+      { selector: "img[alt='Mammals']", description: "Mammal Presence" },
+      { selector: "img[alt='Spatial Population']", description: "Spatial Population Density" },
+      { selector: "img[alt='Spatial GDP']", description: "Spatial GDP Per Capita PPP" },
+    ];
+
+    let hoverEnabled = true;
+
+    icons.forEach(({ selector, description }) => {
+      const iconElements = document.querySelectorAll(selector);
+      iconElements.forEach((icon) => {
+      const hoverDescription = d3
+        .select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("padding", "7px")
+        .style("background-color", "white")
+        .style("border", "0px solid #ccc")
+        .style("border-radius", "20px")
+        .style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.2)")
+        .style("font-size", "14px")
+        .style("z-index", "2003")
+        .style("color", "#333")
+        .style("display", "none")
+        .text(description);
+
+      icon.addEventListener("mouseover", (event) => {
+        if (hoverEnabled) {
+        hoverDescription
+          .style("left", `${event.pageX + 10}px`)
+          .style("top", `${event.pageY + 10}px`)
+          .style("display", "block");
+        }
+      });
+
+      icon.addEventListener("mouseout", () => {
+        hoverDescription.style("display", "none");
+      });
+      });
+    });
+
+    // dialog hover descriptions after closing the dialog
+    okButton.addEventListener("click", () => {
+      if (currentPage === 3) {
+      hoverEnabled = false;
+      }
+    });
+    okButton.alt = "Next Page";
+
+    // Update dots
+    dots.forEach((dot, index) => {
+      dot.style.backgroundColor = index === 1 ? "orange" : "lightgrey";
+    });
+
+    // back button orange page 2
+    backButton.style.backgroundColor = "orange";
+  };
+
+  // Page 3
+  const page3Content = () => {
+    dialogTitle.textContent = "DRAW";
+    dialogsubTitle.textContent = "Your Journey Begins Here";
+    dialogMessage.innerHTML = `
+      <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 47px; margin-bottom: 47px;">
+      <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+      <div style="width: 110px; height: 110px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+      <img src="images/tut_location.svg" alt="Location Tutorial" style="width: 110px; height: 110px;">
+      </div>
+      <p style="font-size: 12px; color: #333; text-align: center; margin-top: 30px;">Set Origin-Destination</p>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+      <div style="width: 110px; height: 110px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+      <img src="images/tut_draw.svg" alt="Draw Tutorial" style="width: 110px; height: 110px;">
+      </div>
+      <p style="font-size: 12px; color: #333; text-align: center; margin-top: 30px;">Calculate the Route</p>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+      <div style="width: 110px; height: 110px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+      <img src="images/tut_export.svg" alt="Export Tutorial" style="width: 110px; height: 110px;">
+      </div>
+      <p style="font-size: 12px; color: #333; text-align: center; margin-top: 30px;">Export the results!</p>
+      </div>
+      </div>
+    `;
+    okButton.alt = "Let's Get to Work!";
+
+    // Update dots
+    dots.forEach((dot, index) => {
+      dot.style.backgroundColor = index === 2 ? "orange" : "lightgrey";
+    });
+
+    // back button orange page 3
+    backButton.style.backgroundColor = "orange";
+  };
+
+  let currentPage = 1;
+
+  okButton.addEventListener("click", () => {
+    if (currentPage === 1) {
+      page2Content();
+      currentPage++;
+    } else if (currentPage === 2) {
+      page3Content();
+      currentPage++;
+    } else {
+      document.body.removeChild(dialogContainer);
+    }
+  });
 });
 
 
@@ -3688,6 +3928,16 @@ const updateIndexes = async () => {
       destinationMarkerRef.marker = null;
     }
 
+    // Remove marker_d and marker_o SVGs if they exist
+    const markerDSVG = document.querySelector('img[src="images/marker_d.svg"]');
+    if (markerDSVG) {
+      markerDSVG.remove();
+    }
+    const markerOSVG = document.querySelector('img[src="images/marker_o.svg"]');
+    if (markerOSVG) {
+      markerOSVG.remove();
+    }
+
     // reset map view to center of Southeast Asia
     map.flyTo({
       center: [110.0, 5.0], 
@@ -4061,6 +4311,14 @@ const updateIndexes = async () => {
       { id: 'ffi-path', color: '#ffa500', coordinates: map.getSource('ffi-path')?._data?.geometry?.coordinates || [] },
       { id: 'opi-path', color: '#0000ff', coordinates: map.getSource('opi-path')?._data?.geometry?.coordinates || [] },
       ];
+
+      // Check if any path has coordinates
+      const hasCoordinates = paths.some(path => path.coordinates.length > 0);
+
+      if (!hasCoordinates) {
+      alert("No routes available to export. Please calculate a route first.");
+      return;
+      }
 
       const report = JSON.stringify(paths, null, 2);
       const blob = new Blob([report], { type: "application/json" });
