@@ -202,20 +202,18 @@ map.on('style.load', () => {
     'tileSize': 512,
     'maxzoom': 14
   });
-  // add 3d terrain
+  // add 3d terrain 
   map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 2 });  
 
-  // map.addLayer({
-  //   id: 'sky',
-  //   type: 'sky',
-  //   paint: {
-  //     'sky-type': 'atmosphere',
-  //     'sky-atmosphere-sun': [0.0, 0.0],
-  //     'sky-atmosphere-sun-intensity': 0.0, 
-  //     'sky-atmosphere-color': '#000000', 
-  //     'sky-atmosphere-halo-color': '#000033'
-  //   }
-  // });
+  // Sunrise, Morning, Afternoon, Evening, Sunset using SunCalc?
+  map.setFog({
+    'range': [0, 3],
+    'horizon-blend': 0.3,
+    'color': '#0b0d1b',
+    'high-color': '#1a1c2e',
+    'space-color': '#000000',
+    'star-intensity': 0.8
+});
 });
 
 // Responsive inset map
@@ -2543,6 +2541,7 @@ window.addEventListener("load", () => {
   dialogTitle.style.fontSize = "30px";
   dialogTitle.style.textAlign = "left";
   dialogTitle.style.color = "orange";
+  dialogTitle.style.fontWeight = "bold";
   dialogBox.appendChild(dialogTitle);
 
   const dialogsubTitle = document.createElement("h2");
@@ -2595,8 +2594,8 @@ window.addEventListener("load", () => {
   const dots = [];
   for (let i = 0; i < 3; i++) {
     const dot = document.createElement("div");
-    dot.style.width = "8px";
-    dot.style.height = "8px";
+    dot.style.width = "6px";
+    dot.style.height = "6px";
     dot.style.borderRadius = "50%";
     dot.style.backgroundColor = i === 0 ? "orange" : "lightgrey"; // Highlight the first dot
     dots.push(dot);
@@ -2671,48 +2670,49 @@ window.addEventListener("load", () => {
 
   // Page 2
   const page2Content = () => {
-    dialogTitle.textContent = "EXPLORE";
-    dialogsubTitle.textContent = "The Criteria of Assessing Feasibility";
+    dialogTitle.textContent = "Explore Criteria of Feasibility";
+    dialogsubTitle.textContent = "Move the Cursor Over Each Icon to Reveal the Criteria.";
     dialogMessage.innerHTML = `
       <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 50px; margin-bottom: 50px;">
       <div style="display: flex; flex-direction: column; gap: 44px;">
-      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #6dbefe; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon" style="width: 60px; height: 60px; border-radius: 50%; background-color: #6dbefe; display: flex; justify-content: center; align-items: center;">
       <img src="images/tsunami.svg" alt="Tsunami" style="width: 30px; height: 30px;">
       </div>
-      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #f67a0a; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon" style="width: 60px; height: 60px; border-radius: 50%; background-color: #f67a0a; display: flex; justify-content: center; align-items: center;">
       <img src="images/quake.svg" alt="Earthquake" style="width: 30px; height: 30px;">
       </div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 34px;">
-      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #4181f2; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon2" style="width: 60px; height: 60px; border-radius: 50%; background-color: #4181f2; display: flex; justify-content: center; align-items: center;">
       <img src="images/coast.svg" alt="Coastline" style="width: 30px; height: 30px;">
       </div>
-      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #00be9d; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon" style="width: 60px; height: 60px; border-radius: 50%; background-color: #00be9d; display: flex; justify-content: center; align-items: center;">
       <img src="images/humidity.svg" alt="Humidity" style="width: 30px; height: 30px;">
       </div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 42px;">
-      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #268723; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon" style="width: 60px; height: 60px; border-radius: 50%; background-color: #268723; display: flex; justify-content: center; align-items: center;">
       <img src="images/tree.svg" alt="Forest" style="width: 30px; height: 30px;">
       </div>
-      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #cbaa2f; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon2" style="width: 60px; height: 60px; border-radius: 50%; background-color: #cbaa2f; display: flex; justify-content: center; align-items: center;">
       <img src="images/amphibians.svg" alt="Amphibians" style="width: 30px; height: 30px;">
       </div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 22px;">
-      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #ff6056; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon2" style="width: 60px; height: 60px; border-radius: 50%; background-color: #ff6056; display: flex; justify-content: center; align-items: center;">
       <img src="images/bird.svg" alt="Birds" style="width: 30px; height: 30px;">
       </div>
-      <div style="width: 60px; height: 60px; border-radius: 50%; background-color: #840079; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon2" style="width: 60px; height: 60px; border-radius: 50%; background-color: #840079; display: flex; justify-content: center; align-items: center;">
       <img src="images/mammals.svg" alt="Mammals" style="width: 30px; height: 30px;">
       </div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 40px;">
-      <div style="width: 60px; height: 60px; border-radius: 50%; background-color:rgb(230, 230, 230); display: flex; justify-content: center; align-items: center;">
-      <img src="images/population.svg" alt="Spatial Population" style="width: 30px; height: 30px;">
+      <div class="floating-icon2" style="width: 60px; height: 60px; border-radius: 50%; background-color: #d2e531; display: flex; justify-content: center; align-items: center;">
+      <img src="images/population2.svg" alt="Spatial Population" style="width: 30px; height: 30px; filter: invert(100%);">
       </div>
-      <div style="width: 60px; height: 60px; border-radius: 50%; background-color:rgb(230, 230, 230); display: flex; justify-content: center; align-items: center;">
-      <img src="images/gdp.svg" alt="Spatial GDP" style="width: 30px; height: 30px;">
+      <div class="floating-icon" style="width: 60px; height: 60px; border-radius: 50%; 
+      background-color: #ffb972; display: flex; justify-content: center; align-items: center;">
+      <img src="images/gdp.svg" alt="Spatial GDP" style="width: 30px; height: 30px; filter: invert(100%);">
       </div>
       </div>
       </div>
@@ -2725,9 +2725,9 @@ window.addEventListener("load", () => {
       { selector: "img[alt='Coastline']", description: "Coastline Proximity" },
       { selector: "img[alt='Humidity']", description: "Humidity Levels" },
       { selector: "img[alt='Forest']", description: "Forest Coverage" },
-      { selector: "img[alt='Amphibians']", description: "Amphibian Presence" },
-      { selector: "img[alt='Birds']", description: "Bird Presence" },
-      { selector: "img[alt='Mammals']", description: "Mammal Presence" },
+      { selector: "img[alt='Amphibians']", description: "Amphibians Presence" },
+      { selector: "img[alt='Birds']", description: "Birds Presence" },
+      { selector: "img[alt='Mammals']", description: "Mammals Presence" },
       { selector: "img[alt='Spatial Population']", description: "Spatial Population Density" },
       { selector: "img[alt='Spatial GDP']", description: "Spatial GDP Per Capita PPP" },
     ];
@@ -2786,24 +2786,24 @@ window.addEventListener("load", () => {
 
   // Page 3
   const page3Content = () => {
-    dialogTitle.textContent = "DRAW";
-    dialogsubTitle.textContent = "Your Journey Begins Here";
+    dialogTitle.textContent = "Plot the Route!";
+    dialogsubTitle.textContent = "Your Journey Begins Here.";
     dialogMessage.innerHTML = `
       <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 47px; margin-bottom: 47px;">
       <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
-      <div style="width: 110px; height: 110px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon2" style="width: 110px; height: 110px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
       <img src="images/tut_location.svg" alt="Location Tutorial" style="width: 110px; height: 110px;">
       </div>
       <p style="font-size: 12px; color: #333; text-align: center; margin-top: 30px;">Set Origin-Destination</p>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
-      <div style="width: 110px; height: 110px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon2" style="width: 110px; height: 110px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
       <img src="images/tut_draw.svg" alt="Draw Tutorial" style="width: 110px; height: 110px;">
       </div>
       <p style="font-size: 12px; color: #333; text-align: center; margin-top: 30px;">Calculate the Route</p>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
-      <div style="width: 110px; height: 110px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+      <div class="floating-icon" style="width: 110px; height: 110px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
       <img src="images/tut_export.svg" alt="Export Tutorial" style="width: 110px; height: 110px;">
       </div>
       <p style="font-size: 12px; color: #333; text-align: center; margin-top: 30px;">Export the results!</p>
@@ -3753,77 +3753,6 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
 
 
 
-// Update calculated values of the indexes dynamically
-const updateIndexes = async () => {
-  const originValue = originInput.value;
-  const destinationValue = destinationInput.value;
-
-  // if (!originValue || !destinationValue) {
-  //   console.warn("Origin or destination is missing. Cannot calculate indexes.");
-  //   return;
-  // }
-
-  const originMatch = originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || await fetchLocationCoordinates(originValue);
-  const destinationMatch = destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || await fetchLocationCoordinates(destinationValue);
-
-  if (originMatch && destinationMatch) {
-    const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
-    const destinationCoords = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
-
-    const route = { coordinates: routeCoordinates };
-
-    // Calculate indexes for the entire route
-    const [
-      elevationScoreRoute,
-      coastlineScoreRoute,
-      tsunamiScoreRoute,
-      seismicScoreRoute,
-      humidityScoreRoute,
-      populationDensityScoreRoute,
-      gdpScoreRoute
-    ] = await Promise.all([
-      getElevationScore(routeCoordinates[0]), 
-      getCoastlineScore(routeCoordinates[0]), 
-      getTsunamiScore(routeCoordinates[0]), 
-      getSeismicScore(routeCoordinates[0]), 
-      getHumidityScore(routeCoordinates[0]), 
-      getPopulationDensityScore(routeCoordinates[0]), 
-      getGDPScore(routeCoordinates[0]) 
-    ]);
-
-    const tsiRoute = calculateTSI(elevationScoreRoute, coastlineScoreRoute, tsunamiScoreRoute);
-    const sdiRoute = calculateSDI(seismicScoreRoute, elevationScoreRoute, coastlineScoreRoute, humidityScoreRoute);
-    const peiRoute = calculatePEI(populationDensityScoreRoute, gdpScoreRoute);
-
-    // Calculate e2i and opi for the route
-    const e2iRoute = calculateE2I(
-      await getLandUseChangeScore(route),
-      await calculateBiodiversityImpactScore(route)
-    );
-
-    const opiRoute = calculateOPI(
-      await getElevationScoreOPI(routeCoordinates[0]), 
-      await getNetworkDensityScore(routeCoordinates[0]),
-      await getUrbanProximityScore(routeCoordinates[0]), 
-      populationDensityScoreRoute
-    );
-
-    // Update UI with calculated values
-    document.getElementById('tsi-value').textContent = tsiRoute.toFixed(2);
-    document.getElementById('sdi-value').textContent = sdiRoute.toFixed(2);
-    document.getElementById('pei-value').textContent = peiRoute.toFixed(2);
-    document.getElementById('e2i-value').textContent = e2iRoute.toFixed(2);
-    document.getElementById('opi-value').textContent = opiRoute.toFixed(2);
-
-    // Calculate ffi
-    const ffi = calculateFFI(tsiRoute, sdiRoute, e2iRoute, opiRoute, peiRoute);
-    document.getElementById('ffi-value').textContent = ffi.toFixed(2);
-    } else {
-    console.error("Invalid coordinates for origin or destination.");
-    }
-  };
-
-  updateIndexes();
 
 
 
@@ -3913,6 +3842,14 @@ const updateIndexes = async () => {
     if (map.getSource("opi-path")) {
       map.removeSource("opi-path");
     }
+
+    // remove route hovers
+    map.off('mouseenter', 'e2i-path-layer');
+    map.off('mouseleave', 'e2i-path-layer');
+    map.off('mouseenter', 'ffi-path-layer');
+    map.off('mouseleave', 'ffi-path-layer');
+    map.off('mouseenter', 'opi-path-layer');
+    map.off('mouseleave', 'opi-path-layer');
 
     // clear origin and destination inputs
     originInput.value = "";
@@ -4234,6 +4171,44 @@ const updateIndexes = async () => {
           },
         });
           }
+
+          // hover details for each line - add index vlaue and total distance
+          map.on('mouseenter', `${id}-layer`, (e) => {
+          map.getCanvas().style.cursor = 'pointer';
+
+          const coordinates = e.features[0].geometry.coordinates;
+          const distance = turf.length(turf.lineString(coordinates), { units: 'kilometers' }).toFixed(2);
+
+            const popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false })
+            .setLngLat(e.lngLat)
+            .setHTML(`
+              <strong style="color: ${color};">Index Values:</strong><br>
+              <strong>TSI:</strong> ${document.getElementById('tsi-value').textContent}<br>
+              <strong>SDI:</strong> ${document.getElementById('sdi-value').textContent}<br>
+              <strong>E2I:</strong> ${document.getElementById('e2i-value').textContent}<br>
+              <strong>OPI:</strong> ${document.getElementById('opi-value').textContent}<br>
+              <strong>PEI:</strong> ${document.getElementById('pei-value').textContent}<br>
+              <strong>Distance:</strong> ${distance} km
+            `)
+            .addTo(map);
+
+            const popupElement = popup.getElement();
+            Object.assign(popupElement.style, {
+            padding: '10px',
+            borderRadius: '10px',
+            fontSize: '14px',
+            color: '#333',
+            shadow: '0px 2px 5px rgba(0, 0, 0, 0.5)',
+            });
+
+            console.log(`Path ID: ${id}, Distance: ${distance} km`);
+
+          map.on('mouseleave', `${id}-layer`, () => {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+          });
+          });
+
         });
       }
 
@@ -4261,7 +4236,7 @@ const updateIndexes = async () => {
       });
 
       // Update rail lines dynamically when sliders are adjusted
-      const sliders = ['e2i-filter', 'ffi-filter', 'opi-filter'];
+      const sliders = ['e2i-filter', 'ffi-filter', 'opi-filter', 'tsi-filter', 'sdi-filter', 'pei-filter'];
       sliders.forEach((sliderId) => {
         document.getElementById(sliderId).addEventListener('input', async () => {
           const originValue = originInput.value;
@@ -4330,9 +4305,13 @@ const updateIndexes = async () => {
       URL.revokeObjectURL(url);
     });
 
-  
 
 
+
+//bezier for radius for hsr
+//station placement - pop-gdp threshold
+
+//report layout/template
 
 
 

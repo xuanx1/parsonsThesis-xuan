@@ -30,3 +30,29 @@ body {
 .tns-icon-marker {
     border-radius: 999px;
 }
+
+.floating-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+.floating-icon2 {
+    animation: bounce 4s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translate(0,0);
+    }
+    50% {
+        transform: translate(-1px, -2px);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0,0);
+    }
+    50% {
+        transform: translate(-2px, -1px);
+    }
+}
