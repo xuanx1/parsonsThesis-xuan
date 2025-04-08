@@ -39,17 +39,19 @@ LINK TO PROJECT + PAPER
    - [2.3 Final Feasibility Index](#23-final-feasibility-index)
    - [2.4 Visualization and Interpretation](#24-visualization-and-interpretation)
  
-4. [Mockup and Prototype](#3-mockup-and-prototype)
+3. [Mockup](#3-mockup)
+   
+4. [Prototype](#4-prototype)
  
 5. [Final Product](#4-final-product)
-   - [4.1 Conclusion](#41-conclusion)
-   - [4.2 Disclaimer](#42-disclaimer)
+   - [5.1 Conclusion](#41-conclusion)
+   - [5.2 Disclaimer](#42-disclaimer)
  
-6. [Literature Review](#5-literature-review)
-   - [5.1 Books](#51-books)  
-   - [5.2 Articles](#52-articles)
-   - [5.3 Indexes Development](#53-indexes-development)
-   - [5.4 ASEAN Rail Infrastructure ](#54-asean-rail-infrastructure)
+6. [Literature Review](#6-literature-review)
+   - [6.1 Books](#61-books)  
+   - [6.2 Articles](#62-articles)
+   - [6.3 Indexes Development](#63-indexes-development)
+   - [6.4 ASEAN Rail Infrastructure ](#64-asean-rail-infrastructure)
  
 ## 1. Introduction
 #### 1.1  Costs of Infrastructure Projects in the Southeast Asian Context
@@ -461,27 +463,27 @@ The results are visualized using interactive network graphs, allowing users to e
  
  
 
-## 3. Mockup and Prototype
+## 3. Mockup 
 [Mockup](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/02mockup/mockup.md)
 ![418837055-03b19321-f25a-425b-8f55-a445a6c7c242](https://github.com/user-attachments/assets/183747cf-728b-42a5-81ee-bed34741f56f)
 
+## 4. Prototype
 [Prototype](https://xuanx1.github.io/parsonsThesis-xuan/03prototype/)
 ![prototype-mockup-13](https://github.com/user-attachments/assets/b5b3e56c-8784-4349-ba3b-fd14eb8d8e16)
 
-
-## 4. Final Product
+## 5. Final Product
 ![final-mockup2](https://github.com/user-attachments/assets/b59795cc-c327-485a-bfa0-7c512e9a3635)
 
 hero image + video
 
-#### 4.1 Conclusion
+#### 5.1 Conclusion
 The project demonstrates that combinatorial optimization can be a powerful tool in planning public transport networks in Southeast Asia, particularly in the face of the region's challenging terrain and climate. By integrating indexes and key indicators, the tool provides a data-driven approach to rail line and station placement. The proposed rail network gives space for the general public to conceptualise hypothetic connections that has yet to exist but should have existed.
 
-#### 4.2 Disclaimer
+#### 5.2 Disclaimer
 Given the multidisciplinary nature and numerous expertise involved—engineers, urban planners, environmental scientists and policymakers, in projects of such scale, it is prudent to note that this visualization will serve as a hypothetical planning tool that democratize access to information necessary to its realisation. This would allow the public to explore different possibilities and simulate outcomes based on varying parameters (e.g. environmental factors, or population needs), while considering factors and challenges specific to Southeast Asia. 
 
-## 5. Literature Review
-#### 5.1 Books
+## 6. Literature Review
+#### 6.1 Books
  
 Graham, Stephen. Disrupted cities: When infrastructure fails. New York, NY: Routledge, 2010. 
  
@@ -496,7 +498,7 @@ Mitra, Saptarshi, Sumana Bandyopadhyay, Stabak Roy, and Tomaz Ponce Dentinho. Ra
 Etingoff, Kim. Sustainable Cities Urban Planning Challenges and policy. Toronto: Apple Academic Press, 2021. 
  
  
-#### 5.2 Articles
+#### 6.2 Articles
 Fünfgeld, Anna. “The Dream of ASEAN Connectivity: Imagining Infrastructure in Southeast Asia.” Pacific Affairs 92, no. 2 (June 1, 2019): 287–311. https://doi.org/10.5509/2019922287. 
  
 Li, Luyuan, Pieter Uyttenhove, and Veerle Van Eetvelde. “Planning Green Infrastructure to Mitigate Urban Surface Water Flooding Risk – a Methodology to Identify Priority Areas Applied in the City of Ghent.” Landscape and Urban Planning 194 (February 2020): 103703. https://doi.org/10.1016/j.landurbplan.2019.103703. 
@@ -511,7 +513,7 @@ Zhang, Silin, Buhao Zhang, Yi Zhao, Shun Zhang, and Zhichao Cao. “Urban Infras
  
 Sturdevant, Gwynn, A. Jonathan R. Godfrey, and Andrew Gelman. “Delivering Data Differently.” arXiv.org, April 14, 2022. https://arxiv.org/abs/2204.10854. 
  
-#### 5.3 Indexes Development
+#### 6.3 Indexes Development
 ###### Tsunami Risk Index:
 Intergovernmental Oceanographic Commission. Tsunami Risk Assessment and Mitigation for the Indian Ocean: Knowing and Managing the Risks. Paris: UNESCO, 2009.
  
@@ -632,7 +634,7 @@ Nguyen, Thi Lan Hương. "The ASEAN Rail Transport Infrastructure Master Plan: I
  
 Singh, Daljit. "ASEAN’s Infrastructure Development: The Role of Rail Transport." In ASEAN Economic Integration: Challenges and Prospects, edited by Sanchita Basu Das and Jayant Menon, 123–145. Singapore: ISEAS Publishing, 2020.
  
-#### 5.5 Others
+#### 6.5 Others
 “Open Train Project.” Travegeo. Accessed March 5, 2024, https://travegeo.com/articles/open-train-project/.
  
 OpenAI. ChatGPT, version GPT-4. March 18, 2025. Used for refining sentence structure and checking grammar. https://chat.openai.com.
