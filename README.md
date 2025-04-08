@@ -472,6 +472,7 @@ The results are visualized using interactive network graphs, allowing users to e
 ![prototype-mockup-13](https://github.com/user-attachments/assets/b5b3e56c-8784-4349-ba3b-fd14eb8d8e16)
 
 ## 5. Final Product
+![final-cover_cover](https://github.com/user-attachments/assets/713e322a-0c09-4a61-b11d-a5182a6c1bfd)
 ![final-mockup2](https://github.com/user-attachments/assets/b59795cc-c327-485a-bfa0-7c512e9a3635)
 
 hero image + video
