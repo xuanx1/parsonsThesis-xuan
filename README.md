@@ -677,7 +677,9 @@ OpenAI. ChatGPT, version GPT-4. March 18, 2025. Used for refining sentence struc
 
 ##
 
-##### Thesis Advisor - Daniel Sauter
+##### Thesis Advisor - Prof. Daniel Sauter
+
+##### Developed with assistance from Adjunct Prof. Thiago Hersan, and Teaching Assistant Matias Pina Aguilera
 
 ##### Submitted in partial fulfillment of the requirements for the degree of Master of Science in Data Visualization at Parsons School of Design.
     
