@@ -132,7 +132,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  
  
 #### 2.2 Weighing Major Indexes
-
+##
  #### 2.2.1 Tsunami Risk Index
  $$
  TSI = 0.4 \times (\text{Tsunami Prevalence Score}) + 0.4 \times (\text{Coastline Proximity Score}) + 0.2 \times (\text{Elevation Score})
