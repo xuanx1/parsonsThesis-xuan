@@ -53,7 +53,8 @@ LINK TO PROJECT + PAPER
    - [6.1 Books](#61-books)  
    - [6.2 Articles](#62-articles)
    - [6.3 Indexes Development](#63-indexes-development)
-   - [6.4 ASEAN Rail Infrastructure ](#64-asean-rail-infrastructure)
+   - [6.4 ASEAN Rail Infrastructure](#64-asean-rail-infrastructure)
+   - [6.5 Others](#65-others)
  
 ## 1. Introduction
 #### 1.1  Costs of Infrastructure Projects in the Southeast Asian Context
@@ -625,7 +626,7 @@ OECD. Global Economic Outlook 2022: GDP Growth and Regional Trends. Paris: OECD 
  
 World Bank. The Global Economy: Trends and Projections 2022. Washington, D.C.: World Bank Group, 2022.
  
-#### 5.4 ASEAN Rail Infrastructure 
+#### 6.4 ASEAN Rail Infrastructure 
 ASEAN Secretariat. ASEAN Rail Transport Infrastructure Master Plan. Jakarta: ASEAN Secretariat, 2020.
  
 ASEAN Connectivity Coordinating Committee. Master Plan on ASEAN Connectivity 2025. Jakarta: ASEAN Secretariat, 2016.
