@@ -474,7 +474,7 @@ The results are visualized using interactive network graphs, allowing users to e
 ## 5. Final Product
 ![final-cover](https://github.com/user-attachments/assets/f4fad89a-1a08-4884-9d4a-f6628cb2961d)
 ![final-mockup2](https://github.com/user-attachments/assets/b59795cc-c327-485a-bfa0-7c512e9a3635)
-![final-mockup_feat](https://github.com/user-attachments/assets/3992fe23-5cdc-4941-b5c3-6e625a5bdac8)
+![final-mockup_feat](https://github.com/user-attachments/assets/0de78019-31ae-415f-b978-d47c64b3a059)
 
 + 4min mp4
 
