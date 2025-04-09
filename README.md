@@ -467,15 +467,15 @@ The results are visualized using interactive network graphs, allowing users to e
  
 
 ## 3. Mockup 
-[Preview](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/02mockup/mockup.md)
+Refer to the [Preview](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/02mockup/mockup.md)
 ![418837055-03b19321-f25a-425b-8f55-a445a6c7c242](https://github.com/user-attachments/assets/183747cf-728b-42a5-81ee-bed34741f56f)
 
 ## 4. Prototype
-[Preview](https://xuanx1.github.io/parsonsThesis-xuan/03prototype/)
+Refer to the [Preview](https://xuanx1.github.io/parsonsThesis-xuan/03prototype/)
 ![prototype-mockup-13](https://github.com/user-attachments/assets/b5b3e56c-8784-4349-ba3b-fd14eb8d8e16)
 
 ## 5. Final Product
-[Preview](https://xuanx1.github.io/parsonsThesis-xuan/04final/)
+Refer to the [Preview](https://xuanx1.github.io/parsonsThesis-xuan/04final/)
 ![final-cover](https://github.com/user-attachments/assets/f4fad89a-1a08-4884-9d4a-f6628cb2961d)
 ![final-mockup2](https://github.com/user-attachments/assets/b59795cc-c327-485a-bfa0-7c512e9a3635)
 ![final-mockup_feat](https://github.com/user-attachments/assets/0de78019-31ae-415f-b978-d47c64b3a059)
