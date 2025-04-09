@@ -55,7 +55,13 @@ For more details, please refer to the **[Research Paper](https://docs.google.com
    - [6.3 Indexes Development](#63-indexes-development)
    - [6.4 ASEAN Rail Infrastructure](#64-asean-rail-infrastructure)
    - [6.5 Others](#65-others)
- 
+
+##### Project Repository 
+Explore the [source code](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/04final/js/app.js) and [related projects](https://github.com/xuanx1?tab=repositories).
+
+##### Design Archive 
+View Xuan's [Online Portfolio](https://xuanx1.github.io/designArchiveWinter24/loading.html) / [Physical Copy](https://xuanx1.github.io/designArchiveWinter24/pdf/portfolio-lite.pdf), encompassing numerous interdisciplinary projects.
+
 ## 1. Introduction
 #### 1.1  Costs of Infrastructure Projects in the Southeast Asian Context
 Historically, Southeast Asia has struggled to develop cohesive transport networks due to natural barriers, political fragmentation, and economic disparities, which has contributed to poor urban planning and underutilized transport routes. Such pan-regional infrastructure generally requires substantial amount of funding, time and resources.
