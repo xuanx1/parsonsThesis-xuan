@@ -19,8 +19,8 @@ Given the geographical and socio-political challenges native to Southeast Asiaâ€
 
 This project aims to develop a rail routing calculator for the general public, primarily rail enthusiasts, to route train lines and determine station placements with conditions specific to Southeast Asia. Instead of focusing solely on economically dominant areas, this "what-if" scenario helps bring attention to neglected regions by leveraging data such as ground elevation and earthquake safety distances and propose a few options of varying strengths of rail routes from Point A to Point B, which are then weighted against a final, feasibility score that is computed based on its constituent criteria. 
  
-LINK TO PROJECT + PAPER
- 
+**[Research Paper](https://docs.google.com/document/d/1o-rGQC92d79I1xqvrbZk6pjzrcNxLpUHLqgvYEci8nM/edit?usp=sharing)**
+
 ## Table of Contents
 1. [Introduction](#1-introduction)
    - [1.1  Costs of Infrastructure Projects in the Southeast Asian Context](#11--costs-of-infrastructure-projects-in-the-southeast-asian-context)
