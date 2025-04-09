@@ -147,7 +147,6 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
 
 
  *Where:*
- 
  **Tsunami Risk Index - Tsunami Prevalence Score**
  <p>
  $$\text{Tsunami Prevalence Score} = 1 - \frac{\text{Historical Tsunamis within 100 km Radius} - \text{Tsunami}_{\text{minWithinRegion}}}  {\text{Tsunami}_{\text{maxWithinRegion}} - \text{Tsunami}_{\text{minWithinRegion}}}$$
@@ -160,6 +159,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **Frequent Tsunamis** – Score < 0.33
  
  ##
+ *Where:*
  **Tsunami Risk Index - Coastline Proximity Score**
  <p>
  $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -172,6 +172,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **0 - 5 km from Coast** – Score < 0.33
     
  ##
+ *Where:*
  **Tsunami Risk Index - Ground Elevation Score**
  <p>
  $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
@@ -200,7 +201,6 @@ Evaluates the durability of structures considering seismic activity, ground elev
 
 
  *Where:*
- 
  #### Structure Durability Index - Seismic Safe Score
  <p>
  $$\text{Seismic Safe Score} = \frac{\text{Distance to Fault Line} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -213,6 +213,7 @@ Evaluates the durability of structures considering seismic activity, ground elev
  **0 - 50 km Away** – Score < 0.33
  
  ##
+ *Where:*
  #### Structure Durability Index - Coastline Proximity Score
  <p>
  $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -224,7 +225,8 @@ Evaluates the durability of structures considering seismic activity, ground elev
  
  **0 - 5 km from Coast** – Score < 0.33
     
- ##    
+ ##
+ *Where:*
  #### Structure Durability Index - Ground Elevation Score
  <p>
  $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
@@ -237,7 +239,8 @@ Evaluates the durability of structures considering seismic activity, ground elev
  **High elevation (> 50 m)** – Score 0.67 - 1.0
 
  ##
-  #### Structure Durability Index - Humidity Score
+ *Where:*
+ #### Structure Durability Index - Humidity Score
  <p>
  $$\text{Humidity Score} = 1 - \frac{\text{Humidity} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
  </p>
@@ -249,7 +252,7 @@ Evaluates the durability of structures considering seismic activity, ground elev
  **Low Humidity (< 50%)** – Score 0.67 - 1.0
 
  
- ## 
+ ##
  #### 2.2.3 Environmental Impact Index
  $$
  E2I = 0.55 \times (\text{Land Use Change}) + 0.45 \times (\text{Biodiversity Score})
@@ -265,7 +268,6 @@ Assesses the environmental impact based on land use changes and biodiversity los
 
 
  *Where:*
- 
  #### Environmental Impact Index - Land Use Change
  <p>
  $$\text{Land Use Change} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -278,6 +280,7 @@ Assesses the environmental impact based on land use changes and biodiversity los
  **Land Use Change > 25%** – Score < 0.33
  
  ##
+ *Where:*
  #### Environmental Impact Index - Biodiversity Score
  <p>
  $$\text{Biodiversity Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -306,7 +309,6 @@ Determines the operational feasibility considering ground elevation, network den
 
 
  *Where:*
- 
  #### Operability Index - Ground Elevation Score
 <p align="center">
 $$
@@ -331,7 +333,8 @@ $$
  
  **Elevation >60m** - Score 0 
 
- ##
+  ##
+ *Where:*
   #### Operability Index - Existing Network
  <p>
  $$\text{Existing Network} = 1 - \frac{\text{Network Density} - \text{Network Density}_{\text{min}}}{\text{Network Density}_{\text{max}} - \text{Network Density}_{\text{min}}}$$
@@ -343,8 +346,9 @@ $$
  
  **Low Accessibility (<0.1 km/km²)** – Score 0.67 - 1.0
 
- ##
-   #### Operability Index - Urban Proximity Score
+  ##
+ *Where:*
+  #### Operability Index - Urban Proximity Score
  <p>
  $$\text{Urban Proximity Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
  </p>
@@ -355,8 +359,9 @@ $$
  
  **High Accessibility (< 15 km from urban center)** – Score 0.67 - 1.0
 
- ##
-   #### Operability Index - Population Density Score
+  ##
+ *Where:*
+  #### Operability Index - Population Density Score
  <p>
  $$\text{Population Density Score} = 1 - \frac{\text{Density} - \text{Density}_{\text{min}}}{\text{Density}_{\text{max}} - \text{Density}_{\text{min}}}$$
  </p>
@@ -384,7 +389,6 @@ Highlights the economic and population significance based on population density,
 
 
  *Where:*
-
   #### Population-Economic Importance Index - Population Density Score
  <p>
  $$\text{Population Density Score} = 1 - \frac{\text{Density} - \text{Density}_{\text{min}}}{\text{Density}_{\text{max}} - \text{Density}_{\text{min}}}$$
@@ -396,13 +400,15 @@ Highlights the economic and population significance based on population density,
  
  **High Economic Importance (> 5,000 people/km²)** – Score 0.67 - 1.0
 
- ##
-   #### Population-Economic Importance Index - Normalised Land Area
+  ##
+ *Where:*
+  #### Population-Economic Importance Index - Normalised Land Area
  <p>
  $$\text{Normalized Land Area} = \frac{\log(X) - \log(X_{\text{min}})}{\log(X_{\text{max}}) - \log(X_{\text{min}})}$$
  </p>
 
- ##
+  ##
+ *Where:*
   #### Population-Economic Importance Index - GDP Per Capita Score
  <p>
  $$\text{GDP Per Capita Score} = \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -415,7 +421,7 @@ Highlights the economic and population significance based on population density,
  **High Economic Importance (> $40,000 USD)** – Score 0.67 - 1.0
 
 
-
+##
 #### 2.3 Final Feasibility Index
 In this context, the 5 constituent indexes are combined, forming a new index which determines the score of the route from Point A to Point B. The goal is to minimise construction effort (ie. distance, terrain difficulty) while maximising regional connectivity, economic impact, and population engagement. The value here states how well the route adheres to identified constraints such as geographical hazards, population coverage, and structural resilience as the algorithm avoids areas prone to flooding or tsunamis
 
