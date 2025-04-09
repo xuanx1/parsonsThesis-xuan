@@ -147,6 +147,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
 
 
  *Where:*
+ 
  **Tsunami Risk Index - Tsunami Prevalence Score**
  <p>
  $$\text{Tsunami Prevalence Score} = 1 - \frac{\text{Historical Tsunamis within 100 km Radius} - \text{Tsunami}_{\text{minWithinRegion}}}  {\text{Tsunami}_{\text{maxWithinRegion}} - \text{Tsunami}_{\text{minWithinRegion}}}$$
@@ -160,6 +161,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  
  ##
  *Where:*
+ 
  **Tsunami Risk Index - Coastline Proximity Score**
  <p>
  $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -173,6 +175,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
     
  ##
  *Where:*
+ 
  **Tsunami Risk Index - Ground Elevation Score**
  <p>
  $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
@@ -201,6 +204,7 @@ Evaluates the durability of structures considering seismic activity, ground elev
 
 
  *Where:*
+ 
  #### Structure Durability Index - Seismic Safe Score
  <p>
  $$\text{Seismic Safe Score} = \frac{\text{Distance to Fault Line} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -214,6 +218,7 @@ Evaluates the durability of structures considering seismic activity, ground elev
  
  ##
  *Where:*
+ 
  #### Structure Durability Index - Coastline Proximity Score
  <p>
  $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -227,6 +232,7 @@ Evaluates the durability of structures considering seismic activity, ground elev
     
  ##
  *Where:*
+ 
  #### Structure Durability Index - Ground Elevation Score
  <p>
  $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
@@ -240,6 +246,7 @@ Evaluates the durability of structures considering seismic activity, ground elev
 
  ##
  *Where:*
+ 
  #### Structure Durability Index - Humidity Score
  <p>
  $$\text{Humidity Score} = 1 - \frac{\text{Humidity} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -268,6 +275,7 @@ Assesses the environmental impact based on land use changes and biodiversity los
 
 
  *Where:*
+ 
  #### Environmental Impact Index - Land Use Change
  <p>
  $$\text{Land Use Change} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -281,6 +289,7 @@ Assesses the environmental impact based on land use changes and biodiversity los
  
  ##
  *Where:*
+ 
  #### Environmental Impact Index - Biodiversity Score
  <p>
  $$\text{Biodiversity Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -309,6 +318,7 @@ Determines the operational feasibility considering ground elevation, network den
 
 
  *Where:*
+ 
  #### Operability Index - Ground Elevation Score
 <p align="center">
 $$
@@ -335,6 +345,7 @@ $$
 
   ##
  *Where:*
+ 
   #### Operability Index - Existing Network
  <p>
  $$\text{Existing Network} = 1 - \frac{\text{Network Density} - \text{Network Density}_{\text{min}}}{\text{Network Density}_{\text{max}} - \text{Network Density}_{\text{min}}}$$
@@ -348,6 +359,7 @@ $$
 
   ##
  *Where:*
+ 
   #### Operability Index - Urban Proximity Score
  <p>
  $$\text{Urban Proximity Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -361,6 +373,7 @@ $$
 
   ##
  *Where:*
+ 
   #### Operability Index - Population Density Score
  <p>
  $$\text{Population Density Score} = 1 - \frac{\text{Density} - \text{Density}_{\text{min}}}{\text{Density}_{\text{max}} - \text{Density}_{\text{min}}}$$
@@ -389,6 +402,7 @@ Highlights the economic and population significance based on population density,
 
 
  *Where:*
+ 
   #### Population-Economic Importance Index - Population Density Score
  <p>
  $$\text{Population Density Score} = 1 - \frac{\text{Density} - \text{Density}_{\text{min}}}{\text{Density}_{\text{max}} - \text{Density}_{\text{min}}}$$
@@ -402,6 +416,7 @@ Highlights the economic and population significance based on population density,
 
   ##
  *Where:*
+ 
   #### Population-Economic Importance Index - Normalised Land Area
  <p>
  $$\text{Normalized Land Area} = \frac{\log(X) - \log(X_{\text{min}})}{\log(X_{\text{max}}) - \log(X_{\text{min}})}$$
@@ -409,6 +424,7 @@ Highlights the economic and population significance based on population density,
 
   ##
  *Where:*
+ 
   #### Population-Economic Importance Index - GDP Per Capita Score
  <p>
  $$\text{GDP Per Capita Score} = \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
