@@ -159,7 +159,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  
  **Frequent Tsunamis** – Score < 0.33
  
- 
+ ##
  **Tsunami Risk Index - Coastline Proximity Score**
  <p>
  $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -171,7 +171,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  
  **0 - 5 km from Coast** – Score < 0.33
     
-    
+ ##
  **Tsunami Risk Index - Ground Elevation Score**
  <p>
  $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
@@ -184,7 +184,7 @@ Existing Network: Point/Line shapefiles on roads, railways to assess connectivit
  **High elevation (> 50 m)** – Score 0.67 - 1.0
     
 
-    
+ ##   
  #### 2.2.2 Structure Durability Index
  $$
  SDI = 0.4 \times (\text{Seismic Safe Score}) + 0.25 \times (\text{Elevation Score}) + 0.2 \times (\text{Coastline Proximity Score}) + 0.15 \times (\text{Humidity})
@@ -212,7 +212,7 @@ Evaluates the durability of structures considering seismic activity, ground elev
  
  **0 - 50 km Away** – Score < 0.33
  
- 
+ ##
  #### Structure Durability Index - Coastline Proximity Score
  <p>
  $$\text{Coastline Proximity Score} = \frac{\text{Distance from Coastline} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -224,7 +224,7 @@ Evaluates the durability of structures considering seismic activity, ground elev
  
  **0 - 5 km from Coast** – Score < 0.33
     
-    
+ ##    
  #### Structure Durability Index - Ground Elevation Score
  <p>
  $$\text{Elevation Score} = \frac{\text{Elevation} - \text{Elevation}_{\text{min}}}{\text{Elevation}_{\text{max}} - \text{Elevation}_{\text{min}}}$$
@@ -236,7 +236,7 @@ Evaluates the durability of structures considering seismic activity, ground elev
  
  **High elevation (> 50 m)** – Score 0.67 - 1.0
 
-
+ ##
   #### Structure Durability Index - Humidity Score
  <p>
  $$\text{Humidity Score} = 1 - \frac{\text{Humidity} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -249,7 +249,7 @@ Evaluates the durability of structures considering seismic activity, ground elev
  **Low Humidity (< 50%)** – Score 0.67 - 1.0
 
  
- 
+ ## 
  #### 2.2.3 Environmental Impact Index
  $$
  E2I = 0.55 \times (\text{Land Use Change}) + 0.45 \times (\text{Biodiversity Score})
@@ -277,7 +277,7 @@ Assesses the environmental impact based on land use changes and biodiversity los
  
  **Land Use Change > 25%** – Score < 0.33
  
- 
+ ##
  #### Environmental Impact Index - Biodiversity Score
  <p>
  $$\text{Biodiversity Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -290,7 +290,7 @@ Assesses the environmental impact based on land use changes and biodiversity los
  **Species Density > 30%** – Score < 0.33
     
 
-
+ ##
  #### 2.2.4 Operability Index
  $$
  OPI = 0.24 \times (\text{Elevation Score}) + 0.28 \times (\text{Existing Network Score}) + 0.24 \times (\text{Urban Proximity Score}) + 0.24 \times (\text{Population Density Score})
@@ -331,7 +331,7 @@ $$
  
  **Elevation >60m** - Score 0 
 
-
+ ##
   #### Operability Index - Existing Network
  <p>
  $$\text{Existing Network} = 1 - \frac{\text{Network Density} - \text{Network Density}_{\text{min}}}{\text{Network Density}_{\text{max}} - \text{Network Density}_{\text{min}}}$$
@@ -343,7 +343,7 @@ $$
  
  **Low Accessibility (<0.1 km/km²)** – Score 0.67 - 1.0
 
-
+ ##
    #### Operability Index - Urban Proximity Score
  <p>
  $$\text{Urban Proximity Score} = 1 - \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
@@ -355,7 +355,7 @@ $$
  
  **High Accessibility (< 15 km from urban center)** – Score 0.67 - 1.0
 
-
+ ##
    #### Operability Index - Population Density Score
  <p>
  $$\text{Population Density Score} = 1 - \frac{\text{Density} - \text{Density}_{\text{min}}}{\text{Density}_{\text{max}} - \text{Density}_{\text{min}}}$$
@@ -368,7 +368,7 @@ $$
  **High Demand (>5,000 people/km²)** – Score 0.67 - 1.0
 
 
- 
+ ## 
  #### 2.2.5 Population-Economic Importance Index
  $$
  PEI = 0.35 \times (\text{Population Density Score}) + 0.4 \times (\text{GDP Per Capita Score}) + 0.25 \times (\text{Land Area Normalised})
@@ -396,13 +396,13 @@ Highlights the economic and population significance based on population density,
  
  **High Economic Importance (> 5,000 people/km²)** – Score 0.67 - 1.0
 
-
+ ##
    #### Population-Economic Importance Index - Normalised Land Area
  <p>
  $$\text{Normalized Land Area} = \frac{\log(X) - \log(X_{\text{min}})}{\log(X_{\text{max}}) - \log(X_{\text{min}})}$$
  </p>
 
- 
+ ##
   #### Population-Economic Importance Index - GDP Per Capita Score
  <p>
  $$\text{GDP Per Capita Score} = \frac{\text{X} - \text{X}_{\text{min}}}{\text{X}_{\text{max}} - \text{X}_{\text{min}}}$$
