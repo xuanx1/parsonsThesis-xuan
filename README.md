@@ -10,10 +10,10 @@ What if you could find the best-fit route that maximizes services to the majorit
 **[Now, you can.](https://xuanx1.github.io/parsonsThesis-xuan/04final/)**
 
 ##### Another Production by Xuan
-**📁 Project Repository**  
+📁 Project Repository
 Explore the [source code](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/04final/js/app.js) and Xuan's [related projects](https://github.com/xuanx1?tab=repositories) on GitHub.
 
-**🎨 Design Archive**  
+🎨 Design Archive 
 View Xuan's [Online Portfolio](https://xuanx1.github.io/designArchiveWinter24/loading.html) or browse the [Physical Copy (PDF)](https://xuanx1.github.io/designArchiveWinter24/pdf/portfolio-lite.pdf), encompassing numerous interdisciplinary projects.
 
 ## Abstract
