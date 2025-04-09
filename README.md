@@ -653,12 +653,11 @@ Singh, Daljit. "ASEAN’s Infrastructure Development: The Role of Rail Transport
  
 OpenAI. ChatGPT, version GPT-4. March 18, 2025. Used for refining sentence structure and checking grammar. https://chat.openai.com.
 
-    Thesis Advisor
-    
-    **Daniel Sauter**
+##### Thesis Advisor   
+**Daniel Sauter**
 
-    Submitted in partial fulfillment of the requirements for the degree of Master of Science in Data Visualization at Parsons School of Design.
+##### Submitted in partial fulfillment of the requirements for the degree of Master of Science in Data Visualization at Parsons School of Design.
     
-    New York, May ‘25
+##### New York, May ‘25
 
 
