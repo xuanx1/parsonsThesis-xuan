@@ -3990,7 +3990,7 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
     .style("display", "none")
     .style("top", "139px")
     .style("left", "310px")
-    .text("Export Report");
+    .text("Show Route Report");
 
   exportButton
     .addEventListener("mouseover", () => {
@@ -4008,7 +4008,6 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
       exportButton.style.filter = "brightness(100%)"; // Set to full brightness
     }
   });
-
 
       
 
@@ -4279,8 +4278,339 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
   });
   
 
+
+
+
+
+
+        // report window
+        const exportDashboardContainer = document.createElement('div');
+        exportDashboardContainer.style.position = 'fixed';
+        exportDashboardContainer.style.bottom = '-1000px'; // Initially hidden
+        exportDashboardContainer.style.left = '50%';
+        exportDashboardContainer.style.transform = 'translateX(-50%)';
+        exportDashboardContainer.style.width = '800px';
+        exportDashboardContainer.style.opacity = 0.9;
+        exportDashboardContainer.style.backgroundColor = 'white';
+        exportDashboardContainer.style.boxShadow = '2px 0 5px rgba(0, 0, 0, 0.2)';
+        exportDashboardContainer.style.zIndex = '3000';
+        exportDashboardContainer.style.overflowY = 'auto'; // Enable scrolling
+        exportDashboardContainer.style.maxHeight = 'calc(100vh - 190px)'; // Limit height to fit within the viewport
+        exportDashboardContainer.style.borderTopRightRadius = '10px';
+        exportDashboardContainer.style.borderTopLeftRadius = '10px';
+        exportDashboardContainer.style.scrollbarWidth = 'thin'; // Minimalist scrollbar for Firefox
+        exportDashboardContainer.style.scrollbarColor = '#ccc transparent'; // Custom scrollbar color for Firefox
+        exportDashboardContainer.style.transition = 'bottom 0.3s ease'; // Smooth slide-in/out transition
+        document.body.appendChild(exportDashboardContainer);
+            
+        // Minimalist scrollbar for WebKit browsers
+        const exportStyle = document.createElement('style');
+        exportStyle.textContent = `
+          #exportDashboardContainer::-webkit-scrollbar {
+            width: 6px;
+          }
+          #exportDashboardContainer::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 3px;
+          }
+          #exportDashboardContainer::-webkit-scrollbar-track {
+            background: transparent;
+          }
+        `;
+        document.head.appendChild(exportStyle);
+        exportDashboardContainer.id = 'exportDashboardContainer';
+            
+            
+        // toggle report dashboard
+        let isExportDashboardOpen = false;
+        exportButton.addEventListener('click', () => {
+          if (isExportDashboardOpen) {
+            exportDashboardContainer.style.bottom = '-1000px'; // Slide out
+          } else {
+            exportDashboardContainer.style.bottom = '0'; // Slide in
+          }
+          isExportDashboardOpen = !isExportDashboardOpen;
+        });
+            
+        // report Title
+      const exportDashboardTitle = document.createElement('h2');
+      exportDashboardTitle.textContent = 'OVERVIEW';
+      exportDashboardTitle.style.fontWeight = 'bold';
+      exportDashboardTitle.style.margin = '30px';
+      exportDashboardTitle.style.fontSize = '32px';
+      exportDashboardTitle.style.color = '#333';
+      exportDashboardTitle.style.letterSpacing = '3px'; //kerning
+      exportDashboardContainer.appendChild(exportDashboardTitle);
+
+
+      const getValue = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.textContent : 'N/A';
+      };
+
+      // Main container (flex row layout)
+      const exportDashboardContent = document.createElement('div');
+      exportDashboardContent.style.display = 'flex';
+      exportDashboardContent.style.gap = '30px';
+      exportDashboardContent.style.margin = '30px';
+      exportDashboardContent.style.alignItems = 'flex-start';
+
+      // Close button
+      const closeButton = document.createElement('img');
+      closeButton.src = 'images/cross.svg';
+      closeButton.alt = 'Close Report';
+      closeButton.style.position = 'absolute';
+      closeButton.style.top = '20px';
+      closeButton.style.right = '10px';
+      closeButton.style.cursor = 'pointer';
+      closeButton.style.width = '30px';
+      closeButton.style.height = '30px'; 
+      closeButton.style.zIndex = '3001';
+      closeButton.style.filter = 'grayscale(100%)'; 
+      closeButton.style.opacity = '0.5';
+      closeButton.addEventListener('click', () => {
+        exportDashboardContainer.style.bottom = '-1000px';
+        isExportDashboardOpen = false;
+      });
+      exportDashboardContainer.appendChild(closeButton);
+
+      // Share button
+      const shareButton = document.createElement('img');
+      shareButton.src = 'images/share.svg';
+      shareButton.alt = 'Export Report';
+      shareButton.style.position = 'absolute';
+      shareButton.style.top = '22.5px';
+      shareButton.style.right = '50px';
+      shareButton.style.cursor = 'pointer';
+      shareButton.style.width = '25px';
+      shareButton.style.height = '25px'; 
+      shareButton.style.zIndex = '3001';
+      shareButton.style.backgroundColor = 'orange'; 
+      shareButton.style.borderRadius = '50%'; 
+      shareButton.style.padding = '5px'; 
+      // shareButton.addEventListener('click', () => {
+      //   alert('Share functionality is not implemented yet.');
+      // });
+      exportDashboardContainer.appendChild(shareButton);
+
+      // LEFT: Snapshot and description
+      const snapshotContainer = document.createElement('div');
+      snapshotContainer.style.flex = '0.55';
+      snapshotContainer.innerHTML = `
+        <img src="data/testData/route_snap_test.png" alt="Route top view" style="width: 100%; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+        <p style="margin-top: 24px; color: #777; font-size: 14px; text-align: justify;">
+          The proposed route from Point A in India to Point B in Myanmar traverses a diverse and challenging landscape, beginning in India’s northeastern states—such as Manipur or Mizoram—where it crosses the rugged Patkai and Naga Hills, with elevations ranging from 200 to over 3,000 meters, dense forests, and steep gradients. 
+          <br><br>
+          As the route enters Myanmar, it descends through the Chin Hills, encountering river valleys and landslide-prone zones before leveling into the Irrawaddy Basin’s floodplains, requiring bridges or ferries for crossings. The final stretch passes through Myanmar’s Shan Plateau, featuring rolling hills, limestone karsts, and moderate elevations (1,000–1,500 meters), with seasonal monsoons and seismic risks further complicating transit.
+        </p>
+
+      `;
+      exportDashboardContent.appendChild(snapshotContainer);
+
+      // RIGHT: Index Scores - N/A if no route
+      const scoreContainer = document.createElement('div');
+      scoreContainer.style.flex = '0.45';
+      scoreContainer.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          
+          <div style="display: flex; justify-content: space-between;">
+        <span style="font-weight: bold; color: rgb(133, 133, 133); letter-spacing: 3px; font-size: 21px;">INDEXES</span>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between;">
+        <span style="font-weight: bold; color: rgb(109, 109, 109);">Tsunami Risk Index</span>
+            </div>
+            <small style="color: rgb(182, 182, 182); font-weight: medium;">The higher, the better.</small>
+            
+            <div style="text-align: right; font-size: 16px; color: rgb(182, 182, 182); font-weight: bold;">${getValue('tsi-value')} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+          </div>
+
+          <div>
+            <div style="margin-top: 7px; display: flex; justify-content: space-between;">
+        <span style=" font-weight: bold; color: rgb(109, 109, 109);">Structure Durability Index</span>
+            </div>
+            <small style="color: rgb(182, 182, 182); font-weight: medium;">The higher, the better.</small>
+
+            <div style="text-align: right; font-size: 16px; color: rgb(182, 182, 182); font-weight: bold;">${getValue('sdi-value')} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+          </div>
+
+          <div>
+            <div style="margin-top: 7px; display: flex; justify-content: space-between;">
+        <span style="font-weight: bold; color: rgb(109, 109, 109);">Environment Impact Index</span>
+        
+            </div>
+            <small style="color: rgb(182, 182, 182); font-weight: medium;">The higher, the better.</small>
+
+            <div style="text-align: right; font-size: 16px; color: rgb(182, 182, 182); font-weight: bold;">${getValue('e2i-value')} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+          </div>
+
+          <div>
+            <div style="margin-top: 7px; display: flex; justify-content: space-between;">
+        <span style="font-weight: bold; color: rgb(109, 109, 109);">Operability Index</span>
+        
+            </div>
+            <small style="color: rgb(182, 182, 182); font-weight: medium;">The higher, the better.</small>
+
+            <div style="text-align: right; font-size: 16px; color: rgb(182, 182, 182); font-weight: bold;">${getValue('opi-value')} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+          </div>
+
+          <div>
+            <div style="margin-top: 7px; display: flex; justify-content: space-between;">
+        <span style="font-weight: bold; color: rgb(109, 109, 109);">Population-Economic Index</span>
+        
+            </div>
+            <small style="color: rgb(182, 182, 182); font-weight: medium;">The higher, the better.</small>
+
+            <div style="text-align: right; font-size: 16px; color: rgb(182, 182, 182); font-weight: bold;">${getValue('pei-value')} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+          </div>
+
+          <div style="margin-top: 24px; border: 2px solid #f67a0a; padding: 10px 12px; margin-top: 20px; background-color: #fff8f0;">
+            <div>
+        <div style="font-weight: bold; color: #f67a0a;">Feasibility Score</div>
+        <small style="color: rgb(155, 155, 155); font-weight: medium;">The higher, the better.</small>
+
+              <div style="text-align: right; font-size: 18px; color: #f67a0a; font-weight: bold;">${getValue('ffi-value')} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+            </div>
+          </div>
+          
+          <div style="border: 2px solid #019cde; padding: 10px 12px; margin-top: 20px; background-color:rgb(240, 253, 255);">
+          <div>
+            <div style="font-weight: bold; color: #019cde;">Population Served</div>
+            <small style="color: rgb(155, 155, 155); font-weight: medium;">Numebr of people impacted along the Origin-Destination corridor.</small>
+            <div style="text-align: right; font-size: 18px; color: #019cde; font-weight: bold;">${getValue('population-served')} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+          </div>
+        </div>
+
+        </div>
+      `;
+      exportDashboardContent.appendChild(scoreContainer);
+      exportDashboardContainer.appendChild(exportDashboardContent);
+
+      // Bottom of exportDashboardContainer elevation query of line 
+      const elevationQueryContainer = document.createElement('div');
+      elevationQueryContainer.style.marginTop = '20px';
+      elevationQueryContainer.style.padding = '10px';
+      elevationQueryContainer.style.border = '1px solid #ccc';
+      elevationQueryContainer.style.borderRadius = '10px';
+      elevationQueryContainer.style.backgroundColor = '#f9f9f9';
+
+      const elevationQueryTitle = document.createElement('h3');
+      elevationQueryTitle.textContent = 'Elevation Profile';
+      elevationQueryTitle.style.marginBottom = '10px';
+      elevationQueryTitle.style.color = '#333';
+      elevationQueryTitle.style.fontSize = '18px';
+      elevationQueryTitle.style.fontWeight = 'bold';
+      elevationQueryContainer.appendChild(elevationQueryTitle);
+
+      const elevationQueryDescription = document.createElement('p');
+      elevationQueryDescription.textContent = 'The elevation profile of the proposed route is calculated based on the terrain data along the path. This helps in understanding the feasibility of the route in terms of elevation changes.';
+      elevationQueryDescription.style.color = '#666';
+      elevationQueryDescription.style.fontSize = '14px';
+      elevationQueryDescription.style.lineHeight = '1.5';
+      elevationQueryContainer.appendChild(elevationQueryDescription);
+
+      const elevationQueryButton = document.createElement('button');
+      elevationQueryButton.textContent = 'Generate Elevation Profile';
+      elevationQueryButton.style.marginTop = '10px';
+      elevationQueryButton.style.padding = '10px 20px';
+      elevationQueryButton.style.border = 'none';
+      elevationQueryButton.style.borderRadius = '5px';
+      elevationQueryButton.style.backgroundColor = '#f67a0a';
+      elevationQueryButton.style.color = '#fff';
+      elevationQueryButton.style.cursor = 'pointer';
+      elevationQueryButton.style.fontSize = '14px';
+      elevationQueryButton.style.fontWeight = 'bold';
+      elevationQueryContainer.appendChild(elevationQueryButton);
+
+      const elevationChartContainer = document.createElement('div');
+      elevationChartContainer.style.marginTop = '20px';
+      elevationChartContainer.style.height = '300px';
+      elevationChartContainer.style.width = '100%';
+      elevationChartContainer.style.display = 'none';
+      elevationQueryContainer.appendChild(elevationChartContainer);
+
+      elevationQueryButton.addEventListener('click', async () => {
+        elevationChartContainer.style.display = 'block';
+        elevationChartContainer.innerHTML = 'Generating elevation profile...';
+
+        const ffiPath = map.getSource('ffi-path')?._data?.geometry?.coordinates || [];
+        if (ffiPath.length === 0) {
+          elevationChartContainer.innerHTML = 'No route available to calculate elevation profile.';
+          return;
+        }
+
+        try {
+          const elevationData = await Promise.all(
+        ffiPath.map(async (coord) => {
+          const elevation = await getElevationAtPoint(coord);
+          return { coord, elevation };
+        })
+          );
+
+          const elevationProfile = elevationData.map(({ coord, elevation }, index) => ({
+        distance: index, // Use index as a proxy for distance
+        elevation,
+          }));
+
+          // Create a line chart using Chart.js
+          elevationChartContainer.innerHTML = ''; // Clear previous chart
+          const canvas = document.createElement('canvas');
+          elevationChartContainer.appendChild(canvas);
+
+          new Chart(canvas, {
+        type: 'line',
+        data: {
+          labels: elevationProfile.map((point) => `Point ${point.distance}`),
+          datasets: [
+            {
+          label: 'Elevation (m)',
+          data: elevationProfile.map((point) => point.elevation),
+          borderColor: '#f67a0a',
+          backgroundColor: 'rgba(246, 122, 10, 0.2)',
+          fill: true,
+          tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+          display: true,
+          position: 'top',
+            },
+          },
+          scales: {
+            x: {
+          title: {
+            display: true,
+            text: 'Route Points',
+          },
+            },
+            y: {
+          title: {
+            display: true,
+            text: 'Elevation (m)',
+          },
+            },
+          },
+        },
+          });
+        } catch (error) {
+          elevationChartContainer.innerHTML = 'Error generating elevation profile.';
+          console.error(error);
+        }
+      });
+
+      exportDashboardContainer.appendChild(elevationQueryContainer);
+
+
+
+
     // export paths in json
-    exportButton.addEventListener("click", () => {
+    shareButton.addEventListener("click", () => {
       const paths = [
       { id: 'e2i-path', color: '#00ff00', coordinates: map.getSource('e2i-path')?._data?.geometry?.coordinates || [] },
       { id: 'ffi-path', color: '#ffa500', coordinates: map.getSource('ffi-path')?._data?.geometry?.coordinates || [] },
@@ -4299,19 +4629,8 @@ function calculateFFI(tsi, sdi, e2i, opi, pei) {
       const blob = new Blob([report], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = url;
-      a.download = "rail_feasibility_paths.json";
-      a.click();
+      // a.href = url;
+      // a.download = "rail_feasibility_paths.json";
+      // a.click();
       URL.revokeObjectURL(url);
     });
-
-
-
-
-//bezier for radius for hsr
-//station placement - pop-gdp threshold
-
-//report layout/template
-
-
-
