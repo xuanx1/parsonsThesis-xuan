@@ -673,7 +673,7 @@ Singh, Daljit. "ASEAN’s Infrastructure Development: The Role of Rail Transport
 #### 6.5 Others
 “Open Train Project.” Travegeo. Accessed March 5, 2024, https://travegeo.com/articles/open-train-project/.
  
-OpenAI. ChatGPT, version GPT-4. March 18, 2025. Used for refining sentence structure and checking grammar. https://chat.openai.com.
+OpenAI. ChatGPT, version GPT-4. March 18, 2025. Used for code debugging, refining sentence structure and checking grammar. https://chat.openai.com.
 
 ##
 
