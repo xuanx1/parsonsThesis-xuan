@@ -9,8 +9,7 @@ const app = d3
   .style("padding", "0")
   .style("overflow", "hidden");
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoieHVhbngxMTEiLCJhIjoiY201dWhwZ2diMTg3dTJrcHRrZGx0eXc4diJ9.6k2pJftWF7A8MMzcVbWshg";
+mapboxgl.accessToken = "pk.eyJ1IjoieHVhbngxMTEiLCJhIjoiY201dWhwZ2diMTg3dTJrcHRrZGx0eXc4diJ9.6k2pJftWF7A8MMzcVbWshg";
 const map = new mapboxgl.Map({
   container: "map",
   zoom: 4,
@@ -164,21 +163,7 @@ map.on("load", () => {
       "line-color": "#ffffff",
       "line-width": 0.5,
     },
-    filter: [
-      "in",
-      "iso_3166_1_alpha_3",
-      "IDN",
-      "VNM",
-      "LAO",
-      "BRN",
-      "THA",
-      "MMR",
-      "PHL",
-      "KHM",
-      "TLS",
-      "SGP",
-      "MYS",
-    ],
+    filter: ["in", "iso_3166_1_alpha_3", "IDN", "VNM", "LAO", "BRN", "THA", "MMR", "PHL", "KHM", "TLS", "SGP", "MYS"],
   });
 
   // Black out the rest of the world
@@ -230,19 +215,7 @@ map.on("load", () => {
       "fill-color": "#000000",
       "fill-opacity": 0.4,
     },
-    filter: [
-      "in",
-      "iso_3166_1_alpha_3",
-      "CHN",
-      "RUS",
-      "JPN",
-      "IND",
-      "PAK",
-      "KOR",
-      "ARG",
-      "BTN",
-      "IND",
-    ],
+    filter: ["in", "iso_3166_1_alpha_3", "CHN", "RUS", "JPN", "IND", "PAK", "KOR", "ARG", "BTN", "IND"],
   });
 });
 
@@ -303,20 +276,14 @@ const createInsetMap = () => {
   insetContainer.appendChild(insetTitle);
 
   // remove logo from the inset map
-  const insetLogoElement = document.querySelector(
-    "#inset-map .mapboxgl-ctrl-logo"
-  );
+  const insetLogoElement = document.querySelector("#inset-map .mapboxgl-ctrl-logo");
   if (insetLogoElement) {
     insetLogoElement.style.display = "none"; // Hide the logo
   }
 
   insetMap.on("style.load", () => {
     insetMap.getStyle().layers.forEach((layer) => {
-      if (
-        layer.type === "symbol" &&
-        layer.layout &&
-        layer.layout["text-field"]
-      ) {
+      if (layer.type === "symbol" && layer.layout && layer.layout["text-field"]) {
         insetMap.setPaintProperty(layer.id, "text-color", "#d3d3d3");
       }
     });
@@ -363,19 +330,7 @@ const createInsetMap = () => {
         "fill-color": "#ffffff",
         "fill-opacity": 0.6,
       },
-      filter: [
-        "in",
-        "iso_3166_1_alpha_3",
-        "IDN",
-        "LAO",
-        "BRN",
-        "THA",
-        "MMR",
-        "KHM",
-        "TLS",
-        "SGP",
-        "MYS",
-      ],
+      filter: ["in", "iso_3166_1_alpha_3", "IDN", "LAO", "BRN", "THA", "MMR", "KHM", "TLS", "SGP", "MYS"],
     });
 
     insetMap.addLayer({
@@ -709,9 +664,9 @@ destinationSuggestionBox.style.overflowY = "auto";
 document.body.appendChild(destinationSuggestionBox);
 
 function fetchLocations(query, callback) {
-  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-    query
-  )}.json?access_token=${mapboxgl.accessToken}&bbox=90,-15,140,25`;
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${
+    mapboxgl.accessToken
+  }&bbox=90,-15,140,25`;
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -744,10 +699,7 @@ function handleInput(inputElement, suggestionBox, pinColor, markerReference) {
 
             // Add SVG marker
             const svgMarker = document.createElement("img");
-            svgMarker.src =
-              pinColor === "blue"
-                ? "images/marker_o.svg"
-                : "images/marker_d.svg";
+            svgMarker.src = pinColor === "blue" ? "images/marker_o.svg" : "images/marker_d.svg";
             svgMarker.alt = "Marker";
             svgMarker.style.width = "20px";
             svgMarker.style.height = "20px";
@@ -772,10 +724,7 @@ function handleInput(inputElement, suggestionBox, pinColor, markerReference) {
               markerReference.marker = new mapboxgl.Marker({
                 element: (() => {
                   const markerElement = document.createElement("img");
-                  markerElement.src =
-                    pinColor === "blue"
-                      ? "images/marker_o.svg"
-                      : "images/marker_d.svg";
+                  markerElement.src = pinColor === "blue" ? "images/marker_o.svg" : "images/marker_d.svg";
                   markerElement.alt = "Marker";
                   markerElement.style.width = "40px";
                   markerElement.style.height = "40px";
@@ -848,21 +797,14 @@ destinationClearButton.addEventListener("click", () => {
 document.body.appendChild(destinationClearButton);
 
 destinationInput.addEventListener("input", () => {
-  destinationClearButton.style.display = destinationInput.value
-    ? "block"
-    : "none";
+  destinationClearButton.style.display = destinationInput.value ? "block" : "none";
 });
 
 const originMarkerRef = { marker: null };
 const destinationMarkerRef = { marker: null };
 
 handleInput(originInput, originSuggestionBox, "blue", originMarkerRef); // Blue pin for origin
-handleInput(
-  destinationInput,
-  destinationSuggestionBox,
-  "red",
-  destinationMarkerRef
-); // Red pin for destination
+handleInput(destinationInput, destinationSuggestionBox, "red", destinationMarkerRef); // Red pin for destination
 
 originClearButton.addEventListener("click", () => {
   if (originMarkerRef.marker) {
@@ -940,8 +882,7 @@ dashboardToggleButtonContainer.style.alignItems = "center";
 dashboardToggleButtonContainer.style.backgroundColor = "#ffffff";
 dashboardToggleButtonContainer.style.padding = "5px 10px";
 dashboardToggleButtonContainer.style.borderRadius = "20px";
-dashboardToggleButtonContainer.style.boxShadow =
-  "0px 2px 5px rgba(0, 0, 0, 0.2)";
+dashboardToggleButtonContainer.style.boxShadow = "0px 2px 5px rgba(0, 0, 0, 0.2)";
 document.body.appendChild(dashboardToggleButtonContainer);
 
 const dashboardToggleButtonIcon = document.createElement("img");
@@ -1022,7 +963,121 @@ const updateFilterValue = (id, valueId) => {
   const valueDisplay = document.getElementById(valueId);
   slider.addEventListener("input", () => {
     valueDisplay.textContent = slider.value;
+
+    // Update the export dashboard content when the slider value changes
+    if (isExportDashboardOpen) {
+      // Re-generate the score container content with updated values
+      updateExportDashboardContent();
+    }
   });
+};
+
+// Add this new function to update the export dashboard content
+const updateExportDashboardContent = () => {
+  // Find the scoreContainer in the export dashboard
+  const scoreContainer = exportDashboardContainer.querySelector('div[style*="flex: 0.45"]');
+  if (!scoreContainer) return;
+
+  // Update the content with the current values
+  scoreContainer.innerHTML = `
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+    
+    <div style="margin-left: -15px; display: flex; align-items: center; gap: 0px;">
+  <img src="./images/marker_o.svg" alt="Origin" style="width: 40px; height: 40px;">
+  <span style="font-weight: bold; color: rgb(133, 133, 133); letter-spacing: 3px; font-size: 21px;">ORIGIN</span>
+    </div>
+    
+    <div style="margin-bottom: 5px;font-size: 16px; color: rgb(109, 109, 109);">${originInput.value || "N/A"}</div>
+
+    <div style="margin-left: -15px; display: flex; align-items: center; gap: 0px;">
+  <img src="./images/marker_d.svg" alt="Destination Marker" style="width: 40px; height: 40px;">
+  <span style="font-weight: bold; color: rgb(133, 133, 133); letter-spacing: 3px; font-size: 21px;">DESTINATION</span>
+    </div>
+    
+    <div style="font-size: 16px; color: rgb(109, 109, 109);">${destinationInput.value || "N/A"}</div>
+  <br>
+    <div style="display: flex; justify-content: space-between;">
+  <span style="font-weight: bold; color: rgb(133, 133, 133); letter-spacing: 3px; font-size: 21px;">INDEXES</span>
+    </div>
+
+    <div>
+  <div style="margin-top: 2px; display: flex; justify-content: space-between;">
+    <span style="font-weight: bold; color: rgb(109, 109, 109);">Tsunami Risk Index</span>
+  </div>
+  <small style="color: rgb(161, 161, 161); font-weight: medium;">The higher, the better.</small>
+  
+  <div style="text-align: right; font-size: 16px; color: rgb(182, 182, 182); font-weight: bold;">${getValue(
+    "tsi-value"
+  )} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+    </div>
+
+    <div>
+  <div style="margin-top: 0px; display: flex; justify-content: space-between;">
+    <span style=" font-weight: bold; color: rgb(109, 109, 109);">Structure Durability Index</span>
+  </div>
+  <small style="color: rgb(161, 161, 161); font-weight: medium;">The higher, the better.</small>
+
+  <div style="text-align: right; font-size: 16px; color: rgb(182, 182, 182); font-weight: bold;">${getValue(
+    "sdi-value"
+  )} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+    </div>
+
+    <div>
+  <div style="margin-top: 0px; display: flex; justify-content: space-between;">
+    <span style="font-weight: bold; color: rgb(109, 109, 109);">Environment Impact Index</span>
+  </div>
+  <small style="color: rgb(161, 161, 161); font-weight: medium;">The higher, the better.</small>
+
+  <div style="text-align: right; font-size: 16px; color: rgb(182, 182, 182); font-weight: bold;">${getValue(
+    "e2i-value"
+  )} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+    </div>
+
+    <div>
+  <div style="margin-top: 0px; display: flex; justify-content: space-between;">
+    <span style="font-weight: bold; color: rgb(109, 109, 109);">Operability Index</span>
+  </div>
+  <small style="color: rgb(161, 161, 161); font-weight: medium;">The higher, the better.</small>
+
+  <div style="text-align: right; font-size: 16px; color: rgb(182, 182, 182); font-weight: bold;">${getValue(
+    "opi-value"
+  )} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+    </div>
+
+    <div>
+  <div style="margin-top: 0px; display: flex; justify-content: space-between;">
+    <span style="font-weight: bold; color: rgb(109, 109, 109);">Population-Economic Index</span>
+  </div>
+  <small style="color: rgb(161, 161, 161); font-weight: medium;">The higher, the better.</small>
+
+  <div style="text-align: right; font-size: 16px; color: rgb(182, 182, 182); font-weight: bold;">${getValue(
+    "pei-value"
+  )} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+    </div>
+
+    <div style="margin-top: 0px; border: 2px solid #f67a0a; padding: 10px 12px; background-color: #fff8f0;">
+  <div>
+    <div style="font-weight: bold; color: #f67a0a;">Feasibility Score</div>
+    <small style="color: rgb(155, 155, 155); font-weight: medium;">The higher, the better.</small>
+
+    <div style="text-align: right; font-size: 18px; color: #f67a0a; font-weight: bold;">${getValue(
+      "ffi-value"
+    )} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+  </div>
+    </div>
+    
+    <div style="border: 2px solid #019cde; padding: 10px 12px; margin-top: 10px; background-color:rgb(240, 253, 255);">
+  <div>
+    <div style="font-weight: bold; color: #019cde;">Population Served</div>
+    <small style="color: rgb(155, 155, 155); font-weight: medium;">Number of people impacted along the Origin-Destination corridor.</small>
+    <div style="text-align: right; font-size: 18px; color: #019cde; font-weight: bold;">${getValue(
+      "population-served"
+    )} <span style="font-size: 20px; color: rgb(119, 119, 119);">/ 1</span></div>
+  </div>
+    </div>
+
+  </div>
+  `;
 };
 
 updateFilterValue("tsi-filter", "tsi-value");
@@ -1081,8 +1136,7 @@ layersDashboardToggleButtonContainer.style.alignItems = "center";
 layersDashboardToggleButtonContainer.style.backgroundColor = "#ffffff";
 layersDashboardToggleButtonContainer.style.padding = "5px 10px";
 layersDashboardToggleButtonContainer.style.borderRadius = "20px";
-layersDashboardToggleButtonContainer.style.boxShadow =
-  "0px 2px 5px rgba(0, 0, 0, 0.2)";
+layersDashboardToggleButtonContainer.style.boxShadow = "0px 2px 5px rgba(0, 0, 0, 0.2)";
 document.body.appendChild(layersDashboardToggleButtonContainer);
 
 const layersDashboardToggleButtonIcon = document.createElement("img");
@@ -1091,18 +1145,14 @@ layersDashboardToggleButtonIcon.alt = "Layers";
 layersDashboardToggleButtonIcon.style.width = "20px";
 layersDashboardToggleButtonIcon.style.height = "20px";
 layersDashboardToggleButtonIcon.style.marginRight = "3px";
-layersDashboardToggleButtonContainer.appendChild(
-  layersDashboardToggleButtonIcon
-);
+layersDashboardToggleButtonContainer.appendChild(layersDashboardToggleButtonIcon);
 
 const layersDashboardToggleButtonText = document.createElement("span");
 layersDashboardToggleButtonText.textContent = "Layers";
 layersDashboardToggleButtonText.style.fontSize = "14px";
 layersDashboardToggleButtonText.style.color = "#333";
 layersDashboardToggleButtonText.style.fontWeight = "bold";
-layersDashboardToggleButtonContainer.appendChild(
-  layersDashboardToggleButtonText
-);
+layersDashboardToggleButtonContainer.appendChild(layersDashboardToggleButtonText);
 
 // toggle layers dashboard
 let isLayersDashboardOpen = false;
@@ -1344,10 +1394,7 @@ map.on("load", () => {
     .style("background-color", "#4181f2")
     .style("filter", "brightness(100%)") // Start as coloured
     .on("click", () => {
-      const visibility = map.getLayoutProperty(
-        "sea-coastline-layer",
-        "visibility"
-      );
+      const visibility = map.getLayoutProperty("sea-coastline-layer", "visibility");
       if (visibility === "visible") {
         map.setLayoutProperty("sea-coastline-layer", "visibility", "none");
         coastlineButton.style("filter", "brightness(30%)"); // Greyed out
@@ -1412,15 +1459,7 @@ d3.json("data/worldQuakesMiles.json").then((data) => {
       type: "circle",
       source: "earthquakes",
       paint: {
-        "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["get", "mag"],
-          0,
-          4,
-          5,
-          5,
-        ],
+        "circle-radius": ["interpolate", ["linear"], ["get", "mag"], 0, 4, 5, 5],
         "circle-color": "#ff7900", // Orange
         "circle-opacity": 0.3,
         // 'circle-stroke-width': 1,
@@ -1455,10 +1494,7 @@ d3.json("data/worldQuakesMiles.json").then((data) => {
     .style("background-color", "#ff7900")
     .style("filter", "brightness(100%)") // Start as greyed out
     .on("click", () => {
-      const visibility = map.getLayoutProperty(
-        "earthquake-points",
-        "visibility"
-      );
+      const visibility = map.getLayoutProperty("earthquake-points", "visibility");
       if (visibility === "visible") {
         map.setLayoutProperty("earthquake-points", "visibility", "none");
         earthquakeButton.style("filter", "brightness(30%)"); // Greyed out
@@ -1534,15 +1570,7 @@ d3.tsv("data/tsunami.tsv").then((data) => {
       type: "circle",
       source: "tsunami",
       paint: {
-        "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["get", "mag"],
-          0,
-          4,
-          10,
-          20,
-        ],
+        "circle-radius": ["interpolate", ["linear"], ["get", "mag"], 0, 4, 10, 20],
         "circle-color": "#6dbefe", // Teal #00be9d
         "circle-opacity": 0.4,
         "circle-stroke-width": 1,
@@ -1576,10 +1604,7 @@ d3.tsv("data/tsunami.tsv").then((data) => {
       .style("background-color", "#6dbefe")
       .style("filter", "brightness(30%)") // Start as greyed out
       .on("click", () => {
-        const visibility = map.getLayoutProperty(
-          "tsunami-points",
-          "visibility"
-        );
+        const visibility = map.getLayoutProperty("tsunami-points", "visibility");
         if (visibility === "visible") {
           map.setLayoutProperty("tsunami-points", "visibility", "none");
           toggleButton.style("filter", "brightness(30%)"); // Greyed out
@@ -1689,10 +1714,7 @@ map.on("load", function () {
 
     map.addSource(sourceId, {
       type: "raster",
-      tiles: [
-        `https://api.mapbox.com/v4/${tileset}/{z}/{x}/{y}@2x.jpg?access_token=` +
-          mapboxgl.accessToken,
-      ],
+      tiles: [`https://api.mapbox.com/v4/${tileset}/{z}/{x}/{y}@2x.jpg?access_token=` + mapboxgl.accessToken],
       tileSize: 256,
     });
 
@@ -1745,10 +1767,7 @@ map.on("load", function () {
             isActive = true;
           }
         });
-        toggleButton.style(
-          "filter",
-          isActive ? "brightness(100%)" : "brightness(30%)"
-        ); // Update button color
+        toggleButton.style("filter", isActive ? "brightness(100%)" : "brightness(30%)"); // Update button color
       });
 
     // hover description
@@ -1933,10 +1952,7 @@ map.on("load", function () {
         .style("background-color", "#228B22")
         .style("filter", "brightness(30%)") // Start as greyed out
         .on("click", () => {
-          const visibility = map.getLayoutProperty(
-            "forest-layer",
-            "visibility"
-          );
+          const visibility = map.getLayoutProperty("forest-layer", "visibility");
           if (visibility === "visible") {
             map.setLayoutProperty("forest-layer", "visibility", "none");
             toggleButton.style("filter", "brightness(30%)"); // Greyed out
@@ -1971,9 +1987,7 @@ map.on("load", function () {
           descriptionWindow.style("display", "none");
         });
     })
-    .catch((error) =>
-      console.error("Error loading GeoJSON (sea_forest_vect.geojson):", error)
-    );
+    .catch((error) => console.error("Error loading GeoJSON (sea_forest_vect.geojson):", error));
 });
 
 map.on("style.load", () => {
@@ -2034,10 +2048,7 @@ map.on("style.load", () => {
         .style("background-color", "#daa520") // Mustard yellow
         .style("filter", "brightness(30%)") // Start as greyed out
         .on("click", () => {
-          const visibility = map.getLayoutProperty(
-            "amphibians-layer",
-            "visibility"
-          );
+          const visibility = map.getLayoutProperty("amphibians-layer", "visibility");
           if (visibility === "visible") {
             map.setLayoutProperty("amphibians-layer", "visibility", "none");
             amphibiansButton.style("filter", "brightness(30%)"); // Greyed out
@@ -2072,9 +2083,7 @@ map.on("style.load", () => {
           amphibiansDescription.style("display", "none");
         });
     })
-    .catch((error) =>
-      console.error("Error loading GeoJSON (amphibians_vect.geojson):", error)
-    );
+    .catch((error) => console.error("Error loading GeoJSON (amphibians_vect.geojson):", error));
 });
 
 map.on("style.load", () => {
@@ -2170,9 +2179,7 @@ map.on("style.load", () => {
           birdsDescription.style("display", "none");
         });
     })
-    .catch((error) =>
-      console.error("Error loading GeoJSON (birds_vect.geojson):", error)
-    );
+    .catch((error) => console.error("Error loading GeoJSON (birds_vect.geojson):", error));
 });
 
 map.on("style.load", () => {
@@ -2233,10 +2240,7 @@ map.on("style.load", () => {
         .style("background-color", "#800080")
         .style("filter", "brightness(30%)") // Start as greyed out
         .on("click", () => {
-          const visibility = map.getLayoutProperty(
-            "mammals-layer",
-            "visibility"
-          );
+          const visibility = map.getLayoutProperty("mammals-layer", "visibility");
           if (visibility === "visible") {
             map.setLayoutProperty("mammals-layer", "visibility", "none");
             mammalsButton.style("filter", "brightness(30%)"); // Greyed out
@@ -2271,9 +2275,7 @@ map.on("style.load", () => {
           mammalsDescription.style("display", "none");
         });
     })
-    .catch((error) =>
-      console.error("Error loading GeoJSON (mammals_vect1.geojson):", error)
-    );
+    .catch((error) => console.error("Error loading GeoJSON (mammals_vect1.geojson):", error));
 });
 
 // country's key connectivity infrastructure
@@ -2382,10 +2384,7 @@ map.on("load", function () {
 
   map.addSource(sourceId, {
     type: "raster",
-    tiles: [
-      `https://api.mapbox.com/v4/${tileset}/{z}/{x}/{y}@2x.jpg?access_token=` +
-        mapboxgl.accessToken,
-    ],
+    tiles: [`https://api.mapbox.com/v4/${tileset}/{z}/{x}/{y}@2x.jpg?access_token=` + mapboxgl.accessToken],
     tileSize: 256,
   });
 
@@ -3026,8 +3025,7 @@ window.addEventListener("load", () => {
   // Page 2
   const page2Content = () => {
     dialogTitle.textContent = "Explore Criteria of Feasibility";
-    dialogsubTitle.textContent =
-      "Move the Cursor Over Each Icon to Reveal the Criteria.";
+    dialogsubTitle.textContent = "Move the Cursor Over Each Icon to Reveal the Criteria.";
     dialogMessage.innerHTML = `
       <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 50px; margin-bottom: 50px;">
       <div style="display: flex; flex-direction: column; gap: 44px;">
@@ -3210,9 +3208,7 @@ const getElevationAtPoint = async (coordinates) => {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(
-        `HTTP error! status: ${response.status} - ${response.statusText}`
-      );
+      throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
     }
     const data = await response.json();
     if (data.features && data.features.length > 0) {
@@ -3241,9 +3237,7 @@ async function getElevationScore(coordinates) {
     elevationScore = Math.min(elevationScore, 1.0); // Cap at 1.0
   }
 
-  console.log(
-    `Elevation: ${elevation}m, Elevation Score: ${elevationScore.toFixed(2)}`
-  );
+  console.log(`Elevation: ${elevation}m, Elevation Score: ${elevationScore.toFixed(2)}`);
   return elevationScore;
 }
 
@@ -3255,9 +3249,7 @@ async function getElevationScore(coordinates) {
 
 // coastlineScore from earth-coastlines.geo.json - > 10 km from Coast – Score ~ 0.67 - 1.0, 5 - 10 km from Coast – Score ~ 0.34 - 0.66, 0 - 5 km from Coast – Score < 0.33 + console log
 async function getCoastlineScore(coordinates) {
-  const coastlineData = await fetch("data/earth-coastlines.geo.json").then(
-    (res) => res.json()
-  );
+  const coastlineData = await fetch("data/earth-coastlines.geo.json").then((res) => res.json());
   const point = turf.point(coordinates);
   let minDistance = Infinity;
 
@@ -3341,11 +3333,7 @@ async function getTsunamiScore(coordinates) {
 
 // final tsi
 function calculateTSI(elevationScore, coastlineScore, tsunamiScore) {
-  return (
-    0.2 * elevationScore +
-    0.4 * coastlineScore +
-    0.4 * invertScore(tsunamiScore)
-  );
+  return 0.2 * elevationScore + 0.4 * coastlineScore + 0.4 * invertScore(tsunamiScore);
 }
 
 // // Eg for Siem Reap
@@ -3364,9 +3352,7 @@ function calculateTSI(elevationScore, coastlineScore, tsunamiScore) {
 
 // seismicScore - > 150 km Away – Score ~ 0.67 - 1.0, 50 - 150 km Away – Score ~ 0.34 - 0.66, 0 - 50 km Away – Score < 0.33
 async function getSeismicScore(coordinates) {
-  const earthquakeData = await fetch("data/worldQuakesMiles.json").then((res) =>
-    res.json()
-  );
+  const earthquakeData = await fetch("data/worldQuakesMiles.json").then((res) => res.json());
 
   const point = turf.point(coordinates);
   const radius = 150; // 150 km radius
@@ -3411,9 +3397,7 @@ async function getSeismicScore(coordinates) {
 // humidty score - High Humidity (> 80%) – Score < 0.33, Moderate Humidity (50% - 80%) – Score ~ 0.34 - 0.66, Low Humidity (< 50%) – Score 0.67 - 1.0
 
 async function getHumidityScore(coordinates) {
-  const humidityData = await fetch("data/avgHU_vect.geojson").then((res) =>
-    res.json()
-  );
+  const humidityData = await fetch("data/avgHU_vect.geojson").then((res) => res.json());
   const point = turf.point(coordinates);
 
   let humidityValue = null;
@@ -3444,18 +3428,8 @@ async function getHumidityScore(coordinates) {
 // });
 
 // final sdi
-function calculateSDI(
-  seismicScore,
-  elevationScore,
-  coastlineScore,
-  humidityScore
-) {
-  return (
-    0.4 * seismicScore +
-    0.25 * elevationScore +
-    0.2 * coastlineScore +
-    0.15 * invertScore(humidityScore)
-  );
+function calculateSDI(seismicScore, elevationScore, coastlineScore, humidityScore) {
+  return 0.4 * seismicScore + 0.25 * elevationScore + 0.2 * coastlineScore + 0.15 * invertScore(humidityScore);
 }
 
 // // sdi for hanoi
@@ -3475,9 +3449,7 @@ function calculateSDI(
 
 // landUseChange - Land Use Change < 10% – Score ~ 0.67 - 1.0, Land Use Change 10 - 25% – Score ~ 0.34 - 0.66, Land Use Change > 25% – Score < 0.33 - based on percentage of line intersecting with forest geojson
 async function getLandUseChangeScore(route) {
-  const forestData = await fetch("data/sea_forest_vect.geojson").then((res) =>
-    res.json()
-  );
+  const forestData = await fetch("data/sea_forest_vect.geojson").then((res) => res.json());
   const routeLine = turf.lineString(route.coordinates);
 
   let totalIntersectLength = 0;
@@ -3486,38 +3458,27 @@ async function getLandUseChangeScore(route) {
   forestData.features.forEach((feature) => {
     const intersection = turf.lineIntersect(routeLine, feature);
     if (intersection.features.length > 0) {
-      const intersectLine = turf.lineString(
-        intersection.features.map((f) => f.geometry.coordinates)
-      );
+      const intersectLine = turf.lineString(intersection.features.map((f) => f.geometry.coordinates));
       totalIntersectLength += turf.length(intersectLine, {
         units: "kilometers",
       });
     }
   });
 
-  const landUseChangePercentage =
-    (totalIntersectLength / totalRouteLength) * 100;
-  console.log(
-    `Land Use Change Percentage: ${landUseChangePercentage.toFixed(2)}%`
-  );
+  const landUseChangePercentage = (totalIntersectLength / totalRouteLength) * 100;
+  console.log(`Land Use Change Percentage: ${landUseChangePercentage.toFixed(2)}%`);
 
   let landUseChangeScore;
   if (landUseChangePercentage <= 11) {
     landUseChangeScore = 1.0; // Max score for very light green
   } else if (landUseChangePercentage <= 29) {
-    landUseChangeScore =
-      1.0 - ((landUseChangePercentage - 11) / 18) * (1.0 - 0.8); // Linear decrease from 1.0 to 0.8 between 12% and 29%
+    landUseChangeScore = 1.0 - ((landUseChangePercentage - 11) / 18) * (1.0 - 0.8); // Linear decrease from 1.0 to 0.8 between 12% and 29%
   } else if (landUseChangePercentage <= 47) {
-    landUseChangeScore =
-      0.8 - ((landUseChangePercentage - 29) / 18) * (0.8 - 0.6); // Linear decrease from 0.8 to 0.6 between 30% and 47%
+    landUseChangeScore = 0.8 - ((landUseChangePercentage - 29) / 18) * (0.8 - 0.6); // Linear decrease from 0.8 to 0.6 between 30% and 47%
   } else if (landUseChangePercentage <= 104) {
-    landUseChangeScore =
-      0.6 - ((landUseChangePercentage - 47) / 57) * (0.6 - 0.4); // Linear decrease from 0.6 to 0.4 between 48% and 104%
+    landUseChangeScore = 0.6 - ((landUseChangePercentage - 47) / 57) * (0.6 - 0.4); // Linear decrease from 0.6 to 0.4 between 48% and 104%
   } else {
-    landUseChangeScore = Math.max(
-      0.4 - ((landUseChangePercentage - 104) / 151) * 0.4,
-      0
-    ); // Further decrease beyond 104%
+    landUseChangeScore = Math.max(0.4 - ((landUseChangePercentage - 104) / 151) * 0.4, 0); // Further decrease beyond 104%
   }
 
   console.log(`Land Use Change Score: ${landUseChangeScore.toFixed(2)}`);
@@ -3539,9 +3500,7 @@ async function getLandUseChangeScore(route) {
 // biodiversityScore - Biodiversity Impact < 10% – Score ~ 0.67 - 1.0, Biodiversity Impact 10 - 14% – Score ~ 0.34 - 0.66, Biodiversity Impact > 14% – Score < 0.33 - based on percentage of line intersecting with biodiversity 3x geojson
 
 async function getMammalsScore(route) {
-  const mammalsData = await fetch("data/mammals_vect1.geojson").then((res) =>
-    res.json()
-  );
+  const mammalsData = await fetch("data/mammals_vect1.geojson").then((res) => res.json());
   const routeLine = turf.lineString(route.coordinates);
 
   let totalIntersectLength = 0;
@@ -3561,11 +3520,8 @@ async function getMammalsScore(route) {
     }
   });
 
-  const mammalsImpactPercentage =
-    (totalIntersectLength / totalRouteLength) * 100;
-  console.log(
-    `Mammals Impact Percentage: ${mammalsImpactPercentage.toFixed(2)}%`
-  );
+  const mammalsImpactPercentage = (totalIntersectLength / totalRouteLength) * 100;
+  console.log(`Mammals Impact Percentage: ${mammalsImpactPercentage.toFixed(2)}%`);
 
   let mammalsScore;
   if (mammalsImpactPercentage <= 10) {
@@ -3575,10 +3531,7 @@ async function getMammalsScore(route) {
   } else if (mammalsImpactPercentage <= 50) {
     mammalsScore = 0.67 - ((mammalsImpactPercentage - 30) / 20) * (0.67 - 0.33); // Linear decrease from 0.67 to 0.33 between 30% and 50%
   } else {
-    mammalsScore = Math.max(
-      0.33 - ((mammalsImpactPercentage - 50) / 50) * 0.33,
-      0
-    ); // Further decrease beyond 50%
+    mammalsScore = Math.max(0.33 - ((mammalsImpactPercentage - 50) / 50) * 0.33, 0); // Further decrease beyond 50%
   }
 
   console.log(`Mammals Score: ${mammalsScore.toFixed(2)}`);
@@ -3586,9 +3539,7 @@ async function getMammalsScore(route) {
 }
 
 async function getBirdsScore(route) {
-  const birdsData = await fetch("data/birds_vect.geojson").then((res) =>
-    res.json()
-  );
+  const birdsData = await fetch("data/birds_vect.geojson").then((res) => res.json());
   const routeLine = turf.lineString(route.coordinates);
 
   let totalIntersectLength = 0;
@@ -3627,9 +3578,7 @@ async function getBirdsScore(route) {
 }
 
 async function getAmphibiansScore(route) {
-  const amphibiansData = await fetch("data/amphibians_vect.geojson").then(
-    (res) => res.json()
-  );
+  const amphibiansData = await fetch("data/amphibians_vect.geojson").then((res) => res.json());
   const routeLine = turf.lineString(route.coordinates);
 
   let totalIntersectLength = 0;
@@ -3649,26 +3598,18 @@ async function getAmphibiansScore(route) {
     }
   });
 
-  const amphibiansImpactPercentage =
-    (totalIntersectLength / totalRouteLength) * 100;
-  console.log(
-    `Amphibians Impact Percentage: ${amphibiansImpactPercentage.toFixed(2)}%`
-  );
+  const amphibiansImpactPercentage = (totalIntersectLength / totalRouteLength) * 100;
+  console.log(`Amphibians Impact Percentage: ${amphibiansImpactPercentage.toFixed(2)}%`);
 
   let amphibiansScore;
   if (amphibiansImpactPercentage <= 10) {
     amphibiansScore = 1.0; // Max score for minimal impact
   } else if (amphibiansImpactPercentage <= 30) {
-    amphibiansScore =
-      1.0 - ((amphibiansImpactPercentage - 10) / 20) * (1.0 - 0.67); // Linear decrease from 1.0 to 0.67 between 10% and 30%
+    amphibiansScore = 1.0 - ((amphibiansImpactPercentage - 10) / 20) * (1.0 - 0.67); // Linear decrease from 1.0 to 0.67 between 10% and 30%
   } else if (amphibiansImpactPercentage <= 50) {
-    amphibiansScore =
-      0.67 - ((amphibiansImpactPercentage - 30) / 20) * (0.67 - 0.33); // Linear decrease from 0.67 to 0.33 between 30% and 50%
+    amphibiansScore = 0.67 - ((amphibiansImpactPercentage - 30) / 20) * (0.67 - 0.33); // Linear decrease from 0.67 to 0.33 between 30% and 50%
   } else {
-    amphibiansScore = Math.max(
-      0.33 - ((amphibiansImpactPercentage - 50) / 50) * 0.33,
-      0
-    ); // Further decrease beyond 50%
+    amphibiansScore = Math.max(0.33 - ((amphibiansImpactPercentage - 50) / 50) * 0.33, 0); // Further decrease beyond 50%
   }
 
   console.log(`Amphibians Score: ${amphibiansScore.toFixed(2)}`);
@@ -3682,26 +3623,17 @@ async function calculateBiodiversityImpactScore(route) {
     getMammalsScore(route),
   ]);
 
-  const biodiversityImpact =
-    1 - birdsScore + (1 - amphibiansScore) + (1 - mammalsScore);
+  const biodiversityImpact = 1 - birdsScore + (1 - amphibiansScore) + (1 - mammalsScore);
   const biodiversityImpactPercentage = (biodiversityImpact / 3) * 100; // Normalize to percentage
-  console.log(
-    `Biodiversity Impact Percentage: ${biodiversityImpactPercentage.toFixed(
-      2
-    )}%`
-  );
+  console.log(`Biodiversity Impact Percentage: ${biodiversityImpactPercentage.toFixed(2)}%`);
 
   let biodiversityScore;
   if (biodiversityImpactPercentage <= 10) {
     biodiversityScore = 1.0; // Max score for minimal impact
   } else if (biodiversityImpactPercentage <= 14) {
-    biodiversityScore =
-      1.0 - ((biodiversityImpactPercentage - 10) / 4) * (1.0 - 0.67); // Linear decrease from 1.0 to 0.67 between 10% and 14%
+    biodiversityScore = 1.0 - ((biodiversityImpactPercentage - 10) / 4) * (1.0 - 0.67); // Linear decrease from 1.0 to 0.67 between 10% and 14%
   } else {
-    biodiversityScore = Math.max(
-      0.67 - ((biodiversityImpactPercentage - 14) / 86) * 0.67,
-      0
-    ); // Further decrease beyond 14%
+    biodiversityScore = Math.max(0.67 - ((biodiversityImpactPercentage - 14) / 86) * 0.67, 0); // Further decrease beyond 14%
   }
 
   console.log(`Biodiversity Impact Score: ${biodiversityScore.toFixed(2)}`);
@@ -3722,10 +3654,7 @@ async function calculateBiodiversityImpactScore(route) {
 
 // final e2i
 function calculateE2I(landUseChangeScore, biodiversityScore) {
-  return (
-    0.55 * invertScore(landUseChangeScore) +
-    0.45 * invertScore(biodiversityScore)
-  );
+  return 0.55 * invertScore(landUseChangeScore) + 0.45 * invertScore(biodiversityScore);
 }
 
 // // e2i for jakarta to bandung
@@ -3753,9 +3682,7 @@ async function getElevationScoreOPI(coordinates) {
     elevationScoreOPI = 1 - (elevation - 50) / 10; // Linear decrease from 1 to 0 between 50m and 60m
   }
 
-  console.log(
-    `Elevation: ${elevation}m, Elevation Score: ${elevationScoreOPI.toFixed(2)}`
-  );
+  console.log(`Elevation: ${elevation}m, Elevation Score: ${elevationScoreOPI.toFixed(2)}`);
   return elevationScoreOPI;
 }
 
@@ -3784,18 +3711,12 @@ async function getNetworkDensityScore(coordinates, radius = 100) {
   const query = `
     [out:json][timeout:25];
     (
-      way["highway"](around:${radius * 1000},${coordinates[1]},${
-    coordinates[0]
-  });
-      way["railway"](around:${radius * 1000},${coordinates[1]},${
-    coordinates[0]
-  });
+      way["highway"](around:${radius * 1000},${coordinates[1]},${coordinates[0]});
+      way["railway"](around:${radius * 1000},${coordinates[1]},${coordinates[0]});
     );
     out geom qt 500;  // Limit the number of features returned per city
   `;
-  const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(
-    query
-  )}`;
+  const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
 
   try {
     const response = await fetch(url);
@@ -3873,23 +3794,15 @@ async function processCitiesInBatches(cities, batchSize = 2, delayMs = 1000) {
 
 // get shortest distance to urban centers + score Low Accessibility (> 50 km from urban center) – Score < 0.33, Moderate Accessibility (15 km - 50 km from urban center) – Score ~ 0.34 - 0.66, High Accessibility (< 15 km from urban center) – Score 0.67 - 1.0
 async function getUrbanProximityScore(coordinates) {
-  const urbanCenters = majorCities.features.map(
-    (city) => city.geometry.coordinates
-  );
+  const urbanCenters = majorCities.features.map((city) => city.geometry.coordinates);
   let minDistance = Infinity;
 
   urbanCenters.forEach((center) => {
-    const distance = turf.distance(
-      turf.point(coordinates),
-      turf.point(center),
-      { units: "kilometers" }
-    );
+    const distance = turf.distance(turf.point(coordinates), turf.point(center), { units: "kilometers" });
     minDistance = Math.min(minDistance, distance);
   });
 
-  console.log(
-    `Shortest Distance to Urban Center: ${minDistance.toFixed(2)} km`
-  );
+  console.log(`Shortest Distance to Urban Center: ${minDistance.toFixed(2)} km`);
 
   let urbanProximityScore;
   if (minDistance < 15) {
@@ -3938,9 +3851,7 @@ async function getPopulationDensityScore(coordinates) {
   const zoomLevel = 12; // Adjust zoom level as needed
   const [lng, lat] = coordinates;
   const radiusKm = 20;
-  const radiusPixels = Math.ceil(
-    (radiusKm * 256) / (40075 / Math.pow(2, zoomLevel))
-  ); // Convert radius to pixels
+  const radiusPixels = Math.ceil((radiusKm * 256) / (40075 / Math.pow(2, zoomLevel))); // Convert radius to pixels
 
   const tilesets = [
     "xuanx111.3josh1wj",
@@ -3960,12 +3871,7 @@ async function getPopulationDensityScore(coordinates) {
   for (const tilesetId of tilesets) {
     const tileX = Math.floor(((lng + 180) / 360) * Math.pow(2, zoomLevel));
     const tileY = Math.floor(
-      ((1 -
-        Math.log(
-          Math.tan((lat * Math.PI) / 180) + 1 / Math.cos((lat * Math.PI) / 180)
-        ) /
-          Math.PI) /
-        2) *
+      ((1 - Math.log(Math.tan((lat * Math.PI) / 180) + 1 / Math.cos((lat * Math.PI) / 180)) / Math.PI) / 2) *
         Math.pow(2, zoomLevel)
     );
 
@@ -3988,17 +3894,9 @@ async function getPopulationDensityScore(coordinates) {
       const context = canvas.getContext("2d");
       context.drawImage(imageBitmap, 0, 0);
 
-      const centerX = Math.floor(
-        (((lng + 180) % 360) / 360) * imageBitmap.width
-      );
+      const centerX = Math.floor((((lng + 180) % 360) / 360) * imageBitmap.width);
       const centerY = Math.floor(
-        ((1 -
-          Math.log(
-            Math.tan((lat * Math.PI) / 180) +
-              1 / Math.cos((lat * Math.PI) / 180)
-          ) /
-            Math.PI) /
-          2) *
+        ((1 - Math.log(Math.tan((lat * Math.PI) / 180) + 1 / Math.cos((lat * Math.PI) / 180)) / Math.PI) / 2) *
           imageBitmap.height
       );
 
@@ -4010,12 +3908,7 @@ async function getPopulationDensityScore(coordinates) {
           const pixelX = centerX + x;
           const pixelY = centerY + y;
 
-          if (
-            pixelX >= 0 &&
-            pixelX < imageBitmap.width &&
-            pixelY >= 0 &&
-            pixelY < imageBitmap.height
-          ) {
+          if (pixelX >= 0 && pixelX < imageBitmap.width && pixelY >= 0 && pixelY < imageBitmap.height) {
             const distance = Math.sqrt(x * x + y * y);
             if (distance <= radiusPixels) {
               const pixelData = context.getImageData(pixelX, pixelY, 1, 1).data;
@@ -4032,34 +3925,21 @@ async function getPopulationDensityScore(coordinates) {
       const populationDensity = totalPopulation / areaKm2;
 
       console.log(`Total Population: ${totalPopulation}`);
-      console.log(
-        `Population Density: ${populationDensity.toFixed(2)} people/km²`
-      );
+      console.log(`Population Density: ${populationDensity.toFixed(2)} people/km²`);
 
       let populationDensityScore;
       if (populationDensity < 500) {
         populationDensityScore = (populationDensity / 500) * 0.33; // Scale < 500 people/km²
       } else if (populationDensity <= 5000) {
-        populationDensityScore =
-          0.34 + ((populationDensity - 500) / 4500) * 0.32; // Scale 500-5,000 people/km²
+        populationDensityScore = 0.34 + ((populationDensity - 500) / 4500) * 0.32; // Scale 500-5,000 people/km²
       } else {
-        populationDensityScore = Math.min(
-          0.67 + ((populationDensity - 5000) / 5000) * 0.33,
-          1.0
-        ); // Scale > 5,000 people/km²
+        populationDensityScore = Math.min(0.67 + ((populationDensity - 5000) / 5000) * 0.33, 1.0); // Scale > 5,000 people/km²
       }
 
-      console.log(
-        `Population Density Score from tileset ${tilesetId}: ${populationDensityScore.toFixed(
-          2
-        )}`
-      );
+      console.log(`Population Density Score from tileset ${tilesetId}: ${populationDensityScore.toFixed(2)}`);
       return populationDensityScore; // Return the score from the first matching tileset
     } catch (error) {
-      console.error(
-        `Error fetching population density from tileset ${tilesetId}:`,
-        error
-      );
+      console.error(`Error fetching population density from tileset ${tilesetId}:`, error);
     }
   }
 
@@ -4083,17 +3963,9 @@ async function getPopulationDensityScore(coordinates) {
 // });
 
 // final opi
-function calculateOPI(
-  elevationScoreOPI,
-  computeNetworkScore,
-  urbanProximityScore,
-  populationDensityScore
-) {
+function calculateOPI(elevationScoreOPI, computeNetworkScore, urbanProximityScore, populationDensityScore) {
   return (
-    0.24 * elevationScoreOPI +
-    0.28 * computeNetworkScore +
-    0.24 * urbanProximityScore +
-    0.24 * populationDensityScore
+    0.24 * elevationScoreOPI + 0.28 * computeNetworkScore + 0.24 * urbanProximityScore + 0.24 * populationDensityScore
   );
 }
 
@@ -4127,9 +3999,7 @@ function calculateOPI(
 // gdp score - use brightness of raster tilesets(const tileset = 'xuanx111.409ps0ou') to get gdp per capita - Low Economic Importance (< $5,000 USD) – Score < 0.33, Moderate Economic Importance ($5,000 - $40,000 USD) – Score ~ 0.34 - 0.66, High Economic Importance (> $40,000 USD) – Score 0.67 - 1.0
 
 async function getGDPScore(coordinates) {
-  const gdpData = await fetch("data/testData/spatgdp.geojson").then((res) =>
-    res.json()
-  );
+  const gdpData = await fetch("data/testData/spatgdp.geojson").then((res) => res.json());
   const point = turf.point(coordinates);
 
   let gdpValue = null;
@@ -4288,32 +4158,32 @@ resetButton.addEventListener("click", () => {
   if (!confirmReset) return;
 
   // remove routes
-  if (map.getLayer("e2i-path-layer")) {
-    map.removeLayer("e2i-path-layer");
-  }
-  if (map.getSource("e2i-path")) {
-    map.removeSource("e2i-path");
-  }
+  // if (map.getLayer("e2i-path-layer")) {
+  //   map.removeLayer("e2i-path-layer");
+  // }
+  // if (map.getSource("e2i-path")) {
+  //   map.removeSource("e2i-path");
+  // }
   if (map.getLayer("ffi-path-layer")) {
     map.removeLayer("ffi-path-layer");
   }
   if (map.getSource("ffi-path")) {
     map.removeSource("ffi-path");
   }
-  if (map.getLayer("opi-path-layer")) {
-    map.removeLayer("opi-path-layer");
-  }
-  if (map.getSource("opi-path")) {
-    map.removeSource("opi-path");
-  }
+  // if (map.getLayer("opi-path-layer")) {
+  //   map.removeLayer("opi-path-layer");
+  // }
+  // if (map.getSource("opi-path")) {
+  //   map.removeSource("opi-path");
+  // }
 
   // remove route hovers
-  map.off("mouseenter", "e2i-path-layer");
-  map.off("mouseleave", "e2i-path-layer");
+  // map.off("mouseenter", "e2i-path-layer");
+  // map.off("mouseleave", "e2i-path-layer");
   map.off("mouseenter", "ffi-path-layer");
   map.off("mouseleave", "ffi-path-layer");
-  map.off("mouseenter", "opi-path-layer");
-  map.off("mouseleave", "opi-path-layer");
+  // map.off("mouseenter", "opi-path-layer");
+  // map.off("mouseleave", "opi-path-layer");
 
   // clear origin and destination inputs
   originInput.value = "";
@@ -4328,6 +4198,36 @@ resetButton.addEventListener("click", () => {
     destinationMarkerRef.marker.remove();
     destinationMarkerRef.marker = null;
   }
+
+  // Clear total distance, origin, destination, index value, elevation profile, map markers in route report
+  distanceContainer.innerHTML = "Total Distance N/A";
+  const originElement = scoreContainer.querySelector('div:nth-child(2)');
+  const destinationElement = scoreContainer.querySelector('div:nth-child(4)');
+  if (originElement) originElement.textContent = "N/A";
+  if (destinationElement) destinationElement.textContent = "N/A";
+
+  document.getElementById("tsi-value").textContent = "0.5";
+  document.getElementById("sdi-value").textContent = "0.5";
+  document.getElementById("e2i-value").textContent = "0.5";
+  document.getElementById("opi-value").textContent = "0.5";
+  document.getElementById("pei-value").textContent = "0.5";
+  document.getElementById("ffi-value").textContent = "0.5";
+  const chart = Chart.getChart(elevationChartContainer.querySelector("canvas"));
+  if (chart) {
+    chart.data.datasets[0].data = []; // Clear only the line data
+    chart.update(); // Update the chart to reflect changes
+  }
+  const oldMarkers = document.querySelectorAll(".elevation-marker");
+  oldMarkers.forEach((marker) => marker.remove());
+
+  // Remove any route drawn in the report map
+  if (elevationMap.getLayer("ffi-path-layer")) {
+    elevationMap.removeLayer("ffi-path-layer");
+  }
+  if (elevationMap.getSource("ffi-path")) {
+    elevationMap.removeSource("ffi-path");
+  }
+ 
 
   // Remove marker_d and marker_o SVGs if they exist
   const markerDSVG = document.querySelector('img[src="images/marker_d.svg"]');
@@ -4388,7 +4288,9 @@ resetButton.addEventListener("click", () => {
         altText !== "Coastline" &&
         altText !== "Earthquakes" &&
         altText !== "Indexes" &&
-        altText !== "Layers"
+        altText !== "Layers" &&
+        altText !== "Close Report" &&
+        altText !== "Export Report"
       );
     })
     .style("filter", "brightness(30%)");
@@ -4472,11 +4374,7 @@ exportButton.addEventListener("mouseout", () => {
 
 // Change brightness to 100% when routes are loaded
 map.on("sourcedata", () => {
-  if (
-    map.getSource("ffi-path") ||
-    map.getSource("e2i-path") ||
-    map.getSource("opi-path")
-  ) {
+  if (map.getSource("ffi-path") || map.getSource("e2i-path") || map.getSource("opi-path")) {
     exportButton.style.filter = "brightness(100%)"; // Set to full brightness
   }
 });
@@ -4492,8 +4390,6 @@ loadingBar.style.backgroundColor = "#f67a0a";
 loadingBar.style.zIndex = "1001";
 loadingBar.style.transition = "width 0.3s ease";
 document.body.appendChild(loadingBar);
-
-
 
 routeButton.addEventListener("click", async () => {
   const originValue = originInput.value;
@@ -4527,8 +4423,7 @@ routeButton.addEventListener("click", async () => {
 
   // Parse coord from the input fields
   const originMatch =
-    originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) ||
-    (await fetchLocationCoordinates(originValue));
+    originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || (await fetchLocationCoordinates(originValue));
   const destinationMatch =
     destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) ||
     (await fetchLocationCoordinates(destinationValue));
@@ -4551,14 +4446,8 @@ routeButton.addEventListener("click", async () => {
   }
 
   if (originMatch && destinationMatch) {
-    const originCoords = [
-      parseFloat(originMatch[2]),
-      parseFloat(originMatch[1]),
-    ];
-    const destinationCoords = [
-      parseFloat(destinationMatch[2]),
-      parseFloat(destinationMatch[1]),
-    ];
+    const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
+    const destinationCoords = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
 
     // Draw 3x rail line - 1 colour for each line, but from same set of origin and destination - green for highest e2i , orange for hightest ffi, blue for opi - each line is calculated based on the indexes, default at 0.5 and line will change when the user adjust the values of the indexes. and ensure all coordinates in the route to be only within sea.json and maximmum with 1km outwards offset - use bezier curve to draw the line
 
@@ -4585,32 +4474,21 @@ routeButton.addEventListener("click", async () => {
         const lat = start[1] * (1 - t) + end[1] * t;
 
         // Add curvature by offsetting the midpoint
-        const curveOffset =
-          Math.sin(Math.PI * t) *
-          curveFactor *
-          (1 + Math.sin(5 * Math.PI * t) * 0.2); // sine wave variation
-        const irregularityOffsetLng =
-          (Math.random() - 0.5) * irregularityFactor;
-        const irregularityOffsetLat =
-          (Math.random() - 0.5) * irregularityFactor;
+        const curveOffset = Math.sin(Math.PI * t) * curveFactor * (1 + Math.sin(5 * Math.PI * t) * 0.2); // sine wave variation
+        const irregularityOffsetLng = (Math.random() - 0.5) * irregularityFactor;
+        const irregularityOffsetLat = (Math.random() - 0.5) * irregularityFactor;
 
-        const curvedLng =
-          lng + curveOffset * (end[1] - start[1]) + irregularityOffsetLng;
-        const curvedLat =
-          lat - curveOffset * (end[0] - start[0]) + irregularityOffsetLat;
+        const curvedLng = lng + curveOffset * (end[1] - start[1]) + irregularityOffsetLng;
+        const curvedLat = lat - curveOffset * (end[0] - start[0]) + irregularityOffsetLat;
 
         const point = turf.point([curvedLng, curvedLat]);
 
         // Ensure the point is within the sea.json boundary
         if (turf.booleanPointInPolygon(point, seaPolygon)) {
-          console.log(
-            `Point ${i} is within the boundary: [${curvedLng}, ${curvedLat}]`
-          );
+          console.log(`Point ${i} is within the boundary: [${curvedLng}, ${curvedLat}]`);
           path.push([curvedLng, curvedLat]);
         } else {
-          console.log(
-            `Point ${i} is outside the boundary and will be skipped: [${curvedLng}, ${curvedLat}]`
-          );
+          console.log(`Point ${i} is outside the boundary and will be skipped: [${curvedLng}, ${curvedLat}]`);
         }
       }
 
@@ -4620,15 +4498,15 @@ routeButton.addEventListener("click", async () => {
 
     async function drawRailLines(origin, destination) {
       // Calculate paths for each index
-      const e2iPath = await calculateCurvedPath(origin, destination);
+      // const e2iPath = await calculateCurvedPath(origin, destination);
       const ffiPath = await calculateCurvedPath(origin, destination);
-      const opiPath = await calculateCurvedPath(origin, destination);
+      // const opiPath = await calculateCurvedPath(origin, destination);
 
       // Add paths to the map
       const paths = [
-        { id: "e2i-path", color: "#00ff00", coordinates: e2iPath }, // Green for e2i
-        { id: "ffi-path", color: "#ffa500", coordinates: ffiPath }, // Orange for ffi
-        { id: "opi-path", color: "#0000ff", coordinates: opiPath }, // Blue for opi
+        // { id: "e2i-path", color: "#00ff00", coordinates: e2iPath }, // Green for e2i
+        { id: "ffi-path", color: "rgb(145, 255, 0)", coordinates: ffiPath }, // Orange for ffi
+        // { id: "opi-path", color: "#0000ff", coordinates: opiPath }, // Blue for opi
       ];
 
       paths.forEach(({ id, color, coordinates }) => {
@@ -4663,9 +4541,7 @@ routeButton.addEventListener("click", async () => {
           map.getCanvas().style.cursor = "pointer";
 
           const coordinates = e.features[0].geometry.coordinates;
-          const distance = turf
-            .length(turf.lineString(coordinates), { units: "kilometers" })
-            .toFixed(2);
+          const distance = turf.length(turf.lineString(coordinates), { units: "kilometers" }).toFixed(2);
 
           const popup = new mapboxgl.Popup({
             closeButton: false,
@@ -4675,21 +4551,11 @@ routeButton.addEventListener("click", async () => {
             .setHTML(
               `
               <strong style="color: ${color};">Index Values:</strong><br>
-              <strong>TSI:</strong> ${
-                document.getElementById("tsi-value").textContent
-              }<br>
-              <strong>SDI:</strong> ${
-                document.getElementById("sdi-value").textContent
-              }<br>
-              <strong>E2I:</strong> ${
-                document.getElementById("e2i-value").textContent
-              }<br>
-              <strong>OPI:</strong> ${
-                document.getElementById("opi-value").textContent
-              }<br>
-              <strong>PEI:</strong> ${
-                document.getElementById("pei-value").textContent
-              }<br>
+              <strong>TSI:</strong> ${document.getElementById("tsi-value").textContent}<br>
+              <strong>SDI:</strong> ${document.getElementById("sdi-value").textContent}<br>
+              <strong>E2I:</strong> ${document.getElementById("e2i-value").textContent}<br>
+              <strong>OPI:</strong> ${document.getElementById("opi-value").textContent}<br>
+              <strong>PEI:</strong> ${document.getElementById("pei-value").textContent}<br>
               <strong>Distance:</strong> ${distance} km
             `
             )
@@ -4725,39 +4591,23 @@ routeButton.addEventListener("click", async () => {
       }
 
       const originMatch =
-        originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) ||
-        (await fetchLocationCoordinates(originValue));
+        originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || (await fetchLocationCoordinates(originValue));
       const destinationMatch =
         destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) ||
         (await fetchLocationCoordinates(destinationValue));
 
       if (originMatch && destinationMatch) {
-        const originCoords = [
-          parseFloat(originMatch[2]),
-          parseFloat(originMatch[1]),
-        ];
-        const destinationCoords = [
-          parseFloat(destinationMatch[2]),
-          parseFloat(destinationMatch[1]),
-        ];
+        const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
+        const destinationCoords = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
 
         await drawRailLines(originCoords, destinationCoords);
       } else {
-        alert(
-          "Invalid coordinates. Please ensure the inputs are in the correct format."
-        );
+        alert("Invalid coordinates. Please ensure the inputs are in the correct format.");
       }
     });
 
     // Update rail lines dynamically when sliders are adjusted
-    const sliders = [
-      "e2i-filter",
-      "ffi-filter",
-      "opi-filter",
-      "tsi-filter",
-      "sdi-filter",
-      "pei-filter",
-    ];
+    const sliders = ["e2i-filter", "ffi-filter", "opi-filter", "tsi-filter", "sdi-filter", "pei-filter"];
     sliders.forEach((sliderId) => {
       document.getElementById(sliderId).addEventListener("input", async () => {
         const originValue = originInput.value;
@@ -4766,21 +4616,14 @@ routeButton.addEventListener("click", async () => {
         if (!originValue || !destinationValue) return;
 
         const originMatch =
-          originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) ||
-          (await fetchLocationCoordinates(originValue));
+          originValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) || (await fetchLocationCoordinates(originValue));
         const destinationMatch =
           destinationValue.match(/Lat:\s*([\d.-]+),\s*Lng:\s*([\d.-]+)/) ||
           (await fetchLocationCoordinates(destinationValue));
 
         if (originMatch && destinationMatch) {
-          const originCoords = [
-            parseFloat(originMatch[2]),
-            parseFloat(originMatch[1]),
-          ];
-          const destinationCoords = [
-            parseFloat(destinationMatch[2]),
-            parseFloat(destinationMatch[1]),
-          ];
+          const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
+          const destinationCoords = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
 
           await drawRailLines(originCoords, destinationCoords);
         }
@@ -4791,7 +4634,7 @@ routeButton.addEventListener("click", async () => {
     if (map.getSource("ffi-path")) {
       const ffiPathData = map.getSource("ffi-path")._data;
       const bounds = turf.bbox(ffiPathData);
-      map.fitBounds(bounds, { padding: 50 });
+      map.fitBounds(bounds, { padding: 100, maxZoom: 6 });
     }
 
     // Hide the loading bar after the route is loaded
@@ -4800,9 +4643,7 @@ routeButton.addEventListener("click", async () => {
       loadingBar.style.display = "none";
     }, 100);
   } else {
-    alert(
-      "Invalid coordinates. Please ensure the inputs are in the correct format."
-    );
+    alert("Invalid coordinates. Please ensure the inputs are in the correct format.");
     loadingBar.style.display = "none"; // Hide the loading bar in case of an error
   }
 });
@@ -4851,6 +4692,8 @@ exportButton.addEventListener("click", () => {
     exportDashboardContainer.style.bottom = "-1000px"; // Slide out
   } else {
     exportDashboardContainer.style.bottom = "0"; // Slide in
+    // Update the content when opening
+    updateExportDashboardContent();
   }
   isExportDashboardOpen = !isExportDashboardOpen;
 });
@@ -4876,19 +4719,18 @@ distanceContainer.style.fontSize = "16px";
 distanceContainer.style.color = "rgb(109, 109, 109)";
 distanceContainer.style.fontWeight = "bold";
 
-const ffiPath = map.getSource("ffi-path")?._data?.geometry?.coordinates || [];
-if (ffiPath.length > 0) {
-  const distanceKm = turf
-    .length(turf.lineString(ffiPath), { units: "kilometers" })
-    .toFixed(2);
-  const distanceMiles = (distanceKm * 0.621371).toFixed(2);
-  distanceContainer.innerHTML = `Total Distance <span style="color: orange;">${distanceKm} km / ${distanceMiles} mi</span>`;
-} else {
-  distanceContainer.textContent = "Total Distance N/A";
-}
+map.on("sourcedata", () => {
+  const ffiPath = map.getSource("ffi-path")?._data?.geometry?.coordinates || [];
+  if (ffiPath.length > 0) {
+    const distanceKm = turf.length(turf.lineString(ffiPath), { units: "kilometers" }).toFixed(2);
+    const distanceMiles = (distanceKm * 0.621371).toFixed(2);
+    distanceContainer.innerHTML = `Total Distance <span style="color: orange;">${distanceKm} km / ${distanceMiles} mi</span>`;
+  } else {
+    distanceContainer.textContent = "Total Distance N/A";
+  }
+});
 
 exportDashboardContainer.appendChild(distanceContainer);
-
 
 const getValue = (id) => {
   const el = document.getElementById(id);
@@ -4941,18 +4783,35 @@ shareButton.style.padding = "5px";
 exportDashboardContainer.appendChild(shareButton);
 
 // LEFT: Snapshot and description - limit to 100 words
+// Replace route_snap_test.png with a dynamic snapshot of the route, always square
 const snapshotContainer = document.createElement("div");
 snapshotContainer.style.flex = "0.55";
-snapshotContainer.innerHTML = `
-        <img src="data/testData/route_snap_test.png" alt="Route top view" style=" width: 100%; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
-        <p style="margin-top: 28px; color: #666; font-size: 14px;  line-height: 1.5;">
+
+map.on("sourcedata", () => {
+  if (map.getSource("ffi-path")) {
+    const snapshotCanvas = document.createElement("canvas");
+    snapshotCanvas.width = 200; // Set the width of the snapshot
+    snapshotCanvas.height = 200; // Set the height of the snapshot
+    const snapshotContext = snapshotCanvas.getContext("2d");
+
+    // Wait for the map to render before taking the snapshot
+    map.once("idle", () => {
+      const snapshotDataURL = map.getCanvas().toDataURL("image/png");
+
+      snapshotContainer.innerHTML = `
+        <img src="${snapshotDataURL}" alt="Route top view" style="width: 100%; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+        <p style="margin-top: 28px; color: #666; font-size: 14px; line-height: 1.5;">
           The proposed route from Point A in India to Point B in Myanmar traverses a diverse and challenging landscape, beginning in India’s northeastern states—such as Manipur or Mizoram—where it crosses the rugged Patkai and Naga Hills, with elevations ranging from 200 to over 3,000 meters, dense forests, and steep gradients. 
           <br><br>
           As the route enters Myanmar, it descends through the Chin Hills, encountering river valleys and landslide-prone zones before leveling into the Irrawaddy Basin’s floodplains, requiring bridges or ferries for crossings. The final stretch passes through Myanmar’s Shan Plateau, featuring rolling hills, limestone karsts, and moderate elevations (1,000–1,500 meters), with seasonal monsoons and seismic risks further complicating transit.
         </p>
-        <p style="margin-top: 10px; color: rgb(31, 31, 31); font-size: 9px; font-weight: bold;text-align: justify;">Description Generated by Google Gemini.
+        <p style="margin-top: 10px; color: rgb(31, 31, 31); font-size: 9px; font-weight: bold; text-align: justify;">Description Generated by Google Gemini.
         </p>
       `;
+    });
+  }
+});
+
 exportDashboardContent.appendChild(snapshotContainer);
 
 // RIGHT: Index Scores - N/A if no route
@@ -4966,18 +4825,14 @@ scoreContainer.innerHTML = `
   <span style="font-weight: bold; color: rgb(133, 133, 133); letter-spacing: 3px; font-size: 21px;">ORIGIN</span>
     </div>
     
-    <div style="margin-bottom: 5px;font-size: 16px; color: rgb(109, 109, 109);">${
-      originInput.value || "N/A"
-    }</div>
+    <div style="margin-bottom: 5px;font-size: 16px; color: rgb(109, 109, 109);">${originInput.value || "N/A"}</div>
 
     <div style="margin-left: -15px; display: flex; align-items: center; gap: 0px;">
   <img src="./images/marker_d.svg" alt="Destination Marker" style="width: 40px; height: 40px;">
   <span style="font-weight: bold; color: rgb(133, 133, 133); letter-spacing: 3px; font-size: 21px;">DESTINATION</span>
     </div>
     
-    <div style="font-size: 16px; color: rgb(109, 109, 109);">${
-      destinationInput.value || "N/A"
-    }</div>
+    <div style="font-size: 16px; color: rgb(109, 109, 109);">${destinationInput.value || "N/A"}</div>
   <br>
     <div style="display: flex; justify-content: space-between;">
   <span style="font-weight: bold; color: rgb(133, 133, 133); letter-spacing: 3px; font-size: 21px;">INDEXES</span>
@@ -5181,69 +5036,86 @@ const generateElevationProfile = async () => {
       })
     );
 
-    const elevationProfile = elevationData.map(
-      ({ coord, elevation }, index) => ({
-        distance: index, // Use index as a proxy for distance
-        elevation,
-      })
-    );
+    const elevationProfile = elevationData.map(({ coord, elevation }, index) => ({
+      distance: index, // Use index as a proxy for distance
+      elevation,
+    }));
+
+    // clear old markers
+    const oldMarkers = document.querySelectorAll(".elevation-marker");
+    oldMarkers.forEach((marker) => marker.remove());
 
     // markers for each point on the elevation map
     elevationData.forEach(({ coord }, index) => {
       const marker = new mapboxgl.Marker({
-      element: (() => {
-        const markerElement = document.createElement("img");
-        markerElement.src =
-        index === 0
-          ? "images/marker_o.svg" // origin
-          : index === elevationData.length - 1
-          ? "images/marker_d.svg" // destination
-          : "images/marker_i.svg"; // intermediate points
-        markerElement.alt = index === 0 ? "Origin" : "Destination";
-        markerElement.style.width = "30px";
-        markerElement.style.height = "30px";
-        // markerElement.style.display = "none"; // Initially hidden
-        return markerElement;
-      })(),
+        element: (() => {
+          const markerElement = document.createElement("img");
+          markerElement.src =
+            index === 0
+              ? "images/marker_o.svg" // origin
+              : index === elevationData.length - 1
+              ? "images/marker_d.svg" // destination
+              : "images/marker_i.svg"; // intermediate points
+          markerElement.alt = index === 0 ? "Origin" : index === elevationData.length - 1 ? "Destination" : "Intermediate";
+          markerElement.style.width = "30px";
+          markerElement.style.height = "30px";
+          markerElement.classList.add("elevation-marker"); // Add a class for easy removal
+          return markerElement;
+        })(),
       })
-      .setLngLat(coord)
-      .addTo(elevationMap);
+        .setLngLat(coord)
+        .addTo(elevationMap);
+    });
 
-      // marker on hover over corresponding point in elevation chart
-      canvas.addEventListener("mousemove", (event) => {
+    // marker on hover over corresponding point in elevation chart
+    canvas.addEventListener("mousemove", (event) => {
       const rect = canvas.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
 
       const chart = Chart.getChart(canvas);
       if (chart) {
-        const points = chart.getElementsAtEventForMode(
-        event,
-        "nearest",
-        { intersect: true },
-        false
-        );
+        const points = chart.getElementsAtEventForMode(event, "nearest", { intersect: true }, false);
 
-        if (points.length > 0 && points[0].index === index) {
-        marker.getElement().style.filter = "brightness(10%)"; // Darken
-        } else {
-        marker.getElement().style.filter = "brightness(100%)"; // Restore brightness
+        if (points.length > 0) {
+          const pointIndex = points[0].index;
+          const { coord } = elevationData[pointIndex];
+          const marker = document.querySelectorAll(".elevation-marker")[pointIndex];
+
+          // Highlight the marker
+          marker.style.filter = "brightness(30%)";
+
+            // Remove any existing tooltips
+            const existingTooltips = document.querySelectorAll(".elevation-tooltip");
+            existingTooltips.forEach((tooltip) => tooltip.remove());
+
+            // Show coordinates in a tooltip
+            const tooltip = document.createElement("div");
+            tooltip.className = "elevation-tooltip";
+            tooltip.style.position = "absolute";
+            tooltip.style.padding = "5px";
+            tooltip.style.backgroundColor = "black";
+            tooltip.style.borderRadius = "7px";
+            tooltip.style.boxShadow = "0px 2px 5px rgba(0, 0, 0, 0.2)";
+            tooltip.style.fontSize = "12px";
+            tooltip.style.zIndex = "3100";
+            tooltip.style.color = "white";
+            tooltip.style.opacity = "0.8";
+            tooltip.style.pointerEvents = "none";
+            tooltip.style.left = `${event.pageX - 140}px`;
+            tooltip.style.top = `${event.pageY + 32}px`;
+            tooltip.innerHTML = `<strong>Latitude</strong> ${coord[1].toFixed(5)} <br> <strong>Longitude</strong> ${coord[0].toFixed(5)}`;
+            tooltip.style.lineHeight = "18px";
+            document.body.appendChild(tooltip);
+
+          // Remove tooltip on mouseout
+          canvas.addEventListener("mouseout", () => {
+            marker.style.filter = "brightness(100%)";
+            tooltip.remove();
+          });
         }
-
-        // if (points.length > 0 && points[0].index === index) {
-        // marker.getElement().style.display = "block"; // Show marker
-        // } else {
-        // marker.getElement().style.display = "none"; // Hide marker
-        // }
       }
-      });
-
-      // // Hide marker when the mouse leaves the canvas
-      // canvas.addEventListener("mouseleave", () => {
-      // marker.getElement().style.display = "none";
-      // });
     });
-
 
     // line chart with Chart.js
     new Chart(canvas, {
@@ -5407,24 +5279,21 @@ exportDashboardContainer.appendChild(elevationQueryContainer);
 // export paths in json
 shareButton.addEventListener("click", () => {
   const paths = [
-    {
-      id: "e2i-path",
-      color: "#00ff00",
-      coordinates:
-        map.getSource("e2i-path")?._data?.geometry?.coordinates || [],
-    },
+    // {
+    //   id: "e2i-path",
+    //   color: "#00ff00",
+    //   coordinates: map.getSource("e2i-path")?._data?.geometry?.coordinates || [],
+    // },
     {
       id: "ffi-path",
       color: "#ffa500",
-      coordinates:
-        map.getSource("ffi-path")?._data?.geometry?.coordinates || [],
+      coordinates: map.getSource("ffi-path")?._data?.geometry?.coordinates || [],
     },
-    {
-      id: "opi-path",
-      color: "#0000ff",
-      coordinates:
-        map.getSource("opi-path")?._data?.geometry?.coordinates || [],
-    },
+    // {
+    //   id: "opi-path",
+    //   color: "#0000ff",
+    //   coordinates: map.getSource("opi-path")?._data?.geometry?.coordinates || [],
+    // },
   ];
 
   // Check if any path has coordinates
