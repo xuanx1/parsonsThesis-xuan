@@ -4287,6 +4287,7 @@ resetButton.addEventListener("click", () => {
   document.getElementById("opi-value").textContent = "0.5";
   document.getElementById("pei-value").textContent = "0.5";
   document.getElementById("ffi-value").textContent = "0.5";
+  document.getElementById("population-served").textContent = "N/A";
   const chart = Chart.getChart(elevationChartContainer.querySelector("canvas"));
   if (chart) {
     chart.data.datasets[0].data = []; // Clear only the line data
