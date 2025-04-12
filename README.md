@@ -502,6 +502,7 @@ The results are visualized using interactive network graphs, allowing users to e
 ![final-cover](https://github.com/user-attachments/assets/f4fad89a-1a08-4884-9d4a-f6628cb2961d)
 ![final-mockup2](https://github.com/user-attachments/assets/b59795cc-c327-485a-bfa0-7c512e9a3635)
 ![final-mockup_feat](https://github.com/user-attachments/assets/0de78019-31ae-415f-b978-d47c64b3a059)
+![final-mockup_report](https://github.com/user-attachments/assets/07588405-9181-4d20-a81a-b26b979fbdfa)
 
 #### 5.1 Features
 ![final-mockup-05](https://github.com/user-attachments/assets/3d8d6413-a62a-48cd-9bc7-0ed7a932ed75)
