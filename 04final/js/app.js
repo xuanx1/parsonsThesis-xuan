@@ -2894,9 +2894,11 @@ window.addEventListener("load", () => {
   dialogTitle.style.marginTop = "10px";
   dialogTitle.style.marginBottom = "15px";
   dialogTitle.style.marginLeft = "13px";
+  dialogTitle.style.marginRight = "13px";
   dialogTitle.style.fontSize = "30px";
   dialogTitle.style.textAlign = "left";
   dialogTitle.style.color = "orange";
+  dialogTitle.style.lineHeight = "1.2";
   dialogTitle.style.fontWeight = "bold";
   dialogBox.appendChild(dialogTitle);
 
@@ -5025,12 +5027,65 @@ map.on("sourcedata", () => {
     map.once("idle", () => {
       const snapshotDataURL = map.getCanvas().toDataURL("image/png");
 
+      // Create a default or fetch elevation profile
+      const elevationProfile = [];
+      
+      // If there's an existing FFI path, get its elevation data
+      if (map.getSource("ffi-path")) {
+        const ffiPath = map.getSource("ffi-path")._data.geometry.coordinates;
+        
+        // Ensure we have a valid path before proceeding
+        if (ffiPath && ffiPath.length > 0) {
+          // Get a sample of elevations to display in the snapshot description
+          // We'll use existing data or placeholder values if not available
+          const minElevation = 0;
+          const maxElevation = 0;
+          
+          try {
+        // Try to get the min and max elevations if they're available
+        const canvas = elevationChartContainer.querySelector('canvas');
+        if (canvas) {
+          const chart = Chart.getChart(canvas);
+          if (chart && chart.data && chart.data.datasets && chart.data.datasets[0] && chart.data.datasets[0].data) {
+            const elevationData = chart.data.datasets[0].data;
+            if (elevationData.length > 0) {
+          for (let i = 0; i < ffiPath.length; i++) {
+            elevationProfile.push({
+              elevation: elevationData[i] || 0
+            });
+          }
+            }
+          }
+        }
+          } catch (error) {
+        console.error("Error accessing elevation data:", error);
+          }
+        }
+      }
+      
+      // Create fallback min/max values if elevation data isn't available
+      const minElevation = elevationProfile.length > 0 ? 
+        Math.min(...elevationProfile.map(point => point.elevation || 0)) : 0;
+      const maxElevation = elevationProfile.length > 0 ? 
+        Math.max(...elevationProfile.map(point => point.elevation || 0)) : 50;
+
+      //The route navigates through a varied topography, with elevations ranging from <strong style="color: #f67a0a;">${minElevation}</strong> meters to <strong style="color: #f67a0a;">${maxElevation}</strong> meters, presenting challenges such as steep gradients and potential infrastructure requirements like tunnels or bridges.
+
       snapshotContainer.innerHTML = `
         <img src="${snapshotDataURL}" alt="Route top view" style="width: 100%; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
         <p style="margin-top: 28px; color: #666; font-size: 14px; line-height: 1.5;">
-          The proposed route from Point A in India to Point B in Myanmar traverses a diverse and challenging landscape, beginning in India’s northeastern states—such as Manipur or Mizoram—where it crosses the rugged Patkai and Naga Hills, with elevations ranging from 200 to over 3,000 meters, dense forests, and steep gradients. 
+          The proposed route spans a total distance of <strong style="color: #f67a0a;"> ${distanceContainer.textContent.replace("Total Distance ", "")}</strong>, connecting the origin at <strong style="color: #f67a0a;">${originInput.value || "N/A"}</strong> to the destination at <strong style="color: #f67a0a;">${destinationInput.value || "N/A"}</strong>. 
           <br><br>
-          As the route enters Myanmar, it descends through the Chin Hills, encountering river valleys and landslide-prone zones before leveling into the Irrawaddy Basin’s floodplains, requiring bridges or ferries for crossings. The final stretch passes through Myanmar’s Shan Plateau, featuring rolling hills, limestone karsts, and moderate elevations (1,000–1,500 meters), with seasonal monsoons and seismic risks further complicating transit.
+          The feasibility of this route is underscored by its overall Feasibility Score of <strong style="color: #f67a0a;">${getValue("ffi-value")}</strong>, which integrates critical indexes such as the Tsunami Risk Index at <strong style="color: #f67a0a;">${getValue("tsi-value")}</strong>, Structure Durability Index at <strong style="color: #f67a0a;">${getValue("sdi-value")}</strong>, Environmental Impact Index at <strong style="color: #f67a0a;">${getValue("e2i-value")}</strong>, Operability Index at <strong style="color: #f67a0a;">${getValue("opi-value")}</strong>, and Population-Economic Importance Index <strong style="color: #f67a0a;">${getValue("pei-value")}</strong>. These metrics highlight the route's resilience to natural hazards, structural viability, environmental considerations, operational feasibility, and economic significance.
+          <br><br>
+          Serving an estimated population of <strong style="color: #f67a0a;">${getValue("population-served")}</strong> along its corridor, this route holds 
+          <strong style="color: #f67a0a;">${(() => {
+        const population = parseInt(getValue("population-served").replace(/,/g, ""));
+        if (population > 500000) return "highly significant";
+        else if (population >= 300000) return "adequately significant";
+        else if (population >= 100000) return "moderately significant";
+        else return "inadequately significant";
+          })()}</strong> potential for enhancing regional connectivity and economic integration, while addressing the challenges posed by its diverse landscape and environmental sensitivities.
         </p>
         <p style="margin-top: 10px; color: rgb(31, 31, 31); font-size: 9px; font-weight: bold; text-align: justify;">Description Generated by Google Gemini.
         </p>
@@ -5045,7 +5100,7 @@ exportDashboardContent.appendChild(snapshotContainer);
 const scoreContainer = document.createElement("div");
 scoreContainer.style.flex = "0.45";
 scoreContainer.innerHTML = `
-  <div style="display: flex; flex-direction: column; gap: 10px;">
+  <div style="margin-right: 30px; display: flex; flex-direction: column; gap: 10px;">
     
     <div style="margin-left: -15px; display: flex; align-items: center; gap: 0px;">
   <img src="./images/marker_o.svg" alt="Origin" style="width: 40px; height: 40px;">
@@ -5167,6 +5222,7 @@ const elevationQueryDescription = document.createElement("p");
 elevationQueryDescription.textContent =
   "Deriving the elevation of the route through 3D terrain enables a detailed assessment of elevation changes, including steep ascents, descents, and plateau regions. By evaluating these gradients, feasibility can be determined, so as infrastructure requirements such as bridges or tunnels.";
 elevationQueryDescription.style.color = "#666";
+elevationQueryDescription.style.marginRight = "30px";
 elevationQueryDescription.style.fontSize = "14px";
 elevationQueryDescription.style.lineHeight = "1.5";
 elevationQueryContainer.appendChild(elevationQueryDescription);
@@ -5274,24 +5330,61 @@ const generateElevationProfile = async () => {
 
     // markers for each point on the elevation map
     elevationData.forEach(({ coord }, index) => {
+      let markerElement;
+      
+      if (index === 0) {
+      // Origin marker
+      markerElement = document.createElement("img");
+      markerElement.src = "images/marker_o.svg";
+      markerElement.alt = "Origin";
+      markerElement.style.width = "30px";
+      markerElement.style.height = "30px";
+      } else if (index === elevationData.length - 1) {
+      // Destination marker
+      markerElement = document.createElement("img");
+      markerElement.src = "images/marker_d.svg";
+      markerElement.alt = "Destination";
+      markerElement.style.width = "30px";
+      markerElement.style.height = "30px";
+      } else {
+      // Calculate color interpolation for intermediate points
+      const t = index / (elevationData.length - 1);
+      
+      // Interpolate color from blue (origin) to red (destination)
+      const startColor = [1, 156, 222];   // #019cde (blue)
+      const endColor = [233, 82, 71];     // #e95247 (red)
+      
+      const r = Math.round(startColor[0] + (endColor[0] - startColor[0]) * t);
+      const g = Math.round(startColor[1] + (endColor[1] - startColor[1]) * t);
+      const b = Math.round(startColor[2] + (endColor[2] - startColor[2]) * t);
+      
+      const interpolatedColor = `rgb(${r}, ${g}, ${b})`;
+      
+      // Create colored dot marker
+      markerElement = document.createElement("div");
+      markerElement.style.width = "18px";
+      markerElement.style.height = "18px";
+      markerElement.style.borderRadius = "50%";
+      markerElement.style.backgroundColor = interpolatedColor;
+      markerElement.style.border = "1px solid white";
+      markerElement.style.boxShadow = "0px 2px 4px rgba(0,0,0,0.3)";
+      markerElement.style.display = "flex";
+      markerElement.style.justifyContent = "center";
+      markerElement.style.alignItems = "center";
+      markerElement.style.color = "white";
+      markerElement.style.fontSize = "10px";
+      markerElement.style.fontWeight = "bold";
+      markerElement.innerText = index;
+      markerElement.alt = "Intermediate";
+      }
+      
+      markerElement.classList.add("elevation-marker"); // Add a class for easy removal
+      
       const marker = new mapboxgl.Marker({
-        element: (() => {
-          const markerElement = document.createElement("img");
-          markerElement.src =
-            index === 0
-              ? "images/marker_o.svg" // origin
-              : index === elevationData.length - 1
-              ? "images/marker_d.svg" // destination
-              : "images/marker_i.svg"; // intermediate points
-          markerElement.alt = index === 0 ? "Origin" : index === elevationData.length - 1 ? "Destination" : "Intermediate";
-          markerElement.style.width = "30px";
-          markerElement.style.height = "30px";
-          markerElement.classList.add("elevation-marker"); // Add a class for easy removal
-          return markerElement;
-        })(),
+      element: markerElement
       })
-        .setLngLat(coord)
-        .addTo(elevationMap);
+      .setLngLat(coord)
+      .addTo(elevationMap);
     });
 
     // marker on hover over corresponding point in elevation chart
@@ -5442,6 +5535,7 @@ const elevationMap = new mapboxgl.Map({
   center: [120.0, 4.0], // Center of Southeast Asia
   zoom: 3,
   interactive: false,
+  preserveDrawingBuffer: true 
 });
 
 // terrain source + set terrain
@@ -5503,40 +5597,559 @@ map.on("sourcedata", () => {
 
 exportDashboardContainer.appendChild(elevationQueryContainer);
 
-// export paths in json
-shareButton.addEventListener("click", () => {
-  const paths = [
-    // {
-    //   id: "e2i-path",
-    //   color: "#00ff00",
-    //   coordinates: map.getSource("e2i-path")?._data?.geometry?.coordinates || [],
-    // },
-    {
-      id: "ffi-path",
-      color: "#ffa500",
-      coordinates: map.getSource("ffi-path")?._data?.geometry?.coordinates || [],
-    },
-    // {
-    //   id: "opi-path",
-    //   color: "#0000ff",
-    //   coordinates: map.getSource("opi-path")?._data?.geometry?.coordinates || [],
-    // },
-  ];
 
-  // Check if any path has coordinates
-  const hasCoordinates = paths.some((path) => path.coordinates.length > 0);
+// add container below elevation query, title path coordinates, container margin top and bottom 30 px. add all the coordinates of the path - origin, then interpolate number of intermediate points, then destination in a table without grid lines
 
-  if (!hasCoordinates) {
+// Path coordinates container
+const pathCoordinatesContainer = document.createElement("div");
+pathCoordinatesContainer.style.marginTop = "30px";
+pathCoordinatesContainer.style.marginBottom = "30px";
+pathCoordinatesContainer.style.marginLeft = "30px";
+pathCoordinatesContainer.style.marginRight = "30px";
+
+const pathCoordinatesTitle = document.createElement("h3");
+pathCoordinatesTitle.textContent = "Path Coordinates";
+pathCoordinatesTitle.style.marginBottom = "10px";
+pathCoordinatesTitle.style.marginLeft = "0px";
+pathCoordinatesTitle.style.color = "rgb(133, 133, 133)";
+pathCoordinatesTitle.style.fontSize = "21px";
+pathCoordinatesTitle.style.fontWeight = "bold";
+pathCoordinatesTitle.style.letterSpacing = "3px";
+pathCoordinatesTitle.style.textTransform = "uppercase";
+pathCoordinatesContainer.appendChild(pathCoordinatesTitle);
+
+// coords table 
+const coordinatesTable = document.createElement("table");
+coordinatesTable.style.width = "100%";
+coordinatesTable.style.borderCollapse = "collapse";
+coordinatesTable.style.marginTop = "15px";
+
+const tableHeader = document.createElement("thead");
+const headerRow = document.createElement("tr");
+
+const pointHeader = document.createElement("th");
+pointHeader.textContent = "Point";
+pointHeader.style.textAlign = "left";
+pointHeader.style.padding = "8px";
+pointHeader.style.color = "#666";
+pointHeader.style.fontSize = "14px";
+pointHeader.style.fontWeight = "bold";
+
+const latHeader = document.createElement("th");
+latHeader.textContent = "Latitude";
+latHeader.style.textAlign = "left";
+latHeader.style.padding = "8px";
+latHeader.style.color = "#666";
+latHeader.style.fontSize = "14px";
+latHeader.style.fontWeight = "bold";
+
+const lngHeader = document.createElement("th");
+lngHeader.textContent = "Longitude";
+lngHeader.style.textAlign = "left";
+lngHeader.style.padding = "8px";
+lngHeader.style.color = "#666";
+lngHeader.style.fontSize = "14px";
+lngHeader.style.fontWeight = "bold";
+
+headerRow.appendChild(pointHeader);
+headerRow.appendChild(latHeader);
+headerRow.appendChild(lngHeader);
+tableHeader.appendChild(headerRow);
+coordinatesTable.appendChild(tableHeader);
+
+const tableBody = document.createElement("tbody");
+
+const populateCoordinatesTable = () => {
+  tableBody.innerHTML = "";
+  
+  const ffiPath = map.getSource("ffi-path")?._data?.geometry?.coordinates || [];
+  
+  if (ffiPath.length === 0) {
+    const emptyRow = document.createElement("tr");
+    const emptyCell = document.createElement("td");
+    emptyCell.textContent = "No path coordinates available";
+    emptyCell.colSpan = 3;
+    emptyCell.style.textAlign = "center";
+    emptyCell.style.padding = "8px";
+    emptyCell.style.color = "#666";
+    emptyRow.appendChild(emptyCell);
+    tableBody.appendChild(emptyRow);
+  } else {
+    const MAX_POINTS = 20;
+    const step = ffiPath.length <= MAX_POINTS ? 1 : Math.floor(ffiPath.length / MAX_POINTS);
+    
+    // Always include origin
+    const addPoint = (index, label) => {
+      const coord = ffiPath[index];
+      const row = document.createElement("tr");
+      
+      const pointCell = document.createElement("td");
+      pointCell.textContent = label;
+      pointCell.style.padding = "8px";
+      pointCell.style.color = "#666";
+      pointCell.style.fontSize = "14px";
+      pointCell.style.borderBottom = "1px solid #f0f0f0";
+      
+      const latCell = document.createElement("td");
+      latCell.textContent = coord[1].toFixed(6);
+      latCell.style.padding = "8px";
+      latCell.style.color = "#666";
+      latCell.style.fontSize = "14px";
+      latCell.style.borderBottom = "1px solid #f0f0f0";
+      
+      const lngCell = document.createElement("td");
+      lngCell.textContent = coord[0].toFixed(6);
+      lngCell.style.padding = "8px";
+      lngCell.style.color = "#666";
+      lngCell.style.fontSize = "14px";
+      lngCell.style.borderBottom = "1px solid #f0f0f0";
+      
+      row.appendChild(pointCell);
+      row.appendChild(latCell);
+      row.appendChild(lngCell);
+      tableBody.appendChild(row);
+    };
+    
+    // Add origin as 0th point
+    const firstIndex = 0;
+    const originRow = document.createElement("tr");
+
+    const originPointCell = document.createElement("td");
+    const originIcon = document.createElement("img");
+    originIcon.src = "./images/marker_o.svg";
+    originIcon.alt = "Origin";
+    originIcon.style.width = "30px";
+    originIcon.style.height = "30px";
+    originIcon.style.marginRight = "5px";
+    originIcon.style.verticalAlign = "middle";
+    originPointCell.appendChild(originIcon);
+    originPointCell.appendChild(document.createTextNode("Origin"));
+    originPointCell.style.padding = "8px";
+    originPointCell.style.color = "#666";
+    originPointCell.style.fontSize = "14px";
+    originPointCell.style.borderBottom = "1px solid #f0f0f0";
+
+    const originLatCell = document.createElement("td");
+    originLatCell.textContent = ffiPath[firstIndex][1].toFixed(6);
+    originLatCell.style.padding = "8px";
+    originLatCell.style.color = "#666";
+    originLatCell.style.fontSize = "14px";
+    originLatCell.style.borderBottom = "1px solid #f0f0f0";
+
+    const originLngCell = document.createElement("td");
+    originLngCell.textContent = ffiPath[firstIndex][0].toFixed(6);
+    originLngCell.style.padding = "8px";
+    originLngCell.style.color = "#666";
+    originLngCell.style.fontSize = "14px";
+    originLngCell.style.borderBottom = "1px solid #f0f0f0";
+
+    originRow.appendChild(originPointCell);
+    originRow.appendChild(originLatCell);
+    originRow.appendChild(originLngCell);
+    tableBody.appendChild(originRow);
+    
+    // Add intermediate points
+    for (let i = step; i < ffiPath.length - 1; i += step) {
+      // Calculate color interpolation factor
+      const t = i / (ffiPath.length - 1);
+      
+      // Interpolate color from blue (origin) to red (destination)
+      const startColor = [1, 156, 222];   // #019cde (blue)
+      const endColor = [233, 82, 71];     // #e95247 (red)
+      
+      const r = Math.round(startColor[0] + (endColor[0] - startColor[0]) * t);
+      const g = Math.round(startColor[1] + (endColor[1] - startColor[1]) * t);
+      const b = Math.round(startColor[2] + (endColor[2] - startColor[2]) * t);
+      
+      const interpolatedColor = `rgb(${r}, ${g}, ${b})`;
+      
+      const coord = ffiPath[i];
+      const row = document.createElement("tr");
+      
+      const pointCell = document.createElement("td");
+      
+      // Create dot element with interpolated color
+      const dot = document.createElement("div");
+      dot.style.width = "12px";
+      dot.style.height = "12px";
+      dot.style.borderRadius = "50%";
+      dot.style.backgroundColor = interpolatedColor;
+      dot.style.display = "inline-block";
+      dot.style.marginRight = "5px";
+      dot.style.verticalAlign = "middle";
+      dot.style.border = "1px solid white";
+      dot.style.boxShadow = "0px 1px 3px rgba(0,0,0,0.3)";
+      
+      pointCell.appendChild(dot);
+      pointCell.appendChild(document.createTextNode(`Waypoint ${Math.ceil(i/step)}`));
+      pointCell.style.padding = "8px";
+      pointCell.style.color = "#666";
+      pointCell.style.fontSize = "14px";
+      pointCell.style.borderBottom = "1px solid #f0f0f0";
+      
+      const latCell = document.createElement("td");
+      latCell.textContent = coord[1].toFixed(6);
+      latCell.style.padding = "8px";
+      latCell.style.color = "#666";
+      latCell.style.fontSize = "14px";
+      latCell.style.borderBottom = "1px solid #f0f0f0";
+      
+      const lngCell = document.createElement("td");
+      lngCell.textContent = coord[0].toFixed(6);
+      lngCell.style.padding = "8px";
+      lngCell.style.color = "#666";
+      lngCell.style.fontSize = "14px";
+      lngCell.style.borderBottom = "1px solid #f0f0f0";
+      
+      row.appendChild(pointCell);
+      row.appendChild(latCell);
+      row.appendChild(lngCell);
+      tableBody.appendChild(row);
+    }
+    
+    // Always add destination as last point
+    const lastIndex = ffiPath.length - 1;
+    const row = document.createElement("tr");
+
+    const pointCell = document.createElement("td");
+    const icon = document.createElement("img");
+    icon.src = "./images/marker_d.svg";
+    icon.alt = "Destination";
+    icon.style.width = "30px";
+    icon.style.height = "30px";
+    icon.style.marginRight = "8px";
+    icon.style.verticalAlign = "middle";
+    pointCell.appendChild(icon);
+    pointCell.appendChild(document.createTextNode("Destination"));
+    pointCell.style.padding = "8px";
+    pointCell.style.color = "#666";
+    pointCell.style.fontSize = "14px";
+    pointCell.style.borderBottom = "1px solid #f0f0f0";
+
+    const latCell = document.createElement("td");
+    latCell.textContent = ffiPath[lastIndex][1].toFixed(6);
+    latCell.style.padding = "8px";
+    latCell.style.color = "#666";
+    latCell.style.fontSize = "14px";
+    latCell.style.borderBottom = "1px solid #f0f0f0";
+
+    const lngCell = document.createElement("td");
+    lngCell.textContent = ffiPath[lastIndex][0].toFixed(6);
+    lngCell.style.padding = "8px";
+    lngCell.style.color = "#666";
+    lngCell.style.fontSize = "14px";
+    lngCell.style.borderBottom = "1px solid #f0f0f0";
+
+    row.appendChild(pointCell);
+    row.appendChild(latCell);
+    row.appendChild(lngCell);
+    tableBody.appendChild(row);
+  }
+};
+
+// Update table when route is drawn
+map.on("sourcedata", () => {
+  if (map.getSource("ffi-path")) {
+    populateCoordinatesTable();
+  }
+});
+
+// Initial population
+populateCoordinatesTable();
+
+coordinatesTable.appendChild(tableBody);
+pathCoordinatesContainer.appendChild(coordinatesTable);
+exportDashboardContainer.appendChild(pathCoordinatesContainer);
+
+
+
+// // export paths in json
+// shareButton.addEventListener("click", () => {
+//   const paths = [
+//     // {
+//     //   id: "e2i-path",
+//     //   color: "#00ff00",
+//     //   coordinates: map.getSource("e2i-path")?._data?.geometry?.coordinates || [],
+//     // },
+//     {
+//       id: "ffi-path",
+//       color: "#ffa500",
+//       coordinates: map.getSource("ffi-path")?._data?.geometry?.coordinates || [],
+//     },
+//     // {
+//     //   id: "opi-path",
+//     //   color: "#0000ff",
+//     //   coordinates: map.getSource("opi-path")?._data?.geometry?.coordinates || [],
+//     // },
+//   ];
+
+//   // Check if any path has coordinates
+//   const hasCoordinates = paths.some((path) => path.coordinates.length > 0);
+
+//   if (!hasCoordinates) {
+//     alert("No routes available to export. Please calculate a route first.");
+//     return;
+//   }
+
+//   const report = JSON.stringify(paths, null, 2);
+//   const blob = new Blob([report], { type: "application/json" });
+//   const url = URL.createObjectURL(blob);
+//   const a = document.createElement("a");
+//   // a.href = url;
+//   // a.download = "rail_feasibility_paths.json";
+//   // a.click();
+//   URL.revokeObjectURL(url);
+// });
+
+
+// export exportDashboardContainer as pdf when clicked shareButton
+shareButton.addEventListener('click', async () => {
+  // Check if any route data exists
+  if (!map.getSource("ffi-path")) {
     alert("No routes available to export. Please calculate a route first.");
     return;
   }
 
-  const report = JSON.stringify(paths, null, 2);
-  const blob = new Blob([report], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  // a.href = url;
-  // a.download = "rail_feasibility_paths.json";
-  // a.click();
-  URL.revokeObjectURL(url);
+  // Show loading indicator
+  const loadingIndicator = document.createElement('div');
+  loadingIndicator.textContent = 'Generating PDF...';
+  loadingIndicator.style.position = 'absolute';
+  loadingIndicator.style.top = '50%';
+  loadingIndicator.style.left = '50%';
+  loadingIndicator.style.transform = 'translate(-50%, -50%)';
+  loadingIndicator.style.padding = '10px 20px';
+  loadingIndicator.style.backgroundColor = '#f67a0a';
+  loadingIndicator.style.color = 'white';
+  loadingIndicator.style.borderRadius = '5px';
+  loadingIndicator.style.zIndex = '3002';
+  document.body.appendChild(loadingIndicator);
+
+  try {
+    // Dynamically load html2pdf library if not already loaded
+    if (typeof html2pdf === 'undefined') {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      document.head.appendChild(script);
+      
+      // Wait for script to load
+      await new Promise(resolve => {
+        script.onload = resolve;
+      });
+    }
+    
+    // IMPORTANT: Capture maps and charts BEFORE creating the clone
+    // This ensures we're capturing the actual rendered elements
+
+    // Capture the current map view
+    const mapImage = map.getCanvas().toDataURL();
+    
+    // Capture the elevation chart
+    let elevationChartImage = null;
+    const chartCanvas = document.querySelector('#exportDashboardContainer div[style*="height: 200px"] canvas');
+    if (chartCanvas) {
+      elevationChartImage = chartCanvas.toDataURL('image/png');
+      console.log("Elevation chart captured:", elevationChartImage.substring(0, 50) + "...");
+    } else {
+      console.warn("Elevation chart canvas not found");
+    }
+    
+    // Capture current elevation map view
+// Replace the existing elevation map capture code in the shareButton event listener:
+// Capture current elevation map view with markers
+let elevationMapImage = null;
+if (elevationMap) {
+  try {
+    // 1. Make sure map is fully rendered
+    await new Promise(resolve => {
+      if (elevationMap.loaded()) {
+        resolve();
+      } else {
+        elevationMap.once('idle', resolve);
+      }
+    });
+    
+    // 2. Give the map time to render all markers
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // 3. Use html2canvas to capture the entire map container with markers
+    const mapContainer = elevationMapContainer;
+    
+    // Load html2canvas if not already loaded
+    if (typeof html2canvas === 'undefined') {
+      const html2canvasScript = document.createElement('script');
+      html2canvasScript.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
+      document.head.appendChild(html2canvasScript);
+      
+      await new Promise(resolve => {
+        html2canvasScript.onload = resolve;
+      });
+    }
+    
+    // Capture the entire map container including markers
+    const canvas = await html2canvas(mapContainer, {
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: null,
+      scale: 2,
+      logging: false
+    });
+    
+    elevationMapImage = canvas.toDataURL('image/png');
+    console.log("Elevation map with markers captured successfully");
+  } catch (error) {
+    console.error("Error capturing elevation map:", error);
+    // Fall back to regular canvas capture
+    elevationMapImage = elevationMap.getCanvas().toDataURL('image/png');
+  }
+} else {
+  console.warn("Elevation map not found");
+}
+    
+    // Create a clone of the dashboard to manipulate for PDF
+    const dashboardClone = exportDashboardContainer.cloneNode(true);
+    dashboardClone.style.width = '750px'; // Fixed width for PDF
+    dashboardClone.style.maxWidth = '750px';
+    dashboardClone.style.height = 'auto'; 
+    dashboardClone.style.maxHeight = 'none';
+    dashboardClone.style.position = 'static';
+    dashboardClone.style.bottom = 'auto';
+    dashboardClone.style.left = 'auto';
+    dashboardClone.style.transform = 'none';
+    dashboardClone.style.overflow = 'visible';
+    dashboardClone.style.backgroundColor = 'white';
+    dashboardClone.style.padding = '20px';
+    
+    // Remove close and share buttons from the clone
+    const closeButtonClone = dashboardClone.querySelector('img[alt="Close Report"]');
+    if (closeButtonClone) closeButtonClone.remove();
+    
+    const shareButtonClone = dashboardClone.querySelector('img[alt="Export Report"]');
+    if (shareButtonClone) shareButtonClone.remove();
+
+    // Fix layout for main content container in PDF
+    const contentContainer = dashboardClone.querySelector('div[style*="display: flex"]');
+    if (contentContainer) {
+      contentContainer.style.flexDirection = 'column';
+      contentContainer.style.gap = '20px';
+      
+      const columns = contentContainer.querySelectorAll('div[style*="flex:"]');
+      columns.forEach(col => {
+        col.style.flex = '1';
+        col.style.width = '100%';
+      });
+    }
+
+    // Add report header
+    const reportHeader = document.createElement('div');
+    reportHeader.style.width = '100%';
+    reportHeader.style.padding = '20px';
+    reportHeader.style.backgroundColor = '#f67a0a';
+    reportHeader.style.color = 'white';
+    reportHeader.style.textAlign = 'center';
+    reportHeader.style.marginBottom = '30px';
+    reportHeader.style.borderRadius = '10px 10px 0 0';
+    
+    const headerTitle = document.createElement('h1');
+    headerTitle.textContent = 'Rail Feasibility Report';
+    headerTitle.style.margin = '0';
+    headerTitle.style.fontSize = '28px';
+    
+    const dateTime = document.createElement('p');
+    const now = new Date();
+    dateTime.textContent = `Generated on ${now.toLocaleDateString()} at ${now.toLocaleTimeString()}`;
+    dateTime.style.margin = '5px 0 0 0';
+    dateTime.style.fontSize = '14px';
+    
+    reportHeader.appendChild(headerTitle);
+    reportHeader.appendChild(dateTime);
+    dashboardClone.insertBefore(reportHeader, dashboardClone.firstChild);
+    
+    // Create temporary container for the PDF generation
+    const tempContainer = document.createElement('div');
+    tempContainer.style.position = 'absolute';
+    tempContainer.style.left = '-9999px';
+    tempContainer.style.top = '0';
+    tempContainer.style.width = '800px';
+    tempContainer.style.overflow = 'visible';
+    document.body.appendChild(tempContainer);
+    tempContainer.appendChild(dashboardClone);
+
+    // Replace the elevation chart canvas with the captured image
+    if (elevationChartImage) {
+      const chartContainerInPDF = dashboardClone.querySelector('div[style*="height: 200px"]');
+      if (chartContainerInPDF) {
+        // Clear the container first
+        chartContainerInPDF.innerHTML = '';
+        
+        // Create and add the image
+        const chartImgElement = document.createElement('img');
+        chartImgElement.src = elevationChartImage;
+        chartImgElement.style.width = '100%';
+        chartImgElement.style.height = '200px';
+        chartImgElement.style.objectFit = 'cover';
+        chartImgElement.style.borderRadius = '5px';
+        chartContainerInPDF.appendChild(chartImgElement);
+      }
+    }
+
+    // Replace the elevation map with the captured image
+    if (elevationMapImage) {
+      const mapContainerInPDF = dashboardClone.querySelector('div[style*="height: 400px"]');
+      if (mapContainerInPDF) {
+        // Clear the container first
+        mapContainerInPDF.innerHTML = '';
+        
+        // Create and add the image
+        const mapImgElement = document.createElement('img');
+        mapImgElement.src = elevationMapImage;
+        mapImgElement.style.width = '100%';
+        mapImgElement.style.height = '400px';
+        mapImgElement.style.objectFit = 'cover';
+        mapImgElement.style.borderRadius = '5px';
+        mapContainerInPDF.appendChild(mapImgElement);
+      }
+    }
+
+    // Wait for all images to load
+    const images = tempContainer.querySelectorAll('img');
+    await Promise.all(Array.from(images).filter(img => !img.complete).map(img => {
+      return new Promise(resolve => {
+        img.onload = img.onerror = resolve;
+      });
+    }));
+
+    // Allow time for layout to stabilize
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Generate PDF with settings for a single long page
+    const pdfOptions = {
+      margin: [10, 10, 10, 10],
+      filename: 'rail_feasibility_report.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { 
+        scale: 1.5,
+        useCORS: true,
+        allowTaint: true,
+        logging: true,
+        backgroundColor: '#ffffff'
+      },
+      jsPDF: { 
+        unit: 'mm', 
+        format: 'a4', 
+        orientation: 'portrait',
+        compress: true
+      },
+      pagebreak: { mode: ['avoid-all'] }
+    };
+    
+    await html2pdf().from(dashboardClone).set(pdfOptions).save();
+    
+    // Clean up
+    document.body.removeChild(tempContainer);
+    document.body.removeChild(loadingIndicator);
+  } catch (error) {
+    console.error('Error generating PDF:', error);
+    alert('Failed to generate PDF. Please try again.');
+    document.body.removeChild(loadingIndicator);
+  }
 });
