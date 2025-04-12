@@ -18,5 +18,6 @@ What if you could find the best-fit route that maximizes services to the majorit
 ![final-mockup-06](https://github.com/user-attachments/assets/c695dff4-6a15-407b-b8cd-7bcd58a78f1c)
 ![final-mockup-07](https://github.com/user-attachments/assets/b1a40a1a-bf58-42ef-a263-4066994a0455)
 ![final-mockup-08](https://github.com/user-attachments/assets/a412304b-9e69-43a7-9d79-13601bf26235)
+![final-mockup_report2](https://github.com/user-attachments/assets/09f870ed-5ddb-4dc1-bfea-1c92b8c7cbea)
 
 
