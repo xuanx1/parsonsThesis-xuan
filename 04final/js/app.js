@@ -5912,14 +5912,16 @@ shareButton.addEventListener('click', async () => {
 
   // Show loading indicator
   const loadingIndicator = document.createElement('div');
-  loadingIndicator.textContent = 'Generating PDF...';
+  loadingIndicator.textContent = 'Generating Report...';
   loadingIndicator.style.position = 'absolute';
-  loadingIndicator.style.top = '50%';
+  loadingIndicator.style.top = '7%';
   loadingIndicator.style.left = '50%';
   loadingIndicator.style.transform = 'translate(-50%, -50%)';
-  loadingIndicator.style.padding = '10px 20px';
-  loadingIndicator.style.backgroundColor = '#f67a0a';
-  loadingIndicator.style.color = 'white';
+  loadingIndicator.style.padding = '10px';
+  loadingIndicator.style.backgroundColor = '#ffffff';
+  loadingIndicator.style.boxShadow = '0 0 10px rgba(8, 8, 8, 0.5)';
+  loadingIndicator.style.opacity = '0.9';
+  loadingIndicator.style.color = ' #2e343a';
   loadingIndicator.style.borderRadius = '5px';
   loadingIndicator.style.zIndex = '3002';
   document.body.appendChild(loadingIndicator);
@@ -6124,7 +6126,7 @@ if (elevationMap) {
     // Generate PDF with settings for a single long page
     const pdfOptions = {
       margin: [10, 10, 10, 10],
-      filename: 'rail_feasibility_report.pdf',
+      filename: `rail_feasibility_${new Date().toISOString().replace(/[:.]/g, '-').replace('T', '_').slice(0, 19)}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { 
         scale: 1.5,
