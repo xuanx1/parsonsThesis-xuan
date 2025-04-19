@@ -4276,38 +4276,75 @@ resetButton.addEventListener("click", () => {
     destinationMarkerRef.marker = null;
   }
 
-  // Clear total distance, origin, destination, index value, elevation profile, map markers in route report
+  // clear total distance, origin, destination, index value, elevation profile, map markers in route report
   distanceContainer.innerHTML = "Total Distance N/A";
   const originElement = scoreContainer.querySelector('div:nth-child(2)');
   const destinationElement = scoreContainer.querySelector('div:nth-child(4)');
   if (originElement) originElement.textContent = "N/A";
   if (destinationElement) destinationElement.textContent = "N/A";
 
-  document.getElementById("tsi-value").textContent = "0.5";
-  document.getElementById("sdi-value").textContent = "0.5";
-  document.getElementById("e2i-value").textContent = "0.5";
-  document.getElementById("opi-value").textContent = "0.5";
-  document.getElementById("pei-value").textContent = "0.5";
-  document.getElementById("ffi-value").textContent = "0.5";
-  document.getElementById("population-served").textContent = "N/A";
-  const chart = Chart.getChart(elevationChartContainer.querySelector("canvas"));
-  if (chart) {
-    chart.data.datasets[0].data = []; // Clear only the line data
-    chart.update(); // Update the chart to reflect changes
+  const tsiValueElement = document.getElementById("tsi-value");
+  const sdiValueElement = document.getElementById("sdi-value");
+  const e2iValueElement = document.getElementById("e2i-value");
+  const opiValueElement = document.getElementById("opi-value");
+  const peiValueElement = document.getElementById("pei-value");
+  const ffiValueElement = document.getElementById("ffi-value");
+  const populationServedElement = document.getElementById("population-served");
+
+  if (tsiValueElement) tsiValueElement.textContent = "0.5";
+  if (sdiValueElement) sdiValueElement.textContent = "0.5";
+  if (e2iValueElement) e2iValueElement.textContent = "0.5";
+  if (opiValueElement) opiValueElement.textContent = "0.5";
+  if (peiValueElement) peiValueElement.textContent = "0.5";
+  if (ffiValueElement) ffiValueElement.textContent = "0.5";
+  if (populationServedElement) populationServedElement.textContent = "N/A";
+
+  const chartCanvas = elevationChartContainer.querySelector("canvas");
+  if (chartCanvas) {
+    const chart = Chart.getChart(chartCanvas);
+    if (chart) {
+      chart.data.datasets[0].data = []; // clear the line only
+      chart.update(); // update chart
+    }
   }
+
+
+  // reset coordinates table
+  const populateCoordinatesTable = () => {
+    tableBody.innerHTML = "";
+    
+    const ffiPath = map.getSource("ffi-path")?._data?.geometry?.coordinates || [];
+    
+    if (ffiPath.length === 0) {
+      const emptyRow = document.createElement("tr");
+      const emptyCell = document.createElement("td");
+      emptyCell.textContent = "No path coordinates available";
+      emptyCell.colSpan = 3;
+      emptyCell.style.textAlign = "center";
+      emptyCell.style.padding = "8px";
+      emptyCell.style.color = "#666";
+      emptyRow.appendChild(emptyCell);
+      tableBody.appendChild(emptyRow);
+    }
+  };
+
+  populateCoordinatesTable();
+
+
   const oldMarkers = document.querySelectorAll(".elevation-marker");
   oldMarkers.forEach((marker) => marker.remove());
 
-  // Remove any route drawn in the report map
+
+  // remove any route drawn in the report map
   if (elevationMap.getLayer("ffi-path-layer")) {
     elevationMap.removeLayer("ffi-path-layer");
   }
   if (elevationMap.getSource("ffi-path")) {
     elevationMap.removeSource("ffi-path");
   }
- 
 
-  // Remove marker_d and marker_o SVGs if they exist
+ 
+  // remove marker_d and marker_o SVGs if they exist
   const markerDSVG = document.querySelector('img[src="images/marker_d.svg"]');
   if (markerDSVG) {
     markerDSVG.remove();
@@ -4453,7 +4490,9 @@ exportButton.addEventListener("mouseout", () => {
 // Change brightness to 100% when routes are loaded
 map.on("sourcedata", () => {
   if (map.getSource("ffi-path") || map.getSource("e2i-path") || map.getSource("opi-path")) {
-    exportButton.style.filter = "brightness(100%)"; // Set to full brightness
+    setTimeout(() => {
+      exportButton.style.filter = "brightness(100%)"; // Set to full brightness
+    }, 5000); // 5s delay
   }
 });
 
@@ -4573,6 +4612,176 @@ routeButton.addEventListener("click", async () => {
       console.log("Path generation completed.");
       return path;
     }
+
+    // async function calculateCurvedPath(start, end) {
+    //   console.log("Starting calculation of optimal FFI path...");
+    //   const path = [start]; // Start with the origin point
+      
+    //   // Load the SEA boundary data for validation
+    //   console.log("Fetching sea.json data...");
+    //   const seaData = await fetch("data/sea.json").then((res) => res.json());
+    //   console.log("Sea data fetched successfully.");
+
+    //   // Create buffer around sea.json boundary for valid area
+    //   console.log("Creating buffer around sea.json boundary...");
+    //   const bufferedSea = turf.buffer(seaData, 1, { units: "kilometers" }); // 1km buffer
+    //   const seaPolygon = bufferedSea.features[0]; // get 1st polygon from FeatureCollection
+    //   console.log("Buffer created successfully.");
+
+    //   // Load the precomputed grid points with FFI values
+    //   console.log("Loading grid FFI data...");
+    //   const gridData = await fetch("data/preCal/grid_final.geojson")
+    //     .then((res) => res.json())
+    //     .catch((error) => {
+    //       console.error("Error loading grid FFI data:", error);
+    //       return { features: [] }; // Return empty features if file not found
+    //     });
+      
+    //   if (!gridData.features || gridData.features.length === 0) {
+    //     console.warn("No grid FFI data found, falling back to direct path");
+    //     // If no grid data, just return direct start-end path
+    //     return [start, end];
+    //   }
+      
+    //   console.log(`Loaded ${gridData.features.length} grid points with FFI values`);
+      
+    //   // Extract points with their FFI values, calculating centroids where needed
+    //   const gridPoints = gridData.features.map(feature => {
+    //     // Get coordinates - if it's not a point, calculate the centroid
+    //     let coordinates;
+    //     if (feature.geometry.type === 'Point') {
+    //       coordinates = feature.geometry.coordinates;
+    //     } else {
+    //       // For other geometry types (Polygon, MultiPolygon, etc.), calculate centroid
+    //       const centroid = turf.centroid(feature);
+    //       coordinates = centroid.geometry.coordinates;
+    //     }
+        
+    //     return {
+    //       coordinates,
+    //       ffi: feature.properties.ffi || 0.5 // Default to 0.5 if FFI not available
+    //     };
+    //   });
+      
+    //   // Calculate direct distance between start and end
+    //   const directDistance = turf.distance(turf.point(start), turf.point(end), {units: 'kilometers'});
+      
+    //   // Find top 3 best intermediate points (closest to both origin and destination + high FFI)
+    //   const bestIntermediatePoints = gridPoints
+    //     .map(point => {
+    //       // Calculate distances from point to start and end
+    //       const distToStart = turf.distance(turf.point(point.coordinates), turf.point(start), {units: 'kilometers'});
+    //       const distToEnd = turf.distance(turf.point(point.coordinates), turf.point(end), {units: 'kilometers'});
+          
+    //       // Calculate centrality: how close the point is to direct path between origin-destination
+    //       // A value close to 1 means the point is on the direct line between start and end
+    //       const centrality = (distToStart + distToEnd) / directDistance;
+          
+    //       // Calculate a composite score: higher FFI is better, lower centrality is better
+    //       const compositeScore = (point.ffi * 0.6) + ((2 - centrality) * 0.4);
+          
+    //       return {
+    //         ...point,
+    //         distToStart,
+    //         distToEnd,
+    //         centrality,
+    //         compositeScore
+    //       };
+    //     })
+    //     // Filter out points that are outside SEA boundary
+    //     .filter(point => {
+    //       const pointFeature = turf.point(point.coordinates);
+    //       return turf.booleanPointInPolygon(pointFeature, seaPolygon);
+    //     })
+    //     // Sort by composite score, highest first
+    //     .sort((a, b) => b.compositeScore - a.compositeScore)
+    //     // Take the top 3
+    //     .slice(0, 3);
+      
+    //   console.log("Top 3 best intermediate points:");
+    //   bestIntermediatePoints.forEach((point, index) => {
+    //     console.log(`Point ${index + 1}: [${point.coordinates[0].toFixed(4)}, ${point.coordinates[1].toFixed(4)}]`);
+    //     console.log(`  FFI: ${point.ffi.toFixed(2)}, Distance to Origin: ${point.distToStart.toFixed(2)}km, Distance to Destination: ${point.distToEnd.toFixed(2)}km`);
+    //   });
+      
+    //   // Current point is the start
+    //   let currentPoint = start;
+    //   let remainingPoints = [...gridPoints];
+    //   const maxPoints = 20; // Maximum number of intermediate points to use
+    //   let pointCount = 0;
+      
+    //   // Define search parameters
+    //   const maxSearchRadius = 100; // km, maximum search radius
+    //   const initialSearchRadius = 20; // km, initial search radius
+    //   let searchRadius = initialSearchRadius;
+    //   const searchRadiusIncrement = 10; // km, how much to increase search radius if no points found
+      
+    //   // While we haven't reached close to the destination
+    //   while (pointCount < maxPoints && turf.distance(turf.point(currentPoint), turf.point(end), {units: 'kilometers'}) > searchRadius) {
+    //     // Check if we need to terminate the search (getting too close to end)
+    //     if (turf.distance(turf.point(currentPoint), turf.point(end), {units: 'kilometers'}) < searchRadius * 1.5) {
+    //       console.log("Close enough to destination - adding endpoint");
+    //       path.push(end);
+    //       break;
+    //     }
+        
+    //     // Find points within search radius
+    //     let nearbyPoints = remainingPoints.filter(pt => {
+    //       const distance = turf.distance(turf.point(currentPoint), turf.point(pt.coordinates), {units: 'kilometers'});
+    //       return distance < searchRadius && distance > 0; // Ensure we're not selecting the same point
+    //     });
+        
+    //     // If no points found in radius, increase search radius
+    //     if (nearbyPoints.length === 0) {
+    //       searchRadius += searchRadiusIncrement;
+    //       console.log(`No points found within ${searchRadius - searchRadiusIncrement}km, increasing radius to ${searchRadius}km`);
+          
+    //       // If search radius becomes too large, stop the search
+    //       if (searchRadius > maxSearchRadius) {
+    //         console.log(`Search radius (${searchRadius}km) exceeded maximum (${maxSearchRadius}km) - adding endpoint`);
+    //         path.push(end);
+    //         break;
+    //       }
+    //       continue;
+    //     }
+        
+    //     // Sort by FFI value (highest first)
+    //     nearbyPoints.sort((a, b) => b.ffi - a.ffi);
+        
+    //     // Get the point with highest FFI
+    //     const bestPoint = nearbyPoints[0];
+        
+    //     // Validate the point is within SEA boundary
+    //     const pointFeature = turf.point(bestPoint.coordinates);
+    //     if (!turf.booleanPointInPolygon(pointFeature, seaPolygon)) {
+    //       console.log(`Point ${bestPoint.coordinates} is outside SEA boundary, skipping`);
+    //       // Remove this point from consideration
+    //       remainingPoints = remainingPoints.filter(pt => pt !== bestPoint);
+    //       continue;
+    //     }
+        
+    //     // Add to path and update current point
+    //     path.push(bestPoint.coordinates);
+    //     console.log(`Added point [${bestPoint.coordinates}] with FFI ${bestPoint.ffi.toFixed(2)}`);
+        
+    //     // Update for next iteration
+    //     currentPoint = bestPoint.coordinates;
+    //     // Remove used point to avoid cycles
+    //     remainingPoints = remainingPoints.filter(pt => pt !== bestPoint);
+    //     pointCount++;
+        
+    //     // Reset search radius for next point
+    //     searchRadius = initialSearchRadius;
+    //   }
+      
+    //   // Make sure we end at the destination
+    //   if (path[path.length - 1][0] !== end[0] || path[path.length - 1][1] !== end[1]) {
+    //     path.push(end);
+    //   }
+      
+    //   console.log(`Path generated with ${path.length} points`);
+    //   return path;
+    // }
 
     const getPopulationCountFromRoute = async () => {
       const ffiPath = map.getSource("ffi-path")?._data?.geometry?.coordinates || [];
@@ -4743,13 +4952,13 @@ routeButton.addEventListener("click", async () => {
             .setLngLat(e.lngLat)
             .setHTML(
               `
-              <strong style="color: ${color};">Index Values:</strong><br>
-              <strong>TSI:</strong> ${document.getElementById("tsi-value").textContent}<br>
-              <strong>SDI:</strong> ${document.getElementById("sdi-value").textContent}<br>
-              <strong>E2I:</strong> ${document.getElementById("e2i-value").textContent}<br>
-              <strong>OPI:</strong> ${document.getElementById("opi-value").textContent}<br>
-              <strong>PEI:</strong> ${document.getElementById("pei-value").textContent}<br>
-              <strong>Distance:</strong> ${distance} km
+              <strong style="color:rgb(59, 59, 59);">Index Values</strong><br>
+              <strong>TSI </strong> ${document.getElementById("tsi-value").textContent}<br>
+              <strong>SDI </strong> ${document.getElementById("sdi-value").textContent}<br>
+              <strong>E2I </strong> ${document.getElementById("e2i-value").textContent}<br>
+              <strong>OPI </strong> ${document.getElementById("opi-value").textContent}<br>
+              <strong>PEI </strong> ${document.getElementById("pei-value").textContent}<br>
+              <strong>Distance </strong> ${distance} km
             `
             )
             .addTo(map);
@@ -4850,9 +5059,6 @@ routeButton.addEventListener("click", async () => {
 });
 
 
-// get population count from route drawn
-
-
 
 
 
@@ -4876,7 +5082,20 @@ exportDashboardContainer.style.scrollbarWidth = "thin";
 exportDashboardContainer.style.scrollbarColor = "#ccc transparent";
 exportDashboardContainer.style.transition = "bottom 0.3s ease"; 
 
-// Mobile responsiveness adjustments
+// bg overlay
+const blackBgOverlay = document.createElement("div");
+blackBgOverlay.style.position = "fixed";
+blackBgOverlay.style.top = "0";
+blackBgOverlay.style.left = "0";
+blackBgOverlay.style.width = "100%";
+blackBgOverlay.style.height = "100%";
+blackBgOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+blackBgOverlay.style.zIndex = "2999";
+blackBgOverlay.style.display = "none"; // Initially hidden
+blackBgOverlay.style.transition = "opacity 0.3s ease";
+document.body.appendChild(blackBgOverlay);
+
+// mobile adjustments
 const updateDashboardLayout = () => {
   if (window.innerWidth <= 768) { // Mobile breakpoint
     exportDashboardContainer.style.width = "95%";
@@ -4889,15 +5108,12 @@ const updateDashboardLayout = () => {
   }
 };
 
-// Apply initial layout based on screen size
 updateDashboardLayout();
-
-// Update layout when window is resized
 window.addEventListener('resize', updateDashboardLayout);
 
 document.body.appendChild(exportDashboardContainer);
 
-// Minimalist scrollbar for WebKit browsers
+// scrollbar
 const exportStyle = document.createElement("style");
 exportStyle.textContent = `
           #exportDashboardContainer::-webkit-scrollbar {
@@ -4919,8 +5135,16 @@ let isExportDashboardOpen = false;
 exportButton.addEventListener("click", () => {
   if (isExportDashboardOpen) {
     exportDashboardContainer.style.bottom = "-1000px"; // Slide out
+    blackBgOverlay.style.opacity = "0"; // Fade out black background
+    setTimeout(() => {
+      blackBgOverlay.style.display = "none"; // Hide after transition
+    }, 300);
   } else {
     exportDashboardContainer.style.bottom = "0"; // Slide in
+    blackBgOverlay.style.display = "block"; // Show black background
+    setTimeout(() => {
+      blackBgOverlay.style.opacity = "1"; // Fade in
+    }, 0);
     // Update the content when opening
     updateExportDashboardContent();
   }
@@ -4988,6 +5212,10 @@ closeButton.style.filter = "grayscale(100%)";
 closeButton.style.opacity = "0.5";
 closeButton.addEventListener("click", () => {
   exportDashboardContainer.style.bottom = "-1000px";
+  blackBgOverlay.style.opacity = "0"; // Fade out black background
+  setTimeout(() => {
+    blackBgOverlay.style.display = "none"; // Hide after transition
+  }, 300);
   isExportDashboardOpen = false;
 });
 exportDashboardContainer.appendChild(closeButton);
@@ -5532,7 +5760,7 @@ elevationQueryContainer.appendChild(elevationMapContainer);
 const elevationMap = new mapboxgl.Map({
   container: elevationMapContainer,
   style: "mapbox://styles/mapbox/outdoors-v11",
-  center: [120.0, 4.0], // Center of Southeast Asia
+  center: [120.0, 5.0], // Center of Southeast Asia
   zoom: 3,
   interactive: false,
   preserveDrawingBuffer: true 
@@ -5559,7 +5787,7 @@ map.on("sourcedata", () => {
     }
   } else {
     elevationMap.flyTo({
-      center: [120.0, 4.0], // Center of Southeast Asia
+      center: [120.0, 5.0], // Center of Southeast Asia
       zoom: 3,
     });
   }
