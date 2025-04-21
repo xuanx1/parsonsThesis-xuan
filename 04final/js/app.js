@@ -796,8 +796,8 @@ originClearButton.src = "images/cross.svg";
 originClearButton.style.filter = "grayscale(100%)";
 originClearButton.alt = "Clear";
 originClearButton.style.position = "absolute";
-originClearButton.style.top = "26px";
-originClearButton.style.left = "235px";
+originClearButton.style.top = "16px";
+originClearButton.style.left = "237px";
 originClearButton.style.zIndex = "1000";
 originClearButton.style.cursor = "pointer";
 originClearButton.style.display = "none";
@@ -810,7 +810,7 @@ originClearButton.addEventListener("click", () => {
   // Close the dropdown if it is open
   originSuggestionBox.style.display = "none";
 });
-document.body.appendChild(originClearButton);
+odContainer.appendChild(originClearButton);
 
 originInput.addEventListener("input", () => {
   originClearButton.style.display = originInput.value ? "block" : "none";
@@ -821,12 +821,12 @@ destinationClearButton.src = "images/cross.svg";
 destinationClearButton.style.filter = "grayscale(100%)";
 destinationClearButton.alt = "Clear";
 destinationClearButton.style.position = "absolute";
-destinationClearButton.style.top = "76px";
-destinationClearButton.style.left = "225px";
+destinationClearButton.style.top = "66px";
+destinationClearButton.style.left = "237px";
 destinationClearButton.style.zIndex = "1000";
 destinationClearButton.style.cursor = "pointer";
 destinationClearButton.style.display = "none";
-destinationClearButton.style.width = "36px";
+destinationClearButton.style.width = "16px";
 destinationClearButton.style.height = "16px";
 destinationClearButton.addEventListener("click", () => {
   destinationInput.value = "";
@@ -835,7 +835,7 @@ destinationClearButton.addEventListener("click", () => {
   // Close the dropdown if open
   destinationSuggestionBox.style.display = "none";
 });
-document.body.appendChild(destinationClearButton);
+odContainer.appendChild(destinationClearButton);
 
 destinationInput.addEventListener("input", () => {
   destinationClearButton.style.display = destinationInput.value ? "block" : "none";
