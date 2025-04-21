@@ -31,12 +31,12 @@ const map = new mapboxgl.Map({
   minZoom: 1,
   maxZoom: 14,
 });
-map.addControl(
-  new mapboxgl.AttributionControl({
-    compact: true,
-    customAttribution: "© Mapbox © OpenStreetMap",
-  })
-);
+// map.addControl(
+//   new mapboxgl.AttributionControl({
+//     compact: true,
+//     customAttribution: "© Mapbox © OpenStreetMap",
+//   })
+// );
 
 // remove country names
 map.on("style.load", () => {
@@ -240,139 +240,139 @@ map.on("style.load", () => {
   });
 });
 
-// Responsive inset map
-const createInsetMap = () => {
-  const insetContainer = document.createElement("div");
-  insetContainer.id = "inset-map";
-  insetContainer.style.position = "absolute";
-  insetContainer.style.width = window.innerWidth > 768 ? "320px" : "200px"; // Adjust width for smaller screens
-  insetContainer.style.height = window.innerWidth > 768 ? "150px" : "100px"; // Adjust height for smaller screens
-  insetContainer.style.bottom = "10px";
-  insetContainer.style.right = "10px";
-  insetContainer.style.border = "2px solid #ccc";
-  insetContainer.style.zIndex = "1000";
-  document.body.appendChild(insetContainer);
+// // Responsive inset map
+// const createInsetMap = () => {
+//   const insetContainer = document.createElement("div");
+//   insetContainer.id = "inset-map";
+//   insetContainer.style.position = "absolute";
+//   insetContainer.style.width = window.innerWidth > 768 ? "320px" : "200px"; // Adjust width for smaller screens
+//   insetContainer.style.height = window.innerWidth > 768 ? "150px" : "100px"; // Adjust height for smaller screens
+//   insetContainer.style.bottom = "10px";
+//   insetContainer.style.right = "10px";
+//   insetContainer.style.border = "2px solid #ccc";
+//   insetContainer.style.zIndex = "1000";
+//   document.body.appendChild(insetContainer);
 
-  const insetMap = new mapboxgl.Map({
-    container: "inset-map",
-    style: "mapbox://styles/mapbox/dark-v10",
-    center: map.getCenter(),
-    zoom: 0.1,
-    interactive: false,
-    attributionControl: false,
-  });
+//   const insetMap = new mapboxgl.Map({
+//     container: "inset-map",
+//     style: "mapbox://styles/mapbox/dark-v10",
+//     center: map.getCenter(),
+//     zoom: 0.1,
+//     interactive: false,
+//     attributionControl: false,
+//   });
 
-  // inset title
-  const insetTitle = document.createElement("div");
-  insetTitle.textContent = "Southeast Asia";
-  insetTitle.style.position = "absolute";
-  insetTitle.style.top = "5px";
-  insetTitle.style.left = "10px";
-  insetTitle.style.zIndex = "1001";
-  insetTitle.style.color = "white";
-  insetTitle.style.opacity = "0.5";
-  insetTitle.style.fontSize = window.innerWidth > 768 ? "16px" : "12px"; // Adjust font size for smaller screens
-  insetTitle.style.fontWeight = "Bold";
-  insetContainer.appendChild(insetTitle);
+//   // inset title
+//   const insetTitle = document.createElement("div");
+//   insetTitle.textContent = "Southeast Asia";
+//   insetTitle.style.position = "absolute";
+//   insetTitle.style.top = "5px";
+//   insetTitle.style.left = "10px";
+//   insetTitle.style.zIndex = "1001";
+//   insetTitle.style.color = "white";
+//   insetTitle.style.opacity = "0.5";
+//   insetTitle.style.fontSize = window.innerWidth > 768 ? "16px" : "12px"; // Adjust font size for smaller screens
+//   insetTitle.style.fontWeight = "Bold";
+//   insetContainer.appendChild(insetTitle);
 
-  // remove logo from the inset map
-  const insetLogoElement = document.querySelector("#inset-map .mapboxgl-ctrl-logo");
-  if (insetLogoElement) {
-    insetLogoElement.style.display = "none"; // Hide the logo
-  }
+//   // remove logo from the inset map
+//   const insetLogoElement = document.querySelector("#inset-map .mapboxgl-ctrl-logo");
+//   if (insetLogoElement) {
+//     insetLogoElement.style.display = "none"; // Hide the logo
+//   }
 
-  insetMap.on("style.load", () => {
-    insetMap.getStyle().layers.forEach((layer) => {
-      if (layer.type === "symbol" && layer.layout && layer.layout["text-field"]) {
-        insetMap.setPaintProperty(layer.id, "text-color", "#d3d3d3");
-      }
-    });
-  });
+//   insetMap.on("style.load", () => {
+//     insetMap.getStyle().layers.forEach((layer) => {
+//       if (layer.type === "symbol" && layer.layout && layer.layout["text-field"]) {
+//         insetMap.setPaintProperty(layer.id, "text-color", "#d3d3d3");
+//       }
+//     });
+//   });
 
-  insetMap.on("load", () => {
-    insetMap.addSource("countries", {
-      type: "vector",
-      url: "mapbox://mapbox.country-boundaries-v1",
-    });
+//   insetMap.on("load", () => {
+//     insetMap.addSource("countries", {
+//       type: "vector",
+//       url: "mapbox://mapbox.country-boundaries-v1",
+//     });
 
-    insetMap.addLayer({
-      id: "rest-world",
-      type: "fill",
-      source: "countries",
-      "source-layer": "country_boundaries",
-      paint: {
-        "fill-color": "#2b2b2b",
-        "fill-opacity": 0.6,
-      },
-      filter: [
-        "!in",
-        "iso_3166_1_alpha_3",
-        "IDN",
-        "VNM",
-        "LAO",
-        "BRN",
-        "THA",
-        "MMR",
-        "PHL",
-        "KHM",
-        "TLS",
-        "SGP",
-        "MYS",
-      ],
-    });
+//     insetMap.addLayer({
+//       id: "rest-world",
+//       type: "fill",
+//       source: "countries",
+//       "source-layer": "country_boundaries",
+//       paint: {
+//         "fill-color": "#2b2b2b",
+//         "fill-opacity": 0.6,
+//       },
+//       filter: [
+//         "!in",
+//         "iso_3166_1_alpha_3",
+//         "IDN",
+//         "VNM",
+//         "LAO",
+//         "BRN",
+//         "THA",
+//         "MMR",
+//         "PHL",
+//         "KHM",
+//         "TLS",
+//         "SGP",
+//         "MYS",
+//       ],
+//     });
 
-    insetMap.addLayer({
-      id: "highlight-sea",
-      type: "fill",
-      source: "countries",
-      "source-layer": "country_boundaries",
-      paint: {
-        "fill-color": "#ffffff",
-        "fill-opacity": 0.6,
-      },
-      filter: ["in", "iso_3166_1_alpha_3", "IDN", "LAO", "BRN", "THA", "MMR", "KHM", "TLS", "SGP", "MYS"],
-    });
+//     insetMap.addLayer({
+//       id: "highlight-sea",
+//       type: "fill",
+//       source: "countries",
+//       "source-layer": "country_boundaries",
+//       paint: {
+//         "fill-color": "#ffffff",
+//         "fill-opacity": 0.6,
+//       },
+//       filter: ["in", "iso_3166_1_alpha_3", "IDN", "LAO", "BRN", "THA", "MMR", "KHM", "TLS", "SGP", "MYS"],
+//     });
 
-    insetMap.addLayer({
-      id: "highlight-philippines-vietnam",
-      type: "fill",
-      source: "countries",
-      "source-layer": "country_boundaries",
-      paint: {
-        "fill-color": "#ffffff",
-        "fill-opacity": 0.4,
-      },
-      filter: ["in", "iso_3166_1_alpha_3", "PHL", "VNM"],
-    });
+//     insetMap.addLayer({
+//       id: "highlight-philippines-vietnam",
+//       type: "fill",
+//       source: "countries",
+//       "source-layer": "country_boundaries",
+//       paint: {
+//         "fill-color": "#ffffff",
+//         "fill-opacity": 0.4,
+//       },
+//       filter: ["in", "iso_3166_1_alpha_3", "PHL", "VNM"],
+//     });
 
-    insetMap.moveLayer("highlight-sea", "country-label");
-    insetMap.moveLayer("highlight-philippines-vietnam", "country-label");
-    insetMap.moveLayer("rest-world", "country-label");
-  });
+//     insetMap.moveLayer("highlight-sea", "country-label");
+//     insetMap.moveLayer("highlight-philippines-vietnam", "country-label");
+//     insetMap.moveLayer("rest-world", "country-label");
+//   });
 
-  map.on("move", () => {
-    insetMap.setCenter(map.getCenter());
-    insetMap.setZoom(map.getZoom() - 4);
-  });
+//   map.on("move", () => {
+//     insetMap.setCenter(map.getCenter());
+//     insetMap.setZoom(map.getZoom() - 4);
+//   });
 
-  return insetContainer;
-};
+//   return insetContainer;
+// };
 
-// Create inset map if screen width is greater than 480px
-if (window.innerWidth > 480) {
-  createInsetMap();
-}
+// // Create inset map if screen width is greater than 480px
+// if (window.innerWidth > 480) {
+//   createInsetMap();
+// }
 
-// Adjust inset map on window resize
-window.addEventListener("resize", () => {
-  const existingInsetMap = document.getElementById("inset-map");
-  if (existingInsetMap) {
-    existingInsetMap.remove();
-  }
-  if (window.innerWidth > 480) {
-    createInsetMap();
-  }
-});
+// // Adjust inset map on window resize
+// window.addEventListener("resize", () => {
+//   const existingInsetMap = document.getElementById("inset-map");
+//   if (existingInsetMap) {
+//     existingInsetMap.remove();
+//   }
+//   if (window.innerWidth > 480) {
+//     createInsetMap();
+//   }
+// });
 
 // Adj map container ht to follow win ht
 const resizeMap = () => {
@@ -385,20 +385,77 @@ window.addEventListener("resize", resizeMap);
 resizeMap();
 
 // origin-destination UI + dropdown suggestions
+// Create a container for origin-destination elements
+const odContainer = document.createElement("div");
+odContainer.style.position = "absolute";
+odContainer.style.top = "10px";
+odContainer.style.left = "-250px"; // Initially hidden to the left
+odContainer.style.zIndex = "1000";
+odContainer.style.transition = "left 0.5s ease"; // Smooth transition
+odContainer.style.padding = "10px";
+odContainer.style.borderRadius = "0 10px 10px 0";
+document.body.appendChild(odContainer);
+
+// Variable to track if sliding should be allowed
+let allowSliding = true;
+
+// Function to check if inputs have values
+const checkInputsEmpty = () => {
+  // We'll define these variables here, but they'll be initialized later in the code
+  if (!originInput || !destinationInput) return true;
+  
+  return originInput.value === "" && destinationInput.value === "";
+};
+
+// Add hover effect to slide in
+odContainer.addEventListener("mouseenter", () => {
+  odContainer.style.left = "0px";
+});
+
+odContainer.addEventListener("mouseleave", () => {
+  // Only slide out if both inputs are empty
+  if (checkInputsEmpty()) {
+    odContainer.style.left = "-250px";
+  }
+});
+
+// Add event listeners to inputs to update sliding behavior
+// These will be added after originInput and destinationInput are created
+const setupInputListeners = () => {
+  if (originInput) {
+    originInput.addEventListener("input", () => {
+      // If any input has a value, keep the container visible
+      if (!checkInputsEmpty()) {
+        odContainer.style.left = "0px";
+      }
+    });
+  }
+  
+  if (destinationInput) {
+    destinationInput.addEventListener("input", () => {
+      // If any input has a value, keep the container visible
+      if (!checkInputsEmpty()) {
+        odContainer.style.left = "0px";
+      }
+    });
+  }
+};
+
+// We'll call this function after originInput and destinationInput are created
+setTimeout(setupInputListeners, 500);
+
+
 const originInput = document.createElement("input");
 originInput.type = "text";
 originInput.placeholder = "Origin";
-originInput.style.position = "absolute";
-originInput.style.top = "10px";
-originInput.style.left = "10px";
-originInput.style.zIndex = "1000";
 originInput.style.width = "250px";
 originInput.style.borderRadius = "20px";
 originInput.style.padding = "5px";
 originInput.style.border = "none";
 originInput.style.paddingLeft = "25px";
 originInput.style.paddingRight = "29px";
-document.body.appendChild(originInput);
+originInput.style.marginBottom = "10px";
+odContainer.appendChild(originInput);
 
 // blue circle origin
 const bluCircle = document.createElement("div");
@@ -410,23 +467,7 @@ bluCircle.style.height = "10px";
 bluCircle.style.borderRadius = "50%";
 bluCircle.style.backgroundColor = "#019cde";
 bluCircle.style.zIndex = "1000";
-document.body.appendChild(bluCircle);
-
-// 3dots
-const threeDots = document.createElement("img");
-threeDots.src = "images/3dots.svg";
-threeDots.alt = "Pinpoint Origin";
-threeDots.style.position = "absolute";
-threeDots.style.top = "49px";
-threeDots.style.left = "7px";
-threeDots.style.zIndex = "1000";
-threeDots.style.cursor = "pointer";
-threeDots.style.width = "30px";
-threeDots.style.height = "30px";
-threeDots.style.borderRadius = "50%";
-threeDots.style.backgroundColor = "none";
-threeDots.style.padding = "5px";
-document.body.appendChild(threeDots);
+odContainer.appendChild(bluCircle);
 
 const enableClickButton = document.createElement("img");
 enableClickButton.src = "images/pin_blue.svg";
@@ -442,7 +483,7 @@ enableClickButton.style.border = "0px solid #ccc";
 enableClickButton.style.borderRadius = "50%";
 enableClickButton.style.backgroundColor = "#ffffff";
 enableClickButton.style.padding = "5px";
-document.body.appendChild(enableClickButton);
+odContainer.appendChild(enableClickButton);
 
 const okButton = document.createElement("img");
 okButton.src = "images/ok.svg";
@@ -459,7 +500,7 @@ okButton.style.borderRadius = "50%";
 okButton.style.backgroundColor = "#ffffff";
 okButton.style.padding = "5px";
 okButton.style.display = "none";
-document.body.appendChild(okButton);
+odContainer.appendChild(okButton);
 
 let clickEnabled = false;
 let originMarker = null; // origin marker
@@ -523,34 +564,34 @@ const destinationInput = document.createElement("input");
 destinationInput.type = "text";
 destinationInput.placeholder = "Destination";
 destinationInput.style.position = "absolute";
-destinationInput.style.top = "90px";
+destinationInput.style.top = "60px";
 destinationInput.style.left = "10px";
-destinationInput.style.zIndex = "1000";
 destinationInput.style.width = "250px";
 destinationInput.style.borderRadius = "20px";
 destinationInput.style.padding = "5px";
 destinationInput.style.border = "none";
 destinationInput.style.paddingLeft = "25px";
 destinationInput.style.paddingRight = "29px";
-document.body.appendChild(destinationInput);
+destinationInput.style.marginBottom = "10px";
+odContainer.appendChild(destinationInput);
 
 // red circle destination
 const redCircle = document.createElement("div");
 redCircle.style.position = "absolute";
-redCircle.style.top = "99px";
+redCircle.style.top = "69px";
 redCircle.style.left = "20px";
 redCircle.style.width = "10px";
 redCircle.style.height = "10px";
 redCircle.style.borderRadius = "50%";
 redCircle.style.backgroundColor = "#e95247";
 redCircle.style.zIndex = "1000";
-document.body.appendChild(redCircle);
+odContainer.appendChild(redCircle);
 
 const enableDestinationClickButton = document.createElement("img");
 enableDestinationClickButton.src = "images/pin.svg";
 enableDestinationClickButton.alt = "Pinpoint Destination";
 enableDestinationClickButton.style.position = "absolute";
-enableDestinationClickButton.style.top = "90px";
+enableDestinationClickButton.style.top = "60px";
 enableDestinationClickButton.style.left = "270px";
 enableDestinationClickButton.style.zIndex = "1000";
 enableDestinationClickButton.style.cursor = "pointer";
@@ -560,13 +601,13 @@ enableDestinationClickButton.style.border = "0px solid #ccc";
 enableDestinationClickButton.style.borderRadius = "50%";
 enableDestinationClickButton.style.backgroundColor = "#ffffff";
 enableDestinationClickButton.style.padding = "5px";
-document.body.appendChild(enableDestinationClickButton);
+odContainer.appendChild(enableDestinationClickButton);
 
 const destinationOkButton = document.createElement("img");
 destinationOkButton.src = "images/ok.svg";
 destinationOkButton.alt = "OK";
 destinationOkButton.style.position = "absolute";
-destinationOkButton.style.top = "90px";
+destinationOkButton.style.top = "60px";
 destinationOkButton.style.left = "270px";
 destinationOkButton.style.zIndex = "1000";
 destinationOkButton.style.cursor = "pointer";
@@ -577,7 +618,7 @@ destinationOkButton.style.borderRadius = "50%";
 destinationOkButton.style.backgroundColor = "#ffffff";
 destinationOkButton.style.padding = "5px";
 destinationOkButton.style.display = "none";
-document.body.appendChild(destinationOkButton);
+odContainer.appendChild(destinationOkButton);
 
 let destinationClickEnabled = false;
 let destinationMarker = null; // store destination marker
@@ -639,7 +680,7 @@ map.on("click", (event) => {
 
 const originSuggestionBox = document.createElement("div");
 originSuggestionBox.style.position = "absolute";
-originSuggestionBox.style.top = "35px";
+originSuggestionBox.style.top = "45px";
 originSuggestionBox.style.left = "10px";
 originSuggestionBox.style.zIndex = "9999";
 originSuggestionBox.style.backgroundColor = "white";
@@ -652,7 +693,7 @@ document.body.appendChild(originSuggestionBox);
 
 const destinationSuggestionBox = document.createElement("div");
 destinationSuggestionBox.style.position = "absolute";
-destinationSuggestionBox.style.top = "115px";
+destinationSuggestionBox.style.top = "95px";
 destinationSuggestionBox.style.left = "10px";
 destinationSuggestionBox.style.zIndex = "9999";
 destinationSuggestionBox.style.backgroundColor = "white";
@@ -755,7 +796,7 @@ originClearButton.src = "images/cross.svg";
 originClearButton.style.filter = "grayscale(100%)";
 originClearButton.alt = "Clear";
 originClearButton.style.position = "absolute";
-originClearButton.style.top = "16px";
+originClearButton.style.top = "26px";
 originClearButton.style.left = "235px";
 originClearButton.style.zIndex = "1000";
 originClearButton.style.cursor = "pointer";
@@ -780,7 +821,7 @@ destinationClearButton.src = "images/cross.svg";
 destinationClearButton.style.filter = "grayscale(100%)";
 destinationClearButton.alt = "Clear";
 destinationClearButton.style.position = "absolute";
-destinationClearButton.style.top = "96px";
+destinationClearButton.style.top = "76px";
 destinationClearButton.style.left = "225px";
 destinationClearButton.style.zIndex = "1000";
 destinationClearButton.style.cursor = "pointer";
@@ -1249,10 +1290,12 @@ layersDashboardContent.style.color = "#666";
 layersDashboardContent.style.lineHeight = "1.5";
 layersDashboardContainer.appendChild(layersDashboardContent);
 
+
+
 // legend
 const legendContainer = document.createElement("div");
 legendContainer.style.position = "absolute";
-legendContainer.style.bottom = "175px";
+legendContainer.style.bottom = "15px";
 legendContainer.style.right = "15px";
 legendContainer.style.zIndex = "1000";
 legendContainer.style.fontSize = "12px";
@@ -1260,6 +1303,7 @@ legendContainer.style.color = "#2b2b2b";
 legendContainer.style.display = "flex";
 legendContainer.style.gap = "25px";
 legendContainer.style.flexWrap = "wrap"; // Allow wrapping for mobile
+
 
 const legendItems = [
   { color: "#0000ff", label: "Seaports" },
@@ -1307,7 +1351,7 @@ function adjustLegendLayout() {
   } else {
     legendContainer.style.flexDirection = "row";
     legendContainer.style.gap = "25px";
-    legendContainer.style.bottom = "175px";
+    legendContainer.style.bottom = "15px";
     legendContainer.style.right = "15px";
 
     Array.from(legendContainer.children).forEach((item) => {
@@ -1319,6 +1363,8 @@ function adjustLegendLayout() {
 
 window.addEventListener("resize", adjustLegendLayout);
 adjustLegendLayout(); // Initial adjustment
+
+
 
 // roads Mapbox
 map.on("load", () => {
@@ -4449,8 +4495,8 @@ const exportButton = document.createElement("img");
 exportButton.src = "images/export.svg";
 exportButton.alt = "Export Report";
 exportButton.style.position = "absolute";
-exportButton.style.top = "139px";
-exportButton.style.left = "270px";
+exportButton.style.top = "49px";
+exportButton.style.right = "50px";
 exportButton.style.zIndex = "1000";
 exportButton.style.cursor = "pointer";
 exportButton.style.width = "30px";
@@ -4475,8 +4521,8 @@ const exportDescription = d3
   .style("font-size", "14px")
   .style("color", "#333")
   .style("display", "none")
-  .style("top", "139px")
-  .style("left", "310px")
+  .style("top", "49px")
+  .style("right", "90px")
   .text("Show Route Report");
 
 exportButton.addEventListener("mouseover", () => {
@@ -4495,6 +4541,75 @@ map.on("sourcedata", () => {
     }, 5000); // 5s delay
   }
 });
+
+
+
+
+
+
+// Create a container for the buttons
+const controlButtonGroup = document.createElement("div");
+controlButtonGroup.style.position = "fixed";
+controlButtonGroup.style.top = "128px";
+controlButtonGroup.style.left = "-210px"; // Start hidden
+controlButtonGroup.style.display = "flex";
+controlButtonGroup.style.gap = "17px";
+controlButtonGroup.style.borderRadius = "0 10px 10px 0";
+controlButtonGroup.style.padding = "10px";
+controlButtonGroup.style.zIndex = "2000";
+controlButtonGroup.style.transition = "left 0.3s ease";
+document.body.appendChild(controlButtonGroup);
+
+// Move the buttons into the container
+controlButtonGroup.appendChild(dashboardToggleButtonContainer);
+controlButtonGroup.appendChild(layersDashboardToggleButtonContainer);
+controlButtonGroup.appendChild(routeButton);
+
+// Reset positioning since they're now in a flex container
+dashboardToggleButtonContainer.style.position = "static";
+dashboardToggleButtonContainer.style.top = "auto";
+dashboardToggleButtonContainer.style.left = "auto";
+
+layersDashboardToggleButtonContainer.style.position = "static";
+layersDashboardToggleButtonContainer.style.top = "auto";
+layersDashboardToggleButtonContainer.style.left = "auto";
+
+routeButton.style.position = "static";
+routeButton.style.top = "auto";
+routeButton.style.left = "auto";
+
+// Function to update button group position based on dashboard state
+const updateButtonGroupPosition = () => {
+  controlButtonGroup.style.left = (isDashboardOpen || isLayersDashboardOpen) ? "0" : "-250px";
+};
+
+// Add hover functionality
+controlButtonGroup.addEventListener("mouseenter", () => {
+  if (!isDashboardOpen && !isLayersDashboardOpen) {
+    controlButtonGroup.style.left = "0";
+  }
+});
+
+controlButtonGroup.addEventListener("mouseleave", () => {
+  if (!isDashboardOpen && !isLayersDashboardOpen) {
+    controlButtonGroup.style.left = "-210px";
+  }
+});
+
+// Add listeners to update button group position after dashboard state changes
+dashboardToggleButtonContainer.addEventListener("click", () => {
+  // Wait for the existing click handler to update isDashboardOpen
+  setTimeout(updateButtonGroupPosition, 10);
+});
+
+layersDashboardToggleButtonContainer.addEventListener("click", () => {
+  // Wait for the existing click handler to update isLayersDashboardOpen
+  setTimeout(updateButtonGroupPosition, 10);
+});
+
+
+
+
 
 // loading bar
 const loadingBar = document.createElement("div");
@@ -4566,8 +4681,6 @@ routeButton.addEventListener("click", async () => {
     const originCoords = [parseFloat(originMatch[2]), parseFloat(originMatch[1])];
     const destinationCoords = [parseFloat(destinationMatch[2]), parseFloat(destinationMatch[1])];
 
-    // Draw 3x rail line - 1 colour for each line, but from same set of origin and destination - green for highest e2i , orange for hightest ffi, blue for opi - each line is calculated based on the indexes, default at 0.5 and line will change when the user adjust the values of the indexes. and ensure all coordinates in the route to be only within sea.json and maximmum with 1km outwards offset - use bezier curve to draw the line
-
     async function calculateCurvedPath(start, end) {
       console.log("Starting calculation of curved path...");
       const path = [];
@@ -4613,176 +4726,6 @@ routeButton.addEventListener("click", async () => {
       return path;
     }
 
-    // async function calculateCurvedPath(start, end) {
-    //   console.log("Starting calculation of optimal FFI path...");
-    //   const path = [start]; // Start with the origin point
-      
-    //   // Load the SEA boundary data for validation
-    //   console.log("Fetching sea.json data...");
-    //   const seaData = await fetch("data/sea.json").then((res) => res.json());
-    //   console.log("Sea data fetched successfully.");
-
-    //   // Create buffer around sea.json boundary for valid area
-    //   console.log("Creating buffer around sea.json boundary...");
-    //   const bufferedSea = turf.buffer(seaData, 1, { units: "kilometers" }); // 1km buffer
-    //   const seaPolygon = bufferedSea.features[0]; // get 1st polygon from FeatureCollection
-    //   console.log("Buffer created successfully.");
-
-    //   // Load the precomputed grid points with FFI values
-    //   console.log("Loading grid FFI data...");
-    //   const gridData = await fetch("data/preCal/grid_final.geojson")
-    //     .then((res) => res.json())
-    //     .catch((error) => {
-    //       console.error("Error loading grid FFI data:", error);
-    //       return { features: [] }; // Return empty features if file not found
-    //     });
-      
-    //   if (!gridData.features || gridData.features.length === 0) {
-    //     console.warn("No grid FFI data found, falling back to direct path");
-    //     // If no grid data, just return direct start-end path
-    //     return [start, end];
-    //   }
-      
-    //   console.log(`Loaded ${gridData.features.length} grid points with FFI values`);
-      
-    //   // Extract points with their FFI values, calculating centroids where needed
-    //   const gridPoints = gridData.features.map(feature => {
-    //     // Get coordinates - if it's not a point, calculate the centroid
-    //     let coordinates;
-    //     if (feature.geometry.type === 'Point') {
-    //       coordinates = feature.geometry.coordinates;
-    //     } else {
-    //       // For other geometry types (Polygon, MultiPolygon, etc.), calculate centroid
-    //       const centroid = turf.centroid(feature);
-    //       coordinates = centroid.geometry.coordinates;
-    //     }
-        
-    //     return {
-    //       coordinates,
-    //       ffi: feature.properties.ffi || 0.5 // Default to 0.5 if FFI not available
-    //     };
-    //   });
-      
-    //   // Calculate direct distance between start and end
-    //   const directDistance = turf.distance(turf.point(start), turf.point(end), {units: 'kilometers'});
-      
-    //   // Find top 3 best intermediate points (closest to both origin and destination + high FFI)
-    //   const bestIntermediatePoints = gridPoints
-    //     .map(point => {
-    //       // Calculate distances from point to start and end
-    //       const distToStart = turf.distance(turf.point(point.coordinates), turf.point(start), {units: 'kilometers'});
-    //       const distToEnd = turf.distance(turf.point(point.coordinates), turf.point(end), {units: 'kilometers'});
-          
-    //       // Calculate centrality: how close the point is to direct path between origin-destination
-    //       // A value close to 1 means the point is on the direct line between start and end
-    //       const centrality = (distToStart + distToEnd) / directDistance;
-          
-    //       // Calculate a composite score: higher FFI is better, lower centrality is better
-    //       const compositeScore = (point.ffi * 0.6) + ((2 - centrality) * 0.4);
-          
-    //       return {
-    //         ...point,
-    //         distToStart,
-    //         distToEnd,
-    //         centrality,
-    //         compositeScore
-    //       };
-    //     })
-    //     // Filter out points that are outside SEA boundary
-    //     .filter(point => {
-    //       const pointFeature = turf.point(point.coordinates);
-    //       return turf.booleanPointInPolygon(pointFeature, seaPolygon);
-    //     })
-    //     // Sort by composite score, highest first
-    //     .sort((a, b) => b.compositeScore - a.compositeScore)
-    //     // Take the top 3
-    //     .slice(0, 3);
-      
-    //   console.log("Top 3 best intermediate points:");
-    //   bestIntermediatePoints.forEach((point, index) => {
-    //     console.log(`Point ${index + 1}: [${point.coordinates[0].toFixed(4)}, ${point.coordinates[1].toFixed(4)}]`);
-    //     console.log(`  FFI: ${point.ffi.toFixed(2)}, Distance to Origin: ${point.distToStart.toFixed(2)}km, Distance to Destination: ${point.distToEnd.toFixed(2)}km`);
-    //   });
-      
-    //   // Current point is the start
-    //   let currentPoint = start;
-    //   let remainingPoints = [...gridPoints];
-    //   const maxPoints = 20; // Maximum number of intermediate points to use
-    //   let pointCount = 0;
-      
-    //   // Define search parameters
-    //   const maxSearchRadius = 100; // km, maximum search radius
-    //   const initialSearchRadius = 20; // km, initial search radius
-    //   let searchRadius = initialSearchRadius;
-    //   const searchRadiusIncrement = 10; // km, how much to increase search radius if no points found
-      
-    //   // While we haven't reached close to the destination
-    //   while (pointCount < maxPoints && turf.distance(turf.point(currentPoint), turf.point(end), {units: 'kilometers'}) > searchRadius) {
-    //     // Check if we need to terminate the search (getting too close to end)
-    //     if (turf.distance(turf.point(currentPoint), turf.point(end), {units: 'kilometers'}) < searchRadius * 1.5) {
-    //       console.log("Close enough to destination - adding endpoint");
-    //       path.push(end);
-    //       break;
-    //     }
-        
-    //     // Find points within search radius
-    //     let nearbyPoints = remainingPoints.filter(pt => {
-    //       const distance = turf.distance(turf.point(currentPoint), turf.point(pt.coordinates), {units: 'kilometers'});
-    //       return distance < searchRadius && distance > 0; // Ensure we're not selecting the same point
-    //     });
-        
-    //     // If no points found in radius, increase search radius
-    //     if (nearbyPoints.length === 0) {
-    //       searchRadius += searchRadiusIncrement;
-    //       console.log(`No points found within ${searchRadius - searchRadiusIncrement}km, increasing radius to ${searchRadius}km`);
-          
-    //       // If search radius becomes too large, stop the search
-    //       if (searchRadius > maxSearchRadius) {
-    //         console.log(`Search radius (${searchRadius}km) exceeded maximum (${maxSearchRadius}km) - adding endpoint`);
-    //         path.push(end);
-    //         break;
-    //       }
-    //       continue;
-    //     }
-        
-    //     // Sort by FFI value (highest first)
-    //     nearbyPoints.sort((a, b) => b.ffi - a.ffi);
-        
-    //     // Get the point with highest FFI
-    //     const bestPoint = nearbyPoints[0];
-        
-    //     // Validate the point is within SEA boundary
-    //     const pointFeature = turf.point(bestPoint.coordinates);
-    //     if (!turf.booleanPointInPolygon(pointFeature, seaPolygon)) {
-    //       console.log(`Point ${bestPoint.coordinates} is outside SEA boundary, skipping`);
-    //       // Remove this point from consideration
-    //       remainingPoints = remainingPoints.filter(pt => pt !== bestPoint);
-    //       continue;
-    //     }
-        
-    //     // Add to path and update current point
-    //     path.push(bestPoint.coordinates);
-    //     console.log(`Added point [${bestPoint.coordinates}] with FFI ${bestPoint.ffi.toFixed(2)}`);
-        
-    //     // Update for next iteration
-    //     currentPoint = bestPoint.coordinates;
-    //     // Remove used point to avoid cycles
-    //     remainingPoints = remainingPoints.filter(pt => pt !== bestPoint);
-    //     pointCount++;
-        
-    //     // Reset search radius for next point
-    //     searchRadius = initialSearchRadius;
-    //   }
-      
-    //   // Make sure we end at the destination
-    //   if (path[path.length - 1][0] !== end[0] || path[path.length - 1][1] !== end[1]) {
-    //     path.push(end);
-    //   }
-      
-    //   console.log(`Path generated with ${path.length} points`);
-    //   return path;
-    // }
-
     const getPopulationCountFromRoute = async () => {
       const ffiPath = map.getSource("ffi-path")?._data?.geometry?.coordinates || [];
       if (ffiPath.length === 0) {
@@ -4790,7 +4733,6 @@ routeButton.addEventListener("click", async () => {
         return "0.0";
       }
   
-
       // Use the tilesets that contain population data
       const tilesets = [
         "xuanx111.3josh1wj", "xuanx111.cuxcvnbr", "xuanx111.520thek8", 
@@ -4872,17 +4814,11 @@ routeButton.addEventListener("click", async () => {
       const samplingFactor = ffiPath.length / samplePoints.length;
       const corridorWidth = 10; //
       totalPopulation = Math.floor(Math.random() * (700000 - 10000 + 1)) + 10000;
-      // totalPopulation *= samplingFactor * corridorWidth;
 
       console.log(`Estimated Population Along Route: ${Math.round(totalPopulation)}`);
       
-      // Normalize to a 0-1 scale for display
-      const populationScore = Math.min(totalPopulation / 1000000, 1).toFixed(2);
-      
-      // population value as integer
-      const populationInteger = Math.round(totalPopulation);
-      
       // Format commas
+      const populationInteger = Math.round(totalPopulation);
       const formattedPopulation = populationInteger.toLocaleString();
       
       // hidden element to store value
@@ -4895,34 +4831,110 @@ routeButton.addEventListener("click", async () => {
         document.body.appendChild(populationServedElement);
       }
       
-      return populationScore;
+      return populationServedElement.textContent;
     };
+
+    // Function to animate path drawing
+    function animatePath(sourceId, coordinates) {
+      return new Promise(resolve => {
+        const totalPoints = coordinates.length;
+        const animationDuration = 2000; // 2 seconds total
+        const stepTime = animationDuration / totalPoints;
+        let currentPoint = 0;
+        
+        // Set up the traveling dot
+        if (!map.getSource('traveling-dot')) {
+          map.addSource('traveling-dot', {
+            type: 'geojson',
+            data: {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: coordinates[0]
+              }
+            }
+          });
+          
+          map.addLayer({
+            id: 'traveling-dot-layer',
+            type: 'circle',
+            source: 'traveling-dot',
+            paint: {
+              'circle-radius': 6,
+              'circle-color': '#ffffff',
+              'circle-stroke-width': 2,
+              'circle-stroke-color': 'rgb(145, 255, 0)'
+            }
+          });
+        } else {
+          // Reset dot position
+          map.getSource('traveling-dot').setData({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: coordinates[0]
+            }
+          });
+          map.setLayoutProperty('traveling-dot-layer', 'visibility', 'visible');
+        }
+        
+        function drawNextSegment() {
+          if (currentPoint < totalPoints) {
+            // Update the path
+            const animatedCoords = coordinates.slice(0, currentPoint + 1);
+            map.getSource(sourceId).setData({
+              type: "Feature",
+              geometry: { type: "LineString", coordinates: animatedCoords },
+            });
+            
+            // Update the dot position
+            if (map.getSource('traveling-dot')) {
+              map.getSource('traveling-dot').setData({
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: coordinates[currentPoint]
+                }
+              });
+            }
+            
+            currentPoint++;
+            setTimeout(drawNextSegment, stepTime);
+          } else {
+            // Hide the dot when done
+            if (map.getLayer('traveling-dot-layer')) {
+              map.setLayoutProperty('traveling-dot-layer', 'visibility', 'none');
+            }
+            resolve();
+          }
+        }
+        
+        // Start the animation
+        drawNextSegment();
+      });
+    }
 
     async function drawRailLines(origin, destination) {
       // Calculate paths for each index
-      // const e2iPath = await calculateCurvedPath(origin, destination);
       const ffiPath = await calculateCurvedPath(origin, destination);
-      // const opiPath = await calculateCurvedPath(origin, destination);
 
-      // Add paths to the map
+      // Add paths to the map with animation
       const paths = [
-        // { id: "e2i-path", color: "#00ff00", coordinates: e2iPath }, // Green for e2i
-        { id: "ffi-path", color: "rgb(145, 255, 0)", coordinates: ffiPath }, // Orange for ffi
-        // { id: "opi-path", color: "#0000ff", coordinates: opiPath }, // Blue for opi
+        { id: "ffi-path", color: "rgb(145, 255, 0)", coordinates: ffiPath },
       ];
 
-      paths.forEach(({ id, color, coordinates }) => {
-        if (map.getSource(id)) {
-          map.getSource(id).setData({
-            type: "Feature",
-            geometry: { type: "LineString", coordinates },
-          });
-        } else {
+      for (const { id, color, coordinates } of paths) {
+        // Clean up existing event listeners
+        map.off("mouseenter", `${id}-layer`);
+        map.off("mouseleave", `${id}-layer`);
+        
+        // Setup or reset the source
+        if (!map.getSource(id)) {
           map.addSource(id, {
             type: "geojson",
             data: {
               type: "Feature",
-              geometry: { type: "LineString", coordinates },
+              geometry: { type: "LineString", coordinates: [] },
             },
           });
 
@@ -4936,9 +4948,18 @@ routeButton.addEventListener("click", async () => {
               "line-opacity": 0.8,
             },
           });
+        } else {
+          // Reset existing source
+          map.getSource(id).setData({
+            type: "Feature",
+            geometry: { type: "LineString", coordinates: [] },
+          });
         }
 
-        // hover details for each line - add index value and total distance
+        // Animate the path drawing
+        await animatePath(id, coordinates);
+        
+        // Add hover events
         map.on("mouseenter", `${id}-layer`, (e) => {
           map.getCanvas().style.cursor = "pointer";
 
@@ -4973,13 +4994,16 @@ routeButton.addEventListener("click", async () => {
           });
 
           console.log(`Path ID: ${id}, Distance: ${distance} km`);
-
-          map.on("mouseleave", `${id}-layer`, () => {
-            map.getCanvas().style.cursor = "";
-            popup.remove();
-          });
         });
-      });
+
+        map.on("mouseleave", `${id}-layer`, () => {
+          map.getCanvas().style.cursor = "";
+          const popups = document.getElementsByClassName('mapboxgl-popup');
+          if (popups.length) {
+            popups[0].remove();
+          }
+        });
+      }
       
       // Calculate population count after drawing the route
       await getPopulationCountFromRoute();
@@ -4988,6 +5012,13 @@ routeButton.addEventListener("click", async () => {
       if (isExportDashboardOpen) {
         updateExportDashboardContent();
       }
+      
+      // Zoom to route bounds
+      const bounds = turf.bbox({
+        type: "Feature",
+        geometry: { type: "LineString", coordinates: ffiPath }
+      });
+      map.fitBounds(bounds, { padding: 100, maxZoom: 6 });
     }
 
     // Call drawRailLines when the route button is clicked
@@ -5040,12 +5071,7 @@ routeButton.addEventListener("click", async () => {
       });
     });
 
-    // Zoom to route
-    if (map.getSource("ffi-path")) {
-      const ffiPathData = map.getSource("ffi-path")._data;
-      const bounds = turf.bbox(ffiPathData);
-      map.fitBounds(bounds, { padding: 100, maxZoom: 6 });
-    }
+    await drawRailLines(originCoords, destinationCoords);
 
     // Hide the loading bar after the route is loaded
     loadingBar.style.width = "100%";
@@ -6140,19 +6166,62 @@ shareButton.addEventListener('click', async () => {
 
   // Show loading indicator
   const loadingIndicator = document.createElement('div');
-  loadingIndicator.textContent = 'Generating Report...';
   loadingIndicator.style.position = 'absolute';
-  loadingIndicator.style.top = '7%';
+  loadingIndicator.style.top = '6%';
   loadingIndicator.style.left = '50%';
   loadingIndicator.style.transform = 'translate(-50%, -50%)';
   loadingIndicator.style.padding = '10px';
   loadingIndicator.style.backgroundColor = '#ffffff';
   loadingIndicator.style.boxShadow = '0 0 10px rgba(8, 8, 8, 0.5)';
   loadingIndicator.style.opacity = '0.9';
-  loadingIndicator.style.color = ' #2e343a';
-  loadingIndicator.style.borderRadius = '5px';
+  loadingIndicator.style.color = '#2e343a';
+  loadingIndicator.style.borderRadius = '7px';
   loadingIndicator.style.zIndex = '3002';
+  loadingIndicator.style.width = '200px';
+  loadingIndicator.style.textAlign = 'center';
+  
+  const titleText = document.createElement("div");
+  titleText.textContent = "Generating Report...";
+  titleText.style.marginBottom = "8px";
+  titleText.style.fontWeight = "bold";
+  loadingIndicator.appendChild(titleText);
+  
+  const loadingBar = document.createElement("div");
+  loadingBar.style.width = "100%";
+  loadingBar.style.height = "8px";
+  loadingBar.style.backgroundColor = "#eee";
+  loadingBar.style.borderRadius = "4px";
+  loadingBar.style.overflow = "hidden";
+  loadingIndicator.appendChild(loadingBar);
+
+  const loadingBarFill = document.createElement("div");
+  loadingBarFill.style.width = "0%";
+  loadingBarFill.style.height = "100%";
+  loadingBarFill.style.backgroundColor = "#f67a0a";
+  loadingBarFill.style.borderRadius = "4px";
+  loadingBarFill.style.transition = "width 0.3s ease";
+  loadingBar.appendChild(loadingBarFill);
+
+  const percentageText = document.createElement("div");
+  percentageText.textContent = "0%";
+  percentageText.style.color = "#666";
+  percentageText.style.fontSize = "14px";
+  percentageText.style.marginTop = "5px";
+  loadingIndicator.appendChild(percentageText);
+  
   document.body.appendChild(loadingIndicator);
+  
+  // Start progress animation
+  let progress = 0;
+  const progressInterval = setInterval(() => {
+    progress += 5;
+    if (progress > 95) {
+      clearInterval(progressInterval);
+      progress = 95; // Cap at 95% until complete
+    }
+    loadingBarFill.style.width = `${progress}%`;
+    percentageText.textContent = `${progress}%`;
+  }, 300);
 
   try {
     // Dynamically load html2pdf library if not already loaded
