@@ -681,7 +681,7 @@ OpenAI. ChatGPT, version GPT-4. March 18, 2025. Used for code debugging, refinin
 
 ##### Thesis Advisor - Prof. Daniel Sauter
 
-##### Developed with assistance from Adjunct Prof. Thiago Hersan, Associate Prof. Stephen Metts, Teaching Assistant Matias Aguilera and Colleague Tak Watanabe from Parsons School of Design, The New School.
+##### Developed with assistance from Adjunct Prof. Thiago Hersan, Associate Prof. Stephen Metts, Teaching Assistant Matias Aguilera and Colleague Tak Watanabe and Monsicha Srisuantang from Parsons School of Design, The New School.
 
 ##### Submitted in partial fulfillment of the requirements for the degree of Master of Science in Data Visualization at Parsons School of Design.
     
