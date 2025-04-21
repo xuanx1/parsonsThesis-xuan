@@ -1903,14 +1903,81 @@ map.on("style.load", () => {
         .on("click", () => {
           const visibility = map.getLayoutProperty("avgHU-layer", "visibility");
           if (visibility === "visible") {
-            map.setLayoutProperty("avgHU-layer", "visibility", "none");
-            avgHUButton.style("filter", "brightness(30%)"); // Greyed out
+        map.setLayoutProperty("avgHU-layer", "visibility", "none");
+        avgHUButton.style("filter", "brightness(30%)"); // Greyed out
+        // Hide legend
+        humidityLegend.style("display", "none");
           } else {
-            map.setLayoutProperty("avgHU-layer", "visibility", "visible");
-            avgHUButton.style("filter", "brightness(100%)"); // Coloured
+        map.setLayoutProperty("avgHU-layer", "visibility", "visible");
+        avgHUButton.style("filter", "brightness(100%)"); // Coloured
+        // Show legend
+        humidityLegend.style("display", "block");
           }
         });
+      
+      // humidity legend with continuous gradient
+      const humidityLegend = d3
+        .select("body")
+        .append("div")
+        .attr("id", "humidity-legend")
+        .style("position", "absolute")
+        .style("bottom", "180px")
+        .style("left", "10px")
+        .style("padding", "10px")
+        .style("border-radius", "5px")
+        .style("box-shadow", "0 0 10px rgba(0,0,0,0.1)")
+        .style("z-index", "1000")
+        .style("display", "none")
+        .style("font-size", "12px")
+        .style("max-width", "200px");
 
+      // legend title
+      humidityLegend
+        .append("div")
+        .style("font-weight", "bold")
+        .style("margin-bottom", "10px")
+        .style("font-size", "12px")
+        .style("color", "#ffffff")
+        .style("letter-spacing", "2px")
+        .text("HUMIDITY LEVEL");
+
+      const gradientContainer = humidityLegend
+        .append("div")
+        .style("position", "relative")
+        .style("width", "100%")
+        .style("height", "25px");
+        
+      gradientContainer
+        .append("div")
+        .style("width", "200px")
+        .style("height", "10px")
+        .style("background", "linear-gradient(to right, #ffffff, #ffff00, #ffa500, #ff0000, #800080)")
+        .style("border-radius", "2px")
+        .style("margin-bottom", "10px")
+        .style("border", "1px solid #ccc")
+        .style("position", "relative");
+
+      // Min label
+      gradientContainer
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "15px")
+        .style("left", "0")
+        .style("color", "#ffffff")
+        .style("font-size", "10px")
+        .text("Low");
+
+      // Max label
+      gradientContainer
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "15px")
+        .style("right", "-20px")
+        .style("color", "#ffffff")
+        .style("font-size", "10px")
+        .text("High");
+
+     
       // hover description
       const avgHUDescription = d3
         .select("body")
@@ -2000,13 +2067,77 @@ map.on("load", function () {
         .on("click", () => {
           const visibility = map.getLayoutProperty("forest-layer", "visibility");
           if (visibility === "visible") {
-            map.setLayoutProperty("forest-layer", "visibility", "none");
-            toggleButton.style("filter", "brightness(30%)"); // Greyed out
+        map.setLayoutProperty("forest-layer", "visibility", "none");
+        toggleButton.style("filter", "brightness(30%)"); // Greyed out
+        forestLegend.style("display", "none"); // Hide legend
           } else {
-            map.setLayoutProperty("forest-layer", "visibility", "visible");
-            toggleButton.style("filter", "brightness(100%)"); // Coloured
+        map.setLayoutProperty("forest-layer", "visibility", "visible");
+        toggleButton.style("filter", "brightness(100%)"); // Coloured
+        forestLegend.style("display", "block"); // Show legend
           }
         });
+
+      // forest legend with continuous gradient
+      const forestLegend = d3
+        .select("body")
+        .append("div")
+        .attr("id", "forest-legend")
+        .style("position", "absolute")
+        .style("bottom", "180px")
+        .style("left", "255px")
+        .style("padding", "10px")
+        .style("border-radius", "5px")
+        .style("box-shadow", "0 0 10px rgba(0,0,0,0.1)")
+        .style("z-index", "1000")
+        .style("display", "none")
+        .style("font-size", "12px")
+        .style("max-width", "200px");
+
+      // legend title
+      forestLegend
+        .append("div")
+        .style("font-weight", "bold")
+        .style("margin-bottom", "10px")
+        .style("font-size", "12px")
+        .style("color", "#ffffff")
+        .style("letter-spacing", "2px")
+        .text("FOREST COVERAGE");
+
+      const forestGradientContainer = forestLegend
+        .append("div")
+        .style("position", "relative")
+        .style("width", "100%")
+        .style("height", "25px");
+        
+      forestGradientContainer
+        .append("div")
+        .style("width", "200px")
+        .style("height", "10px")
+        .style("background", "linear-gradient(to right, #e5f5e0, #a1d99b, #41ab5d, #006d2c, #00441b)")
+        .style("border-radius", "2px")
+        .style("margin-bottom", "10px")
+        .style("border", "1px solid #ccc")
+        .style("position", "relative");
+
+      // Min label
+      forestGradientContainer
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "15px")
+        .style("left", "0")
+        .style("color", "#ffffff")
+        .style("font-size", "10px")
+        .text("Low");
+
+      // Max label
+      forestGradientContainer
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "15px")
+        .style("right", "-20px")
+        .style("color", "#ffffff")
+        .style("font-size", "10px")
+        .text("High");
 
       // hover description
       const descriptionWindow = d3
@@ -2096,13 +2227,79 @@ map.on("style.load", () => {
         .on("click", () => {
           const visibility = map.getLayoutProperty("amphibians-layer", "visibility");
           if (visibility === "visible") {
-            map.setLayoutProperty("amphibians-layer", "visibility", "none");
-            amphibiansButton.style("filter", "brightness(30%)"); // Greyed out
+        map.setLayoutProperty("amphibians-layer", "visibility", "none");
+        amphibiansButton.style("filter", "brightness(30%)"); // Greyed out
+        // Hide legend
+        amphibiansLegend.style("display", "none");
           } else {
-            map.setLayoutProperty("amphibians-layer", "visibility", "visible");
-            amphibiansButton.style("filter", "brightness(100%)"); // Coloured
+        map.setLayoutProperty("amphibians-layer", "visibility", "visible");
+        amphibiansButton.style("filter", "brightness(100%)"); // Coloured
+        // Show legend
+        amphibiansLegend.style("display", "block");
           }
         });
+        
+      // amphibians legend with continuous gradient
+      const amphibiansLegend = d3
+        .select("body")
+        .append("div")
+        .attr("id", "amphibians-legend")
+        .style("position", "absolute")
+        .style("bottom", "110px")
+        .style("left", "10px")
+        .style("padding", "10px")
+        .style("border-radius", "5px")
+        .style("box-shadow", "0 0 10px rgba(0,0,0,0.1)")
+        .style("z-index", "1000")
+        .style("display", "none")
+        .style("font-size", "12px")
+        .style("max-width", "250px");
+
+      // legend title
+      amphibiansLegend
+        .append("div")
+        .style("font-weight", "bold")
+        .style("margin-bottom", "10px")
+        .style("font-size", "12px")
+        .style("color", "#ffffff")
+        .style("letter-spacing", "2px")
+        .text("AMPHIBIANS PRESENCE");
+
+      const amphibiansGradientContainer = amphibiansLegend
+        .append("div")
+        .style("position", "relative")
+        .style("width", "100%")
+        .style("height", "25px");
+        
+      amphibiansGradientContainer
+        .append("div")
+        .style("width", "200px")
+        .style("height", "10px")
+        .style("background", "linear-gradient(to right, #ffffcc, #ffeda0, #fed976, #feb24c, #fd8d3c)")
+        .style("border-radius", "2px")
+        .style("margin-bottom", "10px")
+        .style("border", "1px solid #ccc")
+        .style("position", "relative");
+
+      // Min label
+      amphibiansGradientContainer
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "15px")
+        .style("left", "0")
+        .style("color", "#ffffff")
+        .style("font-size", "10px")
+        .text("Low");
+
+      // Max label
+      amphibiansGradientContainer
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "15px")
+        .style("right", "0px")
+        .style("color", "#ffffff")
+        .style("font-size", "10px")
+        .text("High");
 
       // hover description
       const amphibiansDescription = d3
@@ -2192,13 +2389,79 @@ map.on("style.load", () => {
         .on("click", () => {
           const visibility = map.getLayoutProperty("birds-layer", "visibility");
           if (visibility === "visible") {
-            map.setLayoutProperty("birds-layer", "visibility", "none");
-            birdsButton.style("filter", "brightness(30%)"); // Greyed out
+        map.setLayoutProperty("birds-layer", "visibility", "none");
+        birdsButton.style("filter", "brightness(30%)"); // Greyed out
+        // Hide legend
+        birdsLegend.style("display", "none");
           } else {
-            map.setLayoutProperty("birds-layer", "visibility", "visible");
-            birdsButton.style("filter", "brightness(100%)"); // Coloured
+        map.setLayoutProperty("birds-layer", "visibility", "visible");
+        birdsButton.style("filter", "brightness(100%)"); // Coloured
+        // Show legend
+        birdsLegend.style("display", "block");
           }
         });
+      
+      // birds legend with continuous gradient
+      const birdsLegend = d3
+        .select("body")
+        .append("div")
+        .attr("id", "birds-legend")
+        .style("position", "absolute")
+        .style("bottom", "110px")
+        .style("left", "255px")
+        .style("padding", "10px")
+        .style("border-radius", "5px")
+        .style("box-shadow", "0 0 10px rgba(0,0,0,0.1)")
+        .style("z-index", "1000")
+        .style("display", "none")
+        .style("font-size", "12px")
+        .style("max-width", "200px");
+
+      // legend title
+      birdsLegend
+        .append("div")
+        .style("font-weight", "bold")
+        .style("margin-bottom", "10px")
+        .style("font-size", "12px")
+        .style("color", "#ffffff")
+        .style("letter-spacing", "2px")
+        .text("BIRDS PRESENCE");
+
+      const birdsGradientContainer = birdsLegend
+        .append("div")
+        .style("position", "relative")
+        .style("width", "100%")
+        .style("height", "25px");
+        
+      birdsGradientContainer
+        .append("div")
+        .style("width", "200px")
+        .style("height", "10px")
+        .style("background", "linear-gradient(to right, #ffffff, #ffcc99, #ff9933, #ff6600, #cc3300)")
+        .style("border-radius", "2px")
+        .style("margin-bottom", "10px")
+        .style("border", "1px solid #ccc")
+        .style("position", "relative");
+
+      // Min label
+      birdsGradientContainer
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "15px")
+        .style("left", "0")
+        .style("color", "#ffffff")
+        .style("font-size", "10px")
+        .text("Low");
+
+      // Max label
+      birdsGradientContainer
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "15px")
+        .style("right", "-20px")
+        .style("color", "#ffffff")
+        .style("font-size", "10px")
+        .text("High");
 
       // hover description
       const birdsDescription = d3
@@ -2288,13 +2551,79 @@ map.on("style.load", () => {
         .on("click", () => {
           const visibility = map.getLayoutProperty("mammals-layer", "visibility");
           if (visibility === "visible") {
-            map.setLayoutProperty("mammals-layer", "visibility", "none");
-            mammalsButton.style("filter", "brightness(30%)"); // Greyed out
+        map.setLayoutProperty("mammals-layer", "visibility", "none");
+        mammalsButton.style("filter", "brightness(30%)"); // Greyed out
+        // Hide legend
+        mammalsLegend.style("display", "none");
           } else {
-            map.setLayoutProperty("mammals-layer", "visibility", "visible");
-            mammalsButton.style("filter", "brightness(100%)"); // Coloured
+        map.setLayoutProperty("mammals-layer", "visibility", "visible");
+        mammalsButton.style("filter", "brightness(100%)"); // Coloured
+        // Show legend
+        mammalsLegend.style("display", "block");
           }
         });
+      
+      // mammals legend with continuous gradient
+      const mammalsLegend = d3
+        .select("body")
+        .append("div")
+        .attr("id", "mammals-legend")
+        .style("position", "absolute")
+        .style("bottom", "110px")
+        .style("left", "500px")
+        .style("padding", "10px")
+        .style("border-radius", "5px")
+        .style("box-shadow", "0 0 10px rgba(0,0,0,0.1)")
+        .style("z-index", "1000")
+        .style("display", "none")
+        .style("font-size", "12px")
+        .style("max-width", "200px");
+
+      // legend title
+      mammalsLegend
+        .append("div")
+        .style("font-weight", "bold")
+        .style("margin-bottom", "10px")
+        .style("font-size", "12px")
+        .style("color", "#ffffff")
+        .style("letter-spacing", "2px")
+        .text("MAMMALS PRESENCE");
+
+      const mammalsGradientContainer = mammalsLegend
+        .append("div")
+        .style("position", "relative")
+        .style("width", "100%")
+        .style("height", "25px");
+        
+      mammalsGradientContainer
+        .append("div")
+        .style("width", "200px")
+        .style("height", "10px")
+        .style("background", "linear-gradient(to right, #f2e6ff, #d9b3ff, #bf80ff, #a64dff, #800080)")
+        .style("border-radius", "2px")
+        .style("margin-bottom", "10px")
+        .style("border", "1px solid #ccc")
+        .style("position", "relative");
+
+      // Min label
+      mammalsGradientContainer
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "15px")
+        .style("left", "0")
+        .style("color", "#ffffff")
+        .style("font-size", "10px")
+        .text("Low");
+
+      // Max label
+      mammalsGradientContainer
+        .append("div")
+        .style("position", "absolute")
+        .style("top", "15px")
+        .style("right", "-20px")
+        .style("color", "#ffffff")
+        .style("font-size", "10px")
+        .text("High");
 
       // hover description
       const mammalsDescription = d3
