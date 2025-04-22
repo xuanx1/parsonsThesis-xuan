@@ -388,7 +388,7 @@ resizeMap();
 // Create a container for origin-destination elements
 const odContainer = document.createElement("div");
 odContainer.style.position = "absolute";
-odContainer.style.top = "10px";
+odContainer.style.top = "0px";
 odContainer.style.left = "-250px"; // Initially hidden to the left
 odContainer.style.zIndex = "1000";
 odContainer.style.transition = "left 0.5s ease"; // Smooth transition
@@ -4585,19 +4585,16 @@ resetButton.style.borderRadius = "50%";
 resetButton.style.backgroundColor = "#ffffff";
 resetButton.style.padding = "7px";
 
-// Check if on mobile device (width less than 768px)
 function updateResetButtonVisibility() {
   if (window.innerWidth < 768) {
-    resetButton.style.display = "none"; // Hide on mobile
+    resetButton.style.display = "block"; 
   } else {
-    resetButton.style.display = "block"; // Show on desktop/tablet
+    resetButton.style.display = "block";
   }
 }
 
-// Set initial visibility
 updateResetButtonVisibility();
 
-// Update visibility on window resize
 window.addEventListener('resize', updateResetButtonVisibility);
 
 document.body.appendChild(resetButton);
