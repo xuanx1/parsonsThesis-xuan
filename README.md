@@ -677,6 +677,22 @@ Singh, Daljit. "ASEAN’s Infrastructure Development: The Role of Rail Transport
  
 OpenAI. ChatGPT, version GPT-4. March 18, 2025. Used for code debugging, refining sentence structure and checking grammar. https://chat.openai.com.
 
+Creativa Images, “Amazing Jakarta | Timelapse & Drone Video Footage,” September 30, 2019, https://www.youtube.com/watch?v=w41-HfxBCwk.
+
+Google Earth, “Google Earth Timelapse: Urban Expansion Around the World,” May 17, 2019, https://www.youtube.com/watch?v=tXNJa86tErQ.
+
+Toby Smith, “The Gunhilde Maersk - 4K Time Lapse by Toby Smith,” September 27, 2014, https://www.youtube.com/watch?v=h16zyxiwDLY.
+
+CRAIG SCHULER, “Bangkok - 4K,” August 27, 2019, https://www.youtube.com/watch?v=KpYbH8NSXYY.
+
+Benjamin Leibinger, “Vietnam Timelapse and Hyperlapse Collection (Saigon Hanoi),” March 6, 2024, https://www.youtube.com/watch?v=mKyuJpwndfI.
+
+Life Advice, “Saigon in Motion - Vietnam, Saigon Timelapse - Hyperlapse - Skyline - Sunset,” August 26, 2019, https://www.youtube.com/watch?v=bdeiFbvXlfI.
+
+Beautiful Destinations, “Vietnam - From Above,” June 7, 2020, https://www.youtube.com/watch?v=Ilui-mb3sT0.
+
+Rob Whitworth, “Kuala Lumpur DAY-NIGHT,” October 17, 2012, https://www.youtube.com/watch?v=76F7XE1_BGU.
+
 ##
 
 ##### Thesis Advisor - Prof. Daniel Sauter
