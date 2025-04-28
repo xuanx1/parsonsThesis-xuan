@@ -1903,15 +1903,17 @@ map.on("style.load", () => {
         .on("click", () => {
           const visibility = map.getLayoutProperty("avgHU-layer", "visibility");
           if (visibility === "visible") {
-        map.setLayoutProperty("avgHU-layer", "visibility", "none");
-        avgHUButton.style("filter", "brightness(30%)"); // Greyed out
-        // Hide legend
-        humidityLegend.style("display", "none");
+            map.setLayoutProperty("avgHU-layer", "visibility", "none");
+            avgHUButton.style("filter", "brightness(30%)"); // Greyed out
+            // Hide legend
+            humidityLegend.style("display", "none");
           } else {
-        map.setLayoutProperty("avgHU-layer", "visibility", "visible");
-        avgHUButton.style("filter", "brightness(100%)"); // Coloured
-        // Show legend
-        humidityLegend.style("display", "block");
+            map.setLayoutProperty("avgHU-layer", "visibility", "visible");
+            avgHUButton.style("filter", "brightness(100%)"); // Coloured
+            // Show legend only if not on mobile
+            if (window.innerWidth > 768) {
+              humidityLegend.style("display", "block");
+            }
           }
         });
       
@@ -1977,6 +1979,22 @@ map.on("style.load", () => {
         .style("font-size", "10px")
         .text("High");
 
+      // Function to handle responsive behavior for the legend
+      const handleResponsiveLegend = () => {
+        // If the layer is visible but we're on mobile, hide the legend
+        if (window.innerWidth <= 768) {
+          humidityLegend.style("display", "none");
+        } else if (map.getLayoutProperty("avgHU-layer", "visibility") === "visible") {
+          // On desktop and layer is visible, show the legend
+          humidityLegend.style("display", "block");
+        }
+      };
+
+      // Call on window resize
+      window.addEventListener("resize", handleResponsiveLegend);
+      
+      // Initial call
+      handleResponsiveLegend();
      
       // hover description
       const avgHUDescription = d3
@@ -2067,13 +2085,17 @@ map.on("load", function () {
         .on("click", () => {
           const visibility = map.getLayoutProperty("forest-layer", "visibility");
           if (visibility === "visible") {
-        map.setLayoutProperty("forest-layer", "visibility", "none");
-        toggleButton.style("filter", "brightness(30%)"); // Greyed out
-        forestLegend.style("display", "none"); // Hide legend
+            map.setLayoutProperty("forest-layer", "visibility", "none");
+            toggleButton.style("filter", "brightness(30%)"); // Greyed out
+            forestLegend.style("display", "none"); // Hide legend
           } else {
-        map.setLayoutProperty("forest-layer", "visibility", "visible");
-        toggleButton.style("filter", "brightness(100%)"); // Coloured
-        forestLegend.style("display", "block"); // Show legend
+            map.setLayoutProperty("forest-layer", "visibility", "visible");
+            toggleButton.style("filter", "brightness(100%)"); // Coloured
+            
+            // Only show legend on desktop
+            if (window.innerWidth > 768) {
+              forestLegend.style("display", "block"); // Show legend only on desktop
+            }
           }
         });
 
@@ -2138,6 +2160,24 @@ map.on("load", function () {
         .style("color", "#ffffff")
         .style("font-size", "10px")
         .text("High");
+        
+      // Function to handle responsive behavior
+      const handleResponsiveLegend = () => {
+        // If we're on mobile, hide the legend regardless of layer visibility
+        if (window.innerWidth <= 768) {
+          forestLegend.style("display", "none");
+        } 
+        // If we're on desktop and the layer is visible, show the legend
+        else if (map.getLayoutProperty("forest-layer", "visibility") === "visible") {
+          forestLegend.style("display", "block");
+        }
+      };
+      
+      // Call on window resize
+      window.addEventListener("resize", handleResponsiveLegend);
+      
+      // Initial call
+      handleResponsiveLegend();
 
       // hover description
       const descriptionWindow = d3
@@ -2227,15 +2267,15 @@ map.on("style.load", () => {
         .on("click", () => {
           const visibility = map.getLayoutProperty("amphibians-layer", "visibility");
           if (visibility === "visible") {
-        map.setLayoutProperty("amphibians-layer", "visibility", "none");
-        amphibiansButton.style("filter", "brightness(30%)"); // Greyed out
-        // Hide legend
-        amphibiansLegend.style("display", "none");
+            map.setLayoutProperty("amphibians-layer", "visibility", "none");
+            amphibiansButton.style("filter", "brightness(30%)"); // Greyed out
+            // Hide legend
+            amphibiansLegend.style("display", "none");
           } else {
-        map.setLayoutProperty("amphibians-layer", "visibility", "visible");
-        amphibiansButton.style("filter", "brightness(100%)"); // Coloured
-        // Show legend
-        amphibiansLegend.style("display", "block");
+            map.setLayoutProperty("amphibians-layer", "visibility", "visible");
+            amphibiansButton.style("filter", "brightness(100%)"); // Coloured
+            // Only show legend if not on mobile
+            handleResponsiveLegend();
           }
         });
         
@@ -2300,6 +2340,24 @@ map.on("style.load", () => {
         .style("color", "#ffffff")
         .style("font-size", "10px")
         .text("High");
+        
+      // Function to handle responsive behavior for the legend
+      const handleResponsiveLegend = () => {
+        // If we're on mobile, hide the legend regardless of layer visibility
+        if (window.innerWidth <= 768) {
+          amphibiansLegend.style("display", "none");
+        } 
+        // If we're on desktop and the layer is visible, show the legend
+        else if (map.getLayoutProperty("amphibians-layer", "visibility") === "visible") {
+          amphibiansLegend.style("display", "block");
+        }
+      };
+      
+      // Call on window resize
+      window.addEventListener("resize", handleResponsiveLegend);
+      
+      // Initial call
+      handleResponsiveLegend();
 
       // hover description
       const amphibiansDescription = d3
@@ -2389,15 +2447,15 @@ map.on("style.load", () => {
         .on("click", () => {
           const visibility = map.getLayoutProperty("birds-layer", "visibility");
           if (visibility === "visible") {
-        map.setLayoutProperty("birds-layer", "visibility", "none");
-        birdsButton.style("filter", "brightness(30%)"); // Greyed out
-        // Hide legend
-        birdsLegend.style("display", "none");
+            map.setLayoutProperty("birds-layer", "visibility", "none");
+            birdsButton.style("filter", "brightness(30%)"); // Greyed out
+            // Hide legend
+            birdsLegend.style("display", "none");
           } else {
-        map.setLayoutProperty("birds-layer", "visibility", "visible");
-        birdsButton.style("filter", "brightness(100%)"); // Coloured
-        // Show legend
-        birdsLegend.style("display", "block");
+            map.setLayoutProperty("birds-layer", "visibility", "visible");
+            birdsButton.style("filter", "brightness(100%)"); // Coloured
+            // Only show legend if not on mobile
+            handleResponsiveLegend();
           }
         });
       
@@ -2462,6 +2520,24 @@ map.on("style.load", () => {
         .style("color", "#ffffff")
         .style("font-size", "10px")
         .text("High");
+        
+      // Function to handle responsive behavior for the legend
+      const handleResponsiveLegend = () => {
+        // If we're on mobile, hide the legend regardless of layer visibility
+        if (window.innerWidth <= 768) {
+          birdsLegend.style("display", "none");
+        } 
+        // If we're on desktop and the layer is visible, show the legend
+        else if (map.getLayoutProperty("birds-layer", "visibility") === "visible") {
+          birdsLegend.style("display", "block");
+        }
+      };
+      
+      // Call on window resize
+      window.addEventListener("resize", handleResponsiveLegend);
+      
+      // Initial call
+      handleResponsiveLegend();
 
       // hover description
       const birdsDescription = d3
@@ -2551,15 +2627,15 @@ map.on("style.load", () => {
         .on("click", () => {
           const visibility = map.getLayoutProperty("mammals-layer", "visibility");
           if (visibility === "visible") {
-        map.setLayoutProperty("mammals-layer", "visibility", "none");
-        mammalsButton.style("filter", "brightness(30%)"); // Greyed out
-        // Hide legend
-        mammalsLegend.style("display", "none");
+            map.setLayoutProperty("mammals-layer", "visibility", "none");
+            mammalsButton.style("filter", "brightness(30%)"); // Greyed out
+            // Hide legend
+            mammalsLegend.style("display", "none");
           } else {
-        map.setLayoutProperty("mammals-layer", "visibility", "visible");
-        mammalsButton.style("filter", "brightness(100%)"); // Coloured
-        // Show legend
-        mammalsLegend.style("display", "block");
+            map.setLayoutProperty("mammals-layer", "visibility", "visible");
+            mammalsButton.style("filter", "brightness(100%)"); // Coloured
+            // Only show legend if not on mobile
+            handleResponsiveLegend();
           }
         });
       
@@ -2624,6 +2700,24 @@ map.on("style.load", () => {
         .style("color", "#ffffff")
         .style("font-size", "10px")
         .text("High");
+        
+      // Function to handle responsive behavior for the legend
+      const handleResponsiveLegend = () => {
+        // If we're on mobile, hide the legend regardless of layer visibility
+        if (window.innerWidth <= 768) {
+          mammalsLegend.style("display", "none");
+        } 
+        // If we're on desktop and the layer is visible, show the legend
+        else if (map.getLayoutProperty("mammals-layer", "visibility") === "visible") {
+          mammalsLegend.style("display", "block");
+        }
+      };
+      
+      // Call on window resize
+      window.addEventListener("resize", handleResponsiveLegend);
+      
+      // Initial call
+      handleResponsiveLegend();
 
       // hover description
       const mammalsDescription = d3
