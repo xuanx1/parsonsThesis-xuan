@@ -512,8 +512,7 @@ The results are visualized using interactive network graphs, allowing users to e
 
 
 #### 5.2 Usage Demonstration
-https://github.com/user-attachments/assets/af47106f-8aed-4dab-8465-bb6878f3291a
-
+https://github.com/user-attachments/assets/5f91bdf7-0335-41ac-91e1-02b46b8bc2ad
 
 #### 5.3 Conclusion
 The project demonstrates that combinatorial optimization can be a powerful tool in planning public transport networks in Southeast Asia, particularly in the face of the region's challenging terrain and climate. By integrating indexes and key indicators, the tool provides a data-driven approach to rail line and station placement. The proposed rail network gives space for the general public to conceptualise hypothetic connections that has yet to exist but should have existed.
