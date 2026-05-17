@@ -9,6 +9,9 @@ What if you could find the best-fit route that maximizes services to the majorit
 
 **[Now, you can.](https://xuanx1.github.io/parsonsThesis-xuan/04final/)**
 
+**[Leaflet Version](https://xuanx1.github.io/parsonsThesis-xuan/trains-lanes-grains-leaflet/)**
+**[MapLibre Version](https://xuanx1.github.io/parsonsThesis-xuan/trains-lanes-grains-libre/)**
+
 ##### A Project by [Xuan](https://xuanx1.github.io/designArchiveWinter24/resume.html)
 📁 Project Repository - Explore the [source code](https://github.com/xuanx1/parsonsThesis-xuan/blob/main/04final/js/app.js) and Xuan's [related projects](https://github.com/xuanx1?tab=repositories) on GitHub.
 
